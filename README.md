@@ -5,9 +5,6 @@ Manages keys required for consuming services between applications
 ### Branch
 - 1.0.0-tsi.d.t : Defintion to be used within the Transport SDN Introduction at Telefonica Germany
 
-### Documentation
-- [Documentation of the ApplicationPattern](https://github.com/openBackhaul/ApplicationPattern/tree/tsi)
-
 ### Services
 - 
 
