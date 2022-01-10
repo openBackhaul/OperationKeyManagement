@@ -6,19 +6,16 @@ Manages keys required for consuming services between applications
 - 1.0.0-tsi.d.t : Defintion to be used within the Transport SDN Introduction at Telefonica Germany
 
 ### Services
-- 
+- [OperationKeyManagement_0.0.2_tsi.220110.2010+services.1](./OperationKeyManagement_0.0.2_tsi.220110.2010+services.1.xlsx)
 
 ### Forwardings
-- 
+- [OperationKeyManagement_0.0.2_tsi.220110.2010+forwardings.1](./OperationKeyManagement_0.0.2_tsi.220110.2010+forwardings.1.xlsx)
 
 ### Open API specification (Swagger)
-- 
+- [OperationKeyManagement_0.0.2_tsi.220110.2010](OperationKeyManagement_0.0.2_tsi.220110.2010.yaml)
 
 ### Load File (JSON)
-- 
-
-### Test Cases (Postman Export) and Data File
-- 
+- [OperationKeyManagement_0.0.2_tsi.220110.2010+data.1](OperationKeyManagement_0.0.2_tsi.220110.2010+data.1.json)
 
 ### Publication
 - No official publication planned
