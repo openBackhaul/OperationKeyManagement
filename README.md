@@ -15,7 +15,7 @@ Manages keys required for consuming services between applications
 - [OperationKeyManagement_0.0.2_tsi.220110.2010](OperationKeyManagement_0.0.2_tsi.220110.2010.yaml)
 
 ### Load File (JSON)
-- [OperationKeyManagement_0.0.2_tsi.220110.2010+data.1](OperationKeyManagement_0.0.2_tsi.220110.2010+data.1.json)
+- [OperationKeyManagement_0.0.2_tsi.220110.2010+data.2](OperationKeyManagement_0.0.2_tsi.220110.2010+data.2.json)
 
 ### Publication
 - No official publication planned
