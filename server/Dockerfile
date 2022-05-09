@@ -6,12 +6,12 @@ ENV NODE_ENV production
 # use non-root user
 USER node
 
-# Create app directory
-WORKDIR /home/node/app
+# Change to directory owned by node user
+WORKDIR /home/node
 
 # Install app dependencies
 # A wildcard is used to ensure both package.json AND package-lock.json are copied
-COPY package*.json .
+COPY package*.json ./
 
 # If you are building your code for dev
 # RUN npm install
