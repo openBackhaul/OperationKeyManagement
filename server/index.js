@@ -7,13 +7,13 @@ var http = require('http');
 var oas3Tools = require('oas3-tools');
 var serverPort = 8080;
 
-const authorizingService = require('./applicationPattern/security/AuthorizingService');
+const authorizingService = require('onf-core-model-ap-bs/basicServices/AuthorizingService');
 const individualServicesService = require('./service/IndividualServicesService')
-const operationServerInterface = require('./applicationPattern/onfModel/models/layerProtocols/OperationServerInterface');
+const operationServerInterface = require('onf-core-model-ap/applicationPattern/onfModel/models/layerProtocols/OperationServerInterface');
 
 async function validateOperationKey(request, scopes, securitySchema) {
-    const operationUuid = await operationServerInterface.getOperationServerUuidForTheOperationName(request.url);
-    const operationKeyFromLoadfile = await operationServerInterface.getOperationKey(operationUuid);
+    const operationUuid = await operationServerInterface.getOperationServerUuidAsync(request.url);
+    const operationKeyFromLoadfile = await operationServerInterface.getOperationKeyAsync(operationUuid);
     const isAuthorized = operationKeyFromLoadfile === request.headers['operation-key'];
     return isAuthorized;
 }
