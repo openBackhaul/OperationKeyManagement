@@ -1,14 +1,15 @@
+// @ts-check
 'use strict';
 
 const ltpServerConstants = require("./ltpServerConstants");
 const ltpClientConstants = require("./ltpClientConstants");
-const LogicalTerminationPoint = require('../applicationPattern/onfModel/models/LogicalTerminationPoint');
-const TcpClientInterface = require('../applicationPattern/onfModel/models/layerProtocols/TcpClientInterface');
-const HttpClientInterface = require('../applicationPattern/onfModel/models/layerProtocols/HttpClientInterface');
-const HttpServerInterface = require('../applicationPattern/onfModel/models/layerProtocols/HttpServerInterface');
-const OperationServerInterface = require('../applicationPattern/onfModel/models/layerProtocols/OperationServerInterface');
-const ForwardingConstruct = require('../applicationPattern/onfModel/models/ForwardingConstruct');
-const OperationClientInterface = require("../applicationPattern/onfModel/models/layerProtocols/OperationClientInterface");
+const LogicalTerminationPoint = require('onf-core-model-ap/applicationPattern/onfModel/models/LogicalTerminationPoint');
+const TcpClientInterface = require('onf-core-model-ap/applicationPattern/onfModel/models/layerProtocols/TcpClientInterface');
+const HttpClientInterface = require('onf-core-model-ap/applicationPattern/onfModel/models/layerProtocols/HttpClientInterface');
+const HttpServerInterface = require('onf-core-model-ap/applicationPattern/onfModel/models/layerProtocols/HttpServerInterface');
+const OperationServerInterface = require('onf-core-model-ap/applicationPattern/onfModel/models/layerProtocols/OperationServerInterface');
+const OperationClientInterface = require("onf-core-model-ap/applicationPattern/onfModel/models/layerProtocols/OperationClientInterface");
+const onfModelUtils = require("./OnfModelUtils");
 
 const FC_CYCLIC_OPERATION_CAUSES_OPERATION_KEY_UPDATES_UUID = 'okm-0-0-1-op-fc-3001';
 
@@ -23,17 +24,17 @@ exports.promptForBequeathingDataCausesTransferOfListOfApplications = async funct
 }
 
 async function resolveRegardApplicationList() {
-  const clientOperationLtpUuidList = await ForwardingConstruct.getFcPortOutputDirectionLogicalTerminationPointListForTheUuid(FC_CYCLIC_OPERATION_CAUSES_OPERATION_KEY_UPDATES_UUID);
+  const clientOperationLtpUuidList = await onfModelUtils.getFcPortOutputDirectionLogicalTerminationPointListForTheUuid(FC_CYCLIC_OPERATION_CAUSES_OPERATION_KEY_UPDATES_UUID);
   const resultList = [];
   for (const clientOperationLtpUuid of clientOperationLtpUuidList) {
-    const httpLtpUuids = await LogicalTerminationPoint.getServerLtpList(clientOperationLtpUuid);
+    const httpLtpUuids = await LogicalTerminationPoint.getServerLtpListAsync(clientOperationLtpUuid);
     const httpLtpUuid = httpLtpUuids[0];  // operation has always one http server-ltp
-    const appName = await HttpClientInterface.getApplicationName(httpLtpUuid);
-    const appReleaseNumber = await HttpClientInterface.getReleaseNumber(httpLtpUuid);
-    const tcpLtpUuids = await LogicalTerminationPoint.getServerLtpList(httpLtpUuid);
+    const appName = await HttpClientInterface.getApplicationNameAsync(httpLtpUuid);
+    const appReleaseNumber = await HttpClientInterface.getReleaseNumberAsync(httpLtpUuid);
+    const tcpLtpUuids = await LogicalTerminationPoint.getServerLtpListAsync(httpLtpUuid);
     const tcpLtpUuid = tcpLtpUuids[0]; // http has always one tcp server-ltp
-    const remoteAddress = await TcpClientInterface.getRemoteAddress(tcpLtpUuid);
-    const remotePort = await TcpClientInterface.getRemotePort(tcpLtpUuid);
+    const remoteAddress = await TcpClientInterface.getRemoteAddressAsync(tcpLtpUuid);
+    const remotePort = await TcpClientInterface.getRemotePortAsync(tcpLtpUuid);
     const resultObj = {
       'application-name': appName,
       'application-release-number': appReleaseNumber,
@@ -46,11 +47,11 @@ async function resolveRegardApplicationList() {
 }
 
 exports.promptForBequeathingDataCausesRObeingRequestedToNotifyApprovalsOfNewApplicationsToNewRelease = async function promptForBequeathingDataCausesRObeingRequestedToNotifyApprovalsOfNewApplicationsToNewRelease(httpClient) {
-  const thisAppName = await HttpServerInterface.getApplicationName();
-  const newReleaseNumber = await HttpClientInterface.getReleaseNumber(ltpClientConstants.HTTP_NEW_RELEASE);
-  const operationName = await OperationServerInterface.getOperationName(ltpServerConstants.HTTP_THIS_OPERATION_REGARD_APPLICATION);
-  const newReleaseAddress = await TcpClientInterface.getRemoteAddress(ltpClientConstants.TCP_NEW_RELEASE);
-  const newReleasePort = await TcpClientInterface.getRemotePort(ltpClientConstants.TCP_NEW_RELEASE);
+  const thisAppName = await HttpServerInterface.getApplicationNameAsync();
+  const newReleaseNumber = await HttpClientInterface.getReleaseNumberAsync(ltpClientConstants.HTTP_NEW_RELEASE);
+  const operationName = await OperationServerInterface.getOperationNameAsync(ltpServerConstants.HTTP_THIS_OPERATION_REGARD_APPLICATION);
+  const newReleaseAddress = await TcpClientInterface.getRemoteAddressAsync(ltpClientConstants.TCP_NEW_RELEASE);
+  const newReleasePort = await TcpClientInterface.getRemotePortAsync(ltpClientConstants.TCP_NEW_RELEASE);
   const body = {
     'subscriber-application': thisAppName,
     'subscriber-release-number': newReleaseNumber,
@@ -62,11 +63,11 @@ exports.promptForBequeathingDataCausesRObeingRequestedToNotifyApprovalsOfNewAppl
 }
 
 exports.promptForBequeathingDataCausesRObeingRequestedToNotifyWithdrawnApprovalsToNewRelease = async function promptForBequeathingDataCausesRObeingRequestedToNotifyWithdrawnApprovalsToNewRelease(httpClient) {
-  const thisAppName = await HttpServerInterface.getApplicationName();
-  const newReleaseNumber = await HttpClientInterface.getReleaseNumber(ltpClientConstants.HTTP_NEW_RELEASE);
-  const operationName = await OperationServerInterface.getOperationName(ltpServerConstants.HTTP_THIS_OPERATION_DISREGARD_APPLICATION);
-  const newReleaseAddress = await TcpClientInterface.getRemoteAddress(ltpClientConstants.TCP_NEW_RELEASE);
-  const newReleasePort = await TcpClientInterface.getRemotePort(ltpClientConstants.TCP_NEW_RELEASE);
+  const thisAppName = await HttpServerInterface.getApplicationNameAsync();
+  const newReleaseNumber = await HttpClientInterface.getReleaseNumberAsync(ltpClientConstants.HTTP_NEW_RELEASE);
+  const operationName = await OperationServerInterface.getOperationNameAsync(ltpServerConstants.HTTP_THIS_OPERATION_DISREGARD_APPLICATION);
+  const newReleaseAddress = await TcpClientInterface.getRemoteAddressAsync(ltpClientConstants.TCP_NEW_RELEASE);
+  const newReleasePort = await TcpClientInterface.getRemotePortAsync(ltpClientConstants.TCP_NEW_RELEASE);
   const body = {
     'subscriber-application': thisAppName,
     'subscriber-release-number': newReleaseNumber,
@@ -78,11 +79,11 @@ exports.promptForBequeathingDataCausesRObeingRequestedToNotifyWithdrawnApprovals
 }
 
 exports.promptForBequeathingDataCausesALTbeingRequestedToNotifyLinkUpdatesToNewRelease = async function promptForBequeathingDataCausesALTbeingRequestedToNotifyLinkUpdatesToNewRelease(httpClient) {
-  const thisAppName = await HttpServerInterface.getApplicationName();
-  const newReleaseNumber = await HttpClientInterface.getReleaseNumber(ltpClientConstants.HTTP_NEW_RELEASE);
-  const operationName = await OperationServerInterface.getOperationName(ltpServerConstants.HTTP_THIS_OPERATION_REGARD_UPDATED_LINK);
-  const newReleaseAddress = await TcpClientInterface.getRemoteAddress(ltpClientConstants.TCP_NEW_RELEASE);
-  const newReleasePort = await TcpClientInterface.getRemotePort(ltpClientConstants.TCP_NEW_RELEASE);
+  const thisAppName = await HttpServerInterface.getApplicationNameAsync();
+  const newReleaseNumber = await HttpClientInterface.getReleaseNumberAsync(ltpClientConstants.HTTP_NEW_RELEASE);
+  const operationName = await OperationServerInterface.getOperationNameAsync(ltpServerConstants.HTTP_THIS_OPERATION_REGARD_UPDATED_LINK);
+  const newReleaseAddress = await TcpClientInterface.getRemoteAddressAsync(ltpClientConstants.TCP_NEW_RELEASE);
+  const newReleasePort = await TcpClientInterface.getRemotePortAsync(ltpClientConstants.TCP_NEW_RELEASE);
   const body = {
     'subscriber-application': thisAppName,
     'subscriber-release-number': newReleaseNumber,
@@ -94,9 +95,9 @@ exports.promptForBequeathingDataCausesALTbeingRequestedToNotifyLinkUpdatesToNewR
 }
 
 exports.promptForBequeathingDataCausesRObeingRequestedToStopNotificationsToOldRelease = async function promptForBequeathingDataCausesRObeingRequestedToStopNotificationsToOldRelease(httpClient) {
-  const thisAppName = await HttpServerInterface.getApplicationName();
-  const oldReleaseNumber = await HttpClientInterface.getReleaseNumber(ltpClientConstants.HTTP_OLD_RELEASE);
-  const notifyApprovalsOperationName = await OperationClientInterface.getOperationName(ltpClientConstants.HTTP_RO_OPERATION_NOTIFY_APPROVALS);
+  const thisAppName = await HttpServerInterface.getApplicationNameAsync();
+  const oldReleaseNumber = await HttpClientInterface.getReleaseNumberAsync(ltpClientConstants.HTTP_OLD_RELEASE);
+  const notifyApprovalsOperationName = await OperationClientInterface.getOperationNameAsync(ltpClientConstants.HTTP_RO_OPERATION_NOTIFY_APPROVALS);
   const notifyApprovalsOperationBody = {
     'subscriber-application': thisAppName,
     'subscriber-release-number': oldReleaseNumber,
@@ -104,7 +105,7 @@ exports.promptForBequeathingDataCausesRObeingRequestedToStopNotificationsToOldRe
   }
   const endSubscriptionForNofityApprovalsPromise = httpClient.executeOperation(ltpClientConstants.HTTP_RO_OPERATION_END_SUBSCRIPTION, notifyApprovalsOperationBody);
 
-  const notifyWithdrawnApprovalsOperationName = await OperationClientInterface.getOperationName(ltpClientConstants.HTTP_RO_OPERATION_NOTIFY_WITHDRAWN_APPROVALS);
+  const notifyWithdrawnApprovalsOperationName = await OperationClientInterface.getOperationNameAsync(ltpClientConstants.HTTP_RO_OPERATION_NOTIFY_WITHDRAWN_APPROVALS);
   const notifyWithdrawnApprovalsOperationBody = {
     'subscriber-application': thisAppName,
     'subscriber-release-number': oldReleaseNumber,
@@ -116,9 +117,9 @@ exports.promptForBequeathingDataCausesRObeingRequestedToStopNotificationsToOldRe
 }
 
 exports.promptForBequeathingDataCausesALTbeingRequestedToStopNotificationsToOldRelease = async function promptForBequeathingDataCausesALTbeingRequestedToStopNotificationsToOldRelease(httpClient) {
-  const thisAppName = await HttpServerInterface.getApplicationName();
-  const oldReleaseNumber = await HttpClientInterface.getReleaseNumber(ltpClientConstants.HTTP_OLD_RELEASE);
-  const operationName = await OperationClientInterface.getOperationName(ltpClientConstants.HTTP_ALT_OPERATION_NOTIFY_LINK_UPDATES);
+  const thisAppName = await HttpServerInterface.getApplicationNameAsync();
+  const oldReleaseNumber = await HttpClientInterface.getReleaseNumberAsync(ltpClientConstants.HTTP_OLD_RELEASE);
+  const operationName = await OperationClientInterface.getOperationNameAsync(ltpClientConstants.HTTP_ALT_OPERATION_NOTIFY_LINK_UPDATES);
   const body = {
     'subscriber-application': thisAppName,
     'subscriber-release-number': oldReleaseNumber,
@@ -128,11 +129,11 @@ exports.promptForBequeathingDataCausesALTbeingRequestedToStopNotificationsToOldR
 }
 
 exports.promptForBequeathingDataCausesRequestForBroadcastingInfoAboutServerReplacement = async function promptForBequeathingDataCausesRequestForBroadcastingInfoAboutServerReplacement(httpClient) {
-  const thisAppName = await HttpServerInterface.getApplicationName();
-  const oldReleaseNumber = await HttpClientInterface.getReleaseNumber(ltpClientConstants.HTTP_OLD_RELEASE);
-  const newReleaseNumber = await HttpClientInterface.getReleaseNumber(ltpClientConstants.HTTP_NEW_RELEASE);
-  const newReleaseAddress = await TcpClientInterface.getRemoteAddress(ltpClientConstants.TCP_NEW_RELEASE);
-  const newReleasePort = await TcpClientInterface.getRemotePort(ltpClientConstants.TCP_NEW_RELEASE);
+  const thisAppName = await HttpServerInterface.getApplicationNameAsync();
+  const oldReleaseNumber = await HttpClientInterface.getReleaseNumberAsync(ltpClientConstants.HTTP_OLD_RELEASE);
+  const newReleaseNumber = await HttpClientInterface.getReleaseNumberAsync(ltpClientConstants.HTTP_NEW_RELEASE);
+  const newReleaseAddress = await TcpClientInterface.getRemoteAddressAsync(ltpClientConstants.TCP_NEW_RELEASE);
+  const newReleasePort = await TcpClientInterface.getRemotePortAsync(ltpClientConstants.TCP_NEW_RELEASE);
   const body = {
     'application-name': thisAppName,
     'old-application-release-number': oldReleaseNumber,
@@ -144,8 +145,8 @@ exports.promptForBequeathingDataCausesRequestForBroadcastingInfoAboutServerRepla
 }
 
 exports.promptForBequeathingDataCausesRequestForDeregisteringOfOldRelease = async function promptForBequeathingDataCausesRequestForDeregisteringOfOldRelease(httpClient) {
-  const thisAppName = await HttpServerInterface.getApplicationName();
-  const thisAppReleaseNumber = await HttpServerInterface.getReleaseNumber();
+  const thisAppName = await HttpServerInterface.getApplicationNameAsync();
+  const thisAppReleaseNumber = await HttpServerInterface.getReleaseNumberAsync();
   const body = {
     'application-name': thisAppName,
     'application-release-number': thisAppReleaseNumber,

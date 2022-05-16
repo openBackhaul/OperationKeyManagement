@@ -11,16 +11,16 @@ const forwardingConfigurationService = require('onf-core-model-ap/applicationPat
 const LogicalTerminationPoint = require('onf-core-model-ap/applicationPattern/onfModel/models/LogicalTerminationPoint');
 const tcpClientInterface = require('onf-core-model-ap/applicationPattern/onfModel/models/layerProtocols/TcpClientInterface');
 const httpClientInterface = require('onf-core-model-ap/applicationPattern/onfModel/models/layerProtocols/HttpClientInterface');
-const apHttpClientInterface = require('../applicationPattern/onfModel/models/layerProtocols/HttpClientInterface');
 const tcpServerInterface = require('onf-core-model-ap/applicationPattern/onfModel/models/layerProtocols/TcpServerInterface');
 const httpServerInterface = require('onf-core-model-ap/applicationPattern/onfModel/models/layerProtocols/HttpServerInterface');
 const operationServerInterface = require('onf-core-model-ap/applicationPattern/onfModel/models/layerProtocols/OperationServerInterface');
-const apForwardingConstruct = require('../applicationPattern/onfModel/models/ForwardingConstruct');
 const bequeathYourDataAndDieUtils = require('../utils/bequeathYourDataAndDieUtils');
 const HttpClient = require('../utils/HttpClient');
 const crypto = require('crypto');
 
 const ltpClientConstants = require('../utils/ltpClientConstants');
+const ltpServerConstants = require('../utils/ltpServerConstants');
+const onfModelUtils = require("../utils/OnfModelUtils");
 
 const FC_CYCLIC_OPERATION_CAUSES_OPERATION_KEY_UPDATES_UUID = 'okm-0-0-1-op-fc-3001';
 const FC_CYCLIC_OPERATION_CAUSES_OPERATION_KEY_UPDATES = 'CyclicOperationCausesOperationKeyUpdates';
@@ -42,12 +42,6 @@ exports.bequeathYourDataAndDie = async function (body, user, originator, xCorrel
   const newReleaseNumber = body["new-application-release"];
   const newApplicationAddress = body["new-application-address"];
   const newApplicationPort = body["new-application-port"];
-
-  // set app name if it does not exist
-  const appName = await httpClientInterface.getApplicationNameAsync(ltpClientConstants.HTTP_NEW_RELEASE);
-  if (appName == undefined) {
-    await apHttpClientInterface.setApplicationName(ltpClientConstants.HTTP_NEW_RELEASE, newApplicationName);
-  }
 
   // set app release number if it does not exist
   const appReleaseNumber = await httpClientInterface.getReleaseNumberAsync(ltpClientConstants.HTTP_NEW_RELEASE);
@@ -134,7 +128,7 @@ exports.disregardApplication = async function (body, user, originator, xCorrelat
  * returns List
  **/
 exports.listApplications = async function (user, originator, xCorrelator, traceIndicator, customerJourney) {
-  const clientOperationLtpUuidList = await apForwardingConstruct.getFcPortOutputDirectionLogicalTerminationPointListForTheUuid(FC_CYCLIC_OPERATION_CAUSES_OPERATION_KEY_UPDATES_UUID);
+  const clientOperationLtpUuidList = await onfModelUtils.getFcPortOutputDirectionLogicalTerminationPointListForTheUuid(FC_CYCLIC_OPERATION_CAUSES_OPERATION_KEY_UPDATES_UUID);
   const resultList = [];
   for (const clientOperationLtpUuid of clientOperationLtpUuidList) {
     const httpLtpUuidList = await LogicalTerminationPoint.getServerLtpListAsync(clientOperationLtpUuid);
@@ -221,7 +215,7 @@ exports.regardUpdatedLink = async function (body, user, originator, xCorrelator,
   // get data from request body
   const linkUuid = body['link-uuid'];
 
-  const updateKeyOperationLtpUuidList = await apForwardingConstruct.getFcPortOutputDirectionLogicalTerminationPointListForTheUuid(FC_CYCLIC_OPERATION_CAUSES_OPERATION_KEY_UPDATES_UUID);
+  const updateKeyOperationLtpUuidList = await onfModelUtils.getFcPortOutputDirectionLogicalTerminationPointListForTheUuid(FC_CYCLIC_OPERATION_CAUSES_OPERATION_KEY_UPDATES_UUID);
   const httpClient = new HttpClient(user, xCorrelator, traceIndicator, customerJourney);
   await updateOperationKeyForLink(linkUuid, updateKeyOperationLtpUuidList, httpClient);
 }
@@ -248,7 +242,7 @@ exports.startApplicationInGenericRepresentation = async function (user, originat
   const consequentActionList = [];
   const baseUrl = "https://" + await tcpServerInterface.getLocalAddress() + ":" + await tcpServerInterface.getLocalPort();
   const labelForInformAboutApplication = "Inform about Application";
-  const requestForInformAboutApplication = baseUrl + await operationServerInterface.getOperationNameAsync("okm-0-0-1-op-s-2002");
+  const requestForInformAboutApplication = baseUrl + await operationServerInterface.getOperationNameAsync(ltpServerConstants.HTTP_THIS_OPERATION_INFORM_ABOUT_APPLICATION_IN_GENERIC_REPRESENTATION);
   const consequentActionForInformAboutApplication = { 'label': labelForInformAboutApplication, 'request': requestForInformAboutApplication };
   consequentActionList.push(consequentActionForInformAboutApplication);
 
@@ -265,7 +259,7 @@ exports.scheduleKeyRotation = function scheduleKeyRotation(intervalInMinutes) {
 
 async function reccurentUpdateKeys() {
   try {
-    const updateKeyOperationLtpUuidList = await apForwardingConstruct.getFcPortOutputDirectionLogicalTerminationPointListForTheUuid(FC_CYCLIC_OPERATION_CAUSES_OPERATION_KEY_UPDATES_UUID);
+    const updateKeyOperationLtpUuidList = await onfModelUtils.getFcPortOutputDirectionLogicalTerminationPointListForTheUuid(FC_CYCLIC_OPERATION_CAUSES_OPERATION_KEY_UPDATES_UUID);
     const httpClient = new HttpClient();
     const linkUuidList = await fetchLinkUuidListFromAlt(httpClient);
     for (const linkUuid of linkUuidList) {
@@ -277,12 +271,11 @@ async function reccurentUpdateKeys() {
       error = new Error('unknown error');
     }
     console.log(`reccurentUpdateKeys - failed with error: ${error.message}`);
-    console.error(error.stack);
   }
 }
 
 async function fetchLinkUuidListFromAlt(httpClient) {
-  const resp = await httpClient.executeOperation('okm-0-0-1-op-c-3072');
+  const resp = await httpClient.executeOperation(ltpClientConstants.HTTP_ALT_OPERATION_LIST_LINK_UUIDS);
   if (resp['link-uuid-list'] === undefined) {
     return [];
   }
@@ -315,7 +308,7 @@ async function updateOperationKeyForLink(linkUuid, updateKeyOperationLtpUuidList
 }
 
 async function fetchLinkEndpointListFromAlt(linkUuid, httpClient) {
-  const resp = await httpClient.executeOperation('okm-0-0-1-op-c-3073', { 'link-uuid': linkUuid });
+  const resp = await httpClient.executeOperation(ltpClientConstants.HTTP_ALT_OPERATION_LIST_ENDPOINTS_OF_LINK, { 'link-uuid': linkUuid });
   if (resp['link-end-point-list'] === undefined) {
     return [];
   }

@@ -1,9 +1,10 @@
+// @ts-check
 'use strict';
 
 const axios = require('axios');
 const crypto = require('crypto');
-const operationClientInterface = require('../applicationPattern/onfModel/models/layerProtocols/OperationClientInterface');
-const httpServerInterface = require('../applicationPattern/onfModel/models/layerProtocols/HttpServerInterface');
+const operationClientInterface = require('onf-core-model-ap/applicationPattern/onfModel/models/layerProtocols/OperationClientInterface');
+const httpServerInterface = require('onf-core-model-ap/applicationPattern/onfModel/models/layerProtocols/HttpServerInterface');
 
 axios.defaults.headers = {};
 
@@ -52,18 +53,18 @@ module.exports = class HttpClient {
    * @returns {Promise<object>} Data from HTTP response body.
    */
   async executeOperation(operationUuid, body, timeout = 5000) {
-    const ipAndPort = await operationClientInterface.getTcpIpAddressAndPortForTheOperationClient(operationUuid);
+    const ipAndPort = await operationClientInterface.getTcpIpAddressAndPortAsyncAsync(operationUuid);
     if (ipAndPort == undefined) {
       throw new Error(`Cannot resolve IP and port for invocation of service with UUID ${operationUuid}`);
     }
-    const operationName = await operationClientInterface.getOperationName(operationUuid);
+    const operationName = await operationClientInterface.getOperationNameAsync(operationUuid);
     if (operationName == undefined) {
       throw new Error(`Cannot resolve operation name for invocation of service with UUID ${operationUuid}`);
     }
 
-    const operationKey = await operationClientInterface.getOperationKey(operationUuid);
+    const operationKey = await operationClientInterface.getOperationKeyAsync(operationUuid);
 
-    const originator = await httpServerInterface.getApplicationName();
+    const originator = await httpServerInterface.getApplicationNameAsync();
     if (this.#user == undefined) {
       this.#user = originator;
     }

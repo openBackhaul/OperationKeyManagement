@@ -1,9 +1,9 @@
 'use strict';
 
 var HttpClient = require('../service/HttpClientService');
-var responseBuilder = require('../applicationPattern/rest/server/ResponseBuilder');
-var responseCodeEnum = require('../applicationPattern/rest/server/ResponseCode');
-var oamLogService = require('../applicationPattern/logging/OamLogService');
+var responseBuilder = require('onf-core-model-ap/applicationPattern/rest/server/ResponseBuilder');
+var responseCodeEnum = require('onf-core-model-ap/applicationPattern/rest/server/ResponseCode');
+var oamLogService = require('onf-core-model-ap-bs/basicServices/OamLogService');
 
 module.exports.getHttpClientApplicationName = async function getHttpClientApplicationName(req, res, next, uuid) {
   let responseCode = responseCodeEnum.code.OK;
