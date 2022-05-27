@@ -29,6 +29,9 @@ var options = {
         controllers: path.join(__dirname, './controllers')
     },
     openApiValidator: {
+        validateResponses: {
+            removeAdditional: 'all',
+        },
         validateSecurity: {
             handlers: {
                 apiKeyAuth: validateOperationKey,
@@ -40,6 +43,8 @@ var options = {
 
 var expressAppConfig = oas3Tools.expressAppConfig(path.join(__dirname, 'api/openapi.yaml'), options);
 var app = expressAppConfig.getApp();
+// format all json responses written via res.json()
+app.set('json spaces', 2);
 
 // Initialize the Swagger middleware
 http.createServer(app).listen(serverPort, function () {
