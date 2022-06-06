@@ -29,9 +29,7 @@ var options = {
         controllers: path.join(__dirname, './controllers')
     },
     openApiValidator: {
-        validateResponses: {
-            removeAdditional: 'all',
-        },
+        validateResponses: true,
         validateSecurity: {
             handlers: {
                 apiKeyAuth: validateOperationKey,

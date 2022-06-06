@@ -10,7 +10,7 @@ var fileOperation = require('onf-core-model-ap/applicationPattern/databaseDriver
 exports.getOperationClientDetailedLoggingIsOn = function (url) {
   return new Promise(async function (resolve, reject) {
     try {
-      var value = await fileOperation.readFromDatabase(url);
+      var value = await fileOperation.readFromDatabaseAsync(url);
       var response = {};
       response['application/json'] = {
         "operation-client-interface-1-0:detailed-logging-is-on": value
@@ -36,7 +36,7 @@ exports.getOperationClientDetailedLoggingIsOn = function (url) {
 exports.getOperationClientLifeCycleState = function (url) {
   return new Promise(async function (resolve, reject) {
     try {
-      var value = await fileOperation.readFromDatabase(url);
+      var value = await fileOperation.readFromDatabaseAsync(url);
       var response = {};
       response['application/json'] = {
         "operation-client-interface-1-0:life-cycle-state": value
@@ -62,7 +62,7 @@ exports.getOperationClientLifeCycleState = function (url) {
 exports.getOperationClientOperationKey = function (url) {
   return new Promise(async function (resolve, reject) {
     try {
-      var value = await fileOperation.readFromDatabase(url);
+      var value = await fileOperation.readFromDatabaseAsync(url);
       var response = {};
       response['application/json'] = {
         "operation-client-interface-1-0:operation-key": value
@@ -88,7 +88,7 @@ exports.getOperationClientOperationKey = function (url) {
 exports.getOperationClientOperationName = function (url) {
   return new Promise(async function (resolve, reject) {
     try {
-      var value = await fileOperation.readFromDatabase(url);
+      var value = await fileOperation.readFromDatabaseAsync(url);
       var response = {};
       response['application/json'] = {
         "operation-client-interface-1-0:operation-name": value
@@ -114,7 +114,7 @@ exports.getOperationClientOperationName = function (url) {
 exports.getOperationClientOperationalState = function (url) {
   return new Promise(async function (resolve, reject) {
     try {
-      var value = await fileOperation.readFromDatabase(url);
+      var value = await fileOperation.readFromDatabaseAsync(url);
       var response = {};
       response['application/json'] = {
         "operation-client-interface-1-0:operational-state": value
