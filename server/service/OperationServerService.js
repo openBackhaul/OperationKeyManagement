@@ -10,7 +10,7 @@ var fileOperation = require('onf-core-model-ap/applicationPattern/databaseDriver
 exports.getOperationServerLifeCycleState = function (url) {
   return new Promise(async function (resolve, reject) {
     try {
-      var value = await fileOperation.readFromDatabase(url);
+      var value = await fileOperation.readFromDatabaseAsync(url);
       var response = {};
       response['application/json'] = {
         "operation-server-interface-1-0:life-cycle-state": value
@@ -36,7 +36,7 @@ exports.getOperationServerLifeCycleState = function (url) {
 exports.getOperationServerOperationKey = function (url) {
   return new Promise(async function (resolve, reject) {
     try {
-      var value = await fileOperation.readFromDatabase(url);
+      var value = await fileOperation.readFromDatabaseAsync(url);
       var response = {};
       response['application/json'] = {
         "operation-server-interface-1-0:operation-key": value
@@ -63,7 +63,7 @@ exports.getOperationServerOperationKey = function (url) {
 exports.getOperationServerOperationName = function (url) {
   return new Promise(async function (resolve, reject) {
     try {
-      var value = await fileOperation.readFromDatabase(url);
+      var value = await fileOperation.readFromDatabaseAsync(url);
       var response = {};
       response['application/json'] = {
         "operation-server-interface-1-0:operation-name": value

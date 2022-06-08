@@ -10,7 +10,7 @@ var fileOperation = require('onf-core-model-ap/applicationPattern/databaseDriver
 exports.getTcpClientRemoteIpv4Address = function (url) {
   return new Promise(async function (resolve, reject) {
     try {
-      var value = await fileOperation.readFromDatabase(url);
+      var value = await fileOperation.readFromDatabaseAsync(url);
       var response = {};
       response['application/json'] = {
         "tcp-client-interface-1-0:remote-address": value
@@ -36,7 +36,7 @@ exports.getTcpClientRemoteIpv4Address = function (url) {
 exports.getTcpClientRemotePort = function (url) {
   return new Promise(async function (resolve, reject) {
     try {
-      var value = await fileOperation.readFromDatabase(url);
+      var value = await fileOperation.readFromDatabaseAsync(url);
       var response = {};
       response['application/json'] = {
         "tcp-client-interface-1-0:remote-port": value

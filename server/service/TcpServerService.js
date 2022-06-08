@@ -10,7 +10,7 @@ var fileOperation = require('onf-core-model-ap/applicationPattern/databaseDriver
 exports.getTcpServerLocalIpv4Address = function (url) {
   return new Promise(async function (resolve, reject) {
     try {
-      var value = await fileOperation.readFromDatabase(url);
+      var value = await fileOperation.readFromDatabaseAsync(url);
       var response = {};
       response['application/json'] = {
         "tcp-server-interface-1-0:local-address": value
@@ -36,7 +36,7 @@ exports.getTcpServerLocalIpv4Address = function (url) {
 exports.getTcpServerLocalPort = function (url) {
   return new Promise(async function (resolve, reject) {
     try {
-      var value = await fileOperation.readFromDatabase(url);
+      var value = await fileOperation.readFromDatabaseAsync(url);
       var response = {};
       response['application/json'] = {
         "tcp-server-interface-1-0:local-port": value

@@ -10,7 +10,7 @@ var fileOperation = require('onf-core-model-ap/applicationPattern/databaseDriver
 exports.getHttpServerApplicationName = function (url) {
   return new Promise(async function (resolve, reject) {
     try {
-      var value = await fileOperation.readFromDatabase(url);
+      var value = await fileOperation.readFromDatabaseAsync(url);
       var response = {};
       response['application/json'] = {
         "http-server-interface-1-0:application-name": value
@@ -36,7 +36,7 @@ exports.getHttpServerApplicationName = function (url) {
 exports.getHttpServerApplicationPurpose = function (url) {
   return new Promise(async function (resolve, reject) {
     try {
-      var value = await fileOperation.readFromDatabase(url);
+      var value = await fileOperation.readFromDatabaseAsync(url);
       var response = {};
       response['application/json'] = {
         "http-server-interface-1-0:application-purpose": value
@@ -62,7 +62,7 @@ exports.getHttpServerApplicationPurpose = function (url) {
 exports.getHttpServerDataUpdatePeriode = function (url) {
   return new Promise(async function (resolve, reject) {
     try {
-      var value = await fileOperation.readFromDatabase(url);
+      var value = await fileOperation.readFromDatabaseAsync(url);
       var response = {};
       response['application/json'] = {
         "http-server-interface-1-0:data-update-period": value
@@ -88,7 +88,7 @@ exports.getHttpServerDataUpdatePeriode = function (url) {
 exports.getHttpServerOwnerEmailAddress = function (url) {
   return new Promise(async function (resolve, reject) {
     try {
-      var value = await fileOperation.readFromDatabase(url);
+      var value = await fileOperation.readFromDatabaseAsync(url);
       var response = {};
       response['application/json'] = {
         "http-server-interface-1-0:owner-email-address": value
@@ -114,7 +114,7 @@ exports.getHttpServerOwnerEmailAddress = function (url) {
 exports.getHttpServerOwnerName = function (url) {
   return new Promise(async function (resolve, reject) {
     try {
-      var value = await fileOperation.readFromDatabase(url);
+      var value = await fileOperation.readFromDatabaseAsync(url);
       var response = {};
       response['application/json'] = {
         "http-server-interface-1-0:owner-name": value
@@ -140,7 +140,7 @@ exports.getHttpServerOwnerName = function (url) {
 exports.getHttpServerReleaseList = function (url) {
   return new Promise(async function (resolve, reject) {
     try {
-      var value = await fileOperation.readFromDatabase(url);
+      var value = await fileOperation.readFromDatabaseAsync(url);
       var response = {};
       response['application/json'] = {
         "http-server-interface-1-0:release-list": value
@@ -166,7 +166,7 @@ exports.getHttpServerReleaseList = function (url) {
 exports.getHttpServerReleaseNumber = function (url) {
   return new Promise(async function (resolve, reject) {
     try {
-      var value = await fileOperation.readFromDatabase(url);
+      var value = await fileOperation.readFromDatabaseAsync(url);
       var response = {};
       response['application/json'] = {
         "http-server-interface-1-0:release-number": value
