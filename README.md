@@ -6,7 +6,7 @@ Manages keys required for consuming services between applications
 - 1.0.0-tsi.d.t : Defintion to be used within the Transport SDN Introduction at Telefonica Germany
 
 ### Services
-- [OperationKeyManagement_0.0.2_tsi.220110.2010+services.1](./OperationKeyManagement_0.0.2_tsi.220110.2010+services.1.xlsx)
+- [OperationKeyManagement+services](./OperationKeyManagement+services.yaml)
 
 ### Forwardings
 - [OperationKeyManagement_0.0.2_tsi.220110.2010+forwardings.1](./OperationKeyManagement_0.0.2_tsi.220110.2010+forwardings.1.xlsx)
