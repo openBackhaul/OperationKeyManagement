@@ -240,7 +240,7 @@ exports.startApplicationInGenericRepresentation = async function (user, originat
 
   // Preparing consequent-action-list for response body
   const consequentActionList = [];
-  const baseUrl = "https://" + await tcpServerInterface.getLocalAddress() + ":" + await tcpServerInterface.getLocalPort();
+  const baseUrl = "http://" + await tcpServerInterface.getLocalAddress() + ":" + await tcpServerInterface.getLocalPort();
   const labelForInformAboutApplication = "Inform about Application";
   const requestForInformAboutApplication = baseUrl + await operationServerInterface.getOperationNameAsync(ltpServerConstants.HTTP_THIS_OPERATION_INFORM_ABOUT_APPLICATION_IN_GENERIC_REPRESENTATION);
   const consequentActionForInformAboutApplication = { 'label': labelForInformAboutApplication, 'request': requestForInformAboutApplication };
