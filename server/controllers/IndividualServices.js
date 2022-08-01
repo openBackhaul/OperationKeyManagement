@@ -4,7 +4,7 @@ const IndividualServices = require('../service/IndividualServicesService');
 const responseCodeEnum = require('onf-core-model-ap/applicationPattern/rest/server/ResponseCode');
 const restResponseHeader = require('onf-core-model-ap/applicationPattern/rest/server/ResponseHeader');
 const restResponseBuilder = require('onf-core-model-ap/applicationPattern/rest/server/ResponseBuilder');
-const executionAndTraceService = require('onf-core-model-ap-bs/basicServices/ExecutionAndTraceService');
+const executionAndTraceService = require('onf-core-model-ap/applicationPattern/services/ExecutionAndTraceService');
 
 module.exports.bequeathYourDataAndDie = async function bequeathYourDataAndDie(req, res, next, body, user, originator, xCorrelator, traceIndicator, customerJourney) {
   const startTime = process.hrtime();
