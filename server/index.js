@@ -3,12 +3,10 @@
 
 var path = require('path');
 var http = require('http');
-
 var oas3Tools = require('oas3-tools');
+var appCommons = require('onf-core-model-ap/applicationPattern/commons/AppCommons');
+var individualServicesService = require('./service/IndividualServicesService')
 var serverPort = 8080;
-
-const individualServicesService = require('./service/IndividualServicesService')
-const appCommons = require('onf-core-model-ap/applicationPattern/commons/AppCommons');
 
 // uncomment if you do not want to validate security e.g. operation-key, basic auth, etc
 // appCommons.openApiValidatorOptions.validateSecurity = false;
