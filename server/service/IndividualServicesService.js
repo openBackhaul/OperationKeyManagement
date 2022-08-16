@@ -14,7 +14,8 @@ const httpClientInterface = require('onf-core-model-ap/applicationPattern/onfMod
 const tcpServerInterface = require('onf-core-model-ap/applicationPattern/onfModel/models/layerProtocols/TcpServerInterface');
 const httpServerInterface = require('onf-core-model-ap/applicationPattern/onfModel/models/layerProtocols/HttpServerInterface');
 const operationServerInterface = require('onf-core-model-ap/applicationPattern/onfModel/models/layerProtocols/OperationServerInterface');
-const bequeathYourDataAndDieUtils = require('../utils/bequeathYourDataAndDieUtils');
+const prepareForwardingAutomation = require('./individualServices/PrepareForwardingAutomation');
+const softwareUpgrade = require('./individualServices/SoftwareUpgrade');
 const HttpClient = require('../utils/HttpClient');
 const crypto = require('crypto');
 
@@ -36,40 +37,69 @@ const FC_CYCLIC_OPERATION_CAUSES_OPERATION_KEY_UPDATES = 'CyclicOperationCausesO
  * customerJourney String Holds information supporting customer’s journey to which the execution applies
  * no response value expected for this operation
  **/
-exports.bequeathYourDataAndDie = async function (body, user, originator, xCorrelator, traceIndicator, customerJourney) {
-  // get data from request body
-  const newApplicationName = body["new-application-name"];
-  const newReleaseNumber = body["new-application-release"];
-  const newApplicationAddress = body["new-application-address"];
-  const newApplicationPort = body["new-application-port"];
+ exports.bequeathYourDataAndDie = async function (body, user, originator, xCorrelator, traceIndicator, customerJourney, operationServerName) {
+  return new Promise(async function (resolve, reject) {
+    try {
+      /****************************************************************************************
+        * Setting up required local variables from the request body
+      ****************************************************************************************/
 
-  // set app release number if it does not exist
-  const appReleaseNumber = await httpClientInterface.getReleaseNumberAsync(ltpClientConstants.HTTP_NEW_RELEASE);
-  if (appReleaseNumber == undefined) {
-    await httpClientInterface.setReleaseNumberAsync(ltpClientConstants.HTTP_NEW_RELEASE, newReleaseNumber);
-  }
+      let applicationName = body["new-application-name"];
+      let releaseNumber = body["new-application-release"];
+      let applicationAddress = body["new-application-address"];
+      let applicationPort = body["new-application-port"];
 
-  const tcpClientUuid = (await LogicalTerminationPoint.getServerLtpListAsync(ltpClientConstants.HTTP_NEW_RELEASE))[0];
-  await tcpClientInterface.setRemoteAddressAsync(tcpClientUuid, newApplicationAddress);
-  await tcpClientInterface.setRemotePortAsync(tcpClientUuid, newApplicationPort);
+      /****************************************************************************************
+        * Prepare logicalTerminatinPointConfigurationInput object to 
+        * configure logical-termination-point
+      ****************************************************************************************/
 
-  const httpClient = new HttpClient(user, xCorrelator, traceIndicator, customerJourney);
-  bequeathYourDataAndDieUtils.promptForBequeathingDataCausesTransferOfListOfApplications(httpClient)
-    .catch((error) => console.log(`promptForBequeathingDataCausesTransferOfListOfApplications - failed with error: ${error.message}`));
-  bequeathYourDataAndDieUtils.promptForBequeathingDataCausesRObeingRequestedToNotifyApprovalsOfNewApplicationsToNewRelease(httpClient)
-    .catch((error) => console.log(`promptForBequeathingDataCausesRObeingRequestedToNotifyApprovalsOfNewApplicationsToNewRelease - failed with error: ${error.message}`))
-  bequeathYourDataAndDieUtils.promptForBequeathingDataCausesRObeingRequestedToNotifyWithdrawnApprovalsToNewRelease(httpClient)
-    .catch((error) => console.log(`promptForBequeathingDataCausesRObeingRequestedToNotifyWithdrawnApprovalsToNewRelease - failed with error: ${error.message}`))
-  bequeathYourDataAndDieUtils.promptForBequeathingDataCausesALTbeingRequestedToNotifyLinkUpdatesToNewRelease(httpClient)
-    .catch((error) => console.log(`promptForBequeathingDataCausesALTbeingRequestedToNotifyLinkUpdatesToNewRelease - failed with error: ${error.message}`))
-  bequeathYourDataAndDieUtils.promptForBequeathingDataCausesRObeingRequestedToStopNotificationsToOldRelease(httpClient)
-    .catch((error) => console.log(`promptForBequeathingDataCausesRObeingRequestedToStopNotificationsToOldRelease - failed with error: ${error.message}`))
-  bequeathYourDataAndDieUtils.promptForBequeathingDataCausesALTbeingRequestedToStopNotificationsToOldRelease(httpClient)
-    .catch((error) => console.log(`promptForBequeathingDataCausesALTbeingRequestedToStopNotificationsToOldRelease - failed with error: ${error.message}`))
-  bequeathYourDataAndDieUtils.promptForBequeathingDataCausesRequestForBroadcastingInfoAboutServerReplacement(httpClient)
-    .catch((error) => console.log(`promptForBequeathingDataCausesRequestForBroadcastingInfoAboutServerReplacement - failed with error: ${error.message}`))
-  bequeathYourDataAndDieUtils.promptForBequeathingDataCausesRequestForDeregisteringOfOldRelease(httpClient)
-    .catch((error) => console.log(`promptForBequeathingDataCausesRequestForDeregisteringOfOldRelease - failed with error: ${error.message}`))
+      let isdataTransferRequired = true;
+      let currentApplicationName = await httpServerInterface.getApplicationNameAsync();
+      if (currentApplicationName == applicationName) {
+        let isUpdated = await httpClientInterface.setReleaseNumberAsync(ltpClientConstants.HTTP_NEW_RELEASE, releaseNumber);
+        let currentApplicationRemoteAddress = await tcpServerInterface.getLocalAddress();
+        let currentApplicationRemotePort = await tcpServerInterface.getLocalPort();
+        if((applicationAddress == currentApplicationRemoteAddress) && 
+          (applicationPort == currentApplicationRemotePort)){
+            isdataTransferRequired = false;
+        }
+        if (isUpdated) {
+          applicationName = await httpClientInterface.getApplicationNameAsync("okm-0-0-1-http-c-0010");
+          let operationList = [];
+          let logicalTerminatinPointConfigurationInput = new LogicalTerminationPointConfigurationInput(
+            applicationName,
+            releaseNumber,
+            applicationAddress,
+            applicationPort,
+            operationList
+          );
+          let logicalTerminationPointconfigurationStatus = await logicalTerminationPointService.createOrUpdateApplicationInformationAsync(
+            logicalTerminatinPointConfigurationInput
+          );
+          /****************************************************************************************
+            * Prepare attributes to automate forwarding-construct
+          ****************************************************************************************/
+          let forwardingAutomationInputList = await prepareForwardingAutomation.bequeathYourDataAndDie(
+            logicalTerminationPointconfigurationStatus
+          );
+          forwardingAutomationService.automateForwardingConstructAsync(
+            operationServerName,
+            forwardingAutomationInputList,
+            user,
+            xCorrelator,
+            traceIndicator,
+            customerJourney
+          );
+        } 
+      }
+      softwareUpgrade.upgradeSoftwareVersion(isdataTransferRequired, user, xCorrelator, traceIndicator, customerJourney)
+        .catch(err => console.log(`upgradeSoftwareVersion failed with error: ${err}`));
+      resolve();
+    } catch (error) {
+      reject(error);
+    }
+  });
 }
 
 /**
