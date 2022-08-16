@@ -12,7 +12,7 @@ module.exports.bequeathYourDataAndDie = async function bequeathYourDataAndDie(re
   let responseBody;
   try {
     responseCode = responseCodeEnum.code.NO_CONTENT;
-    responseBody = await IndividualServices.bequeathYourDataAndDie(body, user, originator, xCorrelator, traceIndicator, customerJourney);
+    responseBody = await IndividualServices.bequeathYourDataAndDie(body, user, originator, xCorrelator, traceIndicator, customerJourney, req.url);
   } catch (error) {
     if (error == undefined) {
       error = new Error('unknown error');
