@@ -61,7 +61,7 @@ exports.getHttpClientReleaseNumber = function (url) {
 exports.putHttpClientReleaseNumber = function (body, url) {
   return new Promise(async function (resolve, reject) {
     try {
-      await fileOperation.writeToDatabase(url, body, false);
+      await fileOperation.writeToDatabaseAsync(url, body, false);
       resolve();
     } catch (error) { }
     reject();

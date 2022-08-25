@@ -63,7 +63,7 @@ exports.getTcpServerLocalPort = function (url) {
 exports.putTcpServerLocalIpv4Address = function (url, body) {
   return new Promise(async function (resolve, reject) {
     try {
-      await fileOperation.writeToDatabase(url, body, false);
+      await fileOperation.writeToDatabaseAsync(url, body, false);
       resolve();
     } catch (error) {
       reject();
@@ -82,7 +82,7 @@ exports.putTcpServerLocalIpv4Address = function (url, body) {
 exports.putTcpServerLocalPort = function (url, body) {
   return new Promise(async function (resolve, reject) {
     try {
-      await fileOperation.writeToDatabase(url, body, false);
+      await fileOperation.writeToDatabaseAsync(url, body, false);
       resolve();
     } catch (error) {
       reject();

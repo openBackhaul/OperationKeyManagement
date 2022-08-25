@@ -141,7 +141,7 @@ exports.getOperationClientOperationalState = function (url) {
 exports.putOperationClientDetailedLoggingIsOn = function (url, body) {
   return new Promise(async function (resolve, reject) {
     try {
-      await fileOperation.writeToDatabase(url, body, false);
+      await fileOperation.writeToDatabaseAsync(url, body, false);
       resolve();
     } catch (error) {
       reject();
@@ -160,7 +160,7 @@ exports.putOperationClientDetailedLoggingIsOn = function (url, body) {
 exports.putOperationClientOperationKey = function (url, body) {
   return new Promise(async function (resolve, reject) {
     try {
-      await fileOperation.writeToDatabase(url, body, false);
+      await fileOperation.writeToDatabaseAsync(url, body, false);
       resolve();
     } catch (error) {
       reject();
@@ -179,7 +179,7 @@ exports.putOperationClientOperationKey = function (url, body) {
 exports.putOperationClientOperationName = function (url, body) {
   return new Promise(async function (resolve, reject) {
     try {
-      await fileOperation.writeToDatabase(url, body, false);
+      await fileOperation.writeToDatabaseAsync(url, body, false);
       resolve();
     } catch (error) {
       reject();
