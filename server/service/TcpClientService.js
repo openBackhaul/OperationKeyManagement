@@ -64,7 +64,7 @@ exports.putTcpClientRemoteIpv4Address = function (url, body) {
   return new Promise(async function (resolve, reject) {
     try {
       console.log(body);
-      await fileOperation.writeToDatabase(url, body, false);
+      await fileOperation.writeToDatabaseAsync(url, body, false);
       resolve();
     } catch (error) {
       reject();
@@ -83,7 +83,7 @@ exports.putTcpClientRemoteIpv4Address = function (url, body) {
 exports.putTcpClientRemotePort = function (url, body) {
   return new Promise(async function (resolve, reject) {
     try {
-      await fileOperation.writeToDatabase(url, body, false);
+      await fileOperation.writeToDatabaseAsync(url, body, false);
       resolve();
     } catch (error) {
       reject();

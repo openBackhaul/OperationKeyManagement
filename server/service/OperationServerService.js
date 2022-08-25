@@ -90,7 +90,7 @@ exports.getOperationServerOperationName = function (url) {
 exports.putOperationServerLifeCycleState = function (url, body) {
   return new Promise(async function (resolve, reject) {
     try {
-      await fileOperation.writeToDatabase(url, body, false);
+      await fileOperation.writeToDatabaseAsync(url, body, false);
       resolve();
     } catch (error) {
       reject();
@@ -109,7 +109,7 @@ exports.putOperationServerLifeCycleState = function (url, body) {
 exports.putOperationServerOperationKey = function (url, body) {
   return new Promise(async function (resolve, reject) {
     try {
-      await fileOperation.writeToDatabase(url, body, false);
+      await fileOperation.writeToDatabaseAsync(url, body, false);
       resolve();
     } catch (error) {
       reject();
