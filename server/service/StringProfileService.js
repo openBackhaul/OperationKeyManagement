@@ -1,21 +1,27 @@
 'use strict';
 
+var fileOperation = require('onf-core-model-ap/applicationPattern/databaseDriver/JSONDriver');
 
 /**
  * Returns the name of the String
  *
  * returns inline_response_200_8
  **/
-exports.getStringProfileStringName = function() {
-  return new Promise(function(resolve, reject) {
-    var examples = {};
-    examples['application/json'] = {
-  "string-profile-1-0:string-name" : "operationMode"
-};
-    if (Object.keys(examples).length > 0) {
-      resolve(examples[Object.keys(examples)[0]]);
-    } else {
-      resolve();
+exports.getStringProfileStringName = function (url) {
+  return new Promise(async function (resolve, reject) {
+    try {
+      const value = await fileOperation.readFromDatabaseAsync(url);
+      const response = {};
+      response['application/json'] = {
+        "string-profile-1-0:string-name": value
+      };
+      if (Object.keys(response).length > 0) {
+        resolve(response[Object.keys(response)[0]]);
+      } else {
+        resolve();
+      }
+    } catch (err) {
+      reject(err);
     }
   });
 }
@@ -26,16 +32,21 @@ exports.getStringProfileStringName = function() {
  *
  * returns inline_response_200_9
  **/
-exports.getStringProfileStringValue = function() {
-  return new Promise(function(resolve, reject) {
-    var examples = {};
-    examples['application/json'] = {
-  "string-profile-1-0:string-value" : "string-profile-1-0:STRING_VALUE_TYPE_SANITATION"
-};
-    if (Object.keys(examples).length > 0) {
-      resolve(examples[Object.keys(examples)[0]]);
-    } else {
-      resolve();
+exports.getStringProfileStringValue = function (url) {
+  return new Promise(async function (resolve, reject) {
+    try {
+      const value = await fileOperation.readFromDatabaseAsync(url);
+      const response = {};
+      response['application/json'] = {
+        "string-profile-1-0:string-value": value
+      };
+      if (Object.keys(response).length > 0) {
+        resolve(response[Object.keys(response)[0]]);
+      } else {
+        resolve();
+      }
+    } catch (err) {
+      reject(err);
     }
   });
 }
@@ -47,9 +58,14 @@ exports.getStringProfileStringValue = function() {
  * body Stringprofileconfiguration_stringvalue_body 
  * no response value expected for this operation
  **/
-exports.putStringProfileStringValue = function(body) {
-  return new Promise(function(resolve, reject) {
-    resolve();
+exports.putStringProfileStringValue = function (body, url) {
+  return new Promise(async function (resolve, reject) {
+    try {
+      await fileOperation.writeToDatabaseAsync(url, body, false);
+      resolve();
+    } catch (err) {
+      reject(err);
+    }
   });
 }
 
