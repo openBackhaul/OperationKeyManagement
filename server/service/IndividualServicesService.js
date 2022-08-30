@@ -25,6 +25,8 @@ const onfModelUtils = require("../utils/OnfModelUtils");
 
 const FC_CYCLIC_OPERATION_CAUSES_OPERATION_KEY_UPDATES_UUID = 'okm-0-0-1-op-fc-3001';
 const FC_CYCLIC_OPERATION_CAUSES_OPERATION_KEY_UPDATES = 'CyclicOperationCausesOperationKeyUpdates';
+const FC_LINK_UPDATE_NOTIFICATION_CAUSES_OPERATION_KEY_UPDATES_UUID = 'okm-0-0-1-op-fc-3000';
+const FC_LINK_UPDATE_NOTIFICATION_CAUSES_OPERATION_KEY_UPDATES = 'LinkUpdateNotificationCausesOperationKeyUpdates';
 
 /**
  * Initiates process of embedding a new release
@@ -127,8 +129,9 @@ exports.disregardApplication = async function (body, user, originator, xCorrelat
   const logicalTerminationPointConfigurationStatus = await logicalTerminationPointService.deleteApplicationInformationAsync(appName, appReleaseNumber);
 
   const operationClientUuid = logicalTerminationPointConfigurationStatus.operationClientConfigurationStatusList[0].uuid;
-  const forwardingConfigurationInput = new ForwardingConstructConfigurationInput(FC_CYCLIC_OPERATION_CAUSES_OPERATION_KEY_UPDATES, operationClientUuid);
-  const forwardingConfigurationInputList = [forwardingConfigurationInput];
+  const cyclicOperationInput = new ForwardingConstructConfigurationInput(FC_CYCLIC_OPERATION_CAUSES_OPERATION_KEY_UPDATES, operationClientUuid);
+  const linkUpdateNotificationInput = new ForwardingConstructConfigurationInput(FC_LINK_UPDATE_NOTIFICATION_CAUSES_OPERATION_KEY_UPDATES, operationClientUuid);
+  const forwardingConfigurationInputList = [cyclicOperationInput, linkUpdateNotificationInput];
   const forwardingConstructConfigurationStatus = await forwardingConfigurationService.unConfigureForwardingConstructAsync(operationServerName, forwardingConfigurationInputList);
 
   let applicationLayerTopologyForwardingInputList = await prepareALTForwardingAutomation.getALTUnConfigureForwardingAutomationInputAsync(
@@ -210,8 +213,9 @@ exports.regardApplication = async function (body, user, originator, xCorrelator,
   const logicalTerminationPointConfigurationStatus = await logicalTerminationPointService.createOrUpdateApplicationInformationAsync(logicalTerminatinPointConfigurationInput);
 
   const operationClientUuid = logicalTerminationPointConfigurationStatus.operationClientConfigurationStatusList[0].uuid;
-  const forwardingConfigurationInput = new ForwardingConstructConfigurationInput(FC_CYCLIC_OPERATION_CAUSES_OPERATION_KEY_UPDATES, operationClientUuid);
-  const forwardingConfigurationInputList = [forwardingConfigurationInput];
+  const cyclicOperationInput = new ForwardingConstructConfigurationInput(FC_CYCLIC_OPERATION_CAUSES_OPERATION_KEY_UPDATES, operationClientUuid);
+  const linkUpdateNotificationInput = new ForwardingConstructConfigurationInput(FC_LINK_UPDATE_NOTIFICATION_CAUSES_OPERATION_KEY_UPDATES, operationClientUuid);
+  const forwardingConfigurationInputList = [cyclicOperationInput, linkUpdateNotificationInput];
   const forwardingConstructConfigurationStatus = await forwardingConfigurationService.configureForwardingConstructAsync(operationServerName, forwardingConfigurationInputList);
 
   let applicationLayerTopologyForwardingInputList = await prepareALTForwardingAutomation.getALTForwardingAutomationInputAsync(
@@ -245,7 +249,7 @@ exports.regardUpdatedLink = async function (body, user, originator, xCorrelator,
   // get data from request body
   const linkUuid = body['link-uuid'];
 
-  const updateKeyOperationLtpUuidList = await onfModelUtils.getFcPortOutputDirectionLogicalTerminationPointListForTheUuid(FC_CYCLIC_OPERATION_CAUSES_OPERATION_KEY_UPDATES_UUID);
+  const updateKeyOperationLtpUuidList = await onfModelUtils.getFcPortOutputDirectionLogicalTerminationPointListForTheUuid(FC_LINK_UPDATE_NOTIFICATION_CAUSES_OPERATION_KEY_UPDATES_UUID);
   const httpClient = new HttpClient(user, xCorrelator, traceIndicator, customerJourney);
   await updateOperationKeyForLink(linkUuid, updateKeyOperationLtpUuidList, httpClient);
 }
