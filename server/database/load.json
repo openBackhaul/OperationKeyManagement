@@ -11,7 +11,7 @@
               "string-name": "operationMode"
             },
             "string-profile-configuration": {
-              "string-value": "string-profile-1-0:STRING_VALUE_TYPE_SANITATION"
+              "string-value": "string-profile-1-0:STRING_VALUE_TYPE_PROTECTION"
             }
           }
         }

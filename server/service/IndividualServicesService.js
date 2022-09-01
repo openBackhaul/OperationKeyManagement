@@ -16,6 +16,8 @@ const httpServerInterface = require('onf-core-model-ap/applicationPattern/onfMod
 const operationServerInterface = require('onf-core-model-ap/applicationPattern/onfModel/models/layerProtocols/OperationServerInterface');
 const prepareForwardingAutomation = require('./individualServices/PrepareForwardingAutomation');
 const softwareUpgrade = require('./individualServices/SoftwareUpgrade');
+const profileConstants = require('../utils/profileConstants');
+const stringProfileService = require('./StringProfileService');
 const HttpClient = require('../utils/HttpClient');
 const crypto = require('crypto');
 
@@ -25,6 +27,7 @@ const onfModelUtils = require("../utils/OnfModelUtils");
 
 const FC_CYCLIC_OPERATION_CAUSES_OPERATION_KEY_UPDATES = 'CyclicOperationCausesOperationKeyUpdates';
 const FC_LINK_UPDATE_NOTIFICATION_CAUSES_OPERATION_KEY_UPDATES = 'LinkUpdateNotificationCausesOperationKeyUpdates';
+const DEFAULT_OPERATION_KEY = 'Operation key not yet provided.';
 
 /**
  * Initiates process of embedding a new release
@@ -249,7 +252,8 @@ exports.regardUpdatedLink = async function (body, user, originator, xCorrelator,
 
   const updateKeyOperationLtpUuidList = await onfModelUtils.getFcPortOutputDirectionLogicalTerminationPointListForForwardingName(FC_LINK_UPDATE_NOTIFICATION_CAUSES_OPERATION_KEY_UPDATES);
   const httpClient = new HttpClient(user, xCorrelator, traceIndicator, customerJourney);
-  await updateOperationKeyForLink(linkUuid, updateKeyOperationLtpUuidList, httpClient);
+  updateOperationKeyForLink(linkUuid, updateKeyOperationLtpUuidList, httpClient)
+    .catch((error) => console.log(`regardUpdatedLink - failed update key for link ${linkUuid} with error: ${error.message}`));
 }
 
 
@@ -284,13 +288,26 @@ exports.startApplicationInGenericRepresentation = async function (user, originat
   };
 }
 
-exports.scheduleKeyRotation = function scheduleKeyRotation(intervalInMinutes) {
-  console.log(`Scheduling update operation key every ${intervalInMinutes} minutes.`);
-  return setInterval(reccurentUpdateKeys, intervalInMinutes * 60000);
+exports.scheduleKeyRotation = async function scheduleKeyRotation() {
+  const operationModeValue = await stringProfileService.getOperationModeProfileStringValue();
+  if (operationModeValue === profileConstants.OPERATION_MODE_REACTIVE) {
+    console.log(`Reccurent update of operation keys is disabled, "operationMode" is "${profileConstants.OPERATION_MODE_REACTIVE}".`);
+    return;
+  }
+  
+  const intervalInMinutes = 5; // TODO make it configurable via profile
+  setTimeout(reccurentUpdateKeys, intervalInMinutes * 60000);
+  console.log(`Update operation keys has been scheduled in ${intervalInMinutes} minutes.`);
 }
 
 async function reccurentUpdateKeys() {
   try {
+    const operationModeValue = await stringProfileService.getOperationModeProfileStringValue();
+    if (operationModeValue === profileConstants.OPERATION_MODE_REACTIVE) {
+      // recurrentUpdateKeys has been scheduled but meanwhile operationMode changed and OKM should not update keys
+      return;
+    }
+
     const updateKeyOperationLtpUuidList = await onfModelUtils.getFcPortOutputDirectionLogicalTerminationPointListForForwardingName(FC_CYCLIC_OPERATION_CAUSES_OPERATION_KEY_UPDATES);
     const httpClient = new HttpClient();
     const linkUuidList = await fetchLinkUuidListFromAlt(httpClient);
@@ -303,6 +320,8 @@ async function reccurentUpdateKeys() {
       error = new Error('unknown error');
     }
     console.log(`reccurentUpdateKeys - failed with error: ${error.message}`);
+  } finally {
+    exports.scheduleKeyRotation();
   }
 }
 
@@ -316,8 +335,9 @@ async function fetchLinkUuidListFromAlt(httpClient) {
 }
 
 async function updateOperationKeyForLink(linkUuid, updateKeyOperationLtpUuidList, httpClient) {
-  const linkEndpointList = await fetchLinkEndpointListFromAlt(linkUuid, httpClient)
-  const operationKey = generateOperationKey();
+  const linkEndpointList = await fetchLinkEndpointListFromAlt(linkUuid, httpClient);
+  const operationModeValue = await stringProfileService.getOperationModeProfileStringValue();
+  const operationKey = operationModeValue === profileConstants.OPERATION_MODE_OFF ? DEFAULT_OPERATION_KEY : generateOperationKey();
   for (const linkEndpoint of linkEndpointList) {
     const epAppName = linkEndpoint['application-name'];
     const epAppReleaseNumber = linkEndpoint['application-release-number'];
