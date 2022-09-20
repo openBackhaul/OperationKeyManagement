@@ -23,9 +23,7 @@ const ltpClientConstants = require('../utils/ltpClientConstants');
 const ltpServerConstants = require('../utils/ltpServerConstants');
 const onfModelUtils = require("../utils/OnfModelUtils");
 
-const FC_CYCLIC_OPERATION_CAUSES_OPERATION_KEY_UPDATES_UUID = 'okm-0-0-1-op-fc-3001';
 const FC_CYCLIC_OPERATION_CAUSES_OPERATION_KEY_UPDATES = 'CyclicOperationCausesOperationKeyUpdates';
-const FC_LINK_UPDATE_NOTIFICATION_CAUSES_OPERATION_KEY_UPDATES_UUID = 'okm-0-0-1-op-fc-3000';
 const FC_LINK_UPDATE_NOTIFICATION_CAUSES_OPERATION_KEY_UPDATES = 'LinkUpdateNotificationCausesOperationKeyUpdates';
 
 /**
@@ -161,7 +159,7 @@ exports.disregardApplication = async function (body, user, originator, xCorrelat
  * returns List
  **/
 exports.listApplications = async function (user, originator, xCorrelator, traceIndicator, customerJourney) {
-  const clientOperationLtpUuidList = await onfModelUtils.getFcPortOutputDirectionLogicalTerminationPointListForTheUuid(FC_CYCLIC_OPERATION_CAUSES_OPERATION_KEY_UPDATES_UUID);
+  const clientOperationLtpUuidList = await onfModelUtils.getFcPortOutputDirectionLogicalTerminationPointListForForwardingName(FC_CYCLIC_OPERATION_CAUSES_OPERATION_KEY_UPDATES);
   const resultList = [];
   for (const clientOperationLtpUuid of clientOperationLtpUuidList) {
     const httpLtpUuidList = await LogicalTerminationPoint.getServerLtpListAsync(clientOperationLtpUuid);
@@ -249,7 +247,7 @@ exports.regardUpdatedLink = async function (body, user, originator, xCorrelator,
   // get data from request body
   const linkUuid = body['link-uuid'];
 
-  const updateKeyOperationLtpUuidList = await onfModelUtils.getFcPortOutputDirectionLogicalTerminationPointListForTheUuid(FC_LINK_UPDATE_NOTIFICATION_CAUSES_OPERATION_KEY_UPDATES_UUID);
+  const updateKeyOperationLtpUuidList = await onfModelUtils.getFcPortOutputDirectionLogicalTerminationPointListForForwardingName(FC_LINK_UPDATE_NOTIFICATION_CAUSES_OPERATION_KEY_UPDATES);
   const httpClient = new HttpClient(user, xCorrelator, traceIndicator, customerJourney);
   await updateOperationKeyForLink(linkUuid, updateKeyOperationLtpUuidList, httpClient);
 }
@@ -293,7 +291,7 @@ exports.scheduleKeyRotation = function scheduleKeyRotation(intervalInMinutes) {
 
 async function reccurentUpdateKeys() {
   try {
-    const updateKeyOperationLtpUuidList = await onfModelUtils.getFcPortOutputDirectionLogicalTerminationPointListForTheUuid(FC_CYCLIC_OPERATION_CAUSES_OPERATION_KEY_UPDATES_UUID);
+    const updateKeyOperationLtpUuidList = await onfModelUtils.getFcPortOutputDirectionLogicalTerminationPointListForForwardingName(FC_CYCLIC_OPERATION_CAUSES_OPERATION_KEY_UPDATES);
     const httpClient = new HttpClient();
     const linkUuidList = await fetchLinkUuidListFromAlt(httpClient);
     for (const linkUuid of linkUuidList) {

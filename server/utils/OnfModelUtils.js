@@ -5,9 +5,13 @@ const onfAttributes = require('onf-core-model-ap/applicationPattern/onfModel/con
 const ForwardingDomain = require("onf-core-model-ap/applicationPattern/onfModel/models/ForwardingDomain");
 const FcPort = require("onf-core-model-ap/applicationPattern/onfModel/models/FcPort");
 
-exports.getFcPortOutputDirectionLogicalTerminationPointListForTheUuid = async function getFcPortOutputDirectionLogicalTerminationPointListForTheUuid(forwardingConstructUuid) {
+exports.getFcPortOutputDirectionLogicalTerminationPointListForForwardingName = async function getFcPortOutputDirectionLogicalTerminationPointListForForwardingName(forwardingName) {
   let fcPortOutputDirectionLogicalTerminationPointList = [];
-  const forwardingConstruct = await findForwardingConstructByUuid(forwardingConstructUuid);
+  const forwardingConstruct = await ForwardingDomain.getForwardingConstructForTheForwardingNameAsync(forwardingName);
+  if (forwardingConstruct === undefined) {
+    return fcPortOutputDirectionLogicalTerminationPointList;
+  }
+
   const fcPortList = forwardingConstruct[onfAttributes.FORWARDING_CONSTRUCT.FC_PORT];
   for (const fcPort of fcPortList) {
     const portDirection = fcPort[onfAttributes.FC_PORT.PORT_DIRECTION];
@@ -16,15 +20,4 @@ exports.getFcPortOutputDirectionLogicalTerminationPointListForTheUuid = async fu
     }
   }
   return fcPortOutputDirectionLogicalTerminationPointList;
-}
-
-async function findForwardingConstructByUuid(forwardingConstructUuid) {
-  let forwardingConstructList = await ForwardingDomain.getForwardingConstructListAsync();
-  for (let i = 0; i < forwardingConstructList.length; i++) {
-    let forwardingConstruct = forwardingConstructList[i];
-    if (forwardingConstruct.uuid === forwardingConstructUuid) {
-      return forwardingConstruct;
-    }
-  }
-  return undefined;
 }
