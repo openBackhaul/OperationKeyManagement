@@ -6973,7 +6973,7 @@ paths:
                 properties:
                   string-profile-1-0:string-value:
                     type: string
-                    example: 'string-profile-1-0:STRING_VALUE_TYPE_SANITATION'
+                    example: 'string-profile-1-0:STRING_VALUE_TYPE_OFF'
         '400':
           $ref: '#/components/responses/responseForErroredOamRequests'
         '401':
@@ -7006,10 +7006,13 @@ paths:
                   type: string
                   enum:
                     - 'string-profile-1-0:STRING_VALUE_TYPE_REACTIVE'
-                    - 'string-profile-1-0:STRING_VALUE_TYPE_SANITATION'
                     - 'string-profile-1-0:STRING_VALUE_TYPE_PROTECTION'
                     - 'string-profile-1-0:STRING_VALUE_TYPE_OFF'
-                  example: 'string-profile-1-0:STRING_VALUE_TYPE_SANITATION'
+                  description: > 
+                    'reactive: A new value gets written into the operationKey attributes at server and connected clients, whenever a link update got notified (/v1/regard-updated-link).
+                    protection: A new value gets written into the operationKey attributes at server and connected clients, whenever a link update got notified (/v1/regard-updated-link) and this value gets periodically changed afterwards.
+                    off: The default value gets written into the operationKey attributes at server and connected clients, whenever a link update got notified (/v1/regard-updated-link) and periodically again afterwards.'
+                  example: 'string-profile-1-0:STRING_VALUE_TYPE_OFF'
       responses:
         '204':
           description: 'String configured'
