@@ -59,7 +59,6 @@ servers:
     uuid: okm-1-0-0-tcp-s-0000
 
 
-
 clients:
 
   - http-client:
@@ -118,17 +117,17 @@ clients:
           - service-name: /v1/relay-operation-update
             uuid: okm-1-0-0-op-c-0023
         individual:
+          - service-name: /v1/notify-approvals
+            uuid: okm-1-0-0-op-c-im-ro-1-0-0-000
+          - service-name: /v1/notify-withdrawn-approvals
+            uuid: okm-1-0-0-op-c-im-ro-1-0-0-001
+          - service-name: /v1/end-subscription
+            uuid: okm-1-0-0-op-c-im-ro-1-0-0-002
       service:
         basic:
-          - service-name: /v1/update-operation-key
-            uuid: okm-1-0-0-op-c-2020
         individual:
-          - service-name: /v1/notify-approvals
-            uuid: okm-1-0-0-op-c-3020
-          - service-name: /v1/notify-withdrawn-approvals
-            uuid: okm-1-0-0-op-c-3021
-          - service-name: /v1/end-subscription
-            uuid: okm-1-0-0-op-c-3022
+          - service-name: /v1/update-operation-key
+            uuid: okm-1-0-0-op-c-is-ro-1-0-0-000
 
   - http-client:
       application-name: TypeApprovalRegister
@@ -144,9 +143,9 @@ clients:
         individual:
       service:
         basic:
-          - service-name: /v1/update-operation-key
-            uuid: okm-1-0-0-op-c-2030
         individual:
+          - service-name: /v1/update-operation-key
+            uuid: okm-1-0-0-op-c-is-tar-1-0-0-000
 
   - http-client:
       application-name: ExecutionAndTraceLog
@@ -159,14 +158,14 @@ clients:
     operation-clients:
       own-oam:
         basic:
-          - service-name: /v1/record-service-request
-            uuid: okm-1-0-0-op-c-0040
         individual:
       service:
         basic:
-          - service-name: /v1/update-operation-key
-            uuid: okm-1-0-0-op-c-2040
+          - service-name: /v1/record-service-request
+            uuid: okm-1-0-0-op-c-bs-eatl-1-0-0-000
         individual:
+          - service-name: /v1/update-operation-key
+            uuid: okm-1-0-0-op-c-is-eatl-1-0-0-000
 
   - http-client:
       application-name: OamLog
@@ -179,14 +178,14 @@ clients:
     operation-clients:
       own-oam:
         basic:
-          - service-name: /v1/record-oam-request
-            uuid: okm-1-0-0-op-c-0050
         individual:
       service:
         basic:
-          - service-name: /v1/update-operation-key
-            uuid: okm-1-0-0-op-c-2050
+          - service-name: /v1/record-oam-request
+            uuid: okm-1-0-0-op-c-bs-ol-1-0-0-000
         individual:
+          - service-name: /v1/update-operation-key
+            uuid: okm-1-0-0-op-c-is-ol-1-0-0-000
 
   - http-client:
       application-name: AdministratorAdministration
@@ -199,14 +198,14 @@ clients:
     operation-clients:
       own-oam:
         basic:
-          - service-name: /v1/approve-oam-request
-            uuid: okm-1-0-0-op-c-0060
         individual:
       service:
         basic:
-          - service-name: /v1/update-operation-key
-            uuid: okm-1-0-0-op-c-2060
+          - service-name: /v1/approve-oam-request
+            uuid: okm-1-0-0-op-c-bs-aa-1-0-0-000
         individual:
+          - service-name: /v1/update-operation-key
+            uuid: okm-1-0-0-op-c-is-aa-1-0-0-000
 
   - http-client:
       application-name: ApplicationLayerTopology
@@ -232,21 +231,21 @@ clients:
           - service-name: /v1/delete-fc-port
             uuid: okm-1-0-0-op-c-0075
         individual:
+          - service-name: /v1/notify-link-updates
+            uuid: okm-1-0-0-op-c-im-alt-1-0-0-000
+          - service-name: /v1/end-subscription
+            uuid: okm-1-0-0-op-c-im-alt-1-0-0-001
       service:
         basic:
-          - service-name: /v1/update-operation-key
-            uuid: okm-1-0-0-op-c-2070
         individual:
-          - service-name: /v1/notify-link-updates
-            uuid: okm-1-0-0-op-c-3070
-          - service-name: /v1/end-subscription
-            uuid: okm-1-0-0-op-c-3071
+          - service-name: /v1/update-operation-key
+            uuid: okm-1-0-0-op-c-is-alt-1-0-0-000
           - service-name: /v1/list-link-uuids
-            uuid: okm-1-0-0-op-c-3072
+            uuid: okm-1-0-0-op-c-is-alt-1-0-0-002
           - service-name: /v1/list-end-points-of-link
-            uuid: okm-1-0-0-op-c-3073
+            uuid: okm-1-0-0-op-c-is-alt-1-0-0-003
           - service-name: /v1/provide-current-operation-key
-            uuid: okm-1-0-0-op-c-3074
+            uuid: okm-1-0-0-op-c-is-alt-1-0-0-004
 
   - http-client:
       application-name: OperationKeyManagement
@@ -262,9 +261,9 @@ clients:
         individual:
       service:
         basic:
-          - service-name: /v1/update-operation-key
-            uuid: okm-1-0-0-op-c-2080
         individual:
+          - service-name: /v1/update-operation-key
+            uuid: okm-1-0-0-op-c-is-okm-1-0-0-000
 
   - http-client:
       application-name: CurrentController
@@ -280,6 +279,6 @@ clients:
         individual:
       service:
         basic:
-          - service-name: /v1/update-operation-key
-            uuid: okm-1-0-0-op-c-2080
         individual:
+          - service-name: /v1/update-operation-key
+            uuid: okm-1-0-0-op-c-is-cc-1-0-0-000

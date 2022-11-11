@@ -106,6 +106,7 @@ forwardings:
       fc-port-deletion:
       operation-client-deletion:
     initiating-requests:
+      # [all oam requests]
     consequent-requests:
       - client-name: OamLog://v1/record-oam-request
         uuid: okm-1-0-0-op-c-bs-ol-1-0-0-000
@@ -123,6 +124,7 @@ forwardings:
       fc-port-deletion:
       operation-client-deletion:
     initiating-requests:
+      # [all oam requests]
     consequent-requests:
       - client-name: AdministratorAdministration://v1/approve-oam-request
         uuid: okm-1-0-0-op-c-bs-aa-1-0-0-000
@@ -155,7 +157,7 @@ forwardings:
         uuid: okm-1-0-0-op-s-im-000
     consequent-requests:
       - client-name: RegistryOffice:://v1/notify-approvals
-        uuid: okm-1-0-0-op-c-is-ro-1-0-0-000
+        uuid: okm-1-0-0-op-c-im-ro-1-0-0-000
 
   - forwarding-name: PromptForBequeathingDataCausesRObeingRequestedToNotifyWithdrawnApprovalsToNewRelease
     uuid: okm-1-0-0-op-fc-im-112
@@ -170,7 +172,7 @@ forwardings:
         uuid: okm-1-0-0-op-s-im-000
     consequent-requests:
       - client-name: RegistryOffice:://v1/notify-withdrawn-approvals
-        uuid: okm-1-0-0-op-c-is-ro-1-0-0-001
+        uuid: okm-1-0-0-op-c-im-ro-1-0-0-001
 
   - forwarding-name: PromptForBequeathingDataCausesALTbeingRequestedToNotifyLinkUpdatesToNewRelease
     uuid: okm-1-0-0-op-fc-im-113
@@ -185,7 +187,7 @@ forwardings:
         uuid: okm-1-0-0-op-s-im-000
     consequent-requests:
       - client-name: ApplicationLayerTopology:://v1/notify-link-updates
-        uuid: okm-1-0-0-op-c-is-alt-1-0-0-000
+        uuid: okm-1-0-0-op-c-im-alt-1-0-0-000
 
   - forwarding-name: PromptForBequeathingDataCausesRObeingRequestedToStopNotificationsToOldRelease
     uuid: okm-1-0-0-op-fc-im-114
@@ -514,21 +516,21 @@ forwardings:
       - client-name: ApplicationLayerTopology:://v1/list-end-points-of-link
         uuid: okm-1-0-0-op-c-is-alt-1-0-0-003
       - client-name: RegistryOffice:://v1/update-operation-key
-        uuid: okm-1-0-0-op-c-bs-ro-1-0-0-000
+        uuid: okm-1-0-0-op-c-is-ro-1-0-0-000
       - client-name: TypeApprovalRegister:://v1/update-operation-key
-        uuid: okm-1-0-0-op-c-bs-tar-1-0-0-000
+        uuid: okm-1-0-0-op-c-is-tar-1-0-0-000
       - client-name: ExecutionAndTraceLog:://v1/update-operation-key
-        uuid: okm-1-0-0-op-c-bs-eatl-1-0-0-000
+        uuid: okm-1-0-0-op-c-is-eatl-1-0-0-000
       - client-name: OamLog:://v1/update-operation-key
-        uuid: okm-1-0-0-op-c-bs-ol-1-0-0-000
+        uuid: okm-1-0-0-op-c-is-ol-1-0-0-000
       - client-name: AdministratorAdministration:://v1/update-operation-key
-        uuid: okm-1-0-0-op-c-bs-aa-1-0-0-000
+        uuid: okm-1-0-0-op-c-is-aa-1-0-0-000
       - client-name: ApplicationLayerTopology:://v1/update-operation-key
-        uuid: okm-1-0-0-op-c-bs-alt-1-0-0-000
+        uuid: okm-1-0-0-op-c-is-alt-1-0-0-000
       - client-name: OperationKeyManagement:://v1/update-operation-key
-        uuid: okm-1-0-0-op-c-bs-okm-1-0-0-000
+        uuid: okm-1-0-0-op-c-is-okm-1-0-0-000
       - client-name: CurrentController:://v1/update-operation-key
-        uuid: okm-1-0-0-op-c-bs-cc-1-0-0-000
+        uuid: okm-1-0-0-op-c-is-cc-1-0-0-000
 
   - forwarding-name: CyclicOperationCausesOperationKeyUpdates
     uuid: okm-1-0-0-op-fc-is-001
@@ -553,18 +555,18 @@ forwardings:
       - client-name: ApplicationLayerTopology:://v1/list-end-points-of-link
         uuid: okm-1-0-0-op-c-is-alt-1-0-0-003
       - client-name: RegistryOffice:://v1/update-operation-key
-        uuid: okm-1-0-0-op-c-bs-ro-1-0-0-000
+        uuid: okm-1-0-0-op-c-is-ro-1-0-0-000
       - client-name: TypeApprovalRegister:://v1/update-operation-key
-        uuid: okm-1-0-0-op-c-bs-tar-1-0-0-000
+        uuid: okm-1-0-0-op-c-is-tar-1-0-0-000
       - client-name: ExecutionAndTraceLog:://v1/update-operation-key
-        uuid: okm-1-0-0-op-c-bs-eatl-1-0-0-000
+        uuid: okm-1-0-0-op-c-is-eatl-1-0-0-000
       - client-name: OamLog:://v1/update-operation-key
-        uuid: okm-1-0-0-op-c-bs-ol-1-0-0-000
+        uuid: okm-1-0-0-op-c-is-ol-1-0-0-000
       - client-name: AdministratorAdministration:://v1/update-operation-key
-        uuid: okm-1-0-0-op-c-bs-aa-1-0-0-000
+        uuid: okm-1-0-0-op-c-is-aa-1-0-0-000
       - client-name: ApplicationLayerTopology:://v1/update-operation-key
-        uuid: okm-1-0-0-op-c-bs-alt-1-0-0-000
+        uuid: okm-1-0-0-op-c-is-alt-1-0-0-000
       - client-name: OperationKeyManagement:://v1/update-operation-key
-        uuid: okm-1-0-0-op-c-bs-okm-1-0-0-000
+        uuid: okm-1-0-0-op-c-is-okm-1-0-0-000
       - client-name: CurrentController:://v1/update-operation-key
-        uuid: okm-1-0-0-op-c-bs-cc-1-0-0-000
+        uuid: okm-1-0-0-op-c-is-cc-1-0-0-000
