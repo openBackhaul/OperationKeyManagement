@@ -245,10 +245,6 @@ clients:
           - service-name: /v1/list-end-points-of-link
             uuid: okm-1-0-0-op-c-is-alt-1-0-0-003
 
-
-          - service-name: /v1/provide-current-operation-key
-            uuid: okm-1-0-0-op-c-is-alt-1-0-0-004
-
   - http-client:
       application-name: OperationKeyManagement
       release-number: 1.0.0
