@@ -1,0 +1,25 @@
+FROM node:16-alpine
+
+# set nodejs to production mode
+ENV NODE_ENV production
+
+# use non-root user
+USER node
+
+# Change to directory owned by node user
+WORKDIR /home/node
+
+# Install app dependencies
+# A wildcard is used to ensure both package.json AND package-lock.json are copied
+COPY package*.json ./
+
+# If you are building your code for dev
+# RUN npm install
+# If you are building your code for production
+RUN npm ci --only=production
+
+# Bundle app source
+COPY --chown=node:node . .
+
+EXPOSE 8080
+CMD [ "node", "index.js" ]
