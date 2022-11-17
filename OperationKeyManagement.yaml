@@ -41,26 +41,26 @@ paths:
                   type: string
                   description: >
                     'Name of application that shall be target of the handover process
-                    find or create [/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-http-c-0010/layer-protocol=0/http-client-interface-1-0:http-client-interface-pac/http-client-interface-capability/application-name]'
+                    find or create [/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-http-c-im-nr-1-0-0-000/layer-protocol=0/http-client-interface-1-0:http-client-interface-pac/http-client-interface-capability/application-name]'
                 new-application-release:
                   type: string
                   pattern: '^([0-9]+)\.([0-9]+)\.([0-9]+)(?:-([0-9A-Za-z-]+(?:\.[0-9A-Za-z-]+)*))?(?:\+[0-9A-Za-z-]+)?$'
                   description: >
                     'Release of application that shall be target of the handover process
-                    find or update [/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-http-c-0010/layer-protocol=0/http-client-interface-1-0:http-client-interface-pac/http-client-interface-configuration/release-number]'
+                    find or update [/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-http-c-im-nr-1-0-0-000/layer-protocol=0/http-client-interface-1-0:http-client-interface-pac/http-client-interface-configuration/release-number]'
                 new-application-address:
                   type: string
                   pattern: '^((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$'
                   description: >
                     'IP address of application that shall be target of the handover process
-                    update or create [/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-tcp-c-0010/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-address/ip-address/ipv-4-address]'
+                    update or create [/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-tcp-c-im-nr-1-0-0-000/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-address/ip-address/ipv-4-address]'
                 new-application-port:
                   type: integer
                   minimum: 0
                   maximum: 65535
                   description: >
                     'Port of application that shall be target of the handover process
-                    update or create [/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-tcp-c-0010/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-port]'
+                    update or create [/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-tcp-c-im-nr-1-0-0-000/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-port]'
               example:
                 new-application-name: 'NewApplicationName'
                 new-application-release: '1.0.0'
@@ -98,7 +98,7 @@ paths:
                 example: 'EXPERIMENTAL'
               description: >
                   'Life cycle state of the consumed service
-                  find in [/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-op-s-1000/layer-protocol=0/operation-server-interface-1-0:operation-server-interface-pac/operation-server-interface-configuration/life-cycle-state]'
+                  find in [/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-op-s-im-000/layer-protocol=0/operation-server-interface-1-0:operation-server-interface-pac/operation-server-interface-configuration/life-cycle-state]'
         '400':
           $ref: '#/components/responses/responseForErroredServiceRequests'
         '401':
@@ -113,7 +113,7 @@ paths:
           $ref: '#/components/responses/responseForErroredServiceRequests'
       callbacks:
         PromptForBequeathingDataCausesTransferOfListOfApplications:
-          https://[/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-tcp-c-0010/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-address/ip-address/ipv-4-address]:[/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-tcp-c-0010/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-port][/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-op-c-1010/layer-protocol=0/operation-client-interface-1-0:operation-client-interface-pac/operation-client-interface-configuration/operation-name]:
+          https://[/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-tcp-c-im-nr-1-0-0-000/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-address/ip-address/ipv-4-address]:[/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-tcp-c-im-nr-1-0-0-000/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-port][/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-op-c-im-nr-1-0-0-000/layer-protocol=0/operation-client-interface-1-0:operation-client-interface-pac/operation-client-interface-configuration/operation-name]:
             parameters:
               - $ref: '#/components/parameters/user'
               - $ref: '#/components/parameters/originator'
@@ -202,7 +202,7 @@ paths:
                 default:
                   $ref: '#/components/responses/responseForErroredServiceRequests'
         PromptForBequeathingDataCausesRObeingRequestedToNotifyApprovalsOfNewApplicationsToNewRelease:
-          https://[/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-tcp-c-0020/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-address/ip-address/ipv-4-address]:[/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-tcp-c-0020/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-port][/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-op-c-im-ro-1-0-0-000/layer-protocol=0/operation-client-interface-1-0:operation-client-interface-pac/operation-client-interface-configuration/operation-name]:
+          https://[/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-tcp-c-bm-ro-1-0-0-000/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-address/ip-address/ipv-4-address]:[/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-tcp-c-bm-ro-1-0-0-000/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-port][/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-op-c-im-ro-1-0-0-000/layer-protocol=0/operation-client-interface-1-0:operation-client-interface-pac/operation-client-interface-configuration/operation-name]:
             parameters:
               - $ref: '#/components/parameters/user'
               - $ref: '#/components/parameters/originator'
@@ -227,27 +227,27 @@ paths:
                           type: string
                           description: >
                             'Own application name
-                            from [/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-http-s-0000/layer-protocol=0/http-server-interface-1-0:http-server-interface-pac/http-server-interface-capability/application-name]'
+                            from [/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-http-s-bm-000/layer-protocol=0/http-server-interface-1-0:http-server-interface-pac/http-server-interface-capability/application-name]'
                         subscriber-release-number:
                           type: string
                           description: >
                             'Future release number
-                            from [/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-http-c-0010/layer-protocol=0/http-client-interface-1-0:http-client-interface-pac/http-client-interface-configuration/release-number]'
+                            from [/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-http-c-im-nr-1-0-0-000/layer-protocol=0/http-client-interface-1-0:http-client-interface-pac/http-client-interface-configuration/release-number]'
                         subscriber-operation:
                           type: string
                           description: >
                             'Names of the operation that shall be addressed by notifications about new approvals
-                            from [/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-op-s-3001/layer-protocol=0/operation-client-interface-1-0:operation-client-interface-pac/operation-client-interface-configuration/operation-name]'
+                            from [/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-op-s-is-001/layer-protocol=0/operation-client-interface-1-0:operation-client-interface-pac/operation-client-interface-configuration/operation-name]'
                         subscriber-address:
                           type: string
                           description: >
                             'Future IP address
-                            from [/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-tcp-c-0010/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-address/ip-address/ipv-4-address]'
+                            from [/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-tcp-c-im-nr-1-0-0-000/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-address/ip-address/ipv-4-address]'
                         subscriber-port:      
                           type: integer
                           description: >
                             'Future port
-                            from [/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-tcp-c-0010/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-port]'
+                            from [/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-tcp-c-im-nr-1-0-0-000/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-port]'
                       example:
                         subscriber-application: 'OperationKeyManagement'
                         subscriber-release-number: '1.0.0'
@@ -298,7 +298,7 @@ paths:
                 default:
                   $ref: '#/components/responses/responseForErroredServiceRequests'
         PromptForBequeathingDataCausesRObeingRequestedToNotifyWithdrawnApprovalsToNewRelease:
-          https://[/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-tcp-c-0020/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-address/ip-address/ipv-4-address]:[/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-tcp-c-0020/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-port][/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-op-c-im-ro-1-0-0-001/layer-protocol=0/operation-client-interface-1-0:operation-client-interface-pac/operation-client-interface-configuration/operation-name]:
+          https://[/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-tcp-c-bm-ro-1-0-0-000/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-address/ip-address/ipv-4-address]:[/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-tcp-c-bm-ro-1-0-0-000/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-port][/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-op-c-im-ro-1-0-0-001/layer-protocol=0/operation-client-interface-1-0:operation-client-interface-pac/operation-client-interface-configuration/operation-name]:
             parameters:
               - $ref: '#/components/parameters/user'
               - $ref: '#/components/parameters/originator'
@@ -323,27 +323,27 @@ paths:
                           type: string
                           description: >
                             'Own application name
-                            from [/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-http-s-0000/layer-protocol=0/http-server-interface-1-0:http-server-interface-pac/http-server-interface-capability/application-name]'
+                            from [/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-http-s-bm-000/layer-protocol=0/http-server-interface-1-0:http-server-interface-pac/http-server-interface-capability/application-name]'
                         subscriber-release-number:
                           type: string
                           description: >
                             'Future release number
-                            from [/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-http-c-0010/layer-protocol=0/http-client-interface-1-0:http-client-interface-pac/http-client-interface-configuration/release-number]'
+                            from [/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-http-c-im-nr-1-0-0-000/layer-protocol=0/http-client-interface-1-0:http-client-interface-pac/http-client-interface-configuration/release-number]'
                         subscriber-operation:
                           type: string
                           description: >
                             'Names of the operation that shall be addressed by notifications about withdrawn approvals
-                            from [/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-op-s-3002/layer-protocol=0/operation-client-interface-1-0:operation-client-interface-pac/operation-client-interface-configuration/operation-name]'
+                            from [/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-op-s-is-002/layer-protocol=0/operation-client-interface-1-0:operation-client-interface-pac/operation-client-interface-configuration/operation-name]'
                         subscriber-address:
                           type: string
                           description: >
                             'Future IP address
-                            from [/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-tcp-c-0010/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-address/ip-address/ipv-4-address]'
+                            from [/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-tcp-c-im-nr-1-0-0-000/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-address/ip-address/ipv-4-address]'
                         subscriber-port:      
                           type: integer
                           description: >
                             'Future port
-                            from [/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-tcp-c-0010/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-port]'
+                            from [/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-tcp-c-im-nr-1-0-0-000/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-port]'
                       example:
                         subscriber-application: 'OperationKeyManagement'
                         subscriber-release-number: '1.0.0'
@@ -394,7 +394,7 @@ paths:
                 default:
                   $ref: '#/components/responses/responseForErroredServiceRequests'
         PromptForBequeathingDataCausesALTbeingRequestedToNotifyLinkUpdatesToNewRelease:
-          https://[/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-tcp-c-0070/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-address/ip-address/ipv-4-address]:[/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-tcp-c-0070/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-port][/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-op-c-im-alt-1-0-0-000/layer-protocol=0/operation-client-interface-1-0:operation-client-interface-pac/operation-client-interface-configuration/operation-name]:
+          https://[/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-tcp-c-bm-alt-1-0-0-000/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-address/ip-address/ipv-4-address]:[/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-tcp-c-bm-alt-1-0-0-000/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-port][/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-op-c-im-alt-1-0-0-000/layer-protocol=0/operation-client-interface-1-0:operation-client-interface-pac/operation-client-interface-configuration/operation-name]:
             parameters:
               - $ref: '#/components/parameters/user'
               - $ref: '#/components/parameters/originator'
@@ -419,29 +419,29 @@ paths:
                           type: string
                           description: >
                             'Name of application that wants to receive notifications about updates of Links
-                            from [/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-http-s-0000/layer-protocol=0/http-server-interface-1-0:http-server-interface-pac/http-server-interface-capability/application-name]'
+                            from [/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-http-s-bm-000/layer-protocol=0/http-server-interface-1-0:http-server-interface-pac/http-server-interface-capability/application-name]'
                         subscriber-release-number:
                           type: string
                           description: >
                             'Release of application that wants to receive notifications about updates of Links
-                            from [/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-http-c-0010/layer-protocol=0/http-client-interface-1-0:http-client-interface-pac/http-client-interface-configuration/release-number]'
+                            from [/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-http-c-im-nr-1-0-0-000/layer-protocol=0/http-client-interface-1-0:http-client-interface-pac/http-client-interface-configuration/release-number]'
                         subscriber-operation:
                           type: string
                           description: >
                             'Name of the operation that shall be addressed by notifications about updates of Links
-                            from [/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-op-s-3004/layer-protocol=0/operation-client-interface-1-0:operation-client-interface-pac/operation-client-interface-configuration/operation-name]'
+                            from [/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-op-s-is-004/layer-protocol=0/operation-client-interface-1-0:operation-client-interface-pac/operation-client-interface-configuration/operation-name]'
                         subscriber-address:
                           type: string
                           description: >
                             'IP address of application that wants to receive notifications about updates of Links
-                            from [/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-tcp-c-0010/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-address/ip-address/ipv-4-address]'
+                            from [/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-tcp-c-im-nr-1-0-0-000/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-address/ip-address/ipv-4-address]'
                         subscriber-port:      
                           type: integer
                           minimum: 0
                           maximum: 65535
                           description: >
                             'TCP port of application that wants to receive notifications about updates of Links
-                            from [/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-tcp-c-0010/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-port]'
+                            from [/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-tcp-c-im-nr-1-0-0-000/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-port]'
                       example:
                         subscriber-application: 'OperationKeyManagement'
                         subscriber-release-number: '1.0.0'
@@ -492,7 +492,7 @@ paths:
                 default:
                   $ref: '#/components/responses/responseForErroredServiceRequests'
         PromptForBequeathingDataCausesRObeingRequestedToStopNotificationsToOldRelease:
-          https://[/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-tcp-c-0020/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-address/ip-address/ipv-4-address]:[/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-tcp-c-0020/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-port][/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-op-c-im-ro-1-0-0-002/layer-protocol=0/operation-client-interface-1-0:operation-client-interface-pac/operation-client-interface-configuration/operation-name]:
+          https://[/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-tcp-c-bm-ro-1-0-0-000/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-address/ip-address/ipv-4-address]:[/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-tcp-c-bm-ro-1-0-0-000/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-port][/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-op-c-im-ro-1-0-0-002/layer-protocol=0/operation-client-interface-1-0:operation-client-interface-pac/operation-client-interface-configuration/operation-name]:
             parameters:
               - $ref: '#/components/parameters/user'
               - $ref: '#/components/parameters/originator'
@@ -515,12 +515,12 @@ paths:
                           type: string
                           description: >
                             'Own application name
-                            from [/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-http-s-0000/layer-protocol=0/http-server-interface-1-0:http-server-interface-pac/http-server-interface-capability/application-name]'
+                            from [/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-http-s-bm-000/layer-protocol=0/http-server-interface-1-0:http-server-interface-pac/http-server-interface-capability/application-name]'
                         subscriber-release-number:
                           type: string
                           description: >
                             'Old release number
-                            from [/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-http-c-0000/layer-protocol=0/http-client-interface-1-0:http-client-interface-pac/http-client-interface-configuration/release-number]'
+                            from [/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-http-c-bm-or-1-0-0-000/layer-protocol=0/http-client-interface-1-0:http-client-interface-pac/http-client-interface-configuration/release-number]'
                         subscription:
                           type: string
                           description: >
@@ -576,7 +576,7 @@ paths:
                 default:
                   $ref: '#/components/responses/responseForErroredServiceRequests'
         PromptForBequeathingDataCausesALTbeingRequestedToStopNotificationsToOldRelease:
-          https://[/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-tcp-c-0070/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-address/ip-address/ipv-4-address]:[/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-tcp-c-0070/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-port][/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-op-c-im-alt-1-0-0-001/layer-protocol=0/operation-client-interface-1-0:operation-client-interface-pac/operation-client-interface-configuration/operation-name]:
+          https://[/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-tcp-c-bm-alt-1-0-0-000/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-address/ip-address/ipv-4-address]:[/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-tcp-c-bm-alt-1-0-0-000/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-port][/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-op-c-im-alt-1-0-0-001/layer-protocol=0/operation-client-interface-1-0:operation-client-interface-pac/operation-client-interface-configuration/operation-name]:
             parameters:
               - $ref: '#/components/parameters/user'
               - $ref: '#/components/parameters/originator'
@@ -599,12 +599,12 @@ paths:
                           type: string
                           description: >
                             'Own application name
-                            from [/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-http-s-0000/layer-protocol=0/http-server-interface-1-0:http-server-interface-pac/http-server-interface-capability/application-name]'
+                            from [/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-http-s-bm-000/layer-protocol=0/http-server-interface-1-0:http-server-interface-pac/http-server-interface-capability/application-name]'
                         subscriber-release-number:
                           type: string
                           description: >
                             'Old release number
-                            from [/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-http-c-0000/layer-protocol=0/http-client-interface-1-0:http-client-interface-pac/http-client-interface-configuration/release-number]'
+                            from [/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-http-c-bm-or-1-0-0-000/layer-protocol=0/http-client-interface-1-0:http-client-interface-pac/http-client-interface-configuration/release-number]'
                         subscription:
                           type: string
                           description: >
@@ -658,7 +658,7 @@ paths:
                 default:
                   $ref: '#/components/responses/responseForErroredServiceRequests'
         PromptForBequeathingDataCausesRequestForBroadcastingInfoAboutServerReplacement:
-          https://[/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-tcp-c-0020/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-address/ip-address/ipv-4-address]:[/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-tcp-c-0020/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-port][/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-op-c-0021/layer-protocol=0/operation-client-interface-1-0:operation-client-interface-pac/operation-client-interface-configuration/operation-name]:
+          https://[/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-tcp-c-bm-ro-1-0-0-000/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-address/ip-address/ipv-4-address]:[/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-tcp-c-bm-ro-1-0-0-000/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-port][/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-op-c-bm-ro-1-0-0-001/layer-protocol=0/operation-client-interface-1-0:operation-client-interface-pac/operation-client-interface-configuration/operation-name]:
             parameters:
               - $ref: '#/components/parameters/user'
               - $ref: '#/components/parameters/originator'
@@ -683,27 +683,27 @@ paths:
                           type: string
                           description: >
                             'Own application name
-                            from [/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-http-s-0000/layer-protocol=0/http-server-interface-1-0:http-server-interface-pac/http-server-interface-capability/application-name]'
+                            from [/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-http-s-bm-000/layer-protocol=0/http-server-interface-1-0:http-server-interface-pac/http-server-interface-capability/application-name]'
                         old-application-release-number:
                           type: string
                           description: >
                             'Old release number
-                            from [/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-http-c-0000/layer-protocol=0/http-client-interface-1-0:http-client-interface-pac/http-client-interface-configuration/release-number]'
+                            from [/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-http-c-bm-or-1-0-0-000/layer-protocol=0/http-client-interface-1-0:http-client-interface-pac/http-client-interface-configuration/release-number]'
                         new-application-release-number:
                           type: string
                           description: >
                             'Future release number
-                            from [/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-http-c-0010/layer-protocol=0/http-client-interface-1-0:http-client-interface-pac/http-client-interface-configuration/release-number]'
+                            from [/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-http-c-im-nr-1-0-0-000/layer-protocol=0/http-client-interface-1-0:http-client-interface-pac/http-client-interface-configuration/release-number]'
                         new-application-address:
                           type: string
                           description: >
                             'Future IP address
-                            from [/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-tcp-c-0010/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-address/ip-address/ipv-4-address]'
+                            from [/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-tcp-c-im-nr-1-0-0-000/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-address/ip-address/ipv-4-address]'
                         new-application-port:
                           type: integer
                           description: >
                             'Future port
-                            from [/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-tcp-c-0010/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-port]'
+                            from [/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-tcp-c-im-nr-1-0-0-000/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-port]'
                       example:
                         application-name: 'RegistryOffice'
                         old-application-release-number: '1.0.0'
@@ -754,7 +754,7 @@ paths:
                 default:
                   $ref: '#/components/responses/responseForErroredServiceRequests'
         PromptForBequeathingDataCausesRequestForDeregisteringOfOldRelease:
-          https://[/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-tcp-c-0020/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-address/ip-address/ipv-4-address]:[/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-tcp-c-0020/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-port][/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-op-c-0022/layer-protocol=0/operation-client-interface-1-0:operation-client-interface-pac/operation-client-interface-configuration/operation-name]:
+          https://[/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-tcp-c-bm-ro-1-0-0-000/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-address/ip-address/ipv-4-address]:[/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-tcp-c-bm-ro-1-0-0-000/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-port][/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-op-c-bm-ro-1-0-0-002/layer-protocol=0/operation-client-interface-1-0:operation-client-interface-pac/operation-client-interface-configuration/operation-name]:
             parameters:
               - $ref: '#/components/parameters/user'
               - $ref: '#/components/parameters/originator'
@@ -776,12 +776,12 @@ paths:
                           type: string
                           description: >
                             'Own application name
-                            from [/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-http-s-0000/layer-protocol=0/http-server-interface-1-0:http-server-interface-pac/http-server-interface-capability/application-name]'
+                            from [/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-http-s-bm-000/layer-protocol=0/http-server-interface-1-0:http-server-interface-pac/http-server-interface-capability/application-name]'
                         application-release-number:
                           type: string
                           description: >
                             'Own release number
-                            from [/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-http-s-0000/layer-protocol=0/http-server-interface-1-0:http-server-interface-pac/http-server-interface-capability/release-number]'
+                            from [/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-http-s-bm-000/layer-protocol=0/http-server-interface-1-0:http-server-interface-pac/http-server-interface-capability/release-number]'
                       example:
                         application-name: 'BadApplication'
                         application-release-number: '1.0.0'
@@ -829,7 +829,7 @@ paths:
                 default:
                   $ref: '#/components/responses/responseForErroredServiceRequests'
         PromptingNewReleaseForUpdatingServerCausesRequestForBroadcastingInfoAboutBackwardCompatibleUpdateOfOperation:
-          https://[/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-tcp-c-0020/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-address/ip-address/ipv-4-address]:[/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-tcp-c-0020/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-port][/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-op-c-0023/layer-protocol=0/operation-client-interface-1-0:operation-client-interface-pac/operation-client-interface-configuration/operation-name]:
+          https://[/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-tcp-c-bm-ro-1-0-0-000/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-address/ip-address/ipv-4-address]:[/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-tcp-c-bm-ro-1-0-0-000/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-port][/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-op-c-bm-ro-1-0-0-003/layer-protocol=0/operation-client-interface-1-0:operation-client-interface-pac/operation-client-interface-configuration/operation-name]:
             parameters:
               - $ref: '#/components/parameters/user'
               - $ref: '#/components/parameters/originator'
@@ -853,12 +853,12 @@ paths:
                           type: string
                           description: >
                             'Own application name
-                            from [/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-http-s-0000/layer-protocol=0/http-server-interface-1-0:http-server-interface-pac/http-server-interface-capability/application-name]'
+                            from [/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-http-s-bm-000/layer-protocol=0/http-server-interface-1-0:http-server-interface-pac/http-server-interface-capability/application-name]'
                         application-release-number:
                           type: string
                           description: >
                             'Own release number
-                            from [/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-http-s-0000/layer-protocol=0/http-server-interface-1-0:http-server-interface-pac/http-server-interface-capability/release-number]'
+                            from [/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-http-s-bm-000/layer-protocol=0/http-server-interface-1-0:http-server-interface-pac/http-server-interface-capability/release-number]'
                         old-operation-name:
                           type: string
                           description: >
@@ -962,7 +962,7 @@ paths:
                           type: string
                           description: >
                             'Own application name
-                            from [/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-http-s-0000/layer-protocol=0/http-server-interface-1-0:http-server-interface-pac/http-server-interface-capability/application-name]'
+                            from [/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-http-s-bm-000/layer-protocol=0/http-server-interface-1-0:http-server-interface-pac/http-server-interface-capability/application-name]'
                         datatype:
                           type: string
                           enum:
@@ -990,10 +990,10 @@ paths:
                           type: string
                           description: >
                             'https://
-                            [/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-tcp-s-0000/layer-protocol=0/tcp-server-interface-1-0:tcp-server-interface-pac/tcp-server-interface-configuration/local-address/ipv-4-address]
+                            [/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-tcp-s-bm-000/layer-protocol=0/tcp-server-interface-1-0:tcp-server-interface-pac/tcp-server-interface-configuration/local-address/ipv-4-address]
                             :
-                            [/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-tcp-s-0000/layer-protocol=0/tcp-server-interface-1-0:tcp-server-interface-pac/tcp-server-interface-configuration/local-port]
-                            [/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-op-s-2002/layer-protocol=0/operation-server-interface-1-0:operation-server-interface-pac/operation-server-interface-capability/operation-name]'
+                            [/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-tcp-s-bm-000/layer-protocol=0/tcp-server-interface-1-0:tcp-server-interface-pac/tcp-server-interface-configuration/local-port]
+                            [/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-op-s-bs-002/layer-protocol=0/operation-server-interface-1-0:operation-server-interface-pac/operation-server-interface-capability/operation-name]'
                         input-value-list:
                           type: array
                           uniqueItems: true
@@ -1039,7 +1039,7 @@ paths:
                 example: 'EXPERIMENTAL'
               description: >
                   'Life cycle state of the consumed service
-                  find in [/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-op-s-2000/layer-protocol=0/operation-server-interface-1-0:operation-server-interface-pac/operation-server-interface-configuration/life-cycle-state]'
+                  find in [/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-op-s-bs-000/layer-protocol=0/operation-server-interface-1-0:operation-server-interface-pac/operation-server-interface-configuration/life-cycle-state]'
         '400':
           $ref: '#/components/responses/responseForErroredServiceRequests'
         '401':
@@ -1141,7 +1141,7 @@ paths:
                 example: 'EXPERIMENTAL'
               description: >
                   'Life cycle state of the consumed service
-                  find in [/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-op-s-3001/layer-protocol=0/operation-server-interface-1-0:operation-server-interface-pac/operation-server-interface-configuration/life-cycle-state]'
+                  find in [/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-op-s-is-001/layer-protocol=0/operation-server-interface-1-0:operation-server-interface-pac/operation-server-interface-configuration/life-cycle-state]'
         '400':
           $ref: '#/components/responses/responseForErroredServiceRequests'
         '401':
@@ -1156,7 +1156,7 @@ paths:
           $ref: '#/components/responses/responseForErroredServiceRequests'
       callbacks:
         LinkUpdateNotificationCausesOperationKeyUpdates:
-          https://[/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-tcp-c-0070/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-address/ip-address/ipv-4-address]:[/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-tcp-c-0070/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-port][/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-op-c-is-alt-1-0-0-003/layer-protocol=0/operation-client-interface-1-0:operation-client-interface-pac/operation-client-interface-configuration/operation-name]:
+          https://[/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-tcp-c-bm-alt-1-0-0-000/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-address/ip-address/ipv-4-address]:[/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-tcp-c-bm-alt-1-0-0-000/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-port][/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-op-c-is-alt-1-0-0-003/layer-protocol=0/operation-client-interface-1-0:operation-client-interface-pac/operation-client-interface-configuration/operation-name]:
             parameters:
               - $ref: '#/components/parameters/user'
               - $ref: '#/components/parameters/originator'
@@ -1340,7 +1340,7 @@ paths:
                 default:
                   $ref: '#/components/responses/responseForErroredServiceRequests'
         CyclicOperationCausesOperationKeyUpdates:
-          https://[/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-tcp-c-0070/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-address/ip-address/ipv-4-address]:[/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-tcp-c-0070/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-port][/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-op-c-is-alt-1-0-0-002/layer-protocol=0/operation-client-interface-1-0:operation-client-interface-pac/operation-client-interface-configuration/operation-name]:
+          https://[/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-tcp-c-bm-alt-1-0-0-000/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-address/ip-address/ipv-4-address]:[/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-tcp-c-bm-alt-1-0-0-000/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-port][/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-op-c-is-alt-1-0-0-002/layer-protocol=0/operation-client-interface-1-0:operation-client-interface-pac/operation-client-interface-configuration/operation-name]:
             parameters:
               - $ref: '#/components/parameters/user'
               - $ref: '#/components/parameters/originator'
@@ -1407,7 +1407,7 @@ paths:
                   $ref: '#/components/responses/responseForErroredServiceRequests'
                 default:
                   $ref: '#/components/responses/responseForErroredServiceRequests'
-          https://[/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-tcp-c-0070/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-address/ip-address/ipv-4-address]:[/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-tcp-c-0070/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-port][/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-op-c-is-alt-1-0-0-003/layer-protocol=0/operation-client-interface-1-0:operation-client-interface-pac/operation-client-interface-configuration/operation-name]:
+          https://[/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-tcp-c-bm-alt-1-0-0-000/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-address/ip-address/ipv-4-address]:[/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-tcp-c-bm-alt-1-0-0-000/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-port][/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-op-c-is-alt-1-0-0-003/layer-protocol=0/operation-client-interface-1-0:operation-client-interface-pac/operation-client-interface-configuration/operation-name]:
             parameters:
               - $ref: '#/components/parameters/user'
               - $ref: '#/components/parameters/originator'
@@ -1661,7 +1661,7 @@ paths:
                 example: 'EXPERIMENTAL'
               description: >
                   'Life cycle state of the consumed service
-                  find in [/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-op-s-3002/layer-protocol=0/operation-server-interface-1-0:operation-server-interface-pac/operation-server-interface-configuration/life-cycle-state]'
+                  find in [/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-op-s-is-002/layer-protocol=0/operation-server-interface-1-0:operation-server-interface-pac/operation-server-interface-configuration/life-cycle-state]'
         '400':
           $ref: '#/components/responses/responseForErroredServiceRequests'
         '401':
@@ -1754,7 +1754,7 @@ paths:
                 example: 'EXPERIMENTAL'
               description: >
                   'Life cycle state of the consumed service
-                  find in [/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-op-s-3003/layer-protocol=0/operation-server-interface-1-0:operation-server-interface-pac/operation-server-interface-configuration/life-cycle-state]'
+                  find in [/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-op-s-is-003/layer-protocol=0/operation-server-interface-1-0:operation-server-interface-pac/operation-server-interface-configuration/life-cycle-state]'
         '400':
           $ref: '#/components/responses/responseForErroredServiceRequests'
         '401':
@@ -1827,7 +1827,7 @@ paths:
                 example: 'EXPERIMENTAL'
               description: >
                   'Life cycle state of the consumed service
-                  find in [/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-op-s-3004/layer-protocol=0/operation-server-interface-1-0:operation-server-interface-pac/operation-server-interface-configuration/life-cycle-state]'
+                  find in [/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-op-s-is-004/layer-protocol=0/operation-server-interface-1-0:operation-server-interface-pac/operation-server-interface-configuration/life-cycle-state]'
         '400':
           $ref: '#/components/responses/responseForErroredServiceRequests'
         '401':
@@ -1876,31 +1876,31 @@ paths:
                   type: string
                   description: >
                     'If body provided, name of RegistryOffice application
-                    find or create [/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-http-c-0020/layer-protocol=0/http-client-interface-1-0:http-client-interface-pac/http-client-interface-capability/application-name]'
+                    find or create [/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-http-c-bm-ro-1-0-0-000/layer-protocol=0/http-client-interface-1-0:http-client-interface-pac/http-client-interface-capability/application-name]'
                 registry-office-application-release-number:
                   type: string
                   pattern: '^([0-9]+)\.([0-9]+)\.([0-9]+)(?:-([0-9A-Za-z-]+(?:\.[0-9A-Za-z-]+)*))?(?:\+[0-9A-Za-z-]+)?$'
                   description: >
                     'If body provided, release of RegistryOffice application
-                    update or create [/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-http-c-0020/layer-protocol=0/http-client-interface-1-0:http-client-interface-pac/http-client-interface-configuration/release-number]'
+                    update or create [/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-http-c-bm-ro-1-0-0-000/layer-protocol=0/http-client-interface-1-0:http-client-interface-pac/http-client-interface-configuration/release-number]'
                 registration-operation:
                   type: string
                   description: >
                     'If body provided, operation for registering
-                    update or create [/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-op-c-0020/layer-protocol=0/operation-client-interface-1-0:operation-client-interface-pac/operation-client-interface-configuration/operation-name]'
+                    update or create [/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-op-c-bm-ro-1-0-0-000/layer-protocol=0/operation-client-interface-1-0:operation-client-interface-pac/operation-client-interface-configuration/operation-name]'
                 registry-office-address:
                   type: string
                   pattern: '^((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$'
                   description: >
                     'If body provided, IP address of RegistryOffice application
-                    update or create [/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-tcp-c-0020/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-address/ip-address/ipv-4-address]'
+                    update or create [/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-tcp-c-bm-ro-1-0-0-000/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-address/ip-address/ipv-4-address]'
                 registry-office-port:
                   type: integer
                   minimum: 0
                   maximum: 65535
                   description: >
                     'If body provided, port of RegistryOffice application
-                    update or create [/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-tcp-c-0020/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-port]'
+                    update or create [/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-tcp-c-bm-ro-1-0-0-000/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-port]'
               example:
                 registry-office-application: 'RegistryOffice'
                 registry-office-application-release-number: '1.0.0'
@@ -1939,7 +1939,7 @@ paths:
                 example: 'EXPERIMENTAL'
               description: >
                   'Life cycle state of the consumed service
-                  find in [/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-op-s-0000/layer-protocol=0/operation-server-interface-1-0:operation-server-interface-pac/operation-server-interface-configuration/life-cycle-state]'
+                  find in [/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-op-s-bm-000/layer-protocol=0/operation-server-interface-1-0:operation-server-interface-pac/operation-server-interface-configuration/life-cycle-state]'
         '400':
           $ref: '#/components/responses/responseForErroredServiceRequests'
         '401':
@@ -1980,32 +1980,32 @@ paths:
                           type: string
                           description: >
                             'Own application name
-                            from [/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-http-s-0000/layer-protocol=0/http-server-interface-1-0:http-server-interface-pac/http-server-interface-capability/application-name]'
+                            from [/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-http-s-bm-000/layer-protocol=0/http-server-interface-1-0:http-server-interface-pac/http-server-interface-capability/application-name]'
                         application-release-number:
                           type: string
                           description: >
                             'Own release number
-                            from [/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-http-s-0000/layer-protocol=0/http-server-interface-1-0:http-server-interface-pac/http-server-interface-capability/release-number]'
+                            from [/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-http-s-bm-000/layer-protocol=0/http-server-interface-1-0:http-server-interface-pac/http-server-interface-capability/release-number]'
                         embedding-operation:
                           type: string
                           description: >
                             'Name of service for initiating embedding process
-                            from [/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-op-s-0001/layer-protocol=0/operation-server-interface-1-0:operation-server-interface-pac/operation-server-interface-capability/operation-name]'
+                            from [/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-op-s-bm-001/layer-protocol=0/operation-server-interface-1-0:operation-server-interface-pac/operation-server-interface-capability/operation-name]'
                         client-update-operation:
                           type: string
                           description: >
                             'Name of service for broadcasting server changes
-                            from [/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-op-s-0007/layer-protocol=0/operation-server-interface-1-0:operation-server-interface-pac/operation-server-interface-capability/operation-name]'
+                            from [/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-op-s-bm-007/layer-protocol=0/operation-server-interface-1-0:operation-server-interface-pac/operation-server-interface-capability/operation-name]'
                         application-address:
                           type: string
                           description: >
                             'Own IP address
-                            from [/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-tcp-s-0000/layer-protocol=0/tcp-server-interface-1-0:tcp-server-interface-pac/tcp-server-interface-configuration/local-address/ipv-4-address]'
+                            from [/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-tcp-s-bm-000/layer-protocol=0/tcp-server-interface-1-0:tcp-server-interface-pac/tcp-server-interface-configuration/local-address/ipv-4-address]'
                         application-port:
                           type: integer
                           description: >
                             'Own TCP port
-                            from[/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-tcp-s-0000/layer-protocol=0/tcp-server-interface-1-0:tcp-server-interface-pac/tcp-server-interface-configuration/local-port]'
+                            from[/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-tcp-s-bm-000/layer-protocol=0/tcp-server-interface-1-0:tcp-server-interface-pac/tcp-server-interface-configuration/local-port]'
                       example:
                         application-name: 'OwnApplicationName'
                         application-release-number: '1.0.0'
@@ -2089,41 +2089,41 @@ paths:
                   type: string
                   description: >
                     'Name of RegistryOffice application
-                    find or create [/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-http-c-0020/layer-protocol=0/http-client-interface-1-0:http-client-interface-pac/http-client-interface-capability/application-name]'
+                    find or create [/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-http-c-bm-ro-1-0-0-000/layer-protocol=0/http-client-interface-1-0:http-client-interface-pac/http-client-interface-capability/application-name]'
                 registry-office-application-release-number:
                   type: string
                   pattern: '^([0-9]+)\.([0-9]+)\.([0-9]+)(?:-([0-9A-Za-z-]+(?:\.[0-9A-Za-z-]+)*))?(?:\+[0-9A-Za-z-]+)?$'
                   description: >
                     'Release of RegistryOffice application
-                    update or create [/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-http-c-0020/layer-protocol=0/http-client-interface-1-0:http-client-interface-pac/http-client-interface-configuration/release-number]'
+                    update or create [/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-http-c-bm-ro-1-0-0-000/layer-protocol=0/http-client-interface-1-0:http-client-interface-pac/http-client-interface-configuration/release-number]'
                 relay-server-replacement-operation:
                   type: string
                   description: >
                     'Operation for requesting for broadcasting a new server address
-                    update or create [/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-op-c-0021/layer-protocol=0/operation-client-interface-1-0:operation-client-interface-pac/operation-client-interface-configuration/operation-name]'
+                    update or create [/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-op-c-bm-ro-1-0-0-001/layer-protocol=0/operation-client-interface-1-0:operation-client-interface-pac/operation-client-interface-configuration/operation-name]'
                 relay-operation-update-operation:
                   type: string
                   description: >
                     'Operation for requesting for broadcasting a backward compatible replacement of an operation
-                    update or create [/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-op-c-0023/layer-protocol=0/operation-client-interface-1-0:operation-client-interface-pac/operation-client-interface-configuration/operation-name]'
+                    update or create [/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-op-c-bm-ro-1-0-0-003/layer-protocol=0/operation-client-interface-1-0:operation-client-interface-pac/operation-client-interface-configuration/operation-name]'
                 deregistration-operation:
                   type: string
                   description: >
                     'Operation for deregistering from the application layer
-                    update or create [/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-op-c-0022/layer-protocol=0/operation-client-interface-1-0:operation-client-interface-pac/operation-client-interface-configuration/operation-name]'
+                    update or create [/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-op-c-bm-ro-1-0-0-002/layer-protocol=0/operation-client-interface-1-0:operation-client-interface-pac/operation-client-interface-configuration/operation-name]'
                 registry-office-address:
                   type: string
                   pattern: '^((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$'
                   description: >
                     'IP address of RegistryOffice application
-                    update or create [/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-tcp-c-0020/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-address/ip-address/ipv-4-address]'
+                    update or create [/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-tcp-c-bm-ro-1-0-0-000/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-address/ip-address/ipv-4-address]'
                 registry-office-port:
                   type: integer
                   minimum: 0
                   maximum: 65535
                   description: >
                     'Port of RegistryOffice application
-                    update or create [/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-tcp-c-0020/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-port]'
+                    update or create [/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-tcp-c-bm-ro-1-0-0-000/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-port]'
               example:
                 registry-office-application: 'RegistryOffice'
                 registry-office-application-release-number: '1.0.0'
@@ -2164,7 +2164,7 @@ paths:
                 example: 'EXPERIMENTAL'
               description: >
                   'Life cycle state of the consumed service
-                  find in [/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-op-s-0001/layer-protocol=0/operation-server-interface-1-0:operation-server-interface-pac/operation-server-interface-configuration/life-cycle-state]'
+                  find in [/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-op-s-bm-001/layer-protocol=0/operation-server-interface-1-0:operation-server-interface-pac/operation-server-interface-configuration/life-cycle-state]'
         '400':
           $ref: '#/components/responses/responseForErroredServiceRequests'
         '401':
@@ -2179,7 +2179,7 @@ paths:
           $ref: '#/components/responses/responseForErroredServiceRequests'
       callbacks:
         PromptForEmbeddingCausesRequestForBequeathingData:
-          https://[/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-tcp-c-0000/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-address/ip-address/ipv-4-address]:[/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-tcp-c-0000/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-port][/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-op-c-0000/layer-protocol=0/operation-client-interface-1-0:operation-client-interface-pac/operation-client-interface-configuration/operation-name]:
+          https://[/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-tcp-c-bm-or-1-0-0-000/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-address/ip-address/ipv-4-address]:[/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-tcp-c-bm-or-1-0-0-000/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-port][/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-op-c-bm-or-1-0-0-000/layer-protocol=0/operation-client-interface-1-0:operation-client-interface-pac/operation-client-interface-configuration/operation-name]:
             parameters:
               - $ref: '#/components/parameters/user'
               - $ref: '#/components/parameters/originator'
@@ -2203,22 +2203,22 @@ paths:
                           type: string
                           description: >
                             'Own application name
-                            from [/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-http-s-0000/layer-protocol=0/http-server-interface-1-0:http-server-interface-pac/http-server-interface-capability/application-name]'
+                            from [/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-http-s-bm-000/layer-protocol=0/http-server-interface-1-0:http-server-interface-pac/http-server-interface-capability/application-name]'
                         new-application-release:
                           type: string
                           description: >
                             'Own release number
-                            from [/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-http-s-0000/layer-protocol=0/http-server-interface-1-0:http-server-interface-pac/http-server-interface-capability/release-number]'
+                            from [/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-http-s-bm-000/layer-protocol=0/http-server-interface-1-0:http-server-interface-pac/http-server-interface-capability/release-number]'
                         new-application-address:
                           type: string
                           description: >
                             'Own IP address
-                            from [/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-tcp-s-0000/layer-protocol=0/tcp-server-interface-1-0:tcp-server-interface-pac/tcp-server-interface-configuration/local-address/ipv-4-address]'
+                            from [/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-tcp-s-bm-000/layer-protocol=0/tcp-server-interface-1-0:tcp-server-interface-pac/tcp-server-interface-configuration/local-address/ipv-4-address]'
                         new-application-port:
                           type: integer
                           description: >
                             'Own TCP port
-                            from[/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-tcp-s-0000/layer-protocol=0/tcp-server-interface-1-0:tcp-server-interface-pac/tcp-server-interface-configuration/local-port]'
+                            from[/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-tcp-s-bm-000/layer-protocol=0/tcp-server-interface-1-0:tcp-server-interface-pac/tcp-server-interface-configuration/local-port]'
                       example:
                         new-application-name: 'OwnApplicationName'
                         new-application-release: '1.0.0'
@@ -2299,13 +2299,13 @@ paths:
                   type: string
                   description: >
                     'Name of application that shall record the service requests
-                    find [/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-http-c-0040/layer-protocol=0/http-client-interface-1-0:http-client-interface-pac/http-client-interface-capability/application-name]'
+                    find [/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-http-c-bs-eatl-1-0-0-000/layer-protocol=0/http-client-interface-1-0:http-client-interface-pac/http-client-interface-capability/application-name]'
                 service-log-application-release-number:
                   type: string
                   pattern: '^([0-9]+)\.([0-9]+)\.([0-9]+)(?:-([0-9A-Za-z-]+(?:\.[0-9A-Za-z-]+)*))?(?:\+[0-9A-Za-z-]+)?$'
                   description: >
                     'Release of application that shall record the service requests
-                    update [/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-http-c-0040/layer-protocol=0/http-client-interface-1-0:http-client-interface-pac/http-client-interface-configuration/release-number]'
+                    update [/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-http-c-bs-eatl-1-0-0-000/layer-protocol=0/http-client-interface-1-0:http-client-interface-pac/http-client-interface-configuration/release-number]'
                 service-log-operation:
                   type: string
                   description: >
@@ -2316,14 +2316,14 @@ paths:
                   pattern: '^((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$'
                   description: >
                     'IP address of application that shall record the service requests
-                    update [/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-tcp-c-0040/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-address/ip-address/ipv-4-address]'
+                    update [/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-tcp-c-bs-eatl-1-0-0-000/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-address/ip-address/ipv-4-address]'
                 service-log-port:
                   type: integer
                   minimum: 0
                   maximum: 65535
                   description: >
                     'Port of application that shall record the service requests
-                    update [/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-tcp-c-0040/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-port]'
+                    update [/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-tcp-c-bs-eatl-1-0-0-000/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-port]'
               example:
                 service-log-application: 'ExecutionAndTraceLog'
                 service-log-application-release-number: '1.0.0'
@@ -2362,7 +2362,7 @@ paths:
                 example: 'EXPERIMENTAL'
               description: >
                   'Life cycle state of the consumed service
-                  find in [/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-op-s-0002/layer-protocol=0/operation-server-interface-1-0:operation-server-interface-pac/operation-server-interface-configuration/life-cycle-state]'
+                  find in [/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-op-s-bm-002/layer-protocol=0/operation-server-interface-1-0:operation-server-interface-pac/operation-server-interface-configuration/life-cycle-state]'
         '400':
           $ref: '#/components/responses/responseForErroredServiceRequests'
         '401':
@@ -2415,10 +2415,10 @@ paths:
                           description: 'ApplicationName on the client side; as defined in all service headers [originator]'
                         application-name:
                           type: string
-                          description: '[/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-http-s-0000/layer-protocol=0/http-server-interface-1-0:http-server-interface-pac/http-server-interface-capability/application-name]'
+                          description: '[/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-http-s-bm-000/layer-protocol=0/http-server-interface-1-0:http-server-interface-pac/http-server-interface-capability/application-name]'
                         release-number:
                           type: string
-                          description: '[/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-http-s-0000/layer-protocol=0/http-server-interface-1-0:http-server-interface-pac/http-server-interface-capability/release-number]'
+                          description: '[/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-http-s-bm-000/layer-protocol=0/http-server-interface-1-0:http-server-interface-pac/http-server-interface-capability/release-number]'
                         operation-name:
                           type: string
                           description: '[/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-op-s-*/layer-protocol=0/operation-server-interface-1-0:operation-server-interface-pac/operation-server-interface-capability/operation-name]'
@@ -2520,13 +2520,13 @@ paths:
                   type: string
                   description: >
                     'Name of application that shall record the OaM requests
-                    find [/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-http-c-0050/layer-protocol=0/http-client-interface-1-0:http-client-interface-pac/http-client-interface-capability/application-name]'
+                    find [/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-http-c-bs-ol-1-0-0-000/layer-protocol=0/http-client-interface-1-0:http-client-interface-pac/http-client-interface-capability/application-name]'
                 oam-log-application-release-number:
                   type: string
                   pattern: '^([0-9]+)\.([0-9]+)\.([0-9]+)(?:-([0-9A-Za-z-]+(?:\.[0-9A-Za-z-]+)*))?(?:\+[0-9A-Za-z-]+)?$'
                   description: >
                     'Release of application that shall record the OaM request
-                    update [/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-http-c-0050/layer-protocol=0/http-client-interface-1-0:http-client-interface-pac/http-client-interface-configuration/release-number]'
+                    update [/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-http-c-bs-ol-1-0-0-000/layer-protocol=0/http-client-interface-1-0:http-client-interface-pac/http-client-interface-configuration/release-number]'
                 oam-log-operation:
                   type: string
                   description: >
@@ -2537,14 +2537,14 @@ paths:
                   pattern: '^((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$'
                   description: >
                     'IP address of application that shall record the OaM requests
-                    update [/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-tcp-c-0050/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-address/ip-address/ipv-4-address]'
+                    update [/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-tcp-c-bs-ol-1-0-0-000/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-address/ip-address/ipv-4-address]'
                 oam-log-port:
                   type: integer
                   minimum: 0
                   maximum: 65535
                   description: >
                     'Port of application that shall record the OaM requests
-                    update [/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-tcp-c-0050/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-port]'
+                    update [/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-tcp-c-bs-ol-1-0-0-000/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-port]'
               example:
                 oam-log-application: 'OamLog'
                 oam-log-application-release-number: '1.0.0'
@@ -2583,7 +2583,7 @@ paths:
                 example: 'EXPERIMENTAL'
               description: >
                   'Life cycle state of the consumed service
-                  find in [/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-op-s-0003/layer-protocol=0/operation-server-interface-1-0:operation-server-interface-pac/operation-server-interface-configuration/life-cycle-state]'
+                  find in [/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-op-s-bm-003/layer-protocol=0/operation-server-interface-1-0:operation-server-interface-pac/operation-server-interface-configuration/life-cycle-state]'
         '400':
           $ref: '#/components/responses/responseForErroredServiceRequests'
         '401':
@@ -2626,12 +2626,12 @@ paths:
                           type: string
                           description: >
                             'Own application name 
-                            from [/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-http-s-0000/layer-protocol=0/http-server-interface-1-0:http-server-interface-pac/http-server-interface-capability/application-name]'
+                            from [/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-http-s-bm-000/layer-protocol=0/http-server-interface-1-0:http-server-interface-pac/http-server-interface-capability/application-name]'
                         release-number:
                           type: string
                           description: >
                             'Own release number
-                            from [/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-http-s-0000/layer-protocol=0/http-server-interface-1-0:http-server-interface-pac/http-server-interface-capability/release-number]'
+                            from [/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-http-s-bm-000/layer-protocol=0/http-server-interface-1-0:http-server-interface-pac/http-server-interface-capability/release-number]'
                         method:
                           type: string
                           description: 'Method applied in the OaM request, which is to be recorded'
@@ -2654,7 +2654,7 @@ paths:
                         application-name: 'OwnApplicationName'
                         release-number: '1.0.0'
                         method: 'PUT'
-                        resource: '/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-tcp-s-0000/layer-protocol=0/tcp-server-interface-1-0:tcp-server-interface-pac/tcp-server-interface-configuration/local-port'
+                        resource: '/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-tcp-s-bm-000/layer-protocol=0/tcp-server-interface-1-0:tcp-server-interface-pac/tcp-server-interface-configuration/local-port'
                         stringified-body: '{"tcp-server-interface-1-0:local-port":"1000"}'
                         response-code: 204
                         user-name: 'Max Mustermann'
@@ -2779,7 +2779,7 @@ paths:
                 example: 'EXPERIMENTAL'
               description: >
                   'Life cycle state of the consumed service
-                  find in [/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-op-s-0004/layer-protocol=0/operation-server-interface-1-0:operation-server-interface-pac/operation-server-interface-configuration/life-cycle-state]'
+                  find in [/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-op-s-bm-004/layer-protocol=0/operation-server-interface-1-0:operation-server-interface-pac/operation-server-interface-configuration/life-cycle-state]'
         '400':
           $ref: '#/components/responses/responseForErroredServiceRequests'
         '401':
@@ -2823,13 +2823,13 @@ paths:
                   type: string
                   description: >
                     'Name of application that shall approve the OaM requests
-                    find or create [/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-http-c-0060/layer-protocol=0/http-client-interface-1-0:http-client-interface-pac/http-client-interface-capability/application-name]'
+                    find or create [/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-http-c-bs-aa-1-0-0-000/layer-protocol=0/http-client-interface-1-0:http-client-interface-pac/http-client-interface-capability/application-name]'
                 oam-approval-application-release-number:
                   type: string
                   pattern: '^([0-9]+)\.([0-9]+)\.([0-9]+)(?:-([0-9A-Za-z-]+(?:\.[0-9A-Za-z-]+)*))?(?:\+[0-9A-Za-z-]+)?$'
                   description: >
                     'Release of application that shall approve the OaM requests
-                    update or create [/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-http-c-0060/layer-protocol=0/http-client-interface-1-0:http-client-interface-pac/http-client-interface-configuration/release-number]'
+                    update or create [/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-http-c-bs-aa-1-0-0-000/layer-protocol=0/http-client-interface-1-0:http-client-interface-pac/http-client-interface-configuration/release-number]'
                 oam-approval-operation:
                   type: string
                   description: >
@@ -2840,14 +2840,14 @@ paths:
                   pattern: '^((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$'
                   description: >
                     'IP address of application that shall approve the OaM requests
-                    update or create [/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-tcp-c-0060/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-address/ip-address/ipv-4-address]'
+                    update or create [/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-tcp-c-bs-aa-1-0-0-000/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-address/ip-address/ipv-4-address]'
                 oam-approval-port:
                   type: integer
                   minimum: 0
                   maximum: 65535
                   description: >
                     'Port of application that shall approve the OaM requests
-                    update or create [/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-tcp-c-0060/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-port]'
+                    update or create [/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-tcp-c-bs-aa-1-0-0-000/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-port]'
               example:
                 oam-approval-application: 'AdministratorAdministration'
                 oam-approval-application-release-number: '1.0.0'
@@ -2886,7 +2886,7 @@ paths:
                 example: 'EXPERIMENTAL'
               description: >
                   'Life cycle state of the consumed service
-                  find in [/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-op-s-0003/layer-protocol=0/operation-server-interface-1-0:operation-server-interface-pac/operation-server-interface-configuration/life-cycle-state]'
+                  find in [/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-op-s-bm-003/layer-protocol=0/operation-server-interface-1-0:operation-server-interface-pac/operation-server-interface-configuration/life-cycle-state]'
         '400':
           $ref: '#/components/responses/responseForErroredServiceRequests'
         '401':
@@ -2925,12 +2925,12 @@ paths:
                           type: string
                           description: >
                             'Own application name for the AdministratorAdministration to check, whether this application is part of the SDN at all
-                            from [/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-http-s-0000/layer-protocol=0/http-server-interface-1-0:http-server-interface-pac/http-server-interface-capability/application-name]'
+                            from [/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-http-s-bm-000/layer-protocol=0/http-server-interface-1-0:http-server-interface-pac/http-server-interface-capability/application-name]'
                         release-number:
                           type: string
                           description: >
                             'Own application release number for the AdministratorAdministration to check, whether this application is part of the SDN at all
-                            from [/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-http-s-0000/layer-protocol=0/http-server-interface-1-0:http-server-interface-pac/http-server-interface-capability/release-number]'
+                            from [/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-http-s-bm-000/layer-protocol=0/http-server-interface-1-0:http-server-interface-pac/http-server-interface-capability/release-number]'
                         Authorization:
                           type: string
                           description: > 
@@ -3119,7 +3119,7 @@ paths:
                 example: 'EXPERIMENTAL'
               description: >
                   'Life cycle state of the consumed service
-                  find in [/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-op-s-0007/layer-protocol=0/operation-server-interface-1-0:operation-server-interface-pac/operation-server-interface-configuration/life-cycle-state]'
+                  find in [/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-op-s-bm-007/layer-protocol=0/operation-server-interface-1-0:operation-server-interface-pac/operation-server-interface-configuration/life-cycle-state]'
         '400':
           $ref: '#/components/responses/responseForErroredServiceRequests'
         '401':
@@ -3385,10 +3385,10 @@ paths:
                                               remote-port:
                                                 type: integer
                         example:
-                          - uuid: 'okm-1-0-0-op-s-0000'
+                          - uuid: 'okm-1-0-0-op-s-bm-000'
                             ltp-direction: 'core-model-1-4:TERMINATION_DIRECTION_SOURCE'
                             client-ltp: []
-                            server-ltp: ['okm-1-0-0-http-s-0000']
+                            server-ltp: ['okm-1-0-0-http-s-bm-000']
                             layer-protocol:
                               - local-id: '0'
                                 layer-protocol-name: 'operation-server-interface-1-0:LAYER_PROTOCOL_NAME_TYPE_OPERATION_LAYER'
@@ -3397,9 +3397,9 @@ paths:
                                     operation-name: '/v1/register-yourself'
                                   operation-server-interface-configuration:
                                     life-cycle-state: 'operation-server-interface-1-0:LIFE_CYCLE_STATE_TYPE_EXPERIMENTAL'
-                          - uuid: 'okm-1-0-0-http-s-0000'
+                          - uuid: 'okm-1-0-0-http-s-bm-000'
                             ltp-direction: 'core-model-1-4:TERMINATION_DIRECTION_SOURCE'
-                            client-ltp: ['okm-1-0-0-op-s-0000']
+                            client-ltp: ['okm-1-0-0-op-s-bm-000']
                             server-ltp: []
                             layer-protocol:
                               - local-id: '0'
@@ -3471,10 +3471,10 @@ paths:
                                 fc-port:
                                   - local-id: '000'
                                     port-direction: 'core-model-1-4:PORT_DIRECTION_TYPE_MANAGEMENT'
-                                    logical-termination-point: 'okm-1-0-0-op-s-0000'
+                                    logical-termination-point: 'okm-1-0-0-op-s-bm-000'
                                   - local-id: '100'
                                     port-direction: 'core-model-1-4:PORT_DIRECTION_TYPE_INPUT'
-                                    logical-termination-point: 'okm-1-0-0-op-s-0000'
+                                    logical-termination-point: 'okm-1-0-0-op-s-bm-000'
                               - uuid: 'okm-1-0-0-op-fc-0001'
                                 name:
                                   - value-name: 'ForwardingKind'
@@ -3484,10 +3484,10 @@ paths:
                                 fc-port:
                                   - local-id: '100'
                                     port-direction: 'core-model-1-4:PORT_DIRECTION_TYPE_INPUT'
-                                    logical-termination-point: 'okm-1-0-0-op-s-0001'
+                                    logical-termination-point: 'okm-1-0-0-op-s-bm-001'
                                   - local-id: '200'
                                     port-direction: 'core-model-1-4:PORT_DIRECTION_TYPE_OUTPUT'
-                                    logical-termination-point: 'okm-1-0-0-op-c-0020'
+                                    logical-termination-point: 'okm-1-0-0-op-c-bm-ro-1-0-0-000'
           headers:
             x-correlator:
               schema: 
@@ -3517,7 +3517,7 @@ paths:
                 example: 'EXPERIMENTAL'
               description: >
                   'Life cycle state of the consumed service
-                  find in [/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-op-s-0008/layer-protocol=0/operation-server-interface-1-0:operation-server-interface-pac/operation-server-interface-configuration/life-cycle-state]'
+                  find in [/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-op-s-bm-008/layer-protocol=0/operation-server-interface-1-0:operation-server-interface-pac/operation-server-interface-configuration/life-cycle-state]'
         '400':
           $ref: '#/components/responses/responseForErroredServiceRequests'
         '401':
@@ -3566,56 +3566,56 @@ paths:
                   type: string
                   description: >
                     'Name of application that shall document the application layer topology
-                    find or create [/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-http-c-0070/layer-protocol=0/http-client-interface-1-0:http-client-interface-pac/http-client-interface-capability/application-name]'
+                    find or create [/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-http-c-bm-alt-1-0-0-000/layer-protocol=0/http-client-interface-1-0:http-client-interface-pac/http-client-interface-capability/application-name]'
                 topology-application-release-number:
                   type: string
                   pattern: '^([0-9]+)\.([0-9]+)\.([0-9]+)(?:-([0-9A-Za-z-]+(?:\.[0-9A-Za-z-]+)*))?(?:\+[0-9A-Za-z-]+)?$'
                   description: >
                     'Release of application that shall document the application layer topology
-                    update or create [/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-http-c-0070/layer-protocol=0/http-client-interface-1-0:http-client-interface-pac/http-client-interface-configuration/release-number]'
+                    update or create [/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-http-c-bm-alt-1-0-0-000/layer-protocol=0/http-client-interface-1-0:http-client-interface-pac/http-client-interface-configuration/release-number]'
                 topology-operation-application-update:
                   type: string
                   description: >
                     'Operation for updating the entire information about an application
-                    update or create [/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-op-c-0070/layer-protocol=0/operation-client-interface-1-0:operation-client-interface-pac/operation-client-interface-configuration/operation-name]'
+                    update or create [/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-op-c-bm-alt-1-0-0-000/layer-protocol=0/operation-client-interface-1-0:operation-client-interface-pac/operation-client-interface-configuration/operation-name]'
                 topology-operation-ltp-update:
                   type: string
                   description: >
                     'Operation for updating an LTP
-                    update or create [/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-op-c-0071/layer-protocol=0/operation-client-interface-1-0:operation-client-interface-pac/operation-client-interface-configuration/operation-name]'
+                    update or create [/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-op-c-bm-alt-1-0-0-001/layer-protocol=0/operation-client-interface-1-0:operation-client-interface-pac/operation-client-interface-configuration/operation-name]'
                 topology-operation-ltp-deletion:
                   type: string
                   description: >
                     'Operation for deleting an LTP
-                    update or create [/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-op-c-0072/layer-protocol=0/operation-client-interface-1-0:operation-client-interface-pac/operation-client-interface-configuration/operation-name]'
+                    update or create [/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-op-c-bm-alt-1-0-0-002/layer-protocol=0/operation-client-interface-1-0:operation-client-interface-pac/operation-client-interface-configuration/operation-name]'
                 topology-operation-fc-update:
                   type: string
                   description: >
                     'Operation for updating an FC port
-                    update or create [/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-op-c-0073/layer-protocol=0/operation-client-interface-1-0:operation-client-interface-pac/operation-client-interface-configuration/operation-name]'
+                    update or create [/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-op-c-bm-alt-1-0-0-003/layer-protocol=0/operation-client-interface-1-0:operation-client-interface-pac/operation-client-interface-configuration/operation-name]'
                 topology-operation-fc-port-update:
                   type: string
                   description: >
                     'Operation for updating an FC port
-                    update or create [/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-op-c-0074/layer-protocol=0/operation-client-interface-1-0:operation-client-interface-pac/operation-client-interface-configuration/operation-name]'
+                    update or create [/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-op-c-bm-alt-1-0-0-004/layer-protocol=0/operation-client-interface-1-0:operation-client-interface-pac/operation-client-interface-configuration/operation-name]'
                 topology-operation-fc-port-deletion:
                   type: string
                   description: >
                     'Operation for deleting an FC port
-                    update or create [/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-op-c-0075/layer-protocol=0/operation-client-interface-1-0:operation-client-interface-pac/operation-client-interface-configuration/operation-name]'
+                    update or create [/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-op-c-bm-alt-1-0-0-005/layer-protocol=0/operation-client-interface-1-0:operation-client-interface-pac/operation-client-interface-configuration/operation-name]'
                 topology-application-address:
                   type: string
                   pattern: '^((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$'
                   description: >
                     'IP address of application that shall record the service requests
-                    update or create [/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-tcp-c-0070/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-address/ip-address/ipv-4-address]'
+                    update or create [/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-tcp-c-bm-alt-1-0-0-000/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-address/ip-address/ipv-4-address]'
                 topology-application-port:
                   type: integer
                   minimum: 0
                   maximum: 65535
                   description: >
                     'Port of application that shall record the service requests
-                    update or create [/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-tcp-c-0070/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-port]'
+                    update or create [/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-tcp-c-bm-alt-1-0-0-000/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-port]'
               example:
                 topology-application: 'ApplicationLayerTopology'
                 topology-application-release-number: '1.0.0'
@@ -3659,7 +3659,7 @@ paths:
                 example: 'EXPERIMENTAL'
               description: >
                   'Life cycle state of the consumed service
-                  find in [/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-op-s-0009/layer-protocol=0/operation-server-interface-1-0:operation-server-interface-pac/operation-server-interface-configuration/life-cycle-state]'
+                  find in [/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-op-s-bm-009/layer-protocol=0/operation-server-interface-1-0:operation-server-interface-pac/operation-server-interface-configuration/life-cycle-state]'
         '400':
           $ref: '#/components/responses/responseForErroredServiceRequests'
         '401':
@@ -3921,10 +3921,10 @@ paths:
                                                     remote-port:
                                                       type: integer
                               example:
-                                - uuid: 'okm-1-0-0-op-s-0000'
+                                - uuid: 'okm-1-0-0-op-s-bm-000'
                                   ltp-direction: 'core-model-1-4:TERMINATION_DIRECTION_SOURCE'
                                   client-ltp: []
-                                  server-ltp: ['okm-1-0-0-http-s-0000']
+                                  server-ltp: ['okm-1-0-0-http-s-bm-000']
                                   layer-protocol:
                                     - local-id: '0'
                                       layer-protocol-name: 'operation-server-interface-1-0:LAYER_PROTOCOL_NAME_TYPE_OPERATION_LAYER'
@@ -3933,9 +3933,9 @@ paths:
                                           operation-name: '/v1/register-yourself'
                                         operation-server-interface-configuration:
                                           life-cycle-state: 'operation-server-interface-1-0:LIFE_CYCLE_STATE_TYPE_EXPERIMENTAL'
-                                - uuid: 'okm-1-0-0-http-s-0000'
+                                - uuid: 'okm-1-0-0-http-s-bm-000'
                                   ltp-direction: 'core-model-1-4:TERMINATION_DIRECTION_SOURCE'
-                                  client-ltp: ['okm-1-0-0-op-s-0000']
+                                  client-ltp: ['okm-1-0-0-op-s-bm-000']
                                   server-ltp: []
                                   layer-protocol:
                                     - local-id: '0'
@@ -4007,10 +4007,10 @@ paths:
                                       fc-port:
                                         - local-id: '000'
                                           port-direction: 'core-model-1-4:PORT_DIRECTION_TYPE_MANAGEMENT'
-                                          logical-termination-point: 'okm-1-0-0-op-s-0000'
+                                          logical-termination-point: 'okm-1-0-0-op-s-bm-000'
                                         - local-id: '100'
                                           port-direction: 'core-model-1-4:PORT_DIRECTION_TYPE_INPUT'
-                                          logical-termination-point: 'okm-1-0-0-op-s-0000'
+                                          logical-termination-point: 'okm-1-0-0-op-s-bm-000'
                                     - uuid: 'okm-1-0-0-op-fc-0001'
                                       name:
                                         - value-name: 'ForwardingKind'
@@ -4020,10 +4020,10 @@ paths:
                                       fc-port:
                                         - local-id: '100'
                                           port-direction: 'core-model-1-4:PORT_DIRECTION_TYPE_INPUT'
-                                          logical-termination-point: 'okm-1-0-0-op-s-0001'
+                                          logical-termination-point: 'okm-1-0-0-op-s-bm-001'
                                         - local-id: '200'
                                           port-direction: 'core-model-1-4:PORT_DIRECTION_TYPE_OUTPUT'
-                                          logical-termination-point: 'okm-1-0-0-op-c-0020'
+                                          logical-termination-point: 'okm-1-0-0-op-c-bm-ro-1-0-0-000'
               responses:
                 '204':
                   description: 'LTPs and FD will be updated'
@@ -4301,10 +4301,10 @@ paths:
                                           remote-port:
                                             type: integer
                       example:
-                        uuid: 'okm-1-0-0-op-s-0002'
+                        uuid: 'okm-1-0-0-op-s-bm-002'
                         ltp-direction: 'core-model-1-4:TERMINATION_DIRECTION_SOURCE'
                         client-ltp: []
-                        server-ltp: ['okm-1-0-0-http-s-0000']
+                        server-ltp: ['okm-1-0-0-http-s-bm-000']
                         layer-protocol:
                           - local-id: '0'
                             layer-protocol-name: 'operation-server-interface-1-0:LAYER_PROTOCOL_NAME_TYPE_OPERATION_LAYER'
@@ -4378,7 +4378,7 @@ paths:
                         uuid:
                           type: string
                       example:
-                        uuid: 'okm-1-0-0-op-s-0002'
+                        uuid: 'okm-1-0-0-op-s-bm-002'
               responses:
                 '204':
                   description: 'LTP will be deleted'
@@ -4482,7 +4482,7 @@ paths:
                         fc-port:
                           - local-id: '000'
                             port-direction: 'core-model-1-4:PORT_DIRECTION_TYPE_MANAGEMENT'
-                            logical-termination-point: 'okm-1-0-0-op-s-0003'
+                            logical-termination-point: 'okm-1-0-0-op-s-bm-003'
                           - local-id: '200'
                             port-direction: 'core-model-1-4:PORT_DIRECTION_TYPE_OUTPUT'
                             logical-termination-point: 'okm-1-0-0-op-c-bs-ol-1-0-0-000'
@@ -4573,7 +4573,7 @@ paths:
                         fc-port:
                           local-id: '000'
                           port-direction: 'core-model-1-4:PORT_DIRECTION_TYPE_MANAGEMENT'
-                          logical-termination-point: 'okm-1-0-0-op-s-0003'
+                          logical-termination-point: 'okm-1-0-0-op-s-bm-003'
               responses:
                 '204':
                   description: 'FC port will be updated'
@@ -4921,10 +4921,10 @@ paths:
                                           remote-port:
                                             type: integer
                       example:
-                        uuid: 'okm-1-0-0-op-s-0002'
+                        uuid: 'okm-1-0-0-op-s-bm-002'
                         ltp-direction: 'core-model-1-4:TERMINATION_DIRECTION_SOURCE'
                         client-ltp: []
-                        server-ltp: ['okm-1-0-0-http-s-0000']
+                        server-ltp: ['okm-1-0-0-http-s-bm-000']
                         layer-protocol:
                           - local-id: '0'
                             layer-protocol-name: 'operation-server-interface-1-0:LAYER_PROTOCOL_NAME_TYPE_OPERATION_LAYER'
@@ -4998,7 +4998,7 @@ paths:
                         uuid:
                           type: string
                       example:
-                        uuid: 'okm-1-0-0-op-s-0002'
+                        uuid: 'okm-1-0-0-op-s-bm-002'
               responses:
                 '204':
                   description: 'LTP will be deleted'
@@ -5102,7 +5102,7 @@ paths:
                         fc-port:
                           - local-id: '000'
                             port-direction: 'core-model-1-4:PORT_DIRECTION_TYPE_MANAGEMENT'
-                            logical-termination-point: 'okm-1-0-0-op-s-0003'
+                            logical-termination-point: 'okm-1-0-0-op-s-bm-003'
                           - local-id: '200'
                             port-direction: 'core-model-1-4:PORT_DIRECTION_TYPE_OUTPUT'
                             logical-termination-point: 'okm-1-0-0-op-c-bs-ol-1-0-0-000'
@@ -5193,7 +5193,7 @@ paths:
                         fc-port:
                           local-id: '000'
                           port-direction: 'core-model-1-4:PORT_DIRECTION_TYPE_MANAGEMENT'
-                          logical-termination-point: 'okm-1-0-0-op-s-0003'
+                          logical-termination-point: 'okm-1-0-0-op-s-bm-003'
               responses:
                 '204':
                   description: 'FC port will be updated'
@@ -5384,7 +5384,7 @@ paths:
                 example: 'EXPERIMENTAL'
               description: >
                   'Life cycle state of the consumed service
-                  find in [/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-op-s-0010/layer-protocol=0/operation-server-interface-1-0:operation-server-interface-pac/operation-server-interface-configuration/life-cycle-state]'
+                  find in [/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-op-s-bm-010/layer-protocol=0/operation-server-interface-1-0:operation-server-interface-pac/operation-server-interface-configuration/life-cycle-state]'
         '400':
           $ref: '#/components/responses/responseForErroredServiceRequests'
         '401':
@@ -5481,7 +5481,7 @@ paths:
                 example: 'EXPERIMENTAL'
               description: >
                   'Life cycle state of the consumed service
-                  find in [/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-op-s-0011/layer-protocol=0/operation-server-interface-1-0:operation-server-interface-pac/operation-server-interface-configuration/life-cycle-state]'
+                  find in [/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-op-s-bm-011/layer-protocol=0/operation-server-interface-1-0:operation-server-interface-pac/operation-server-interface-configuration/life-cycle-state]'
         '400':
           $ref: '#/components/responses/responseForErroredServiceRequests'
         '401':
@@ -5526,17 +5526,17 @@ paths:
                     type: string
                     description: >
                       'Own application name
-                      from [/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-http-s-0000/layer-protocol=0/http-server-interface-1-0:http-server-interface-pac/http-server-interface-capability/application-name]'
+                      from [/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-http-s-bm-000/layer-protocol=0/http-server-interface-1-0:http-server-interface-pac/http-server-interface-capability/application-name]'
                   application-release-number:
                     type: string
                     description: >
                       'Own release number
-                      from [/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-http-s-0000/layer-protocol=0/http-server-interface-1-0:http-server-interface-pac/http-server-interface-capability/release-number]'
+                      from [/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-http-s-bm-000/layer-protocol=0/http-server-interface-1-0:http-server-interface-pac/http-server-interface-capability/release-number]'
                   application-purpose:
                     type: string
                     description: >
                       'Own application purpose
-                      from [/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-http-s-0000/layer-protocol=0/http-server-interface-1-0:http-server-interface-pac/http-server-interface-capability/application-purpose]'
+                      from [/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-http-s-bm-000/layer-protocol=0/http-server-interface-1-0:http-server-interface-pac/http-server-interface-capability/application-purpose]'
                   data-update-period:
                     type: string
                     enum:
@@ -5544,13 +5544,13 @@ paths:
                       - '1h-period'
                       - '24h-period'
                       - 'manual'
-                    description: 'from [/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-http-s-0000/layer-protocol=0/http-server-interface-1-0:http-server-interface-pac/http-server-interface-capability/data-update-period]'
+                    description: 'from [/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-http-s-bm-000/layer-protocol=0/http-server-interface-1-0:http-server-interface-pac/http-server-interface-capability/data-update-period]'
                   owner-name:
                     type: string
-                    description: 'from [/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-http-s-0000/layer-protocol=0/http-server-interface-1-0:http-server-interface-pac/http-server-interface-capability/owner-name]'
+                    description: 'from [/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-http-s-bm-000/layer-protocol=0/http-server-interface-1-0:http-server-interface-pac/http-server-interface-capability/owner-name]'
                   owner-email-address:
                     type: string
-                    description: 'from [/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-http-s-0000/layer-protocol=0/http-server-interface-1-0:http-server-interface-pac/http-server-interface-capability/owner-email-address]'
+                    description: 'from [/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-http-s-bm-000/layer-protocol=0/http-server-interface-1-0:http-server-interface-pac/http-server-interface-capability/owner-email-address]'
                 example:
                   application-name: 'OwnApplicationName'
                   application-release-number: '1.0.0'
@@ -5587,7 +5587,7 @@ paths:
                 example: 'EXPERIMENTAL'
               description: >
                   'Life cycle state of the consumed service
-                  find in [/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-op-s-2001/layer-protocol=0/operation-server-interface-1-0:operation-server-interface-pac/operation-server-interface-configuration/life-cycle-state]'
+                  find in [/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-op-s-bs-001/layer-protocol=0/operation-server-interface-1-0:operation-server-interface-pac/operation-server-interface-configuration/life-cycle-state]'
         '400':
           $ref: '#/components/responses/responseForErroredServiceRequests'
         '404':
@@ -5644,17 +5644,17 @@ paths:
                           type: string
                           description: >
                             'from either
-                            [/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-http-s-0000/layer-protocol=0/http-server-interface-1-0:http-server-interface-pac/http-server-interface-capability/application-name]
+                            [/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-http-s-bm-000/layer-protocol=0/http-server-interface-1-0:http-server-interface-pac/http-server-interface-capability/application-name]
                             or
-                            [/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-http-s-0000/layer-protocol=0/http-server-interface-1-0:http-server-interface-pac/http-server-interface-capability/release-number]
+                            [/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-http-s-bm-000/layer-protocol=0/http-server-interface-1-0:http-server-interface-pac/http-server-interface-capability/release-number]
                             or
-                            [/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-http-s-0000/layer-protocol=0/http-server-interface-1-0:http-server-interface-pac/http-server-interface-capability/application-purpose]
+                            [/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-http-s-bm-000/layer-protocol=0/http-server-interface-1-0:http-server-interface-pac/http-server-interface-capability/application-purpose]
                             or
-                            [/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-http-s-0000/layer-protocol=0/http-server-interface-1-0:http-server-interface-pac/http-server-interface-capability/data-update-period]
+                            [/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-http-s-bm-000/layer-protocol=0/http-server-interface-1-0:http-server-interface-pac/http-server-interface-capability/data-update-period]
                             or
-                            [/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-http-s-0000/layer-protocol=0/http-server-interface-1-0:http-server-interface-pac/http-server-interface-capability/owner-name]
+                            [/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-http-s-bm-000/layer-protocol=0/http-server-interface-1-0:http-server-interface-pac/http-server-interface-capability/owner-name]
                             or
-                            [/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-http-s-0000/layer-protocol=0/http-server-interface-1-0:http-server-interface-pac/http-server-interface-capability/owner-email-address]'
+                            [/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-http-s-bm-000/layer-protocol=0/http-server-interface-1-0:http-server-interface-pac/http-server-interface-capability/owner-email-address]'
                         datatype:
                           type: string
                           enum:
@@ -5698,11 +5698,11 @@ paths:
                           type: string
                           description: >
                             'https://
-                            [/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-tcp-s-0000/layer-protocol=0/tcp-server-interface-1-0:tcp-server-interface-pac/tcp-server-interface-configuration/local-address/ipv-4-address]
+                            [/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-tcp-s-bm-000/layer-protocol=0/tcp-server-interface-1-0:tcp-server-interface-pac/tcp-server-interface-configuration/local-address/ipv-4-address]
                             :
-                            [/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-tcp-s-0000/layer-protocol=0/tcp-server-interface-1-0:tcp-server-interface-pac/tcp-server-interface-configuration/local-port]
+                            [/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-tcp-s-bm-000/layer-protocol=0/tcp-server-interface-1-0:tcp-server-interface-pac/tcp-server-interface-configuration/local-port]
                             and either
-                            [/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-op-s-2004/layer-protocol=0/operation-server-interface-1-0:operation-server-interface-pac/operation-server-interface-capability/operation-name]
+                            [/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-op-s-bs-004/layer-protocol=0/operation-server-interface-1-0:operation-server-interface-pac/operation-server-interface-capability/operation-name]
                             or
                             /v1/inform-about-api'
                         input-value-list:
@@ -5752,7 +5752,7 @@ paths:
                 example: 'EXPERIMENTAL'
               description: >
                   'Life cycle state of the consumed service
-                  find in [/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-op-s-2002/layer-protocol=0/operation-server-interface-1-0:operation-server-interface-pac/operation-server-interface-configuration/life-cycle-state]'
+                  find in [/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-op-s-bs-002/layer-protocol=0/operation-server-interface-1-0:operation-server-interface-pac/operation-server-interface-configuration/life-cycle-state]'
         '400':
           $ref: '#/components/responses/responseForErroredServiceRequests'
         '404':
@@ -5790,13 +5790,13 @@ paths:
                   properties:
                     release-number:
                       type: string
-                      description: 'from [/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-http-s-0000/layer-protocol=0/http-server-interface-1-0:http-server-interface-pac/http-server-interface-capability/release-list=*/release-number]'
+                      description: 'from [/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-http-s-bm-000/layer-protocol=0/http-server-interface-1-0:http-server-interface-pac/http-server-interface-capability/release-list=*/release-number]'
                     release-date:
                       type: string
-                      description: 'from [/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-http-s-0000/layer-protocol=0/http-server-interface-1-0:http-server-interface-pac/http-server-interface-capability/release-list=*/release-date]'
+                      description: 'from [/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-http-s-bm-000/layer-protocol=0/http-server-interface-1-0:http-server-interface-pac/http-server-interface-capability/release-list=*/release-date]'
                     changes:
                       type: string
-                      description: 'from [/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-http-s-0000/layer-protocol=0/http-server-interface-1-0:http-server-interface-pac/http-server-interface-capability/release-list=*/changes]'
+                      description: 'from [/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-http-s-bm-000/layer-protocol=0/http-server-interface-1-0:http-server-interface-pac/http-server-interface-capability/release-list=*/changes]'
                 example:
                   - release-number: '1.0.0'
                     release-date: '20.11.2010'
@@ -5830,7 +5830,7 @@ paths:
                 example: 'EXPERIMENTAL'
               description: >
                   'Life cycle state of the consumed service
-                  find in [/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-op-s-2003/layer-protocol=0/operation-server-interface-1-0:operation-server-interface-pac/operation-server-interface-configuration/life-cycle-state]'
+                  find in [/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-op-s-bs-003/layer-protocol=0/operation-server-interface-1-0:operation-server-interface-pac/operation-server-interface-configuration/life-cycle-state]'
         '400':
           $ref: '#/components/responses/responseForErroredServiceRequests'
         '404':
@@ -5875,13 +5875,13 @@ paths:
                         field-name:
                           type: string
                           description: >
-                            'from [/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-http-s-0000/layer-protocol=0/http-server-interface-1-0:http-server-interface-pac/http-server-interface-capability/release-list=*/release-number]'
+                            'from [/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-http-s-bm-000/layer-protocol=0/http-server-interface-1-0:http-server-interface-pac/http-server-interface-capability/release-list=*/release-number]'
                         value:
                           type: string
                           description: >
-                            'from [/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-http-s-0000/layer-protocol=0/http-server-interface-1-0:http-server-interface-pac/http-server-interface-capability/release-list=*/release-date]
+                            'from [/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-http-s-bm-000/layer-protocol=0/http-server-interface-1-0:http-server-interface-pac/http-server-interface-capability/release-list=*/release-date]
                              - 
-                            [/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-http-s-0000/layer-protocol=0/http-server-interface-1-0:http-server-interface-pac/http-server-interface-capability/release-list=*/changes]'
+                            [/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-http-s-bm-000/layer-protocol=0/http-server-interface-1-0:http-server-interface-pac/http-server-interface-capability/release-list=*/changes]'
                         datatype:
                           type: string
                           enum:
@@ -5947,7 +5947,7 @@ paths:
                 example: 'EXPERIMENTAL'
               description: >
                   'Life cycle state of the consumed service
-                  find in [/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-op-s-2004/layer-protocol=0/operation-server-interface-1-0:operation-server-interface-pac/operation-server-interface-configuration/life-cycle-state]'
+                  find in [/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-op-s-bs-004/layer-protocol=0/operation-server-interface-1-0:operation-server-interface-pac/operation-server-interface-configuration/life-cycle-state]'
         '400':
           $ref: '#/components/responses/responseForErroredServiceRequests'
         '404':
@@ -6625,10 +6625,10 @@ paths:
                                               remote-port:
                                                 type: integer
                         example:
-                          - uuid: 'okm-1-0-0-op-c-0020'
+                          - uuid: 'okm-1-0-0-op-c-bm-ro-1-0-0-000'
                             ltp-direction: 'core-model-1-4:TERMINATION_DIRECTION_SINK'
                             client-ltp: []
-                            server-ltp: ['okm-1-0-0-http-c-0020']
+                            server-ltp: ['okm-1-0-0-http-c-bm-ro-1-0-0-000']
                             layer-protocol:
                               - local-id: '0'
                                 layer-protocol-name: 'operation-client-interface-1-0:LAYER_PROTOCOL_NAME_TYPE_OPERATION_LAYER'
@@ -6639,10 +6639,10 @@ paths:
                                   operation-client-interface-status:
                                     operational-state: 'operation-client-interface-1-0:OPERATIONAL_STATE_TYPE_NOT_YET_DEFINED'
                                     life-cycle-state: 'operation-client-interface-1-0:LIFE_CYCLE_STATE_TYPE_NOT_YET_DEFINED'
-                          - uuid: 'okm-1-0-0-http-c-0020'
+                          - uuid: 'okm-1-0-0-http-c-bm-ro-1-0-0-000'
                             ltp-direction: 'core-model-1-4:TERMINATION_DIRECTION_SINK'
-                            client-ltp: ['okm-1-0-0-op-c-0020']
-                            server-ltp: ['okm-1-0-0-tcp-c-0020']
+                            client-ltp: ['okm-1-0-0-op-c-bm-ro-1-0-0-000']
+                            server-ltp: ['okm-1-0-0-tcp-c-bm-ro-1-0-0-000']
                             layer-protocol:
                               - local-id: '0'
                                 layer-protocol-name: 'http-client-interface-1-0:LAYER_PROTOCOL_NAME_TYPE_HTTP_LAYER'
@@ -6717,7 +6717,7 @@ paths:
                                 fc-port:
                                   - local-id: '000'
                                     port-direction: 'core-model-1-4:PORT_DIRECTION_TYPE_MANAGEMENT'
-                                    logical-termination-point: 'okm-1-0-0-op-s-0003'
+                                    logical-termination-point: 'okm-1-0-0-op-s-bm-003'
                                   - local-id: '200'
                                     port-direction: 'core-model-1-4:PORT_DIRECTION_TYPE_OUTPUT'
                                     logical-termination-point: 'okm-1-0-0-op-c-bs-ol-1-0-0-000'
@@ -6730,7 +6730,7 @@ paths:
                                 fc-port:
                                   - local-id: '000'
                                     port-direction: 'core-model-1-4:PORT_DIRECTION_TYPE_MANAGEMENT'
-                                    logical-termination-point: 'okm-1-0-0-op-s-0005'
+                                    logical-termination-point: 'okm-1-0-0-op-s-bm-005'
                                   - local-id: '200'
                                     port-direction: 'core-model-1-4:PORT_DIRECTION_TYPE_OUTPUT'
                                     logical-termination-point: 'okm-1-0-0-op-c-bs-aa-1-0-0-000'
@@ -6884,7 +6884,7 @@ paths:
         schema:
           type: string
           pattern: '-\d+-\d+-\d+-op-s-\d{4}$'
-          example: 'okm-1-0-0-op-s-0000'
+          example: 'okm-1-0-0-op-s-bm-000'
     get:
       operationId: getOperationServerOperationName
       summary: 'Returns operation name'
@@ -6925,7 +6925,7 @@ paths:
         schema:
           type: string
           pattern: '-\d+-\d+-\d+-op-s-\d{4}$'
-          example: 'okm-1-0-0-op-s-0000'
+          example: 'okm-1-0-0-op-s-bm-000'
     get:
       operationId: getOperationServerLifeCycleState
       summary: 'Returns the configured life cycle state of the operation'
@@ -7014,7 +7014,7 @@ paths:
         schema:
           type: string
           pattern: '-\d+-\d+-\d+-op-s-\d{4}$'
-          example: 'okm-1-0-0-op-s-0000'
+          example: 'okm-1-0-0-op-s-bm-000'
     get:
       operationId: getOperationServerOperationKey
       summary: 'Returns key for connecting'
@@ -7091,7 +7091,7 @@ paths:
         schema:
           type: string
           pattern: '-\d+-\d+-\d+-http-s-\d{4}$'
-          example: 'okm-1-0-0-http-s-0000'
+          example: 'okm-1-0-0-http-s-bm-000'
     get:
       operationId: getHttpServerApplicationName
       summary: 'Returns application name'
@@ -7132,7 +7132,7 @@ paths:
         schema:
           type: string
           pattern: '-\d+-\d+-\d+-http-s-\d{4}$'
-          example: 'okm-1-0-0-http-s-0000'
+          example: 'okm-1-0-0-http-s-bm-000'
     get:
       operationId: getHttpServerReleaseNumber
       summary: 'Returns release number'
@@ -7173,7 +7173,7 @@ paths:
         schema:
           type: string
           pattern: '-\d+-\d+-\d+-http-s-\d{4}$'
-          example: 'okm-1-0-0-http-s-0000'
+          example: 'okm-1-0-0-http-s-bm-000'
     get:
       operationId: getHttpServerApplicationPurpose
       summary: 'Returns application purpose'
@@ -7214,7 +7214,7 @@ paths:
         schema:
           type: string
           pattern: '-\d+-\d+-\d+-http-s-\d{4}$'
-          example: 'okm-1-0-0-http-s-0000'
+          example: 'okm-1-0-0-http-s-bm-000'
     get:
       operationId: getHttpServerDataUpdatePeriode
       summary: 'Returns update period'
@@ -7260,7 +7260,7 @@ paths:
         schema:
           type: string
           pattern: '-\d+-\d+-\d+-http-s-\d{4}$'
-          example: 'okm-1-0-0-http-s-0000'
+          example: 'okm-1-0-0-http-s-bm-000'
     get:
       operationId: getHttpServerOwnerName
       summary: 'Returns owner name'
@@ -7301,7 +7301,7 @@ paths:
         schema:
           type: string
           pattern: '-\d+-\d+-\d+-http-s-\d{4}$'
-          example: 'okm-1-0-0-http-s-0000'
+          example: 'okm-1-0-0-http-s-bm-000'
     get:
       operationId: getHttpServerOwnerEmailAddress
       summary: 'Returns owner email address'
@@ -7342,7 +7342,7 @@ paths:
         schema:
           type: string
           pattern: '-\d+-\d+-\d+-http-s-\d{4}$'
-          example: 'okm-1-0-0-http-s-0000'
+          example: 'okm-1-0-0-http-s-bm-000'
     get:
       operationId: getHttpServerReleaseList
       summary: 'Returns list of releases'
@@ -7401,7 +7401,7 @@ paths:
         schema:
           type: string
           pattern: '-\d+-\d+-\d+-tcp-s-\d{4}$'
-          example: 'okm-1-0-0-tcp-s-0000'
+          example: 'okm-1-0-0-tcp-s-bm-000'
     get:
       operationId: getTcpServerLocalIpv4Address
       summary: 'Returns IPv4 address of the server'
@@ -7477,7 +7477,7 @@ paths:
         schema:
           type: string
           pattern: '-\d+-\d+-\d+-tcp-s-\d{4}$'
-          example: 'okm-1-0-0-tcp-s-0000'
+          example: 'okm-1-0-0-tcp-s-bm-000'
     get:
       operationId: getTcpServerLocalPort
       summary: 'Returns TCP port of the server'
@@ -7555,7 +7555,7 @@ paths:
         schema:
           type: string
           pattern: '-\d+-\d+-\d+-op-c-\d{4}$'
-          example: 'okm-1-0-0-op-c-0000'
+          example: 'okm-1-0-0-op-c-bm-or-1-0-0-000'
     get:
       operationId: getOperationClientOperationName
       summary: 'Returns operation name'
@@ -7630,7 +7630,7 @@ paths:
         schema:
           type: string
           pattern: '-\d+-\d+-\d+-op-c-\d{4}$'
-          example: 'okm-1-0-0-op-c-0000'
+          example: 'okm-1-0-0-op-c-bm-or-1-0-0-000'
     get:
       operationId: getOperationClientOperationKey
       summary: 'Returns key used for connecting to server.'
@@ -7706,7 +7706,7 @@ paths:
         schema:
           type: string
           pattern: '-\d+-\d+-\d+-op-c-\d{4}$'
-          example: 'okm-1-0-0-op-c-0000'
+          example: 'okm-1-0-0-op-c-bm-or-1-0-0-000'
     get:
       operationId: getOperationClientOperationalState
       summary: 'Returns operational state of the operation'
@@ -7751,7 +7751,7 @@ paths:
         schema:
           type: string
           pattern: '-\d+-\d+-\d+-op-c-\d{4}$'
-          example: 'okm-1-0-0-op-c-0000'
+          example: 'okm-1-0-0-op-c-bm-or-1-0-0-000'
     get:
       operationId: getOperationClientLifeCycleState
       summary: 'Returns life cycle state of the operation'
@@ -7875,7 +7875,7 @@ paths:
         schema:
           type: string
           pattern: '-\d+-\d+-\d+-http-c-\d{4}$'
-          example: 'okm-1-0-0-http-c-0000'
+          example: 'okm-1-0-0-http-c-bm-or-1-0-0-000'
     get:
       operationId: getHttpClientApplicationName
       summary: 'Returns name of application to be addressed'
@@ -7916,7 +7916,7 @@ paths:
         schema:
           type: string
           pattern: '-\d+-\d+-\d+-http-c-\d{4}$'
-          example: 'okm-1-0-0-http-c-0000'
+          example: 'okm-1-0-0-http-c-bm-or-1-0-0-000'
     get:
       operationId: getHttpClientReleaseNumber
       summary: 'Returns release number of application to be addressed'
@@ -7993,7 +7993,7 @@ paths:
         schema:
           type: string
           pattern: '-\d+-\d+-\d+-tcp-c-\d{4}$'
-          example: 'okm-1-0-0-tcp-c-0000'
+          example: 'okm-1-0-0-tcp-c-bm-or-1-0-0-000'
     get:
       operationId: getTcpClientRemoteIpv4Address
       summary: 'Returns remote IPv4 address'
@@ -8069,7 +8069,7 @@ paths:
         schema:
           type: string
           pattern: '-\d+-\d+-\d+-tcp-c-\d{4}$'
-          example: 'okm-1-0-0-tcp-c-0000'
+          example: 'okm-1-0-0-tcp-c-bm-or-1-0-0-000'
     get:
       operationId: getTcpClientRemotePort
       summary: 'Returns target TCP port at server'
