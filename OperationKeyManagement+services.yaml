@@ -4,61 +4,68 @@ servers:
     own-oam:
       basic:
         - service-name: /v1/register-yourself
-          uuid: okm-1-0-0-op-s-0000
+          uuid: okm-1-0-0-op-s-bm-000
         - service-name: /v1/embed-yourself
-          uuid: okm-1-0-0-op-s-0001
+          uuid: okm-1-0-0-op-s-bm-001
         - service-name: /v1/redirect-service-request-information
-          uuid: okm-1-0-0-op-s-0002
+          uuid: okm-1-0-0-op-s-bm-002
         - service-name: /v1/redirect-oam-request-information
-          uuid: okm-1-0-0-op-s-0003
+          uuid: okm-1-0-0-op-s-bm-003
         - service-name: /v1/end-subscription
-          uuid: okm-1-0-0-op-s-0004
+          uuid: okm-1-0-0-op-s-bm-004
         - service-name: /v1/inquire-oam-request-approvals
-          uuid: okm-1-0-0-op-s-0005
+          uuid: okm-1-0-0-op-s-bm-005
         - service-name: /v1/update-client
-          uuid: okm-1-0-0-op-s-0007
+          uuid: okm-1-0-0-op-s-bm-007
         - service-name: /v1/list-ltps-and-fcs
-          uuid: okm-1-0-0-op-s-0008
+          uuid: okm-1-0-0-op-s-bm-008
         - service-name: /v1/redirect-topology-change-information
-          uuid: okm-1-0-0-op-s-0009
+          uuid: okm-1-0-0-op-s-bm-009
         - service-name: /v1/update-operation-key
-          uuid: okm-1-0-0-op-s-0010
+          uuid: okm-1-0-0-op-s-bm-010
         - service-name: /v1/update-operation-client
-          uuid: okm-1-0-0-op-s-0011
+          uuid: okm-1-0-0-op-s-bm-011
       individual:
         - service-name: /v1/bequeath-your-data-and-die
-          uuid: okm-1-0-0-op-s-1000
+          uuid: okm-1-0-0-op-s-im-000
     service:
       basic:
         - service-name: /v1/start-application-in-generic-representation
-          uuid: okm-1-0-0-op-s-2000
+          uuid: okm-1-0-0-op-s-bs-000
         - service-name: /v1/inform-about-application
-          uuid: okm-1-0-0-op-s-2001
+          uuid: okm-1-0-0-op-s-bs-001
         - service-name: /v1/inform-about-application-in-generic-representation
-          uuid: okm-1-0-0-op-s-2002
+          uuid: okm-1-0-0-op-s-bs-002
         - service-name: /v1/inform-about-release-history
-          uuid: okm-1-0-0-op-s-2003
+          uuid: okm-1-0-0-op-s-bs-003
         - service-name: /v1/inform-about-release-history-in-generic-representation
-          uuid: okm-1-0-0-op-s-2004
+          uuid: okm-1-0-0-op-s-bs-004
         - service-name: /docs
           uuid: okm-2-0-0-op-s-bs-005
       individual:
         - service-name: /v1/regard-application
-          uuid: okm-1-0-0-op-s-3001
+          uuid: okm-1-0-0-op-s-is-001
         - service-name: /v1/disregard-application
-          uuid: okm-1-0-0-op-s-3002
+          uuid: okm-1-0-0-op-s-is-002
         - service-name: /v1/list-applications
-          uuid: okm-1-0-0-op-s-3003
+          uuid: okm-1-0-0-op-s-is-003
         - service-name: /v1/regard-updated-link
-          uuid: okm-1-0-0-op-s-3004
+          uuid: okm-1-0-0-op-s-is-004
   http-server:
     own-application-name: OperationKeyManagement
     own-release-number: 1.0.0
-    uuid: okm-1-0-0-http-s-0000
+    uuid: okm-1-0-0-http-s-bm-000
   tpc-server:
-    own-ip-address: 10.118.125.157
-    own-tcp-port: 1006
-    uuid: okm-1-0-0-tcp-s-0000
+    - description: Without TLS layer
+      local-protocol: http
+      own-ip-address: 1.1.3.14
+      own-tcp-port: 3014
+      uuid: okm-1-0-0-tcp-s-bm-000
+    - description: With TLS layer
+      local-protocol: https
+      own-ip-address: 1.2.3.14
+      own-tcp-port: 3214
+      uuid: okm-1-0-0-tcp-s-bm-001
 
 
 clients:
@@ -66,16 +73,16 @@ clients:
   - http-client:
       application-name: OldRelease
       release-number: 1.0.0
-      uuid: okm-1-0-0-http-c-0000
+      uuid: okm-1-0-0-http-c-bm-or-1-0-0-000
     tcp-client:
       ip-address: 10.118.125.157
       tcp-port: 1006
-      uuid: okm-1-0-0-tcp-c-0000
+      uuid: okm-1-0-0-tcp-c-bm-or-1-0-0-000
     operation-clients:
       own-oam:
         basic:
           - service-name: /v1/bequeath-your-data-and-die
-            uuid: okm-1-0-0-op-c-0000
+            uuid: okm-1-0-0-op-c-bm-or-1-0-0-000
         individual:
       service:
         basic:
@@ -84,17 +91,17 @@ clients:
   - http-client:
       application-name: NewRelease
       release-number: 1.0.0
-      uuid: okm-1-0-0-http-c-0010
+      uuid: okm-1-0-0-http-c-im-nr-1-0-0-000
     tcp-client:
       ip-address: 10.118.125.157
       tcp-port: 1006
-      uuid: okm-1-0-0-tcp-c-0010
+      uuid: okm-1-0-0-tcp-c-im-nr-1-0-0-000
     operation-clients:
       own-oam:
         basic:
         individual:
           - service-name: /v1/regard-application
-            uuid: okm-1-0-0-op-c-1010
+            uuid: okm-1-0-0-op-c-im-nr-1-0-0-000
       service:
         basic:
         individual:
@@ -102,22 +109,22 @@ clients:
   - http-client:
       application-name: RegistryOffice
       release-number: 1.0.0
-      uuid: okm-1-0-0-http-c-0020
+      uuid: okm-1-0-0-http-c-bm-ro-1-0-0-000
     tcp-client:
       ip-address: 10.118.125.157
       tcp-port: 1000
-      uuid: okm-1-0-0-tcp-c-0020
+      uuid: okm-1-0-0-tcp-c-bm-ro-1-0-0-000
     operation-clients:
       own-oam:
         basic:
           - service-name: /v1/register-application
-            uuid: okm-1-0-0-op-c-0020
+            uuid: okm-1-0-0-op-c-bm-ro-1-0-0-000
           - service-name: /v1/relay-server-replacement
-            uuid: okm-1-0-0-op-c-0021
+            uuid: okm-1-0-0-op-c-bm-ro-1-0-0-001
           - service-name: /v1/deregister-application
-            uuid: okm-1-0-0-op-c-0022
+            uuid: okm-1-0-0-op-c-bm-ro-1-0-0-002
           - service-name: /v1/relay-operation-update
-            uuid: okm-1-0-0-op-c-0023
+            uuid: okm-1-0-0-op-c-bm-ro-1-0-0-003
         individual:
           - service-name: /v1/notify-approvals
             uuid: okm-1-0-0-op-c-im-ro-1-0-0-000
@@ -134,11 +141,11 @@ clients:
   - http-client:
       application-name: TypeApprovalRegister
       release-number: 1.0.0
-      uuid: okm-1-0-0-http-c-2030
+      uuid: okm-1-0-0-http-c-is-tar-1-0-0-000
     tcp-client:
       ip-address: 10.118.125.157
       tcp-port: 1001
-      uuid: okm-1-0-0-tcp-c-2030
+      uuid: okm-1-0-0-tcp-c-is-tar-1-0-0-000
     operation-clients:
       own-oam:
         basic:
@@ -152,11 +159,11 @@ clients:
   - http-client:
       application-name: ExecutionAndTraceLog
       release-number: 1.0.0
-      uuid: okm-1-0-0-http-c-0040
+      uuid: okm-1-0-0-http-c-bs-eatl-1-0-0-000
     tcp-client:
       ip-address: 10.118.125.157
       tcp-port: 1002
-      uuid: okm-1-0-0-tcp-c-0040
+      uuid: okm-1-0-0-tcp-c-bs-eatl-1-0-0-000
     operation-clients:
       own-oam:
         basic:
@@ -172,11 +179,11 @@ clients:
   - http-client:
       application-name: OamLog
       release-number: 1.0.0
-      uuid: okm-1-0-0-http-c-0050
+      uuid: okm-1-0-0-http-c-bs-ol-1-0-0-000
     tcp-client:
       ip-address: 10.118.125.157
       tcp-port: 1003
-      uuid: okm-1-0-0-tcp-c-0050
+      uuid: okm-1-0-0-tcp-c-bs-ol-1-0-0-000
     operation-clients:
       own-oam:
         basic:
@@ -192,11 +199,11 @@ clients:
   - http-client:
       application-name: AdministratorAdministration
       release-number: 1.0.0
-      uuid: okm-1-0-0-http-c-0060
+      uuid: okm-1-0-0-http-c-bs-aa-1-0-0-000
     tcp-client:
       ip-address: 10.118.125.157
       tcp-port: 1004
-      uuid: okm-1-0-0-tcp-c-0060
+      uuid: okm-1-0-0-tcp-c-bs-aa-1-0-0-000
     operation-clients:
       own-oam:
         basic:
@@ -212,26 +219,26 @@ clients:
   - http-client:
       application-name: ApplicationLayerTopology
       release-number: 1.0.0
-      uuid: okm-1-0-0-http-c-0070
+      uuid: okm-1-0-0-http-c-bm-alt-1-0-0-000
     tcp-client:
       ip-address: 10.118.125.157
       tcp-port: 1005
-      uuid: okm-1-0-0-tcp-c-0070
+      uuid: okm-1-0-0-tcp-c-bm-alt-1-0-0-000
     operation-clients:
       own-oam:
         basic:
           - service-name: /v1/update-all-ltps-and-fcs
-            uuid: okm-1-0-0-op-c-0070
+            uuid: okm-1-0-0-op-c-bm-alt-1-0-0-000
           - service-name: /v1/update-ltp
-            uuid: okm-1-0-0-op-c-0071
+            uuid: okm-1-0-0-op-c-bm-alt-1-0-0-001
           - service-name: /v1/delete-ltp-and-dependents
-            uuid: okm-1-0-0-op-c-0072
+            uuid: okm-1-0-0-op-c-bm-alt-1-0-0-002
           - service-name: /v1/update-fc
-            uuid: okm-1-0-0-op-c-0073
+            uuid: okm-1-0-0-op-c-bm-alt-1-0-0-003
           - service-name: /v1/update-fc-port
-            uuid: okm-1-0-0-op-c-0074
+            uuid: okm-1-0-0-op-c-bm-alt-1-0-0-004
           - service-name: /v1/delete-fc-port
-            uuid: okm-1-0-0-op-c-0075
+            uuid: okm-1-0-0-op-c-bm-alt-1-0-0-005
         individual:
           - service-name: /v1/notify-link-updates
             uuid: okm-1-0-0-op-c-im-alt-1-0-0-000
@@ -250,11 +257,11 @@ clients:
   - http-client:
       application-name: OperationKeyManagement
       release-number: 1.0.0
-      uuid: okm-1-0-0-http-c-2080
+      uuid: okm-1-0-0-http-c-is-okm-1-0-0-000
     tcp-client:
       ip-address: 10.118.125.157
       tcp-port: 1006
-      uuid: okm-1-0-0-tcp-c-2080
+      uuid: okm-1-0-0-tcp-c-is-okm-1-0-0-000
     operation-clients:
       own-oam:
         basic:
@@ -268,11 +275,11 @@ clients:
   - http-client:
       application-name: CurrentController
       release-number: 1.0.0
-      uuid: okm-1-0-0-http-c-2300
+      uuid: okm-1-0-0-http-c-is-cc-1-0-0-000
     tcp-client:
       ip-address: 10.118.125.186
       tcp-port: 2000
-      uuid: okm-1-0-0-tcp-c-2300
+      uuid: okm-1-0-0-tcp-c-is-cc-1-0-0-000
     operation-clients:
       own-oam:
         basic:
