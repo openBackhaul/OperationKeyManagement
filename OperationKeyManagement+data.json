@@ -2049,6 +2049,11 @@
                     "local-id": "120",
                     "port-direction": "core-model-1-4:PORT_DIRECTION_TYPE_INPUT",
                     "logical-termination-point": "okm-1-0-0-op-s-is-004"
+                  },
+                  {
+                    "local-id": "200",
+                    "port-direction": "core-model-1-4:PORT_DIRECTION_TYPE_OUTPUT",
+                    "logical-termination-point": "okm-1-0-0-op-c-bs-eatl-1-0-0-000"
                   }
                 ]
               },
@@ -2248,7 +2253,7 @@
                   {
                     "local-id": "200",
                     "port-direction": "core-model-1-4:PORT_DIRECTION_TYPE_OUTPUT",
-                    "logical-termination-point": "okm-1-0-0-op-c-is-alt-1-0-0-001"
+                    "logical-termination-point": "okm-1-0-0-op-c-im-alt-1-0-0-001"
                   }
                 ]
               },
