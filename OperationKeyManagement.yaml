@@ -1265,7 +1265,7 @@ paths:
                   $ref: '#/components/responses/responseForErroredServiceRequests'
                 default:
                   $ref: '#/components/responses/responseForErroredServiceRequests'
-          https://{$request.body#application-address}:{$request.body#application-port}[/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-op-c-2*0/layer-protocol=0/operation-client-interface-1-0:operation-client-interface-pac/operation-client-interface-configuration/operation-name]:
+          https://{$request.body#application-address}:{$request.body#application-port}[/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-op-c-is-*-1-0-0-000/layer-protocol=0/operation-client-interface-1-0:operation-client-interface-pac/operation-client-interface-configuration/operation-name]:
             parameters:
               - $ref: '#/components/parameters/user'
               - $ref: '#/components/parameters/originator'
@@ -1516,7 +1516,7 @@ paths:
                   $ref: '#/components/responses/responseForErroredServiceRequests'
                 default:
                   $ref: '#/components/responses/responseForErroredServiceRequests'
-          https://{$request.body#application-address}:{$request.body#application-port}[/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-op-c-2*0/layer-protocol=0/operation-client-interface-1-0:operation-client-interface-pac/operation-client-interface-configuration/operation-name]:
+          https://{$request.body#application-address}:{$request.body#application-port}[/core-model-1-4:control-construct/logical-termination-point=okm-1-0-0-op-c-is-*-1-0-0-000/layer-protocol=0/operation-client-interface-1-0:operation-client-interface-pac/operation-client-interface-configuration/operation-name]:
             parameters:
               - $ref: '#/components/parameters/user'
               - $ref: '#/components/parameters/originator'
