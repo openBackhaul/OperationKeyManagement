@@ -2161,7 +2161,7 @@
                                     {
                                         "local-id": "200",
                                         "port-direction": "core-model-1-4:PORT_DIRECTION_TYPE_OUTPUT",
-                                        "logical-termination-point": "okm-0-0-1-op-c-3071"
+                                        "logical-termination-point": "okm-0-0-1-op-c-3070"
                                     }
                                 ]
                             },
@@ -2211,7 +2211,7 @@
                                     {
                                         "local-id": "200",
                                         "port-direction": "core-model-1-4:PORT_DIRECTION_TYPE_OUTPUT",
-                                        "logical-termination-point": "okm-0-0-1-op-c-3072"
+                                        "logical-termination-point": "okm-0-0-1-op-c-3071"
                                     }
                                 ]
                             },
