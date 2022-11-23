@@ -3460,9 +3460,9 @@ paths:
                                         logical-termination-point:
                                           type: string
                         example:
-                          - uuid: 'okm-1-0-0-op-fd-0000'
+                          - uuid: 'okm-1-0-0-op-fd-000'
                             forwarding-construct:
-                              - uuid: 'okm-1-0-0-op-fc-0000'
+                              - uuid: 'okm-1-0-0-op-fc-bm-000'
                                 name:
                                   - value-name: 'ForwardingKind'
                                     value: 'core-model-1-4:FORWARDING_KIND_TYPE_INVARIANT_PROCESS_SNIPPET'
@@ -3475,7 +3475,7 @@ paths:
                                   - local-id: '100'
                                     port-direction: 'core-model-1-4:PORT_DIRECTION_TYPE_INPUT'
                                     logical-termination-point: 'okm-1-0-0-op-s-bm-000'
-                              - uuid: 'okm-1-0-0-op-fc-0001'
+                              - uuid: 'okm-1-0-0-op-fc-bm-001'
                                 name:
                                   - value-name: 'ForwardingKind'
                                     value: 'core-model-1-4:FORWARDING_KIND_TYPE_INVARIANT_PROCESS_SNIPPET'
@@ -3996,9 +3996,9 @@ paths:
                                               logical-termination-point:
                                                 type: string
                               example:
-                                - uuid: 'okm-1-0-0-op-fd-0000'
+                                - uuid: 'okm-1-0-0-op-fd-000'
                                   forwarding-construct:
-                                    - uuid: 'okm-1-0-0-op-fc-0000'
+                                    - uuid: 'okm-1-0-0-op-fc-bm-000'
                                       name:
                                         - value-name: 'ForwardingKind'
                                           value: 'core-model-1-4:FORWARDING_KIND_TYPE_INVARIANT_PROCESS_SNIPPET'
@@ -4011,7 +4011,7 @@ paths:
                                         - local-id: '100'
                                           port-direction: 'core-model-1-4:PORT_DIRECTION_TYPE_INPUT'
                                           logical-termination-point: 'okm-1-0-0-op-s-bm-000'
-                                    - uuid: 'okm-1-0-0-op-fc-0001'
+                                    - uuid: 'okm-1-0-0-op-fc-bm-001'
                                       name:
                                         - value-name: 'ForwardingKind'
                                           value: 'core-model-1-4:FORWARDING_KIND_TYPE_INVARIANT_PROCESS_SNIPPET'
@@ -4473,7 +4473,7 @@ paths:
                               logical-termination-point:
                                 type: string
                       example:
-                        uuid: 'okm-1-0-0-op-fc-0003'
+                        uuid: 'okm-1-0-0-op-fc-bm-003'
                         name:
                           - value-name: 'ForwardingKind'
                             value: 'core-model-1-4:FORWARDING_KIND_TYPE_INVARIANT_PROCESS_SNIPPET'
@@ -4569,7 +4569,7 @@ paths:
                             logical-termination-point:
                               type: string
                       example:
-                        fc-uuid: 'okm-1-0-0-op-fc-0003'
+                        fc-uuid: 'okm-1-0-0-op-fc-bm-003'
                         fc-port:
                           local-id: '000'
                           port-direction: 'core-model-1-4:PORT_DIRECTION_TYPE_MANAGEMENT'
@@ -4642,7 +4642,7 @@ paths:
                         fc-port-local-id:
                           type: string
                       example:
-                        fc-uuid: 'okm-1-0-0-op-fc-3000'
+                        fc-uuid: 'okm-1-0-0-op-fc-is-000'
                         fc-port-local-id: '202'
               responses:
                 '204':
@@ -5093,7 +5093,7 @@ paths:
                               logical-termination-point:
                                 type: string
                       example:
-                        uuid: 'okm-1-0-0-op-fc-0003'
+                        uuid: 'okm-1-0-0-op-fc-bm-003'
                         name:
                           - value-name: 'ForwardingKind'
                             value: 'core-model-1-4:FORWARDING_KIND_TYPE_INVARIANT_PROCESS_SNIPPET'
@@ -5189,7 +5189,7 @@ paths:
                             logical-termination-point:
                               type: string
                       example:
-                        fc-uuid: 'okm-1-0-0-op-fc-0003'
+                        fc-uuid: 'okm-1-0-0-op-fc-bm-003'
                         fc-port:
                           local-id: '000'
                           port-direction: 'core-model-1-4:PORT_DIRECTION_TYPE_MANAGEMENT'
@@ -5262,7 +5262,7 @@ paths:
                         fc-port-local-id:
                           type: string
                       example:
-                        fc-uuid: 'okm-1-0-0-op-fc-3000'
+                        fc-uuid: 'okm-1-0-0-op-fc-is-000'
                         fc-port-local-id: '202'
               responses:
                 '204':
