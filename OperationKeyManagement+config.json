@@ -2161,7 +2161,7 @@
         ],
         "forwarding-domain": [
           {
-            "uuid": "okm-1-0-0-op-fd-0000",
+            "uuid": "okm-1-0-0-op-fd-000",
             "forwarding-construct": [
               {
                 "uuid": "okm-1-0-0-op-fc-bm-000",
