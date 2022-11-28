@@ -510,8 +510,8 @@ forwardings:
         - server-name: /v1/disregard-application
           uuid: okm-2-0-0-op-s-is-002
     initiating-requests:
-        - server-name: /v1/regard-updated-link
-          uuid: okm-2-0-0-op-s-is-004
+      - server-name: /v1/regard-updated-link
+        uuid: okm-2-0-0-op-s-is-004
     consequent-requests:
       - client-name: ApplicationLayerTopology:://v1/list-end-points-of-link
         uuid: okm-2-0-0-op-c-is-alt-1-0-0-003
