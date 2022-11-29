@@ -166,19 +166,23 @@ exports.listApplications = async function (user, originator, xCorrelator, traceI
   const resultList = [];
   for (const clientOperationLtpUuid of clientOperationLtpUuidList) {
     const httpLtpUuidList = await LogicalTerminationPoint.getServerLtpListAsync(clientOperationLtpUuid);
-    const httpLtpAppName = await httpClientInterface.getApplicationNameAsync(httpLtpUuidList[0]);
-    const httpLtpAppReleaseNumber = await httpClientInterface.getReleaseNumberAsync(httpLtpUuidList[0]);
+    if (httpLtpUuidList.length == 1) {
+      const httpLtpAppName = await httpClientInterface.getApplicationNameAsync(httpLtpUuidList[0]);
+      const httpLtpAppReleaseNumber = await httpClientInterface.getReleaseNumberAsync(httpLtpUuidList[0]);
 
-    const tcpLtpUuidLilst = await LogicalTerminationPoint.getServerLtpListAsync(httpLtpUuidList[0])
-    const tcpLtpRemoteAddress = await tcpClientInterface.getRemoteAddressAsync(tcpLtpUuidLilst[0]);
-    const tcpLtpRemotePort = await tcpClientInterface.getRemotePortAsync(tcpLtpUuidLilst[0]);
-    const resultObj = {
-      "application-name": httpLtpAppName,
-      "application-release-number": httpLtpAppReleaseNumber,
-      "application-address": tcpLtpRemoteAddress,
-      "application-port": tcpLtpRemotePort
+      const tcpLtpUuidLilst = await LogicalTerminationPoint.getServerLtpListAsync(httpLtpUuidList[0])
+      const tcpLtpRemoteAddress = await tcpClientInterface.getRemoteAddressAsync(tcpLtpUuidLilst[0]);
+      const tcpLtpRemotePort = await tcpClientInterface.getRemotePortAsync(tcpLtpUuidLilst[0]);
+      const resultObj = {
+        "application-name": httpLtpAppName,
+        "application-release-number": httpLtpAppReleaseNumber,
+        "application-address": tcpLtpRemoteAddress,
+        "application-port": tcpLtpRemotePort
+      }
+      resultList.push(resultObj);
+    } else {
+      console.log(`Could not find http client uuid in server ltps for operation client with uuid ${clientOperationLtpUuid}`);
     }
-    resultList.push(resultObj);
   }
   return resultList;
 }
