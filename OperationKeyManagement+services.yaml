@@ -75,6 +75,7 @@ clients:
       release-number: 1.0.0
       uuid: okm-2-0-0-http-c-bm-or-1-0-0-000
     tcp-client:
+      remote-protocol: http
       ip-address: 10.118.125.157
       tcp-port: 1006
       uuid: okm-2-0-0-tcp-c-bm-or-1-0-0-000
@@ -93,6 +94,7 @@ clients:
       release-number: 2.0.0
       uuid: okm-2-0-0-http-c-im-nr-2-0-0-000
     tcp-client:
+      remote-protocol: http
       ip-address: 10.118.125.157
       tcp-port: 1006
       uuid: okm-2-0-0-tcp-c-im-nr-2-0-0-000
@@ -111,6 +113,7 @@ clients:
       release-number: 2.0.0
       uuid: okm-2-0-0-http-c-bm-ro-2-0-0-000
     tcp-client:
+      remote-protocol: http
       ip-address: 10.118.125.157
       tcp-port: 1000
       uuid: okm-2-0-0-tcp-c-bm-ro-2-0-0-000
@@ -143,6 +146,7 @@ clients:
       release-number: 1.0.0
       uuid: okm-2-0-0-http-c-is-tar-1-0-0-000
     tcp-client:
+      remote-protocol: http
       ip-address: 10.118.125.157
       tcp-port: 1001
       uuid: okm-2-0-0-tcp-c-is-tar-1-0-0-000
@@ -161,6 +165,7 @@ clients:
       release-number: 1.0.0
       uuid: okm-2-0-0-http-c-bs-eatl-1-0-0-000
     tcp-client:
+      remote-protocol: http
       ip-address: 10.118.125.157
       tcp-port: 1002
       uuid: okm-2-0-0-tcp-c-bs-eatl-1-0-0-000
@@ -181,6 +186,7 @@ clients:
       release-number: 1.0.0
       uuid: okm-2-0-0-http-c-bs-ol-1-0-0-000
     tcp-client:
+      remote-protocol: http
       ip-address: 10.118.125.157
       tcp-port: 1003
       uuid: okm-2-0-0-tcp-c-bs-ol-1-0-0-000
@@ -201,6 +207,7 @@ clients:
       release-number: 1.0.0
       uuid: okm-2-0-0-http-c-bs-aa-1-0-0-000
     tcp-client:
+      remote-protocol: http
       ip-address: 10.118.125.157
       tcp-port: 1004
       uuid: okm-2-0-0-tcp-c-bs-aa-1-0-0-000
@@ -221,6 +228,7 @@ clients:
       release-number: 1.0.0
       uuid: okm-2-0-0-http-c-bm-alt-1-0-0-000
     tcp-client:
+      remote-protocol: http
       ip-address: 10.118.125.157
       tcp-port: 1005
       uuid: okm-2-0-0-tcp-c-bm-alt-1-0-0-000
@@ -259,6 +267,7 @@ clients:
       release-number: 2.0.0
       uuid: okm-2-0-0-http-c-is-okm-2-0-0-000
     tcp-client:
+      remote-protocol: http
       ip-address: 10.118.125.157
       tcp-port: 1006
       uuid: okm-2-0-0-tcp-c-is-okm-2-0-0-000
@@ -277,6 +286,7 @@ clients:
       release-number: 1.0.0
       uuid: okm-2-0-0-http-c-is-cc-1-0-0-000
     tcp-client:
+      remote-protocol: http
       ip-address: 10.118.125.186
       tcp-port: 2000
       uuid: okm-2-0-0-tcp-c-is-cc-1-0-0-000
