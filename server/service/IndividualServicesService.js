@@ -14,6 +14,7 @@ const httpClientInterface = require('onf-core-model-ap/applicationPattern/onfMod
 const tcpServerInterface = require('onf-core-model-ap/applicationPattern/onfModel/models/layerProtocols/TcpServerInterface');
 const httpServerInterface = require('onf-core-model-ap/applicationPattern/onfModel/models/layerProtocols/HttpServerInterface');
 const operationServerInterface = require('onf-core-model-ap/applicationPattern/onfModel/models/layerProtocols/OperationServerInterface');
+const operationClientInterface = require('onf-core-model-ap/applicationPattern/onfModel/models/layerProtocols/OperationClientInterface');
 const prepareForwardingAutomation = require('./individualServices/PrepareForwardingAutomation');
 const softwareUpgrade = require('./individualServices/SoftwareUpgrade');
 const profileConstants = require('../utils/profileConstants');
@@ -127,9 +128,12 @@ exports.disregardApplication = async function (body, user, originator, xCorrelat
     return;
   }
 
+  const operationClientUuid = await operationClientInterface.getOperationClientUuidAsync(httpClientUuid, "/v1/update-operation-key");
+  // TODO: uncomment once new UUIDs are in place and https://github.com/openBackhaul/ApplicationPattern/pull/400 is merged
+  //const operationClientUuid = await OperationClientInterface.generateOperationClientUuidAsync(httpClientUuid, "is", "000");
+
   const logicalTerminationPointConfigurationStatus = await logicalTerminationPointService.deleteApplicationInformationAsync(appName, appReleaseNumber);
 
-  const operationClientUuid = logicalTerminationPointConfigurationStatus.operationClientConfigurationStatusList[0].uuid;
   const cyclicOperationInput = new ForwardingConstructConfigurationInput(FC_CYCLIC_OPERATION_CAUSES_OPERATION_KEY_UPDATES, operationClientUuid);
   const linkUpdateNotificationInput = new ForwardingConstructConfigurationInput(FC_LINK_UPDATE_NOTIFICATION_CAUSES_OPERATION_KEY_UPDATES, operationClientUuid);
   const forwardingConfigurationInputList = [cyclicOperationInput, linkUpdateNotificationInput];
