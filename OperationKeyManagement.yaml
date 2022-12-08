@@ -1696,7 +1696,7 @@ paths:
                       address:
                         ip-address:
                           ipv-4-address: '1.2.3.9'
-                      port: 3009
+                      port: 3209
           headers:
             x-correlator:
               schema:
