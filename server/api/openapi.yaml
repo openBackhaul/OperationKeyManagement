@@ -2,9 +2,6 @@ openapi: 3.0.0
 info:
   title: OperationKeyManagement
   version: 0.0.2
-servers:
-- url: http://localhost:8080
-  description: Initial deployment
 paths:
   /v1/bequeath-your-data-and-die:
     post:
@@ -20642,7 +20639,7 @@ components:
         datatype:
           type: string
           enum:
-          - String
+          - string
       example: null
     inline_response_200_inputvaluelist:
       required:
@@ -21111,7 +21108,7 @@ components:
         datatype:
           type: string
           enum:
-          - String
+          - string
       example: null
     inline_response_200_4_consequentactionlist:
       required:
@@ -21154,7 +21151,7 @@ components:
         datatype:
           type: string
           enum:
-          - String
+          - string
       example: null
     inline_response_200_6_consequentactionlist:
       required:

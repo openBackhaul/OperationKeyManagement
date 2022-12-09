@@ -14,6 +14,7 @@ const httpClientInterface = require('onf-core-model-ap/applicationPattern/onfMod
 const tcpServerInterface = require('onf-core-model-ap/applicationPattern/onfModel/models/layerProtocols/TcpServerInterface');
 const httpServerInterface = require('onf-core-model-ap/applicationPattern/onfModel/models/layerProtocols/HttpServerInterface');
 const operationServerInterface = require('onf-core-model-ap/applicationPattern/onfModel/models/layerProtocols/OperationServerInterface');
+const operationClientInterface = require('onf-core-model-ap/applicationPattern/onfModel/models/layerProtocols/OperationClientInterface');
 const prepareForwardingAutomation = require('./individualServices/PrepareForwardingAutomation');
 const softwareUpgrade = require('./individualServices/SoftwareUpgrade');
 const profileConstants = require('../utils/profileConstants');
@@ -127,9 +128,12 @@ exports.disregardApplication = async function (body, user, originator, xCorrelat
     return;
   }
 
+  const operationClientUuid = await operationClientInterface.getOperationClientUuidAsync(httpClientUuid, "/v1/update-operation-key");
+  // TODO: uncomment once new UUIDs are in place and https://github.com/openBackhaul/ApplicationPattern/pull/400 is merged
+  //const operationClientUuid = await OperationClientInterface.generateOperationClientUuidAsync(httpClientUuid, "is", "000");
+
   const logicalTerminationPointConfigurationStatus = await logicalTerminationPointService.deleteApplicationInformationAsync(appName, appReleaseNumber);
 
-  const operationClientUuid = logicalTerminationPointConfigurationStatus.operationClientConfigurationStatusList[0].uuid;
   const cyclicOperationInput = new ForwardingConstructConfigurationInput(FC_CYCLIC_OPERATION_CAUSES_OPERATION_KEY_UPDATES, operationClientUuid);
   const linkUpdateNotificationInput = new ForwardingConstructConfigurationInput(FC_LINK_UPDATE_NOTIFICATION_CAUSES_OPERATION_KEY_UPDATES, operationClientUuid);
   const forwardingConfigurationInputList = [cyclicOperationInput, linkUpdateNotificationInput];
@@ -166,19 +170,23 @@ exports.listApplications = async function (user, originator, xCorrelator, traceI
   const resultList = [];
   for (const clientOperationLtpUuid of clientOperationLtpUuidList) {
     const httpLtpUuidList = await LogicalTerminationPoint.getServerLtpListAsync(clientOperationLtpUuid);
-    const httpLtpAppName = await httpClientInterface.getApplicationNameAsync(httpLtpUuidList[0]);
-    const httpLtpAppReleaseNumber = await httpClientInterface.getReleaseNumberAsync(httpLtpUuidList[0]);
+    if (httpLtpUuidList.length == 1) {
+      const httpLtpAppName = await httpClientInterface.getApplicationNameAsync(httpLtpUuidList[0]);
+      const httpLtpAppReleaseNumber = await httpClientInterface.getReleaseNumberAsync(httpLtpUuidList[0]);
 
-    const tcpLtpUuidLilst = await LogicalTerminationPoint.getServerLtpListAsync(httpLtpUuidList[0])
-    const tcpLtpRemoteAddress = await tcpClientInterface.getRemoteAddressAsync(tcpLtpUuidLilst[0]);
-    const tcpLtpRemotePort = await tcpClientInterface.getRemotePortAsync(tcpLtpUuidLilst[0]);
-    const resultObj = {
-      "application-name": httpLtpAppName,
-      "application-release-number": httpLtpAppReleaseNumber,
-      "application-address": tcpLtpRemoteAddress,
-      "application-port": tcpLtpRemotePort
+      const tcpLtpUuidLilst = await LogicalTerminationPoint.getServerLtpListAsync(httpLtpUuidList[0])
+      const tcpLtpRemoteAddress = await tcpClientInterface.getRemoteAddressAsync(tcpLtpUuidLilst[0]);
+      const tcpLtpRemotePort = await tcpClientInterface.getRemotePortAsync(tcpLtpUuidLilst[0]);
+      const resultObj = {
+        "application-name": httpLtpAppName,
+        "application-release-number": httpLtpAppReleaseNumber,
+        "application-address": tcpLtpRemoteAddress,
+        "application-port": tcpLtpRemotePort
+      }
+      resultList.push(resultObj);
+    } else {
+      console.log(`Could not find http client uuid in server ltps for operation client with uuid ${clientOperationLtpUuid}`);
     }
-    resultList.push(resultObj);
   }
   return resultList;
 }
