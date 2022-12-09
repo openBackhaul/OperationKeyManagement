@@ -61,11 +61,6 @@ servers:
       own-ip-address: 1.1.3.14
       own-tcp-port: 3014
       uuid: okm-2-0-0-tcp-s-bm-000
-    - description: With TLS layer
-      local-protocol: https
-      own-ip-address: 1.2.3.14
-      own-tcp-port: 3214
-      uuid: okm-2-0-0-tcp-s-bm-001
 
 
 clients:
