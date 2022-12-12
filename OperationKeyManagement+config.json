@@ -73,7 +73,7 @@
                 },
                 "response-profile-configuration": {
                   "value": {
-                    "value-reference": "/core-model-1-4:control-construct/logical-termination-point=okm-2-0-0-http-s-bm-000/layer-protocol=0/http-server-interface-1-0:http-server-interface-pac/http-server-interface-capability/application-name"
+                    "value-reference": "/core-model-1-4:control-construct/logical-termination-point=okm-2-0-0-http-s-000/layer-protocol=0/http-server-interface-1-0:http-server-interface-pac/http-server-interface-capability/application-name"
                   }
                 }
               }
@@ -92,7 +92,7 @@
                 },
                 "response-profile-configuration": {
                   "value": {
-                    "value-reference": "/core-model-1-4:control-construct/logical-termination-point=okm-2-0-0-http-s-bm-000/layer-protocol=0/http-server-interface-1-0:http-server-interface-pac/http-server-interface-capability/application-name"
+                    "value-reference": "/core-model-1-4:control-construct/logical-termination-point=okm-2-0-0-http-s-000/layer-protocol=0/http-server-interface-1-0:http-server-interface-pac/http-server-interface-capability/application-name"
                   }
                 }
               }
@@ -111,7 +111,7 @@
                 },
                 "response-profile-configuration": {
                   "value": {
-                    "value-reference": "/core-model-1-4:control-construct/logical-termination-point=okm-2-0-0-http-s-bm-000/layer-protocol=0/http-server-interface-1-0:http-server-interface-pac/http-server-interface-capability/release-number"
+                    "value-reference": "/core-model-1-4:control-construct/logical-termination-point=okm-2-0-0-http-s-000/layer-protocol=0/http-server-interface-1-0:http-server-interface-pac/http-server-interface-capability/release-number"
                   }
                 }
               }
@@ -130,7 +130,7 @@
                 },
                 "response-profile-configuration": {
                   "value": {
-                    "value-reference": "/core-model-1-4:control-construct/logical-termination-point=okm-2-0-0-http-s-bm-000/layer-protocol=0/http-server-interface-1-0:http-server-interface-pac/http-server-interface-capability/application-purpose"
+                    "value-reference": "/core-model-1-4:control-construct/logical-termination-point=okm-2-0-0-http-s-000/layer-protocol=0/http-server-interface-1-0:http-server-interface-pac/http-server-interface-capability/application-purpose"
                   }
                 }
               }
@@ -149,7 +149,7 @@
                 },
                 "response-profile-configuration": {
                   "value": {
-                    "value-reference": "/core-model-1-4:control-construct/logical-termination-point=okm-2-0-0-http-s-bm-000/layer-protocol=0/http-server-interface-1-0:http-server-interface-pac/http-server-interface-capability/data-update-period"
+                    "value-reference": "/core-model-1-4:control-construct/logical-termination-point=okm-2-0-0-http-s-000/layer-protocol=0/http-server-interface-1-0:http-server-interface-pac/http-server-interface-capability/data-update-period"
                   }
                 }
               }
@@ -168,7 +168,7 @@
                 },
                 "response-profile-configuration": {
                   "value": {
-                    "value-reference": "/core-model-1-4:control-construct/logical-termination-point=okm-2-0-0-http-s-bm-000/layer-protocol=0/http-server-interface-1-0:http-server-interface-pac/http-server-interface-capability/owner-name"
+                    "value-reference": "/core-model-1-4:control-construct/logical-termination-point=okm-2-0-0-http-s-000/layer-protocol=0/http-server-interface-1-0:http-server-interface-pac/http-server-interface-capability/owner-name"
                   }
                 }
               }
@@ -187,7 +187,7 @@
                 },
                 "response-profile-configuration": {
                   "value": {
-                    "value-reference": "/core-model-1-4:control-construct/logical-termination-point=okm-2-0-0-http-s-bm-000/layer-protocol=0/http-server-interface-1-0:http-server-interface-pac/http-server-interface-capability/owner-email-address"
+                    "value-reference": "/core-model-1-4:control-construct/logical-termination-point=okm-2-0-0-http-s-000/layer-protocol=0/http-server-interface-1-0:http-server-interface-pac/http-server-interface-capability/owner-email-address"
                   }
                 }
               }
@@ -199,14 +199,14 @@
                 "response-profile-capability": {
                   "operation-name": "/v1/inform-about-release-history-in-generic-representation",
                   "field-name": {
-                    "field-name-reference": "/core-model-1-4:control-construct/logical-termination-point=okm-2-0-0-http-s-bm-000/layer-protocol=0/http-server-interface-1-0:http-server-interface-pac/http-server-interface-capability/release-list=0/release-number"
+                    "field-name-reference": "/core-model-1-4:control-construct/logical-termination-point=okm-2-0-0-http-s-000/layer-protocol=0/http-server-interface-1-0:http-server-interface-pac/http-server-interface-capability/release-list=0/release-number"
                   },
                   "description": "Represents the first entry in the list of releases",
                   "datatype": "string"
                 },
                 "response-profile-configuration": {
                   "value": {
-                    "value-reference": "/core-model-1-4:control-construct/logical-termination-point=okm-2-0-0-http-s-bm-000/layer-protocol=0/http-server-interface-1-0:http-server-interface-pac/http-server-interface-capability/release-list=0/changes"
+                    "value-reference": "/core-model-1-4:control-construct/logical-termination-point=okm-2-0-0-http-s-000/layer-protocol=0/http-server-interface-1-0:http-server-interface-pac/http-server-interface-capability/release-list=0/changes"
                   }
                 }
               }
@@ -218,14 +218,14 @@
                 "response-profile-capability": {
                   "operation-name": "/v1/inform-about-release-history-in-generic-representation",
                   "field-name": {
-                    "field-name-reference": "/core-model-1-4:control-construct/logical-termination-point=okm-2-0-0-http-s-bm-000/layer-protocol=0/http-server-interface-1-0:http-server-interface-pac/http-server-interface-capability/release-list=1/release-number"
+                    "field-name-reference": "/core-model-1-4:control-construct/logical-termination-point=okm-2-0-0-http-s-000/layer-protocol=0/http-server-interface-1-0:http-server-interface-pac/http-server-interface-capability/release-list=1/release-number"
                   },
                   "description": "List of release numbers and changes",
                   "datatype": "string"
                 },
                 "response-profile-configuration": {
                   "value": {
-                    "value-reference": "/core-model-1-4:control-construct/logical-termination-point=okm-2-0-0-http-s-bm-000/layer-protocol=0/http-server-interface-1-0:http-server-interface-pac/http-server-interface-capability/release-list=1/changes"
+                    "value-reference": "/core-model-1-4:control-construct/logical-termination-point=okm-2-0-0-http-s-000/layer-protocol=0/http-server-interface-1-0:http-server-interface-pac/http-server-interface-capability/release-list=1/changes"
                   }
                 }
               }
@@ -272,7 +272,7 @@
             "client-ltp": [
             ],
             "server-ltp": [
-              "okm-2-0-0-http-s-bm-000"
+              "okm-2-0-0-http-s-000"
             ],
             "layer-protocol": [
               {
@@ -296,7 +296,7 @@
             "client-ltp": [
             ],
             "server-ltp": [
-              "okm-2-0-0-http-s-bm-000"
+              "okm-2-0-0-http-s-000"
             ],
             "layer-protocol": [
               {
@@ -320,7 +320,7 @@
             "client-ltp": [
             ],
             "server-ltp": [
-              "okm-2-0-0-http-s-bm-000"
+              "okm-2-0-0-http-s-000"
             ],
             "layer-protocol": [
               {
@@ -344,7 +344,7 @@
             "client-ltp": [
             ],
             "server-ltp": [
-              "okm-2-0-0-http-s-bm-000"
+              "okm-2-0-0-http-s-000"
             ],
             "layer-protocol": [
               {
@@ -368,7 +368,7 @@
             "client-ltp": [
             ],
             "server-ltp": [
-              "okm-2-0-0-http-s-bm-000"
+              "okm-2-0-0-http-s-000"
             ],
             "layer-protocol": [
               {
@@ -392,7 +392,7 @@
             "client-ltp": [
             ],
             "server-ltp": [
-              "okm-2-0-0-http-s-bm-000"
+              "okm-2-0-0-http-s-000"
             ],
             "layer-protocol": [
               {
@@ -416,7 +416,7 @@
             "client-ltp": [
             ],
             "server-ltp": [
-              "okm-2-0-0-http-s-bm-000"
+              "okm-2-0-0-http-s-000"
             ],
             "layer-protocol": [
               {
@@ -440,7 +440,7 @@
             "client-ltp": [
             ],
             "server-ltp": [
-              "okm-2-0-0-http-s-bm-000"
+              "okm-2-0-0-http-s-000"
             ],
             "layer-protocol": [
               {
@@ -464,7 +464,7 @@
             "client-ltp": [
             ],
             "server-ltp": [
-              "okm-2-0-0-http-s-bm-000"
+              "okm-2-0-0-http-s-000"
             ],
             "layer-protocol": [
               {
@@ -488,7 +488,7 @@
             "client-ltp": [
             ],
             "server-ltp": [
-              "okm-2-0-0-http-s-bm-000"
+              "okm-2-0-0-http-s-000"
             ],
             "layer-protocol": [
               {
@@ -512,7 +512,7 @@
             "client-ltp": [
             ],
             "server-ltp": [
-              "okm-2-0-0-http-s-bm-000"
+              "okm-2-0-0-http-s-000"
             ],
             "layer-protocol": [
               {
@@ -536,7 +536,7 @@
             "client-ltp": [
             ],
             "server-ltp": [
-              "okm-2-0-0-http-s-bm-000"
+              "okm-2-0-0-http-s-000"
             ],
             "layer-protocol": [
               {
@@ -560,7 +560,7 @@
             "client-ltp": [
             ],
             "server-ltp": [
-              "okm-2-0-0-http-s-bm-000"
+              "okm-2-0-0-http-s-000"
             ],
             "layer-protocol": [
               {
@@ -584,7 +584,7 @@
             "client-ltp": [
             ],
             "server-ltp": [
-              "okm-2-0-0-http-s-bm-000"
+              "okm-2-0-0-http-s-000"
             ],
             "layer-protocol": [
               {
@@ -608,7 +608,7 @@
             "client-ltp": [
             ],
             "server-ltp": [
-              "okm-2-0-0-http-s-bm-000"
+              "okm-2-0-0-http-s-000"
             ],
             "layer-protocol": [
               {
@@ -632,7 +632,7 @@
             "client-ltp": [
             ],
             "server-ltp": [
-              "okm-2-0-0-http-s-bm-000"
+              "okm-2-0-0-http-s-000"
             ],
             "layer-protocol": [
               {
@@ -656,7 +656,7 @@
             "client-ltp": [
             ],
             "server-ltp": [
-              "okm-2-0-0-http-s-bm-000"
+              "okm-2-0-0-http-s-000"
             ],
             "layer-protocol": [
               {
@@ -680,7 +680,7 @@
             "client-ltp": [
             ],
             "server-ltp": [
-              "okm-2-0-0-http-s-bm-000"
+              "okm-2-0-0-http-s-000"
             ],
             "layer-protocol": [
               {
@@ -704,7 +704,7 @@
             "client-ltp": [
             ],
             "server-ltp": [
-              "okm-2-0-0-http-s-bm-000"
+              "okm-2-0-0-http-s-000"
             ],
             "layer-protocol": [
               {
@@ -728,7 +728,7 @@
             "client-ltp": [
             ],
             "server-ltp": [
-              "okm-2-0-0-http-s-bm-000"
+              "okm-2-0-0-http-s-000"
             ],
             "layer-protocol": [
               {
@@ -752,7 +752,7 @@
             "client-ltp": [
             ],
             "server-ltp": [
-              "okm-2-0-0-http-s-bm-000"
+              "okm-2-0-0-http-s-000"
             ],
             "layer-protocol": [
               {
@@ -776,7 +776,7 @@
             "client-ltp": [
             ],
             "server-ltp": [
-              "okm-2-0-0-http-s-bm-000"
+              "okm-2-0-0-http-s-000"
             ],
             "layer-protocol": [
               {
@@ -795,7 +795,7 @@
             ]
           },
           {
-            "uuid": "okm-2-0-0-http-s-bm-000",
+            "uuid": "okm-2-0-0-http-s-000",
             "ltp-direction": "core-model-1-4:TERMINATION_DIRECTION_SOURCE",
             "client-ltp": [
               "okm-2-0-0-op-s-bm-000",
@@ -822,7 +822,7 @@
               "okm-2-0-0-op-s-is-004"
             ],
             "server-ltp": [
-              "okm-2-0-0-tcp-s-bm-000"
+              "okm-2-0-0-tcp-s-000"
             ],
             "layer-protocol": [
               {
@@ -856,10 +856,10 @@
             ]
           },
           {
-            "uuid": "okm-2-0-0-tcp-s-bm-000",
+            "uuid": "okm-2-0-0-tcp-s-000",
             "ltp-direction": "core-model-1-4:TERMINATION_DIRECTION_SOURCE",
             "client-ltp": [
-              "okm-2-0-0-http-s-bm-000"
+              "okm-2-0-0-http-s-000"
             ],
             "server-ltp": [
             ],
@@ -886,7 +886,7 @@
             "client-ltp": [
             ],
             "server-ltp": [
-              "okm-2-0-0-http-c-bm-or-1-0-0-000"
+              "okm-2-0-0-http-c-or-1-0-0-000"
             ],
             "layer-protocol": [
               {
@@ -906,13 +906,13 @@
             ]
           },
           {
-            "uuid": "okm-2-0-0-http-c-bm-or-1-0-0-000",
+            "uuid": "okm-2-0-0-http-c-or-1-0-0-000",
             "ltp-direction": "core-model-1-4:TERMINATION_DIRECTION_SINK",
             "client-ltp": [
               "okm-2-0-0-op-c-bm-or-1-0-0-000"
             ],
             "server-ltp": [
-              "okm-2-0-0-tcp-c-bm-or-1-0-0-000"
+              "okm-2-0-0-tcp-c-or-1-0-0-000"
             ],
             "layer-protocol": [
               {
@@ -930,10 +930,10 @@
             ]
           },
           {
-            "uuid": "okm-2-0-0-tcp-c-bm-or-1-0-0-000",
+            "uuid": "okm-2-0-0-tcp-c-or-1-0-0-000",
             "ltp-direction": "core-model-1-4:TERMINATION_DIRECTION_SINK",
             "client-ltp": [
-              "okm-2-0-0-http-c-bm-or-1-0-0-000"
+              "okm-2-0-0-http-c-or-1-0-0-000"
             ],
             "server-ltp": [
             ],
@@ -961,7 +961,7 @@
             "client-ltp": [
             ],
             "server-ltp": [
-              "okm-2-0-0-http-c-im-nr-2-0-0-000"
+              "okm-2-0-0-http-c-nr-2-0-0-000"
             ],
             "layer-protocol": [
               {
@@ -981,13 +981,13 @@
             ]
           },
           {
-            "uuid": "okm-2-0-0-http-c-im-nr-2-0-0-000",
+            "uuid": "okm-2-0-0-http-c-nr-2-0-0-000",
             "ltp-direction": "core-model-1-4:TERMINATION_DIRECTION_SINK",
             "client-ltp": [
               "okm-2-0-0-op-c-im-nr-2-0-0-000"
             ],
             "server-ltp": [
-              "okm-2-0-0-tcp-c-im-nr-2-0-0-000"
+              "okm-2-0-0-tcp-c-nr-2-0-0-000"
             ],
             "layer-protocol": [
               {
@@ -1005,10 +1005,10 @@
             ]
           },
           {
-            "uuid": "okm-2-0-0-tcp-c-im-nr-2-0-0-000",
+            "uuid": "okm-2-0-0-tcp-c-nr-2-0-0-000",
             "ltp-direction": "core-model-1-4:TERMINATION_DIRECTION_SINK",
             "client-ltp": [
-              "okm-2-0-0-http-c-im-nr-2-0-0-000"
+              "okm-2-0-0-http-c-nr-2-0-0-000"
             ],
             "server-ltp": [
             ],
@@ -1036,7 +1036,7 @@
             "client-ltp": [
             ],
             "server-ltp": [
-              "okm-2-0-0-http-c-bm-ro-2-0-0-000"
+              "okm-2-0-0-http-c-ro-2-0-0-000"
             ],
             "layer-protocol": [
               {
@@ -1061,7 +1061,7 @@
             "client-ltp": [
             ],
             "server-ltp": [
-              "okm-2-0-0-http-c-bm-ro-2-0-0-000"
+              "okm-2-0-0-http-c-ro-2-0-0-000"
             ],
             "layer-protocol": [
               {
@@ -1086,7 +1086,7 @@
             "client-ltp": [
             ],
             "server-ltp": [
-              "okm-2-0-0-http-c-bm-ro-2-0-0-000"
+              "okm-2-0-0-http-c-ro-2-0-0-000"
             ],
             "layer-protocol": [
               {
@@ -1111,7 +1111,7 @@
             "client-ltp": [
             ],
             "server-ltp": [
-              "okm-2-0-0-http-c-bm-ro-2-0-0-000"
+              "okm-2-0-0-http-c-ro-2-0-0-000"
             ],
             "layer-protocol": [
               {
@@ -1136,7 +1136,7 @@
             "client-ltp": [
             ],
             "server-ltp": [
-              "okm-2-0-0-http-c-bm-ro-2-0-0-000"
+              "okm-2-0-0-http-c-ro-2-0-0-000"
             ],
             "layer-protocol": [
               {
@@ -1161,7 +1161,7 @@
             "client-ltp": [
             ],
             "server-ltp": [
-              "okm-2-0-0-http-c-bm-ro-2-0-0-000"
+              "okm-2-0-0-http-c-ro-2-0-0-000"
             ],
             "layer-protocol": [
               {
@@ -1186,7 +1186,7 @@
             "client-ltp": [
             ],
             "server-ltp": [
-              "okm-2-0-0-http-c-bm-ro-2-0-0-000"
+              "okm-2-0-0-http-c-ro-2-0-0-000"
             ],
             "layer-protocol": [
               {
@@ -1211,7 +1211,7 @@
             "client-ltp": [
             ],
             "server-ltp": [
-              "okm-2-0-0-http-c-bm-ro-2-0-0-000"
+              "okm-2-0-0-http-c-ro-2-0-0-000"
             ],
             "layer-protocol": [
               {
@@ -1231,7 +1231,7 @@
             ]
           },
           {
-            "uuid": "okm-2-0-0-http-c-bm-ro-2-0-0-000",
+            "uuid": "okm-2-0-0-http-c-ro-2-0-0-000",
             "ltp-direction": "core-model-1-4:TERMINATION_DIRECTION_SINK",
             "client-ltp": [
               "okm-2-0-0-op-c-bm-ro-2-0-0-000",
@@ -1244,7 +1244,7 @@
               "okm-2-0-0-op-c-im-ro-2-0-0-002"
             ],
             "server-ltp": [
-              "okm-2-0-0-tcp-c-bm-ro-2-0-0-000"
+              "okm-2-0-0-tcp-c-ro-2-0-0-000"
             ],
             "layer-protocol": [
               {
@@ -1262,10 +1262,10 @@
             ]
           },
           {
-            "uuid": "okm-2-0-0-tcp-c-bm-ro-2-0-0-000",
+            "uuid": "okm-2-0-0-tcp-c-ro-2-0-0-000",
             "ltp-direction": "core-model-1-4:TERMINATION_DIRECTION_SINK",
             "client-ltp": [
-              "okm-2-0-0-http-c-bm-ro-2-0-0-000"
+              "okm-2-0-0-http-c-ro-2-0-0-000"
             ],
             "server-ltp": [
             ],
@@ -1293,7 +1293,7 @@
             "client-ltp": [
             ],
             "server-ltp": [
-              "okm-2-0-0-http-c-is-tar-1-0-0-000"
+              "okm-2-0-0-http-c-tar-1-0-0-000"
             ],
             "layer-protocol": [
               {
@@ -1313,13 +1313,13 @@
             ]
           },
           {
-            "uuid": "okm-2-0-0-http-c-is-tar-1-0-0-000",
+            "uuid": "okm-2-0-0-http-c-tar-1-0-0-000",
             "ltp-direction": "core-model-1-4:TERMINATION_DIRECTION_SINK",
             "client-ltp": [
               "okm-2-0-0-op-c-is-tar-1-0-0-000"
             ],
             "server-ltp": [
-              "okm-2-0-0-tcp-c-is-tar-1-0-0-000"
+              "okm-2-0-0-tcp-c-tar-1-0-0-000"
             ],
             "layer-protocol": [
               {
@@ -1337,10 +1337,10 @@
             ]
           },
           {
-            "uuid": "okm-2-0-0-tcp-c-is-tar-1-0-0-000",
+            "uuid": "okm-2-0-0-tcp-c-tar-1-0-0-000",
             "ltp-direction": "core-model-1-4:TERMINATION_DIRECTION_SINK",
             "client-ltp": [
-              "okm-2-0-0-http-c-is-tar-1-0-0-000"
+              "okm-2-0-0-http-c-tar-1-0-0-000"
             ],
             "server-ltp": [
             ],
@@ -1368,7 +1368,7 @@
             "client-ltp": [
             ],
             "server-ltp": [
-              "okm-2-0-0-http-c-bs-eatl-1-0-0-000"
+              "okm-2-0-0-http-c-eatl-1-0-0-000"
             ],
             "layer-protocol": [
               {
@@ -1394,7 +1394,7 @@
             "client-ltp": [
             ],
             "server-ltp": [
-              "okm-2-0-0-http-c-bs-eatl-1-0-0-000"
+              "okm-2-0-0-http-c-eatl-1-0-0-000"
             ],
             "layer-protocol": [
               {
@@ -1414,14 +1414,14 @@
             ]
           },
           {
-            "uuid": "okm-2-0-0-http-c-bs-eatl-1-0-0-000",
+            "uuid": "okm-2-0-0-http-c-eatl-1-0-0-000",
             "ltp-direction": "core-model-1-4:TERMINATION_DIRECTION_SINK",
             "client-ltp": [
               "okm-2-0-0-op-c-bs-eatl-1-0-0-000",
               "okm-2-0-0-op-c-is-eatl-1-0-0-000"
             ],
             "server-ltp": [
-              "okm-2-0-0-tcp-c-bs-eatl-1-0-0-000"
+              "okm-2-0-0-tcp-c-eatl-1-0-0-000"
             ],
             "layer-protocol": [
               {
@@ -1439,10 +1439,10 @@
             ]
           },
           {
-            "uuid": "okm-2-0-0-tcp-c-bs-eatl-1-0-0-000",
+            "uuid": "okm-2-0-0-tcp-c-eatl-1-0-0-000",
             "ltp-direction": "core-model-1-4:TERMINATION_DIRECTION_SINK",
             "client-ltp": [
-              "okm-2-0-0-http-c-bs-eatl-1-0-0-000"
+              "okm-2-0-0-http-c-eatl-1-0-0-000"
             ],
             "server-ltp": [
             ],
@@ -1470,7 +1470,7 @@
             "client-ltp": [
             ],
             "server-ltp": [
-              "okm-2-0-0-http-c-bs-ol-1-0-0-000"
+              "okm-2-0-0-http-c-ol-1-0-0-000"
             ],
             "layer-protocol": [
               {
@@ -1495,7 +1495,7 @@
             "client-ltp": [
             ],
             "server-ltp": [
-              "okm-2-0-0-http-c-bs-ol-1-0-0-000"
+              "okm-2-0-0-http-c-ol-1-0-0-000"
             ],
             "layer-protocol": [
               {
@@ -1515,14 +1515,14 @@
             ]
           },
           {
-            "uuid": "okm-2-0-0-http-c-bs-ol-1-0-0-000",
+            "uuid": "okm-2-0-0-http-c-ol-1-0-0-000",
             "ltp-direction": "core-model-1-4:TERMINATION_DIRECTION_SINK",
             "client-ltp": [
               "okm-2-0-0-op-c-bs-ol-1-0-0-000",
               "okm-2-0-0-op-c-is-ol-1-0-0-000"
             ],
             "server-ltp": [
-              "okm-2-0-0-tcp-c-bs-ol-1-0-0-000"
+              "okm-2-0-0-tcp-c-ol-1-0-0-000"
             ],
             "layer-protocol": [
               {
@@ -1540,10 +1540,10 @@
             ]
           },
           {
-            "uuid": "okm-2-0-0-tcp-c-bs-ol-1-0-0-000",
+            "uuid": "okm-2-0-0-tcp-c-ol-1-0-0-000",
             "ltp-direction": "core-model-1-4:TERMINATION_DIRECTION_SINK",
             "client-ltp": [
-              "okm-2-0-0-http-c-bs-ol-1-0-0-000"
+              "okm-2-0-0-http-c-ol-1-0-0-000"
             ],
             "server-ltp": [
             ],
@@ -1571,7 +1571,7 @@
             "client-ltp": [
             ],
             "server-ltp": [
-              "okm-2-0-0-http-c-bs-aa-1-0-0-000"
+              "okm-2-0-0-http-c-aa-1-0-0-000"
             ],
             "layer-protocol": [
               {
@@ -1596,7 +1596,7 @@
             "client-ltp": [
             ],
             "server-ltp": [
-              "okm-2-0-0-http-c-bs-aa-1-0-0-000"
+              "okm-2-0-0-http-c-aa-1-0-0-000"
             ],
             "layer-protocol": [
               {
@@ -1616,14 +1616,14 @@
             ]
           },
           {
-            "uuid": "okm-2-0-0-http-c-bs-aa-1-0-0-000",
+            "uuid": "okm-2-0-0-http-c-aa-1-0-0-000",
             "ltp-direction": "core-model-1-4:TERMINATION_DIRECTION_SINK",
             "client-ltp": [
               "okm-2-0-0-op-c-bs-aa-1-0-0-000",
               "okm-2-0-0-op-c-is-aa-1-0-0-000"
             ],
             "server-ltp": [
-              "okm-2-0-0-tcp-c-bs-aa-1-0-0-000"
+              "okm-2-0-0-tcp-c-aa-1-0-0-000"
             ],
             "layer-protocol": [
               {
@@ -1641,10 +1641,10 @@
             ]
           },
           {
-            "uuid": "okm-2-0-0-tcp-c-bs-aa-1-0-0-000",
+            "uuid": "okm-2-0-0-tcp-c-aa-1-0-0-000",
             "ltp-direction": "core-model-1-4:TERMINATION_DIRECTION_SINK",
             "client-ltp": [
-              "okm-2-0-0-http-c-bs-aa-1-0-0-000"
+              "okm-2-0-0-http-c-aa-1-0-0-000"
             ],
             "server-ltp": [
             ],
@@ -1672,7 +1672,7 @@
             "client-ltp": [
             ],
             "server-ltp": [
-              "okm-2-0-0-http-c-bm-alt-1-0-0-000"
+              "okm-2-0-0-http-c-alt-1-0-0-000"
             ],
             "layer-protocol": [
               {
@@ -1697,7 +1697,7 @@
             "client-ltp": [
             ],
             "server-ltp": [
-              "okm-2-0-0-http-c-bm-alt-1-0-0-000"
+              "okm-2-0-0-http-c-alt-1-0-0-000"
             ],
             "layer-protocol": [
               {
@@ -1722,7 +1722,7 @@
             "client-ltp": [
             ],
             "server-ltp": [
-              "okm-2-0-0-http-c-bm-alt-1-0-0-000"
+              "okm-2-0-0-http-c-alt-1-0-0-000"
             ],
             "layer-protocol": [
               {
@@ -1747,7 +1747,7 @@
             "client-ltp": [
             ],
             "server-ltp": [
-              "okm-2-0-0-http-c-bm-alt-1-0-0-000"
+              "okm-2-0-0-http-c-alt-1-0-0-000"
             ],
             "layer-protocol": [
               {
@@ -1772,7 +1772,7 @@
             "client-ltp": [
             ],
             "server-ltp": [
-              "okm-2-0-0-http-c-bm-alt-1-0-0-000"
+              "okm-2-0-0-http-c-alt-1-0-0-000"
             ],
             "layer-protocol": [
               {
@@ -1797,7 +1797,7 @@
             "client-ltp": [
             ],
             "server-ltp": [
-              "okm-2-0-0-http-c-bm-alt-1-0-0-000"
+              "okm-2-0-0-http-c-alt-1-0-0-000"
             ],
             "layer-protocol": [
               {
@@ -1822,7 +1822,7 @@
             "client-ltp": [
             ],
             "server-ltp": [
-              "okm-2-0-0-http-c-bm-alt-1-0-0-000"
+              "okm-2-0-0-http-c-alt-1-0-0-000"
             ],
             "layer-protocol": [
               {
@@ -1847,7 +1847,7 @@
             "client-ltp": [
             ],
             "server-ltp": [
-              "okm-2-0-0-http-c-bm-alt-1-0-0-000"
+              "okm-2-0-0-http-c-alt-1-0-0-000"
             ],
             "layer-protocol": [
               {
@@ -1872,7 +1872,7 @@
             "client-ltp": [
             ],
             "server-ltp": [
-              "okm-2-0-0-http-c-bm-alt-1-0-0-000"
+              "okm-2-0-0-http-c-alt-1-0-0-000"
             ],
             "layer-protocol": [
               {
@@ -1897,7 +1897,7 @@
             "client-ltp": [
             ],
             "server-ltp": [
-              "okm-2-0-0-http-c-bm-alt-1-0-0-000"
+              "okm-2-0-0-http-c-alt-1-0-0-000"
             ],
             "layer-protocol": [
               {
@@ -1922,7 +1922,7 @@
             "client-ltp": [
             ],
             "server-ltp": [
-              "okm-2-0-0-http-c-bm-alt-1-0-0-000"
+              "okm-2-0-0-http-c-alt-1-0-0-000"
             ],
             "layer-protocol": [
               {
@@ -1942,7 +1942,7 @@
             ]
           },
           {
-            "uuid": "okm-2-0-0-http-c-bm-alt-1-0-0-000",
+            "uuid": "okm-2-0-0-http-c-alt-1-0-0-000",
             "ltp-direction": "core-model-1-4:TERMINATION_DIRECTION_SINK",
             "client-ltp": [
               "okm-2-0-0-op-c-bm-alt-1-0-0-000",
@@ -1958,7 +1958,7 @@
               "okm-2-0-0-op-c-is-alt-1-0-0-003"
             ],
             "server-ltp": [
-              "okm-2-0-0-tcp-c-bm-alt-1-0-0-000"
+              "okm-2-0-0-tcp-c-alt-1-0-0-000"
             ],
             "layer-protocol": [
               {
@@ -1976,10 +1976,10 @@
             ]
           },
           {
-            "uuid": "okm-2-0-0-tcp-c-bm-alt-1-0-0-000",
+            "uuid": "okm-2-0-0-tcp-c-alt-1-0-0-000",
             "ltp-direction": "core-model-1-4:TERMINATION_DIRECTION_SINK",
             "client-ltp": [
-              "okm-2-0-0-http-c-bm-alt-1-0-0-000"
+              "okm-2-0-0-http-c-alt-1-0-0-000"
             ],
             "server-ltp": [
             ],
@@ -2007,7 +2007,7 @@
             "client-ltp": [
             ],
             "server-ltp": [
-              "okm-2-0-0-http-c-is-okm-2-0-0-000"
+              "okm-2-0-0-http-c-okm-2-0-0-000"
             ],
             "layer-protocol": [
               {
@@ -2027,13 +2027,13 @@
             ]
           },
           {
-            "uuid": "okm-2-0-0-http-c-is-okm-2-0-0-000",
+            "uuid": "okm-2-0-0-http-c-okm-2-0-0-000",
             "ltp-direction": "core-model-1-4:TERMINATION_DIRECTION_SINK",
             "client-ltp": [
               "okm-2-0-0-op-c-is-okm-2-0-0-000"
             ],
             "server-ltp": [
-              "okm-2-0-0-tcp-c-is-okm-2-0-0-000"
+              "okm-2-0-0-tcp-c-okm-2-0-0-000"
             ],
             "layer-protocol": [
               {
@@ -2051,10 +2051,10 @@
             ]
           },
           {
-            "uuid": "okm-2-0-0-tcp-c-is-okm-2-0-0-000",
+            "uuid": "okm-2-0-0-tcp-c-okm-2-0-0-000",
             "ltp-direction": "core-model-1-4:TERMINATION_DIRECTION_SINK",
             "client-ltp": [
-              "okm-2-0-0-http-c-is-okm-2-0-0-000"
+              "okm-2-0-0-http-c-okm-2-0-0-000"
             ],
             "server-ltp": [
             ],
@@ -2082,7 +2082,7 @@
             "client-ltp": [
             ],
             "server-ltp": [
-              "okm-2-0-0-http-c-is-cc-1-0-0-000"
+              "okm-2-0-0-http-c-cc-1-0-0-000"
             ],
             "layer-protocol": [
               {
@@ -2102,13 +2102,13 @@
             ]
           },
           {
-            "uuid": "okm-2-0-0-http-c-is-cc-1-0-0-000",
+            "uuid": "okm-2-0-0-http-c-cc-1-0-0-000",
             "ltp-direction": "core-model-1-4:TERMINATION_DIRECTION_SINK",
             "client-ltp": [
               "okm-2-0-0-op-c-is-cc-1-0-0-000"
             ],
             "server-ltp": [
-              "okm-2-0-0-tcp-c-is-cc-1-0-0-000"
+              "okm-2-0-0-tcp-c-cc-1-0-0-000"
             ],
             "layer-protocol": [
               {
@@ -2126,10 +2126,10 @@
             ]
           },
           {
-            "uuid": "okm-2-0-0-tcp-c-is-cc-1-0-0-000",
+            "uuid": "okm-2-0-0-tcp-c-cc-1-0-0-000",
             "ltp-direction": "core-model-1-4:TERMINATION_DIRECTION_SINK",
             "client-ltp": [
-              "okm-2-0-0-http-c-is-cc-1-0-0-000"
+              "okm-2-0-0-http-c-cc-1-0-0-000"
             ],
             "server-ltp": [
             ],
