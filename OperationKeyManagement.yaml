@@ -1102,7 +1102,7 @@ paths:
         default:
           $ref: '#/components/responses/responseForErroredServiceRequests'
       callbacks:
-        LinkUpdateNotificationCausesOperationKeyUpdates:
+        LinkUpdateNotificationCausesRequestForLinkEndPoints:
           url: #[/core-model-1-4:control-construct/logical-termination-point=okm-2-0-0-tcp-c-alt-1-0-0-000/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-protocol]://[/core-model-1-4:control-construct/logical-termination-point=okm-2-0-0-tcp-c-alt-1-0-0-000/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-address/domain-name or /core-model-1-4:control-construct/logical-termination-point=okm-2-0-0-tcp-c-alt-1-0-0-000/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-address/ip-address/ipv-4-address]:[/core-model-1-4:control-construct/logical-termination-point=okm-2-0-0-tcp-c-alt-1-0-0-000/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-port][/core-model-1-4:control-construct/logical-termination-point=okm-2-0-0-op-c-is-alt-1-0-0-003/layer-protocol=0/operation-client-interface-1-0:operation-client-interface-pac/operation-client-interface-configuration/operation-name]
             post:
               parameters:
@@ -1123,10 +1123,10 @@ paths:
                         link-uuid:
                           type: string
                           description: >
-                            'UUID of Link with searched end points
-                            from {/v1/regard-updated-link.body#link-uuid}'
+                            'UUID of Link that holds the searched end points
+                            from [$/v1/regard-updated-link.body#link-uuid]'
                       example:
-                        link-uuid: 'alt-0-0-1-op-link-0001'
+                        link-uuid: 'alt-2-0-0-op-link-051'
               responses:
                 '200':
                   description: 'List of operation UUIDs belonging to given link provided'
@@ -1166,11 +1166,11 @@ paths:
                           link-end-point-list:
                             - application-name: 'RegistryOffice'
                               application-release-number: '2.0.0'
-                              operation-uuid: 'ro-0-0-1-op-c-2070'
+                              operation-uuid: 'ro-2-0-0-op-c-im-alt-1-0-0-003'
                               ltp-direction: 'core-model-1-4:TERMINATION_DIRECTION_SINK'
                             - application-name: 'ApplicationLayerTopology'
                               application-release-number: '1.0.0'
-                              operation-uuid: 'alt-0-0-1-op-s-0001'
+                              operation-uuid: 'alt-1-0-0-op-s-is-001'
                               ltp-direction: 'core-model-1-4:TERMINATION_DIRECTION_SOURCE'
                   headers:
                     x-correlator:
@@ -1212,7 +1212,8 @@ paths:
                   $ref: '#/components/responses/responseForErroredServiceRequests'
                 default:
                   $ref: '#/components/responses/responseForErroredServiceRequests'
-          url1: #[/core-model-1-4:control-construct/logical-termination-point=okm-2-0-0-tcp-c-*/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-protocol]://[/core-model-1-4:control-construct/logical-termination-point=okm-2-0-0-tcp-c-*/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-address/domain-name or /core-model-1-4:control-construct/logical-termination-point=okm-2-0-0-tcp-c-*/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-address/ip-address/ipv-4-address]:[/core-model-1-4:control-construct/logical-termination-point=okm-2-0-0-tcp-c-*/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-port][/core-model-1-4:control-construct/logical-termination-point=okm-2-0-0-op-c-is-*-*-*-*-000/layer-protocol=0/operation-client-interface-1-0:operation-client-interface-pac/operation-client-interface-configuration/operation-name]
+        LinkUpdateNotificationCausesOperationKeyUpdates:
+          url: #[/core-model-1-4:control-construct/logical-termination-point=okm-2-0-0-tcp-c-*/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-protocol]://[/core-model-1-4:control-construct/logical-termination-point=okm-2-0-0-tcp-c-*/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-address/domain-name or /core-model-1-4:control-construct/logical-termination-point=okm-2-0-0-tcp-c-*/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-address/ip-address/ipv-4-address]:[/core-model-1-4:control-construct/logical-termination-point=okm-2-0-0-tcp-c-*/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-port][/core-model-1-4:control-construct/logical-termination-point=okm-2-0-0-op-c-is-*-*-*-*-000/layer-protocol=0/operation-client-interface-1-0:operation-client-interface-pac/operation-client-interface-configuration/operation-name]
             post:
               parameters:
                 - $ref: '#/components/parameters/user'
@@ -1234,14 +1235,14 @@ paths:
                           type: string
                           description: >
                             'UUID of LTP that is target of the updating of the operation key
-                            from {/v1/list-end-points-of-link#operation-uuid}'
+                            from [$ALT://v1/list-end-points-of-link.response#operation-uuid]'
                         new-operation-key:
                           type: string
                           minLength: 5
                           description: >
                             'Future operation key'
                       example:
-                        operation-uuid: 'ro-0-0-1-op-s-3003'
+                        operation-uuid: 'ro-2-0-0-op-c-im-alt-1-0-0-003'
                         new-operation-key: 'Operation key not yet provided.'
               responses:
                 '204':
@@ -1286,7 +1287,7 @@ paths:
                   $ref: '#/components/responses/responseForErroredServiceRequests'
                 default:
                   $ref: '#/components/responses/responseForErroredServiceRequests'
-        CyclicOperationCausesOperationKeyUpdates:
+        CyclicOperationCausesRequestForListOfLinks:
           url: #[/core-model-1-4:control-construct/logical-termination-point=okm-2-0-0-tcp-c-alt-1-0-0-000/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-protocol]://[/core-model-1-4:control-construct/logical-termination-point=okm-2-0-0-tcp-c-alt-1-0-0-000/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-address/domain-name or /core-model-1-4:control-construct/logical-termination-point=okm-2-0-0-tcp-c-alt-1-0-0-000/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-address/ip-address/ipv-4-address]:[/core-model-1-4:control-construct/logical-termination-point=okm-2-0-0-tcp-c-alt-1-0-0-000/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-port][/core-model-1-4:control-construct/logical-termination-point=okm-2-0-0-op-c-is-alt-1-0-0-002/layer-protocol=0/operation-client-interface-1-0:operation-client-interface-pac/operation-client-interface-configuration/operation-name]
             post:
               parameters:
@@ -1312,8 +1313,8 @@ paths:
                               description: 'UUID of Link'
                         example:
                           link-uuid-list:
-                            - 'alt-0-0-1-op-link-0001'
-                            - 'alt-0-0-1-op-link-0002'
+                            - 'alt-2-0-0-op-link-051'
+                            - 'alt-2-0-0-op-link-145'
                   headers:
                     x-correlator:
                       schema:
@@ -1354,7 +1355,8 @@ paths:
                   $ref: '#/components/responses/responseForErroredServiceRequests'
                 default:
                   $ref: '#/components/responses/responseForErroredServiceRequests'
-          url1: #[/core-model-1-4:control-construct/logical-termination-point=okm-2-0-0-tcp-c-alt-1-0-0-000/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-protocol]://[/core-model-1-4:control-construct/logical-termination-point=okm-2-0-0-tcp-c-alt-1-0-0-000/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-address/domain-name or /core-model-1-4:control-construct/logical-termination-point=okm-2-0-0-tcp-c-alt-1-0-0-000/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-address/ip-address/ipv-4-address]:[/core-model-1-4:control-construct/logical-termination-point=okm-2-0-0-tcp-c-alt-1-0-0-000/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-port][/core-model-1-4:control-construct/logical-termination-point=okm-2-0-0-op-c-is-alt-1-0-0-003/layer-protocol=0/operation-client-interface-1-0:operation-client-interface-pac/operation-client-interface-configuration/operation-name]
+        CyclicOperationCausesRequestForLinkEndPoints:
+          url: #[/core-model-1-4:control-construct/logical-termination-point=okm-2-0-0-tcp-c-alt-1-0-0-000/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-protocol]://[/core-model-1-4:control-construct/logical-termination-point=okm-2-0-0-tcp-c-alt-1-0-0-000/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-address/domain-name or /core-model-1-4:control-construct/logical-termination-point=okm-2-0-0-tcp-c-alt-1-0-0-000/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-address/ip-address/ipv-4-address]:[/core-model-1-4:control-construct/logical-termination-point=okm-2-0-0-tcp-c-alt-1-0-0-000/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-port][/core-model-1-4:control-construct/logical-termination-point=okm-2-0-0-op-c-is-alt-1-0-0-003/layer-protocol=0/operation-client-interface-1-0:operation-client-interface-pac/operation-client-interface-configuration/operation-name]
             post:
               parameters:
                 - $ref: '#/components/parameters/user'
@@ -1375,9 +1377,9 @@ paths:
                           type: string
                           description: >
                             'UUID of Link with searched end points
-                            from {/v1/list-link-uuids.response#link-uuid-list}'
+                            from [$ALT://v1/list-link-uuids.response#link-uuid-list]'
                       example:
-                        link-uuid: 'alt-0-0-1-op-link-0001'
+                        link-uuid: 'alt-2-0-0-op-link-051'
               responses:
                 '200':
                   description: 'List of operation UUIDs belonging to given link provided'
@@ -1417,11 +1419,11 @@ paths:
                           link-end-point-list:
                             - application-name: 'RegistryOffice'
                               application-release-number: '2.0.0'
-                              operation-uuid: 'ro-0-0-1-op-c-2070'
+                              operation-uuid: 'ro-2-0-0-op-c-im-alt-1-0-0-003'
                               ltp-direction: 'core-model-1-4:TERMINATION_DIRECTION_SINK'
                             - application-name: 'ApplicationLayerTopology'
                               application-release-number: '1.0.0'
-                              operation-uuid: 'alt-0-0-1-op-s-0001'
+                              operation-uuid: 'alt-1-0-0-op-s-is-001'
                               ltp-direction: 'core-model-1-4:TERMINATION_DIRECTION_SOURCE'
                   headers:
                     x-correlator:
@@ -1463,7 +1465,8 @@ paths:
                   $ref: '#/components/responses/responseForErroredServiceRequests'
                 default:
                   $ref: '#/components/responses/responseForErroredServiceRequests'
-          url2: #[/core-model-1-4:control-construct/logical-termination-point=okm-2-0-0-tcp-c-*/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-protocol]://[/core-model-1-4:control-construct/logical-termination-point=okm-2-0-0-tcp-c-*/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-address/domain-name or /core-model-1-4:control-construct/logical-termination-point=okm-2-0-0-tcp-c-*/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-address/ip-address/ipv-4-address]:[/core-model-1-4:control-construct/logical-termination-point=okm-2-0-0-tcp-c-*/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-port][/core-model-1-4:control-construct/logical-termination-point=okm-2-0-0-op-c-is-*-*-*-*-000/layer-protocol=0/operation-client-interface-1-0:operation-client-interface-pac/operation-client-interface-configuration/operation-name]
+        CyclicOperationCausesOperationKeyUpdates:
+          url: #[/core-model-1-4:control-construct/logical-termination-point=okm-2-0-0-tcp-c-*/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-protocol]://[/core-model-1-4:control-construct/logical-termination-point=okm-2-0-0-tcp-c-*/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-address/domain-name or /core-model-1-4:control-construct/logical-termination-point=okm-2-0-0-tcp-c-*/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-address/ip-address/ipv-4-address]:[/core-model-1-4:control-construct/logical-termination-point=okm-2-0-0-tcp-c-*/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-port][/core-model-1-4:control-construct/logical-termination-point=okm-2-0-0-op-c-is-*-*-*-*-000/layer-protocol=0/operation-client-interface-1-0:operation-client-interface-pac/operation-client-interface-configuration/operation-name]
             post:
               parameters:
                 - $ref: '#/components/parameters/user'
@@ -1485,14 +1488,14 @@ paths:
                           type: string
                           description: >
                             'UUID of LTP that is target of the updating of the operation key
-                            from {/v1/list-end-points-of-link#operation-uuid}'
+                            from [$ALT://v1/list-end-points-of-link.response#operation-uuid]'
                         new-operation-key:
                           type: string
                           minLength: 5
                           description: >
                             'Future operation key'
                       example:
-                        operation-uuid: 'ro-0-0-1-op-s-3003'
+                        operation-uuid: 'ro-2-0-0-op-c-im-alt-1-0-0-003'
                         new-operation-key: 'Operation key not yet provided.'
               responses:
                 '204':
@@ -1767,7 +1770,7 @@ paths:
                   type: string
                   pattern: '^([a-z]{2,6})-([0-9]{1,2})-([0-9]{1,2})-([0-9]{1,2})-op-link-([0-9]{3})$'
               example:
-                link-uuid: 'alt-1-0-0-op-link-001'
+                link-uuid: 'alt-2-0-0-op-link-051'
       responses:
         '204':
           description: 'OperationKeys will be synchronized on updated Link'
