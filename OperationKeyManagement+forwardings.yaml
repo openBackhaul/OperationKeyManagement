@@ -474,7 +474,7 @@ forwardings:
 
   - forwarding-name: LinkUpdateNotificationCausesRequestForLinkEndPoints
     uuid: okm-2-0-0-op-fc-is-000
-    forwarding-type: ProcessSnippet
+    forwarding-type: InvariantProcessSnippet
     management-requests:
       operation-client-update:
       fc-port-update:
@@ -526,7 +526,7 @@ forwardings:
 
   - forwarding-name: CyclicOperationCausesRequestForListOfLinks
     uuid: okm-2-0-0-op-fc-is-010
-    forwarding-type: ProcessSnippet
+    forwarding-type: InvariantProcessSnippet
     management-requests:
       operation-client-update:
       fc-port-update:
@@ -539,7 +539,7 @@ forwardings:
 
   - forwarding-name: CyclicOperationCausesRequestForLinkEndPoints
     uuid: okm-2-0-0-op-fc-is-011
-    forwarding-type: ProcessSnippet
+    forwarding-type: InvariantProcessSnippet
     management-requests:
       operation-client-update:
       fc-port-update:
