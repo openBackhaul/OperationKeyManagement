@@ -519,7 +519,7 @@ paths:
                         subscriber-protocol:
                           type: string
                           description: >
-                            'Protocol to be used for addressing the application that wants to receive notifications about new approvals
+                            'Protocol to be used for addressing the application that wants to receive notifications about updates of Links
                             from [/core-model-1-4:control-construct/logical-termination-point=okm-2-0-0-tcp-c-nr-2-0-0-000/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-protocol]'
                         subscriber-address:
                           type: object
@@ -535,7 +535,7 @@ paths:
                             domain-name:
                               type: string
                               description: >
-                                'Domain name of application that wants to receive notifications about new approvals
+                                'Domain name of application that wants to receive notifications about updates of Links
                                 from [/core-model-1-4:control-construct/logical-termination-point=okm-2-0-0-tcp-c-nr-2-0-0-000/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-address/domain-name]'
                         subscriber-port:
                           type: integer
