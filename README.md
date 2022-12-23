@@ -1,38 +1,21 @@
 # OperationKeyManagement
-- Manages keys required for consuming services between applications
-- Thorsten Heinze (Thorsten.Heinze@openBackhaul.com)
 
-### ServiceList
-- [OperationKeyManagement+services](./OperationKeyManagement+services.yaml)
+### Location
+The OperationKeyManagement is part of the TinyApplicationController.  
+The TinyApplicationController is for managing the REST microservices of the application layer.  
 
-### ProfileList and ProfileInstanceList
-- to be provided
-- to be provided
+### Description
+The OperationKeyManagement is for preventing unwished service consumptions on the application layer.  
+It loads the approved links from the ApplicationLayerTopology, alters the expected OperationKey on the server side and makes it available to the approved consumers only.  
+The OperationKeyManagement enforces the type approval regime in the application layer.  
 
-### ForwardingList
-- [OperationKeyManagement+forwardings](./OperationKeyManagement+forwardings.yaml)
+### Relevance
+The OperationKeyManagement is core element of the application layer running in the live network at Telefonica Germany.
 
-### Open API specification (Swagger)
-- [OperationKeyManagement](OperationKeyManagement.yaml)
-
-### CONFIGfile (JSON)
-- to be provided
-
-### Test Cases (Postman Export) and Data File
-- [OperationKeyManagement+testcases](./OperationKeyManagement%2Btestcases.json)
-- [OperationKeyManagement+data](./OperationKeyManagement+data.json)
-
-### NodeJS Implementation
-- to be provided
-
-### Publication
-- No official publication planned
-
-### Aspired Classification
-- Live Network
-
-### Open Issue List
-- [OperationKeyManagement/issues](../../issues)
+### Resources
+- [Specification](./spec/)
+- [TestSuite](./testing/)
+- [Implementation](./server/)
 
 ### Comments
-This application is part of the TinyApplicationController for managing the REST applications forming the MBH SDN application layer at Telefonica Germany.
+./.
