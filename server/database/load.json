@@ -1,17 +1,254 @@
 {
   "core-model-1-4:control-construct": {
-    "uuid": "okm-0-0-1",
+    "uuid": "okm-2-0-0",
     "profile-collection": {
       "profile": [
         {
-          "uuid": "okm-0-0-1-string-p-0000",
+          "uuid": "okm-2-0-0-action-p-000",
+          "profile-name": "action-profile-1-0:PROFILE_NAME_TYPE_ACTION_PROFILE",
+          "action-profile-1-0:action-profile-pac": {
+            "action-profile-capability": {
+              "operation-name": "/v1/start-application-in-generic-representation",
+              "label": "Inform about Application",
+              "input-value-list": [],
+              "display-in-new-browser-window": false
+            },
+            "action-profile-configuration": {
+              "consequent-operation-reference": "/core-model-1-4:control-construct/logical-termination-point=okm-2-0-0-op-s-bs-002/layer-protocol=0/operation-server-interface-1-0:operation-server-interface-pac/operation-server-interface-capability/operation-name"
+            }
+          }
+        },
+        {
+          "uuid": "okm-2-0-0-action-p-001",
+          "profile-name": "action-profile-1-0:PROFILE_NAME_TYPE_ACTION_PROFILE",
+          "action-profile-1-0:action-profile-pac": {
+            "action-profile-capability": {
+              "operation-name": "/v1/inform-about-application-in-generic-representation",
+              "label": "Release History",
+              "input-value-list": [],
+              "display-in-new-browser-window": false
+            },
+            "action-profile-configuration": {
+              "consequent-operation-reference": "/core-model-1-4:control-construct/logical-termination-point=okm-2-0-0-op-s-bs-004/layer-protocol=0/operation-server-interface-1-0:operation-server-interface-pac/operation-server-interface-capability/operation-name"
+            }
+          }
+        },
+        {
+          "uuid": "okm-2-0-0-action-p-002",
+          "profile-name": "action-profile-1-0:PROFILE_NAME_TYPE_ACTION_PROFILE",
+          "action-profile-1-0:action-profile-pac": {
+            "action-profile-capability": {
+              "operation-name": "/v1/inform-about-application-in-generic-representation",
+              "label": "API Documentation",
+              "input-value-list": [],
+              "display-in-new-browser-window": true
+            },
+            "action-profile-configuration": {
+              "consequent-operation-reference": "/core-model-1-4:control-construct/logical-termination-point=okm-2-0-0-op-s-bs-005/layer-protocol=0/operation-server-interface-1-0:operation-server-interface-pac/operation-server-interface-capability/operation-name"
+            }
+          }
+        },
+        {
+          "uuid": "okm-2-0-0-response-p-000",
+          "profile-name": "response-profile-1-0:PROFILE_NAME_TYPE_GENERIC_RESPONSE_PROFILE",
+          "response-profile-1-0:response-profile-pac": {
+            "response-profile-capability": {
+              "operation-name": "/v1/start-application-in-generic-representation",
+              "field-name": {
+                "static-field-name": "applicationName"
+              },
+              "description": "Own application name",
+              "datatype": "string"
+            },
+            "response-profile-configuration": {
+              "value": {
+                "value-reference": "/core-model-1-4:control-construct/logical-termination-point=okm-2-0-0-http-s-000/layer-protocol=0/http-server-interface-1-0:http-server-interface-pac/http-server-interface-capability/application-name"
+              }
+            }
+          }
+        },
+        {
+          "uuid": "okm-2-0-0-response-p-001",
+          "profile-name": "response-profile-1-0:PROFILE_NAME_TYPE_GENERIC_RESPONSE_PROFILE",
+          "response-profile-1-0:response-profile-pac": {
+            "response-profile-capability": {
+              "operation-name": "/v1/inform-about-application-in-generic-representation",
+              "field-name": {
+                "static-field-name": "applicationName"
+              },
+              "description": "Name of this application",
+              "datatype": "string"
+            },
+            "response-profile-configuration": {
+              "value": {
+                "value-reference": "/core-model-1-4:control-construct/logical-termination-point=okm-2-0-0-http-s-000/layer-protocol=0/http-server-interface-1-0:http-server-interface-pac/http-server-interface-capability/application-name"
+              }
+            }
+          }
+        },
+        {
+          "uuid": "okm-2-0-0-response-p-002",
+          "profile-name": "response-profile-1-0:PROFILE_NAME_TYPE_GENERIC_RESPONSE_PROFILE",
+          "response-profile-1-0:response-profile-pac": {
+            "response-profile-capability": {
+              "operation-name": "/v1/inform-about-application-in-generic-representation",
+              "field-name": {
+                "static-field-name": "releaseNumber"
+              },
+              "description": "Number of this release",
+              "datatype": "string"
+            },
+            "response-profile-configuration": {
+              "value": {
+                "value-reference": "/core-model-1-4:control-construct/logical-termination-point=okm-2-0-0-http-s-000/layer-protocol=0/http-server-interface-1-0:http-server-interface-pac/http-server-interface-capability/release-number"
+              }
+            }
+          }
+        },
+        {
+          "uuid": "okm-2-0-0-response-p-003",
+          "profile-name": "response-profile-1-0:PROFILE_NAME_TYPE_GENERIC_RESPONSE_PROFILE",
+          "response-profile-1-0:response-profile-pac": {
+            "response-profile-capability": {
+              "operation-name": "/v1/inform-about-application-in-generic-representation",
+              "field-name": {
+                "static-field-name": "applicationPurpose"
+              },
+              "description": "Purpose of this application",
+              "datatype": "string"
+            },
+            "response-profile-configuration": {
+              "value": {
+                "value-reference": "/core-model-1-4:control-construct/logical-termination-point=okm-2-0-0-http-s-000/layer-protocol=0/http-server-interface-1-0:http-server-interface-pac/http-server-interface-capability/application-purpose"
+              }
+            }
+          }
+        },
+        {
+          "uuid": "okm-2-0-0-response-p-004",
+          "profile-name": "response-profile-1-0:PROFILE_NAME_TYPE_GENERIC_RESPONSE_PROFILE",
+          "response-profile-1-0:response-profile-pac": {
+            "response-profile-capability": {
+              "operation-name": "/v1/inform-about-application-in-generic-representation",
+              "field-name": {
+                "static-field-name": "dataUpdatePeriod"
+              },
+              "description": "Period of updating the data inside this application",
+              "datatype": "string"
+            },
+            "response-profile-configuration": {
+              "value": {
+                "value-reference": "/core-model-1-4:control-construct/logical-termination-point=okm-2-0-0-http-s-000/layer-protocol=0/http-server-interface-1-0:http-server-interface-pac/http-server-interface-capability/data-update-period"
+              }
+            }
+          }
+        },
+        {
+          "uuid": "okm-2-0-0-response-p-005",
+          "profile-name": "response-profile-1-0:PROFILE_NAME_TYPE_GENERIC_RESPONSE_PROFILE",
+          "response-profile-1-0:response-profile-pac": {
+            "response-profile-capability": {
+              "operation-name": "/v1/inform-about-application-in-generic-representation",
+              "field-name": {
+                "static-field-name": "ownerName"
+              },
+              "description": "Name of the ApplicationOwner",
+              "datatype": "string"
+            },
+            "response-profile-configuration": {
+              "value": {
+                "value-reference": "/core-model-1-4:control-construct/logical-termination-point=okm-2-0-0-http-s-000/layer-protocol=0/http-server-interface-1-0:http-server-interface-pac/http-server-interface-capability/owner-name"
+              }
+            }
+          }
+        },
+        {
+          "uuid": "okm-2-0-0-response-p-006",
+          "profile-name": "response-profile-1-0:PROFILE_NAME_TYPE_GENERIC_RESPONSE_PROFILE",
+          "response-profile-1-0:response-profile-pac": {
+            "response-profile-capability": {
+              "operation-name": "/v1/inform-about-application-in-generic-representation",
+              "field-name": {
+                "static-field-name": "ownerEmailAddress"
+              },
+              "description": "Email address of the ApplicationOwner",
+              "datatype": "string"
+            },
+            "response-profile-configuration": {
+              "value": {
+                "value-reference": "/core-model-1-4:control-construct/logical-termination-point=okm-2-0-0-http-s-000/layer-protocol=0/http-server-interface-1-0:http-server-interface-pac/http-server-interface-capability/owner-email-address"
+              }
+            }
+          }
+        },
+        {
+          "uuid": "okm-2-0-0-response-p-007",
+          "profile-name": "response-profile-1-0:PROFILE_NAME_TYPE_GENERIC_RESPONSE_PROFILE",
+          "response-profile-1-0:response-profile-pac": {
+            "response-profile-capability": {
+              "operation-name": "/v1/inform-about-release-history-in-generic-representation",
+              "field-name": {
+                "field-name-reference": "/core-model-1-4:control-construct/logical-termination-point=okm-2-0-0-http-s-000/layer-protocol=0/http-server-interface-1-0:http-server-interface-pac/http-server-interface-capability/release-list=0/release-number"
+              },
+              "description": "Represents the first entry in the list of releases",
+              "datatype": "string"
+            },
+            "response-profile-configuration": {
+              "value": {
+                "value-reference": "/core-model-1-4:control-construct/logical-termination-point=okm-2-0-0-http-s-000/layer-protocol=0/http-server-interface-1-0:http-server-interface-pac/http-server-interface-capability/release-list=0/changes"
+              }
+            }
+          }
+        },
+        {
+          "uuid": "okm-2-0-0-response-p-008",
+          "profile-name": "response-profile-1-0:PROFILE_NAME_TYPE_GENERIC_RESPONSE_PROFILE",
+          "response-profile-1-0:response-profile-pac": {
+            "response-profile-capability": {
+              "operation-name": "/v1/inform-about-release-history-in-generic-representation",
+              "field-name": {
+                "field-name-reference": "/core-model-1-4:control-construct/logical-termination-point=okm-2-0-0-http-s-000/layer-protocol=0/http-server-interface-1-0:http-server-interface-pac/http-server-interface-capability/release-list=1/release-number"
+              },
+              "description": "List of release numbers and changes",
+              "datatype": "string"
+            },
+            "response-profile-configuration": {
+              "value": {
+                "value-reference": "/core-model-1-4:control-construct/logical-termination-point=okm-2-0-0-http-s-000/layer-protocol=0/http-server-interface-1-0:http-server-interface-pac/http-server-interface-capability/release-list=1/changes"
+              }
+            }
+          }
+        },
+        {
+          "uuid": "okm-2-0-0-file-p-000",
+          "profile-name": "file-profile-1-0:PROFILE_NAME_TYPE_FILE_PROFILE",
+          "file-profile-1-0:file-profile-pac": {
+            "file-profile-capability": {
+              "file-identifier": "LOADfile",
+              "file-description": "OperationMode"
+            },
+            "file-profile-configuration": {
+              "file-path": "../application-data/application-data.json",
+              "user-name": "OperationKeyManagement",
+              "password": "Operations to add password",
+              "operation": "file-profile-1-0:OPERATION_TYPE_READ_WRITE"
+            }
+          }
+        },
+        {
+          "uuid": "okm-2-0-0-string-p-000",
           "profile-name": "string-profile-1-0:PROFILE_NAME_TYPE_STRING_PROFILE",
           "string-profile-1-0:string-profile-pac": {
             "string-profile-capability": {
-              "string-name": "operationMode"
+              "string-name": "operationMode",
+              "enumeration": [
+                "string-profile-1-0:STRING_VALUE_TYPE_REACTIVE",
+                "string-profile-1-0:STRING_VALUE_TYPE_PROTECTION",
+                "string-profile-1-0:STRING_VALUE_TYPE_OFF"
+              ]
             },
             "string-profile-configuration": {
-              "string-value": "string-profile-1-0:STRING_VALUE_TYPE_PROTECTION"
+              "string-value": "string-profile-1-0:STRING_VALUE_TYPE_OFF"
             }
           }
         }
@@ -19,11 +256,11 @@
     },
     "logical-termination-point": [
       {
-        "uuid": "okm-0-0-1-op-s-0000",
+        "uuid": "okm-2-0-0-op-s-bm-000",
         "ltp-direction": "core-model-1-4:TERMINATION_DIRECTION_SOURCE",
         "client-ltp": [],
         "server-ltp": [
-          "okm-0-0-1-http-s-0000"
+          "okm-2-0-0-http-s-000"
         ],
         "layer-protocol": [
           {
@@ -42,11 +279,11 @@
         ]
       },
       {
-        "uuid": "okm-0-0-1-op-s-0001",
+        "uuid": "okm-2-0-0-op-s-bm-001",
         "ltp-direction": "core-model-1-4:TERMINATION_DIRECTION_SOURCE",
         "client-ltp": [],
         "server-ltp": [
-          "okm-0-0-1-http-s-0000"
+          "okm-2-0-0-http-s-000"
         ],
         "layer-protocol": [
           {
@@ -65,11 +302,11 @@
         ]
       },
       {
-        "uuid": "okm-0-0-1-op-s-0002",
+        "uuid": "okm-2-0-0-op-s-bm-002",
         "ltp-direction": "core-model-1-4:TERMINATION_DIRECTION_SOURCE",
         "client-ltp": [],
         "server-ltp": [
-          "okm-0-0-1-http-s-0000"
+          "okm-2-0-0-http-s-000"
         ],
         "layer-protocol": [
           {
@@ -77,7 +314,7 @@
             "layer-protocol-name": "operation-server-interface-1-0:LAYER_PROTOCOL_NAME_TYPE_OPERATION_LAYER",
             "operation-server-interface-1-0:operation-server-interface-pac": {
               "operation-server-interface-capability": {
-                "operation-name": "/v1/update-operation-key"
+                "operation-name": "/v1/redirect-service-request-information"
               },
               "operation-server-interface-configuration": {
                 "life-cycle-state": "operation-server-interface-1-0:LIFE_CYCLE_STATE_TYPE_EXPERIMENTAL",
@@ -88,11 +325,11 @@
         ]
       },
       {
-        "uuid": "okm-0-0-1-op-s-0003",
+        "uuid": "okm-2-0-0-op-s-bm-003",
         "ltp-direction": "core-model-1-4:TERMINATION_DIRECTION_SOURCE",
         "client-ltp": [],
         "server-ltp": [
-          "okm-0-0-1-http-s-0000"
+          "okm-2-0-0-http-s-000"
         ],
         "layer-protocol": [
           {
@@ -111,11 +348,11 @@
         ]
       },
       {
-        "uuid": "okm-0-0-1-op-s-0004",
+        "uuid": "okm-2-0-0-op-s-bm-004",
         "ltp-direction": "core-model-1-4:TERMINATION_DIRECTION_SOURCE",
         "client-ltp": [],
         "server-ltp": [
-          "okm-0-0-1-http-s-0000"
+          "okm-2-0-0-http-s-000"
         ],
         "layer-protocol": [
           {
@@ -134,11 +371,11 @@
         ]
       },
       {
-        "uuid": "okm-0-0-1-op-s-0005",
+        "uuid": "okm-2-0-0-op-s-bm-005",
         "ltp-direction": "core-model-1-4:TERMINATION_DIRECTION_SOURCE",
         "client-ltp": [],
         "server-ltp": [
-          "okm-0-0-1-http-s-0000"
+          "okm-2-0-0-http-s-000"
         ],
         "layer-protocol": [
           {
@@ -157,11 +394,11 @@
         ]
       },
       {
-        "uuid": "okm-0-0-1-op-s-0007",
+        "uuid": "okm-2-0-0-op-s-bm-007",
         "ltp-direction": "core-model-1-4:TERMINATION_DIRECTION_SOURCE",
         "client-ltp": [],
         "server-ltp": [
-          "okm-0-0-1-http-s-0000"
+          "okm-2-0-0-http-s-000"
         ],
         "layer-protocol": [
           {
@@ -180,11 +417,11 @@
         ]
       },
       {
-        "uuid": "okm-0-0-1-op-s-0008",
+        "uuid": "okm-2-0-0-op-s-bm-008",
         "ltp-direction": "core-model-1-4:TERMINATION_DIRECTION_SOURCE",
         "client-ltp": [],
         "server-ltp": [
-          "okm-0-0-1-http-s-0000"
+          "okm-2-0-0-http-s-000"
         ],
         "layer-protocol": [
           {
@@ -203,11 +440,11 @@
         ]
       },
       {
-        "uuid": "okm-0-0-1-op-s-0009",
+        "uuid": "okm-2-0-0-op-s-bm-009",
         "ltp-direction": "core-model-1-4:TERMINATION_DIRECTION_SOURCE",
         "client-ltp": [],
         "server-ltp": [
-          "okm-0-0-1-http-s-0000"
+          "okm-2-0-0-http-s-000"
         ],
         "layer-protocol": [
           {
@@ -226,11 +463,11 @@
         ]
       },
       {
-        "uuid": "okm-0-0-1-op-s-0010",
+        "uuid": "okm-2-0-0-op-s-bm-010",
         "ltp-direction": "core-model-1-4:TERMINATION_DIRECTION_SOURCE",
         "client-ltp": [],
         "server-ltp": [
-          "okm-0-0-1-http-s-0000"
+          "okm-2-0-0-http-s-000"
         ],
         "layer-protocol": [
           {
@@ -249,11 +486,11 @@
         ]
       },
       {
-        "uuid": "okm-0-0-1-op-s-0011",
+        "uuid": "okm-2-0-0-op-s-bm-011",
         "ltp-direction": "core-model-1-4:TERMINATION_DIRECTION_SOURCE",
         "client-ltp": [],
         "server-ltp": [
-          "okm-0-0-1-http-s-0000"
+          "okm-2-0-0-http-s-000"
         ],
         "layer-protocol": [
           {
@@ -272,11 +509,11 @@
         ]
       },
       {
-        "uuid": "okm-0-0-1-op-s-1000",
+        "uuid": "okm-2-0-0-op-s-im-000",
         "ltp-direction": "core-model-1-4:TERMINATION_DIRECTION_SOURCE",
         "client-ltp": [],
         "server-ltp": [
-          "okm-0-0-1-http-s-0000"
+          "okm-2-0-0-http-s-000"
         ],
         "layer-protocol": [
           {
@@ -295,11 +532,11 @@
         ]
       },
       {
-        "uuid": "okm-0-0-1-op-s-2001",
+        "uuid": "okm-2-0-0-op-s-bs-001",
         "ltp-direction": "core-model-1-4:TERMINATION_DIRECTION_SOURCE",
         "client-ltp": [],
         "server-ltp": [
-          "okm-0-0-1-http-s-0000"
+          "okm-2-0-0-http-s-000"
         ],
         "layer-protocol": [
           {
@@ -318,11 +555,11 @@
         ]
       },
       {
-        "uuid": "okm-0-0-1-op-s-2002",
+        "uuid": "okm-2-0-0-op-s-bs-002",
         "ltp-direction": "core-model-1-4:TERMINATION_DIRECTION_SOURCE",
         "client-ltp": [],
         "server-ltp": [
-          "okm-0-0-1-http-s-0000"
+          "okm-2-0-0-http-s-000"
         ],
         "layer-protocol": [
           {
@@ -341,11 +578,11 @@
         ]
       },
       {
-        "uuid": "okm-0-0-1-op-s-2003",
+        "uuid": "okm-2-0-0-op-s-bs-003",
         "ltp-direction": "core-model-1-4:TERMINATION_DIRECTION_SOURCE",
         "client-ltp": [],
         "server-ltp": [
-          "okm-0-0-1-http-s-0000"
+          "okm-2-0-0-http-s-000"
         ],
         "layer-protocol": [
           {
@@ -364,11 +601,11 @@
         ]
       },
       {
-        "uuid": "okm-0-0-1-op-s-2004",
+        "uuid": "okm-2-0-0-op-s-bs-004",
         "ltp-direction": "core-model-1-4:TERMINATION_DIRECTION_SOURCE",
         "client-ltp": [],
         "server-ltp": [
-          "okm-0-0-1-http-s-0000"
+          "okm-2-0-0-http-s-000"
         ],
         "layer-protocol": [
           {
@@ -387,11 +624,34 @@
         ]
       },
       {
-        "uuid": "okm-0-0-1-op-s-3000",
+        "uuid": "okm-2-0-0-op-s-bs-005",
         "ltp-direction": "core-model-1-4:TERMINATION_DIRECTION_SOURCE",
         "client-ltp": [],
         "server-ltp": [
-          "okm-0-0-1-http-s-0000"
+          "okm-2-0-0-http-s-000"
+        ],
+        "layer-protocol": [
+          {
+            "local-id": "0",
+            "layer-protocol-name": "operation-server-interface-1-0:LAYER_PROTOCOL_NAME_TYPE_OPERATION_LAYER",
+            "operation-server-interface-1-0:operation-server-interface-pac": {
+              "operation-server-interface-capability": {
+                "operation-name": "/docs"
+              },
+              "operation-server-interface-configuration": {
+                "life-cycle-state": "operation-server-interface-1-0:LIFE_CYCLE_STATE_TYPE_EXPERIMENTAL",
+                "operation-key": "n.a."
+              }
+            }
+          }
+        ]
+      },
+      {
+        "uuid": "okm-2-0-0-op-s-bs-000",
+        "ltp-direction": "core-model-1-4:TERMINATION_DIRECTION_SOURCE",
+        "client-ltp": [],
+        "server-ltp": [
+          "okm-2-0-0-http-s-000"
         ],
         "layer-protocol": [
           {
@@ -410,11 +670,11 @@
         ]
       },
       {
-        "uuid": "okm-0-0-1-op-s-3001",
+        "uuid": "okm-2-0-0-op-s-is-001",
         "ltp-direction": "core-model-1-4:TERMINATION_DIRECTION_SOURCE",
         "client-ltp": [],
         "server-ltp": [
-          "okm-0-0-1-http-s-0000"
+          "okm-2-0-0-http-s-000"
         ],
         "layer-protocol": [
           {
@@ -433,11 +693,11 @@
         ]
       },
       {
-        "uuid": "okm-0-0-1-op-s-3002",
+        "uuid": "okm-2-0-0-op-s-is-002",
         "ltp-direction": "core-model-1-4:TERMINATION_DIRECTION_SOURCE",
         "client-ltp": [],
         "server-ltp": [
-          "okm-0-0-1-http-s-0000"
+          "okm-2-0-0-http-s-000"
         ],
         "layer-protocol": [
           {
@@ -456,11 +716,11 @@
         ]
       },
       {
-        "uuid": "okm-0-0-1-op-s-3003",
+        "uuid": "okm-2-0-0-op-s-is-003",
         "ltp-direction": "core-model-1-4:TERMINATION_DIRECTION_SOURCE",
         "client-ltp": [],
         "server-ltp": [
-          "okm-0-0-1-http-s-0000"
+          "okm-2-0-0-http-s-000"
         ],
         "layer-protocol": [
           {
@@ -479,11 +739,11 @@
         ]
       },
       {
-        "uuid": "okm-0-0-1-op-s-3004",
+        "uuid": "okm-2-0-0-op-s-is-004",
         "ltp-direction": "core-model-1-4:TERMINATION_DIRECTION_SOURCE",
         "client-ltp": [],
         "server-ltp": [
-          "okm-0-0-1-http-s-0000"
+          "okm-2-0-0-http-s-000"
         ],
         "layer-protocol": [
           {
@@ -502,33 +762,34 @@
         ]
       },
       {
-        "uuid": "okm-0-0-1-http-s-0000",
+        "uuid": "okm-2-0-0-http-s-000",
         "ltp-direction": "core-model-1-4:TERMINATION_DIRECTION_SOURCE",
         "client-ltp": [
-          "okm-0-0-1-op-s-0000",
-          "okm-0-0-1-op-s-0001",
-          "okm-0-0-1-op-s-0002",
-          "okm-0-0-1-op-s-0003",
-          "okm-0-0-1-op-s-0004",
-          "okm-0-0-1-op-s-0005",
-          "okm-0-0-1-op-s-0007",
-          "okm-0-0-1-op-s-0008",
-          "okm-0-0-1-op-s-0009",
-          "okm-0-0-1-op-s-0010",
-          "okm-0-0-1-op-s-0011",
-          "okm-0-0-1-op-s-1000",
-          "okm-0-0-1-op-s-2001",
-          "okm-0-0-1-op-s-2002",
-          "okm-0-0-1-op-s-2003",
-          "okm-0-0-1-op-s-2004",
-          "okm-0-0-1-op-s-3000",
-          "okm-0-0-1-op-s-3001",
-          "okm-0-0-1-op-s-3002",
-          "okm-0-0-1-op-s-3003",
-          "okm-0-0-1-op-s-3004"
+          "okm-2-0-0-op-s-bm-000",
+          "okm-2-0-0-op-s-bm-001",
+          "okm-2-0-0-op-s-bm-002",
+          "okm-2-0-0-op-s-bm-003",
+          "okm-2-0-0-op-s-bm-004",
+          "okm-2-0-0-op-s-bm-005",
+          "okm-2-0-0-op-s-bm-007",
+          "okm-2-0-0-op-s-bm-008",
+          "okm-2-0-0-op-s-bm-009",
+          "okm-2-0-0-op-s-bm-010",
+          "okm-2-0-0-op-s-bm-011",
+          "okm-2-0-0-op-s-im-000",
+          "okm-2-0-0-op-s-bs-001",
+          "okm-2-0-0-op-s-bs-002",
+          "okm-2-0-0-op-s-bs-003",
+          "okm-2-0-0-op-s-bs-004",
+          "okm-2-0-0-op-s-bs-005",
+          "okm-2-0-0-op-s-bs-000",
+          "okm-2-0-0-op-s-is-001",
+          "okm-2-0-0-op-s-is-002",
+          "okm-2-0-0-op-s-is-003",
+          "okm-2-0-0-op-s-is-004"
         ],
         "server-ltp": [
-          "okm-0-0-1-tcp-s-0000"
+          "okm-2-0-0-tcp-s-000"
         ],
         "layer-protocol": [
           {
@@ -537,16 +798,23 @@
             "http-server-interface-1-0:http-server-interface-pac": {
               "http-server-interface-capability": {
                 "application-name": "OperationKeyManagement",
-                "release-number": "0.0.1",
+                "release-number": "2.0.0",
                 "application-purpose": "Keeps the operation keys on server and client side in synch.",
                 "data-update-period": "http-server-interface-1-0:DATA_UPDATE_PERIOD_TYPE_REAL_TIME",
                 "owner-name": "Thorsten Heinze",
                 "owner-email-address": "Thorsten.Heinze@telefonica.com",
                 "release-list": [
                   {
-                    "release-number": "0.0.1",
+                    "local-id": "0",
+                    "release-number": "1.0.0",
                     "release-date": "10.01.2022",
                     "changes": "Initial version."
+                  },
+                  {
+                    "local-id": "1",
+                    "release-number": "2.0.0",
+                    "release-date": "10.01.2023",
+                    "changes": "Update on ApplicationPattern 2.0.0."
                   }
                 ]
               }
@@ -555,10 +823,10 @@
         ]
       },
       {
-        "uuid": "okm-0-0-1-tcp-s-0000",
+        "uuid": "okm-2-0-0-tcp-s-000",
         "ltp-direction": "core-model-1-4:TERMINATION_DIRECTION_SOURCE",
         "client-ltp": [
-          "okm-0-0-1-http-s-0000"
+          "okm-2-0-0-http-s-000"
         ],
         "server-ltp": [],
         "layer-protocol": [
@@ -567,21 +835,23 @@
             "layer-protocol-name": "tcp-server-interface-1-0:LAYER_PROTOCOL_NAME_TYPE_TCP_LAYER",
             "tcp-server-interface-1-0:tcp-server-interface-pac": {
               "tcp-server-interface-configuration": {
+                "description": "Without TLS layer",
+                "local-protocol": "http",
                 "local-address": {
-                  "ipv-4-address": "10.118.125.157"
+                  "ipv-4-address": "1.1.3.14"
                 },
-                "local-port": 1006
+                "local-port": 3014
               }
             }
           }
         ]
       },
       {
-        "uuid": "okm-0-0-1-op-c-0000",
+        "uuid": "okm-2-0-0-op-c-bm-or-1-0-0-000",
         "ltp-direction": "core-model-1-4:TERMINATION_DIRECTION_SINK",
         "client-ltp": [],
         "server-ltp": [
-          "okm-0-0-1-http-c-0000"
+          "okm-2-0-0-http-c-or-1-0-0-000"
         ],
         "layer-protocol": [
           {
@@ -601,34 +871,32 @@
         ]
       },
       {
-        "uuid": "okm-0-0-1-http-c-0000",
+        "uuid": "okm-2-0-0-http-c-or-1-0-0-000",
         "ltp-direction": "core-model-1-4:TERMINATION_DIRECTION_SINK",
         "client-ltp": [
-          "okm-0-0-1-op-c-0000"
+          "okm-2-0-0-op-c-bm-or-1-0-0-000"
         ],
         "server-ltp": [
-          "okm-0-0-1-tcp-c-0000"
+          "okm-2-0-0-tcp-c-or-1-0-0-000"
         ],
         "layer-protocol": [
           {
             "local-id": "0",
             "layer-protocol-name": "http-client-interface-1-0:LAYER_PROTOCOL_NAME_TYPE_HTTP_LAYER",
             "http-client-interface-1-0:http-client-interface-pac": {
-              "http-client-interface-capability": {
-                "application-name": "OldRelease"
-              },
               "http-client-interface-configuration": {
-                "release-number": "0.0.1"
+                "application-name": "OldRelease",
+                "release-number": "1.0.0"
               }
             }
           }
         ]
       },
       {
-        "uuid": "okm-0-0-1-tcp-c-0000",
+        "uuid": "okm-2-0-0-tcp-c-or-1-0-0-000",
         "ltp-direction": "core-model-1-4:TERMINATION_DIRECTION_SINK",
         "client-ltp": [
-          "okm-0-0-1-http-c-0000"
+          "okm-2-0-0-http-c-or-1-0-0-000"
         ],
         "server-ltp": [],
         "layer-protocol": [
@@ -637,23 +905,24 @@
             "layer-protocol-name": "tcp-client-interface-1-0:LAYER_PROTOCOL_NAME_TYPE_TCP_LAYER",
             "tcp-client-interface-1-0:tcp-client-interface-pac": {
               "tcp-client-interface-configuration": {
+                "remote-protocol": "http",
                 "remote-address": {
                   "ip-address": {
-                    "ipv-4-address": "10.118.125.157"
+                    "ipv-4-address": "1.1.3.7"
                   }
                 },
-                "remote-port": 1006
+                "remote-port": 3007
               }
             }
           }
         ]
       },
       {
-        "uuid": "okm-0-0-1-op-c-1010",
+        "uuid": "okm-2-0-0-op-c-im-nr-2-0-0-000",
         "ltp-direction": "core-model-1-4:TERMINATION_DIRECTION_SINK",
         "client-ltp": [],
         "server-ltp": [
-          "okm-0-0-1-http-c-0010"
+          "okm-2-0-0-http-c-nr-2-0-0-000"
         ],
         "layer-protocol": [
           {
@@ -673,34 +942,32 @@
         ]
       },
       {
-        "uuid": "okm-0-0-1-http-c-0010",
+        "uuid": "okm-2-0-0-http-c-nr-2-0-0-000",
         "ltp-direction": "core-model-1-4:TERMINATION_DIRECTION_SINK",
         "client-ltp": [
-          "okm-0-0-1-op-c-1010"
+          "okm-2-0-0-op-c-im-nr-2-0-0-000"
         ],
         "server-ltp": [
-          "okm-0-0-1-tcp-c-0010"
+          "okm-2-0-0-tcp-c-nr-2-0-0-000"
         ],
         "layer-protocol": [
           {
             "local-id": "0",
             "layer-protocol-name": "http-client-interface-1-0:LAYER_PROTOCOL_NAME_TYPE_HTTP_LAYER",
             "http-client-interface-1-0:http-client-interface-pac": {
-              "http-client-interface-capability": {
-                "application-name": "NewRelease"
-              },
               "http-client-interface-configuration": {
-                "release-number": "0.0.2"
+                "application-name": "NewRelease",
+                "release-number": "2.0.0"
               }
             }
           }
         ]
       },
       {
-        "uuid": "okm-0-0-1-tcp-c-0010",
+        "uuid": "okm-2-0-0-tcp-c-nr-2-0-0-000",
         "ltp-direction": "core-model-1-4:TERMINATION_DIRECTION_SINK",
         "client-ltp": [
-          "okm-0-0-1-http-c-0010"
+          "okm-2-0-0-http-c-nr-2-0-0-000"
         ],
         "server-ltp": [],
         "layer-protocol": [
@@ -709,23 +976,24 @@
             "layer-protocol-name": "tcp-client-interface-1-0:LAYER_PROTOCOL_NAME_TYPE_TCP_LAYER",
             "tcp-client-interface-1-0:tcp-client-interface-pac": {
               "tcp-client-interface-configuration": {
+                "remote-protocol": "http",
                 "remote-address": {
                   "ip-address": {
-                    "ipv-4-address": "10.118.125.157"
+                    "ipv-4-address": "1.1.3.14"
                   }
                 },
-                "remote-port": 7006
+                "remote-port": 3014
               }
             }
           }
         ]
       },
       {
-        "uuid": "okm-0-0-1-op-c-0020",
+        "uuid": "okm-2-0-0-op-c-bm-ro-2-0-0-000",
         "ltp-direction": "core-model-1-4:TERMINATION_DIRECTION_SINK",
         "client-ltp": [],
         "server-ltp": [
-          "okm-0-0-1-http-c-0020"
+          "okm-2-0-0-http-c-ro-2-0-0-000"
         ],
         "layer-protocol": [
           {
@@ -734,7 +1002,7 @@
             "operation-client-interface-1-0:operation-client-interface-pac": {
               "operation-client-interface-configuration": {
                 "operation-name": "/v1/register-application",
-                "operation-key": "Operation key not yet provided."
+                "operation-key": "n.a."
               },
               "operation-client-interface-status": {
                 "operational-state": "operation-client-interface-1-0:OPERATIONAL_STATE_TYPE_NOT_YET_DEFINED",
@@ -745,11 +1013,11 @@
         ]
       },
       {
-        "uuid": "okm-0-0-1-op-c-0021",
+        "uuid": "okm-2-0-0-op-c-bm-ro-2-0-0-001",
         "ltp-direction": "core-model-1-4:TERMINATION_DIRECTION_SINK",
         "client-ltp": [],
         "server-ltp": [
-          "okm-0-0-1-http-c-0020"
+          "okm-2-0-0-http-c-ro-2-0-0-000"
         ],
         "layer-protocol": [
           {
@@ -769,11 +1037,11 @@
         ]
       },
       {
-        "uuid": "okm-0-0-1-op-c-0022",
+        "uuid": "okm-2-0-0-op-c-bm-ro-2-0-0-002",
         "ltp-direction": "core-model-1-4:TERMINATION_DIRECTION_SINK",
         "client-ltp": [],
         "server-ltp": [
-          "okm-0-0-1-http-c-0020"
+          "okm-2-0-0-http-c-ro-2-0-0-000"
         ],
         "layer-protocol": [
           {
@@ -793,11 +1061,11 @@
         ]
       },
       {
-        "uuid": "okm-0-0-1-op-c-0023",
+        "uuid": "okm-2-0-0-op-c-bm-ro-2-0-0-003",
         "ltp-direction": "core-model-1-4:TERMINATION_DIRECTION_SINK",
         "client-ltp": [],
         "server-ltp": [
-          "okm-0-0-1-http-c-0020"
+          "okm-2-0-0-http-c-ro-2-0-0-000"
         ],
         "layer-protocol": [
           {
@@ -817,11 +1085,11 @@
         ]
       },
       {
-        "uuid": "okm-0-0-1-op-c-2020",
+        "uuid": "okm-2-0-0-op-c-is-ro-2-0-0-000",
         "ltp-direction": "core-model-1-4:TERMINATION_DIRECTION_SINK",
         "client-ltp": [],
         "server-ltp": [
-          "okm-0-0-1-http-c-0020"
+          "okm-2-0-0-http-c-ro-2-0-0-000"
         ],
         "layer-protocol": [
           {
@@ -841,11 +1109,11 @@
         ]
       },
       {
-        "uuid": "okm-0-0-1-op-c-3020",
+        "uuid": "okm-2-0-0-op-c-im-ro-2-0-0-000",
         "ltp-direction": "core-model-1-4:TERMINATION_DIRECTION_SINK",
         "client-ltp": [],
         "server-ltp": [
-          "okm-0-0-1-http-c-0020"
+          "okm-2-0-0-http-c-ro-2-0-0-000"
         ],
         "layer-protocol": [
           {
@@ -865,11 +1133,11 @@
         ]
       },
       {
-        "uuid": "okm-0-0-1-op-c-3021",
+        "uuid": "okm-2-0-0-op-c-im-ro-2-0-0-001",
         "ltp-direction": "core-model-1-4:TERMINATION_DIRECTION_SINK",
         "client-ltp": [],
         "server-ltp": [
-          "okm-0-0-1-http-c-0020"
+          "okm-2-0-0-http-c-ro-2-0-0-000"
         ],
         "layer-protocol": [
           {
@@ -889,11 +1157,11 @@
         ]
       },
       {
-        "uuid": "okm-0-0-1-op-c-3022",
+        "uuid": "okm-2-0-0-op-c-im-ro-2-0-0-002",
         "ltp-direction": "core-model-1-4:TERMINATION_DIRECTION_SINK",
         "client-ltp": [],
         "server-ltp": [
-          "okm-0-0-1-http-c-0020"
+          "okm-2-0-0-http-c-ro-2-0-0-000"
         ],
         "layer-protocol": [
           {
@@ -913,41 +1181,39 @@
         ]
       },
       {
-        "uuid": "okm-0-0-1-http-c-0020",
+        "uuid": "okm-2-0-0-http-c-ro-2-0-0-000",
         "ltp-direction": "core-model-1-4:TERMINATION_DIRECTION_SINK",
         "client-ltp": [
-          "okm-0-0-1-op-c-0020",
-          "okm-0-0-1-op-c-0021",
-          "okm-0-0-1-op-c-0022",
-          "okm-0-0-1-op-c-0023",
-          "okm-0-0-1-op-c-2020",
-          "okm-0-0-1-op-c-3020",
-          "okm-0-0-1-op-c-3021",
-          "okm-0-0-1-op-c-3022"
+          "okm-2-0-0-op-c-bm-ro-2-0-0-000",
+          "okm-2-0-0-op-c-bm-ro-2-0-0-001",
+          "okm-2-0-0-op-c-bm-ro-2-0-0-002",
+          "okm-2-0-0-op-c-bm-ro-2-0-0-003",
+          "okm-2-0-0-op-c-is-ro-2-0-0-000",
+          "okm-2-0-0-op-c-im-ro-2-0-0-000",
+          "okm-2-0-0-op-c-im-ro-2-0-0-001",
+          "okm-2-0-0-op-c-im-ro-2-0-0-002"
         ],
         "server-ltp": [
-          "okm-0-0-1-tcp-c-0020"
+          "okm-2-0-0-tcp-c-ro-2-0-0-000"
         ],
         "layer-protocol": [
           {
             "local-id": "0",
             "layer-protocol-name": "http-client-interface-1-0:LAYER_PROTOCOL_NAME_TYPE_HTTP_LAYER",
             "http-client-interface-1-0:http-client-interface-pac": {
-              "http-client-interface-capability": {
-                "application-name": "RegistryOffice"
-              },
               "http-client-interface-configuration": {
-                "release-number": "0.0.1"
+                "application-name": "RegistryOffice",
+                "release-number": "2.0.0"
               }
             }
           }
         ]
       },
       {
-        "uuid": "okm-0-0-1-tcp-c-0020",
+        "uuid": "okm-2-0-0-tcp-c-ro-2-0-0-000",
         "ltp-direction": "core-model-1-4:TERMINATION_DIRECTION_SINK",
         "client-ltp": [
-          "okm-0-0-1-http-c-0020"
+          "okm-2-0-0-http-c-ro-2-0-0-000"
         ],
         "server-ltp": [],
         "layer-protocol": [
@@ -956,23 +1222,24 @@
             "layer-protocol-name": "tcp-client-interface-1-0:LAYER_PROTOCOL_NAME_TYPE_TCP_LAYER",
             "tcp-client-interface-1-0:tcp-client-interface-pac": {
               "tcp-client-interface-configuration": {
+                "remote-protocol": "http",
                 "remote-address": {
                   "ip-address": {
-                    "ipv-4-address": "10.118.125.157"
+                    "ipv-4-address": "1.1.3.8"
                   }
                 },
-                "remote-port": 1000
+                "remote-port": 3008
               }
             }
           }
         ]
       },
       {
-        "uuid": "okm-0-0-1-op-c-2030",
+        "uuid": "okm-2-0-0-op-c-is-tar-1-0-0-000",
         "ltp-direction": "core-model-1-4:TERMINATION_DIRECTION_SINK",
         "client-ltp": [],
         "server-ltp": [
-          "okm-0-0-1-http-c-2030"
+          "okm-2-0-0-http-c-tar-1-0-0-000"
         ],
         "layer-protocol": [
           {
@@ -992,34 +1259,32 @@
         ]
       },
       {
-        "uuid": "okm-0-0-1-http-c-2030",
+        "uuid": "okm-2-0-0-http-c-tar-1-0-0-000",
         "ltp-direction": "core-model-1-4:TERMINATION_DIRECTION_SINK",
         "client-ltp": [
-          "okm-0-0-1-op-c-2030"
+          "okm-2-0-0-op-c-is-tar-1-0-0-000"
         ],
         "server-ltp": [
-          "okm-0-0-1-tcp-c-2030"
+          "okm-2-0-0-tcp-c-tar-1-0-0-000"
         ],
         "layer-protocol": [
           {
             "local-id": "0",
             "layer-protocol-name": "http-client-interface-1-0:LAYER_PROTOCOL_NAME_TYPE_HTTP_LAYER",
             "http-client-interface-1-0:http-client-interface-pac": {
-              "http-client-interface-capability": {
-                "application-name": "TypeApprovalRegister"
-              },
               "http-client-interface-configuration": {
-                "release-number": "0.0.1"
+                "application-name": "TypeApprovalRegister",
+                "release-number": "1.0.0"
               }
             }
           }
         ]
       },
       {
-        "uuid": "okm-0-0-1-tcp-c-2030",
+        "uuid": "okm-2-0-0-tcp-c-tar-1-0-0-000",
         "ltp-direction": "core-model-1-4:TERMINATION_DIRECTION_SINK",
         "client-ltp": [
-          "okm-0-0-1-http-c-2030"
+          "okm-2-0-0-http-c-tar-1-0-0-000"
         ],
         "server-ltp": [],
         "layer-protocol": [
@@ -1028,23 +1293,24 @@
             "layer-protocol-name": "tcp-client-interface-1-0:LAYER_PROTOCOL_NAME_TYPE_TCP_LAYER",
             "tcp-client-interface-1-0:tcp-client-interface-pac": {
               "tcp-client-interface-configuration": {
+                "remote-protocol": "http",
                 "remote-address": {
                   "ip-address": {
-                    "ipv-4-address": "10.118.125.157"
+                    "ipv-4-address": "1.1.3.2"
                   }
                 },
-                "remote-port": 1001
+                "remote-port": 3002
               }
             }
           }
         ]
       },
       {
-        "uuid": "okm-0-0-1-op-c-0040",
+        "uuid": "okm-2-0-0-op-c-bs-eatl-1-0-0-000",
         "ltp-direction": "core-model-1-4:TERMINATION_DIRECTION_SINK",
         "client-ltp": [],
         "server-ltp": [
-          "okm-0-0-1-http-c-0040"
+          "okm-2-0-0-http-c-eatl-1-0-0-000"
         ],
         "layer-protocol": [
           {
@@ -1065,11 +1331,11 @@
         ]
       },
       {
-        "uuid": "okm-0-0-1-op-c-2040",
+        "uuid": "okm-2-0-0-op-c-is-eatl-1-0-0-000",
         "ltp-direction": "core-model-1-4:TERMINATION_DIRECTION_SINK",
         "client-ltp": [],
         "server-ltp": [
-          "okm-0-0-1-http-c-0040"
+          "okm-2-0-0-http-c-eatl-1-0-0-000"
         ],
         "layer-protocol": [
           {
@@ -1078,8 +1344,7 @@
             "operation-client-interface-1-0:operation-client-interface-pac": {
               "operation-client-interface-configuration": {
                 "operation-name": "/v1/update-operation-key",
-                "operation-key": "Operation key not yet provided.",
-                "detailed-logging-is-on": "false"
+                "operation-key": "Operation key not yet provided."
               },
               "operation-client-interface-status": {
                 "operational-state": "operation-client-interface-1-0:OPERATIONAL_STATE_TYPE_NOT_YET_DEFINED",
@@ -1090,35 +1355,33 @@
         ]
       },
       {
-        "uuid": "okm-0-0-1-http-c-0040",
+        "uuid": "okm-2-0-0-http-c-eatl-1-0-0-000",
         "ltp-direction": "core-model-1-4:TERMINATION_DIRECTION_SINK",
         "client-ltp": [
-          "okm-0-0-1-op-c-0040",
-          "okm-0-0-1-op-c-2040"
+          "okm-2-0-0-op-c-bs-eatl-1-0-0-000",
+          "okm-2-0-0-op-c-is-eatl-1-0-0-000"
         ],
         "server-ltp": [
-          "okm-0-0-1-tcp-c-0040"
+          "okm-2-0-0-tcp-c-eatl-1-0-0-000"
         ],
         "layer-protocol": [
           {
             "local-id": "0",
             "layer-protocol-name": "http-client-interface-1-0:LAYER_PROTOCOL_NAME_TYPE_HTTP_LAYER",
             "http-client-interface-1-0:http-client-interface-pac": {
-              "http-client-interface-capability": {
-                "application-name": "ExecutionAndTraceLog"
-              },
               "http-client-interface-configuration": {
-                "release-number": "0.0.1"
+                "application-name": "ExecutionAndTraceLog",
+                "release-number": "1.0.0"
               }
             }
           }
         ]
       },
       {
-        "uuid": "okm-0-0-1-tcp-c-0040",
+        "uuid": "okm-2-0-0-tcp-c-eatl-1-0-0-000",
         "ltp-direction": "core-model-1-4:TERMINATION_DIRECTION_SINK",
         "client-ltp": [
-          "okm-0-0-1-http-c-0040"
+          "okm-2-0-0-http-c-eatl-1-0-0-000"
         ],
         "server-ltp": [],
         "layer-protocol": [
@@ -1127,23 +1390,24 @@
             "layer-protocol-name": "tcp-client-interface-1-0:LAYER_PROTOCOL_NAME_TYPE_TCP_LAYER",
             "tcp-client-interface-1-0:tcp-client-interface-pac": {
               "tcp-client-interface-configuration": {
+                "remote-protocol": "http",
                 "remote-address": {
                   "ip-address": {
-                    "ipv-4-address": "10.118.125.157"
+                    "ipv-4-address": "1.1.3.3"
                   }
                 },
-                "remote-port": 1002
+                "remote-port": 3003
               }
             }
           }
         ]
       },
       {
-        "uuid": "okm-0-0-1-op-c-0050",
+        "uuid": "okm-2-0-0-op-c-bs-ol-1-0-0-000",
         "ltp-direction": "core-model-1-4:TERMINATION_DIRECTION_SINK",
         "client-ltp": [],
         "server-ltp": [
-          "okm-0-0-1-http-c-0050"
+          "okm-2-0-0-http-c-ol-1-0-0-000"
         ],
         "layer-protocol": [
           {
@@ -1163,11 +1427,11 @@
         ]
       },
       {
-        "uuid": "okm-0-0-1-op-c-2050",
+        "uuid": "okm-2-0-0-op-c-is-ol-1-0-0-000",
         "ltp-direction": "core-model-1-4:TERMINATION_DIRECTION_SINK",
         "client-ltp": [],
         "server-ltp": [
-          "okm-0-0-1-http-c-0050"
+          "okm-2-0-0-http-c-ol-1-0-0-000"
         ],
         "layer-protocol": [
           {
@@ -1187,35 +1451,33 @@
         ]
       },
       {
-        "uuid": "okm-0-0-1-http-c-0050",
+        "uuid": "okm-2-0-0-http-c-ol-1-0-0-000",
         "ltp-direction": "core-model-1-4:TERMINATION_DIRECTION_SINK",
         "client-ltp": [
-          "okm-0-0-1-op-c-0050",
-          "okm-0-0-1-op-c-2050"
+          "okm-2-0-0-op-c-bs-ol-1-0-0-000",
+          "okm-2-0-0-op-c-is-ol-1-0-0-000"
         ],
         "server-ltp": [
-          "okm-0-0-1-tcp-c-0050"
+          "okm-2-0-0-tcp-c-ol-1-0-0-000"
         ],
         "layer-protocol": [
           {
             "local-id": "0",
             "layer-protocol-name": "http-client-interface-1-0:LAYER_PROTOCOL_NAME_TYPE_HTTP_LAYER",
             "http-client-interface-1-0:http-client-interface-pac": {
-              "http-client-interface-capability": {
-                "application-name": "OamLog"
-              },
               "http-client-interface-configuration": {
-                "release-number": "0.0.1"
+                "application-name": "OamLog",
+                "release-number": "1.0.0"
               }
             }
           }
         ]
       },
       {
-        "uuid": "okm-0-0-1-tcp-c-0050",
+        "uuid": "okm-2-0-0-tcp-c-ol-1-0-0-000",
         "ltp-direction": "core-model-1-4:TERMINATION_DIRECTION_SINK",
         "client-ltp": [
-          "okm-0-0-1-http-c-0050"
+          "okm-2-0-0-http-c-ol-1-0-0-000"
         ],
         "server-ltp": [],
         "layer-protocol": [
@@ -1224,23 +1486,24 @@
             "layer-protocol-name": "tcp-client-interface-1-0:LAYER_PROTOCOL_NAME_TYPE_TCP_LAYER",
             "tcp-client-interface-1-0:tcp-client-interface-pac": {
               "tcp-client-interface-configuration": {
+                "remote-protocol": "http",
                 "remote-address": {
                   "ip-address": {
-                    "ipv-4-address": "10.118.125.157"
+                    "ipv-4-address": "1.1.3.4"
                   }
                 },
-                "remote-port": 1003
+                "remote-port": 3004
               }
             }
           }
         ]
       },
       {
-        "uuid": "okm-0-0-1-op-c-0060",
+        "uuid": "okm-2-0-0-op-c-bs-aa-1-0-0-000",
         "ltp-direction": "core-model-1-4:TERMINATION_DIRECTION_SINK",
         "client-ltp": [],
         "server-ltp": [
-          "okm-0-0-1-http-c-0060"
+          "okm-2-0-0-http-c-aa-1-0-0-000"
         ],
         "layer-protocol": [
           {
@@ -1260,11 +1523,11 @@
         ]
       },
       {
-        "uuid": "okm-0-0-1-op-c-2060",
+        "uuid": "okm-2-0-0-op-c-is-aa-1-0-0-000",
         "ltp-direction": "core-model-1-4:TERMINATION_DIRECTION_SINK",
         "client-ltp": [],
         "server-ltp": [
-          "okm-0-0-1-http-c-0060"
+          "okm-2-0-0-http-c-aa-1-0-0-000"
         ],
         "layer-protocol": [
           {
@@ -1284,35 +1547,33 @@
         ]
       },
       {
-        "uuid": "okm-0-0-1-http-c-0060",
+        "uuid": "okm-2-0-0-http-c-aa-1-0-0-000",
         "ltp-direction": "core-model-1-4:TERMINATION_DIRECTION_SINK",
         "client-ltp": [
-          "okm-0-0-1-op-c-0060",
-          "okm-0-0-1-op-c-2060"
+          "okm-2-0-0-op-c-bs-aa-1-0-0-000",
+          "okm-2-0-0-op-c-is-aa-1-0-0-000"
         ],
         "server-ltp": [
-          "okm-0-0-1-tcp-c-0060"
+          "okm-2-0-0-tcp-c-aa-1-0-0-000"
         ],
         "layer-protocol": [
           {
             "local-id": "0",
             "layer-protocol-name": "http-client-interface-1-0:LAYER_PROTOCOL_NAME_TYPE_HTTP_LAYER",
             "http-client-interface-1-0:http-client-interface-pac": {
-              "http-client-interface-capability": {
-                "application-name": "AdministratorAdministration"
-              },
               "http-client-interface-configuration": {
-                "release-number": "0.0.1"
+                "application-name": "AdministratorAdministration",
+                "release-number": "1.0.0"
               }
             }
           }
         ]
       },
       {
-        "uuid": "okm-0-0-1-tcp-c-0060",
+        "uuid": "okm-2-0-0-tcp-c-aa-1-0-0-000",
         "ltp-direction": "core-model-1-4:TERMINATION_DIRECTION_SINK",
         "client-ltp": [
-          "okm-0-0-1-http-c-0060"
+          "okm-2-0-0-http-c-aa-1-0-0-000"
         ],
         "server-ltp": [],
         "layer-protocol": [
@@ -1321,23 +1582,24 @@
             "layer-protocol-name": "tcp-client-interface-1-0:LAYER_PROTOCOL_NAME_TYPE_TCP_LAYER",
             "tcp-client-interface-1-0:tcp-client-interface-pac": {
               "tcp-client-interface-configuration": {
+                "remote-protocol": "http",
                 "remote-address": {
                   "ip-address": {
-                    "ipv-4-address": "10.118.125.157"
+                    "ipv-4-address": "1.1.3.5"
                   }
                 },
-                "remote-port": 1004
+                "remote-port": 3005
               }
             }
           }
         ]
       },
       {
-        "uuid": "okm-0-0-1-op-c-0070",
+        "uuid": "okm-2-0-0-op-c-bm-alt-1-0-0-000",
         "ltp-direction": "core-model-1-4:TERMINATION_DIRECTION_SINK",
         "client-ltp": [],
         "server-ltp": [
-          "okm-0-0-1-http-c-0070"
+          "okm-2-0-0-http-c-alt-1-0-0-000"
         ],
         "layer-protocol": [
           {
@@ -1357,11 +1619,11 @@
         ]
       },
       {
-        "uuid": "okm-0-0-1-op-c-0071",
+        "uuid": "okm-2-0-0-op-c-bm-alt-1-0-0-001",
         "ltp-direction": "core-model-1-4:TERMINATION_DIRECTION_SINK",
         "client-ltp": [],
         "server-ltp": [
-          "okm-0-0-1-http-c-0070"
+          "okm-2-0-0-http-c-alt-1-0-0-000"
         ],
         "layer-protocol": [
           {
@@ -1381,11 +1643,11 @@
         ]
       },
       {
-        "uuid": "okm-0-0-1-op-c-0072",
+        "uuid": "okm-2-0-0-op-c-bm-alt-1-0-0-002",
         "ltp-direction": "core-model-1-4:TERMINATION_DIRECTION_SINK",
         "client-ltp": [],
         "server-ltp": [
-          "okm-0-0-1-http-c-0070"
+          "okm-2-0-0-http-c-alt-1-0-0-000"
         ],
         "layer-protocol": [
           {
@@ -1405,11 +1667,11 @@
         ]
       },
       {
-        "uuid": "okm-0-0-1-op-c-0073",
+        "uuid": "okm-2-0-0-op-c-bm-alt-1-0-0-003",
         "ltp-direction": "core-model-1-4:TERMINATION_DIRECTION_SINK",
         "client-ltp": [],
         "server-ltp": [
-          "okm-0-0-1-http-c-0070"
+          "okm-2-0-0-http-c-alt-1-0-0-000"
         ],
         "layer-protocol": [
           {
@@ -1429,11 +1691,11 @@
         ]
       },
       {
-        "uuid": "okm-0-0-1-op-c-0074",
+        "uuid": "okm-2-0-0-op-c-bm-alt-1-0-0-004",
         "ltp-direction": "core-model-1-4:TERMINATION_DIRECTION_SINK",
         "client-ltp": [],
         "server-ltp": [
-          "okm-0-0-1-http-c-0070"
+          "okm-2-0-0-http-c-alt-1-0-0-000"
         ],
         "layer-protocol": [
           {
@@ -1453,11 +1715,11 @@
         ]
       },
       {
-        "uuid": "okm-0-0-1-op-c-0075",
+        "uuid": "okm-2-0-0-op-c-bm-alt-1-0-0-005",
         "ltp-direction": "core-model-1-4:TERMINATION_DIRECTION_SINK",
         "client-ltp": [],
         "server-ltp": [
-          "okm-0-0-1-http-c-0070"
+          "okm-2-0-0-http-c-alt-1-0-0-000"
         ],
         "layer-protocol": [
           {
@@ -1477,11 +1739,11 @@
         ]
       },
       {
-        "uuid": "okm-0-0-1-op-c-2070",
+        "uuid": "okm-2-0-0-op-c-is-alt-1-0-0-000",
         "ltp-direction": "core-model-1-4:TERMINATION_DIRECTION_SINK",
         "client-ltp": [],
         "server-ltp": [
-          "okm-0-0-1-http-c-0070"
+          "okm-2-0-0-http-c-alt-1-0-0-000"
         ],
         "layer-protocol": [
           {
@@ -1501,11 +1763,11 @@
         ]
       },
       {
-        "uuid": "okm-0-0-1-op-c-3070",
+        "uuid": "okm-2-0-0-op-c-im-alt-1-0-0-000",
         "ltp-direction": "core-model-1-4:TERMINATION_DIRECTION_SINK",
         "client-ltp": [],
         "server-ltp": [
-          "okm-0-0-1-http-c-0070"
+          "okm-2-0-0-http-c-alt-1-0-0-000"
         ],
         "layer-protocol": [
           {
@@ -1525,11 +1787,11 @@
         ]
       },
       {
-        "uuid": "okm-0-0-1-op-c-3071",
+        "uuid": "okm-2-0-0-op-c-im-alt-1-0-0-001",
         "ltp-direction": "core-model-1-4:TERMINATION_DIRECTION_SINK",
         "client-ltp": [],
         "server-ltp": [
-          "okm-0-0-1-http-c-0070"
+          "okm-2-0-0-http-c-alt-1-0-0-000"
         ],
         "layer-protocol": [
           {
@@ -1549,11 +1811,11 @@
         ]
       },
       {
-        "uuid": "okm-0-0-1-op-c-3072",
+        "uuid": "okm-2-0-0-op-c-is-alt-1-0-0-002",
         "ltp-direction": "core-model-1-4:TERMINATION_DIRECTION_SINK",
         "client-ltp": [],
         "server-ltp": [
-          "okm-0-0-1-http-c-0070"
+          "okm-2-0-0-http-c-alt-1-0-0-000"
         ],
         "layer-protocol": [
           {
@@ -1573,11 +1835,11 @@
         ]
       },
       {
-        "uuid": "okm-0-0-1-op-c-3073",
+        "uuid": "okm-2-0-0-op-c-is-alt-1-0-0-003",
         "ltp-direction": "core-model-1-4:TERMINATION_DIRECTION_SINK",
         "client-ltp": [],
         "server-ltp": [
-          "okm-0-0-1-http-c-0070"
+          "okm-2-0-0-http-c-alt-1-0-0-000"
         ],
         "layer-protocol": [
           {
@@ -1597,69 +1859,42 @@
         ]
       },
       {
-        "uuid": "okm-0-0-1-op-c-3074",
-        "ltp-direction": "core-model-1-4:TERMINATION_DIRECTION_SINK",
-        "client-ltp": [],
-        "server-ltp": [
-          "okm-0-0-1-http-c-0070"
-        ],
-        "layer-protocol": [
-          {
-            "local-id": "0",
-            "layer-protocol-name": "operation-client-interface-1-0:LAYER_PROTOCOL_NAME_TYPE_OPERATION_LAYER",
-            "operation-client-interface-1-0:operation-client-interface-pac": {
-              "operation-client-interface-configuration": {
-                "operation-name": "/v1/provide-current-operation-key",
-                "operation-key": "Operation key not yet provided."
-              },
-              "operation-client-interface-status": {
-                "operational-state": "operation-client-interface-1-0:OPERATIONAL_STATE_TYPE_NOT_YET_DEFINED",
-                "life-cycle-state": "operation-client-interface-1-0:LIFE_CYCLE_STATE_TYPE_NOT_YET_DEFINED"
-              }
-            }
-          }
-        ]
-      },
-      {
-        "uuid": "okm-0-0-1-http-c-0070",
+        "uuid": "okm-2-0-0-http-c-alt-1-0-0-000",
         "ltp-direction": "core-model-1-4:TERMINATION_DIRECTION_SINK",
         "client-ltp": [
-          "okm-0-0-1-op-c-0070",
-          "okm-0-0-1-op-c-0071",
-          "okm-0-0-1-op-c-0072",
-          "okm-0-0-1-op-c-0073",
-          "okm-0-0-1-op-c-0074",
-          "okm-0-0-1-op-c-0075",
-          "okm-0-0-1-op-c-2070",
-          "okm-0-0-1-op-c-3070",
-          "okm-0-0-1-op-c-3071",
-          "okm-0-0-1-op-c-3072",
-          "okm-0-0-1-op-c-3073",
-          "okm-0-0-1-op-c-3074"
+          "okm-2-0-0-op-c-bm-alt-1-0-0-000",
+          "okm-2-0-0-op-c-bm-alt-1-0-0-001",
+          "okm-2-0-0-op-c-bm-alt-1-0-0-002",
+          "okm-2-0-0-op-c-bm-alt-1-0-0-003",
+          "okm-2-0-0-op-c-bm-alt-1-0-0-004",
+          "okm-2-0-0-op-c-bm-alt-1-0-0-005",
+          "okm-2-0-0-op-c-is-alt-1-0-0-000",
+          "okm-2-0-0-op-c-im-alt-1-0-0-000",
+          "okm-2-0-0-op-c-im-alt-1-0-0-001",
+          "okm-2-0-0-op-c-is-alt-1-0-0-002",
+          "okm-2-0-0-op-c-is-alt-1-0-0-003"
         ],
         "server-ltp": [
-          "okm-0-0-1-tcp-c-0070"
+          "okm-2-0-0-tcp-c-alt-1-0-0-000"
         ],
         "layer-protocol": [
           {
             "local-id": "0",
             "layer-protocol-name": "http-client-interface-1-0:LAYER_PROTOCOL_NAME_TYPE_HTTP_LAYER",
             "http-client-interface-1-0:http-client-interface-pac": {
-              "http-client-interface-capability": {
-                "application-name": "ApplicationLayerTopology"
-              },
               "http-client-interface-configuration": {
-                "release-number": "0.0.1"
+                "application-name": "ApplicationLayerTopology",
+                "release-number": "1.0.0"
               }
             }
           }
         ]
       },
       {
-        "uuid": "okm-0-0-1-tcp-c-0070",
+        "uuid": "okm-2-0-0-tcp-c-alt-1-0-0-000",
         "ltp-direction": "core-model-1-4:TERMINATION_DIRECTION_SINK",
         "client-ltp": [
-          "okm-0-0-1-http-c-0070"
+          "okm-2-0-0-http-c-alt-1-0-0-000"
         ],
         "server-ltp": [],
         "layer-protocol": [
@@ -1668,23 +1903,24 @@
             "layer-protocol-name": "tcp-client-interface-1-0:LAYER_PROTOCOL_NAME_TYPE_TCP_LAYER",
             "tcp-client-interface-1-0:tcp-client-interface-pac": {
               "tcp-client-interface-configuration": {
+                "remote-protocol": "http",
                 "remote-address": {
                   "ip-address": {
-                    "ipv-4-address": "10.118.125.157"
+                    "ipv-4-address": "1.1.3.6"
                   }
                 },
-                "remote-port": 1005
+                "remote-port": 3006
               }
             }
           }
         ]
       },
       {
-        "uuid": "okm-0-0-1-op-c-2080",
+        "uuid": "okm-2-0-0-op-c-is-okm-2-0-0-000",
         "ltp-direction": "core-model-1-4:TERMINATION_DIRECTION_SINK",
         "client-ltp": [],
         "server-ltp": [
-          "okm-0-0-1-http-c-2080"
+          "okm-2-0-0-http-c-okm-2-0-0-000"
         ],
         "layer-protocol": [
           {
@@ -1704,34 +1940,32 @@
         ]
       },
       {
-        "uuid": "okm-0-0-1-http-c-2080",
+        "uuid": "okm-2-0-0-http-c-okm-2-0-0-000",
         "ltp-direction": "core-model-1-4:TERMINATION_DIRECTION_SINK",
         "client-ltp": [
-          "okm-0-0-1-op-c-2080"
+          "okm-2-0-0-op-c-is-okm-2-0-0-000"
         ],
         "server-ltp": [
-          "okm-0-0-1-tcp-c-2080"
+          "okm-2-0-0-tcp-c-okm-2-0-0-000"
         ],
         "layer-protocol": [
           {
             "local-id": "0",
             "layer-protocol-name": "http-client-interface-1-0:LAYER_PROTOCOL_NAME_TYPE_HTTP_LAYER",
             "http-client-interface-1-0:http-client-interface-pac": {
-              "http-client-interface-capability": {
-                "application-name": "OperationKeyManagement"
-              },
               "http-client-interface-configuration": {
-                "release-number": "0.0.1"
+                "application-name": "OperationKeyManagement",
+                "release-number": "2.0.0"
               }
             }
           }
         ]
       },
       {
-        "uuid": "okm-0-0-1-tcp-c-2080",
+        "uuid": "okm-2-0-0-tcp-c-okm-2-0-0-000",
         "ltp-direction": "core-model-1-4:TERMINATION_DIRECTION_SINK",
         "client-ltp": [
-          "okm-0-0-1-http-c-2080"
+          "okm-2-0-0-http-c-okm-2-0-0-000"
         ],
         "server-ltp": [],
         "layer-protocol": [
@@ -1740,23 +1974,24 @@
             "layer-protocol-name": "tcp-client-interface-1-0:LAYER_PROTOCOL_NAME_TYPE_TCP_LAYER",
             "tcp-client-interface-1-0:tcp-client-interface-pac": {
               "tcp-client-interface-configuration": {
+                "remote-protocol": "http",
                 "remote-address": {
                   "ip-address": {
-                    "ipv-4-address": "10.118.125.157"
+                    "ipv-4-address": "1.1.3.14"
                   }
                 },
-                "remote-port": 1006
+                "remote-port": 3014
               }
             }
           }
         ]
       },
       {
-        "uuid": "okm-0-0-1-op-c-2300",
+        "uuid": "okm-2-0-0-op-c-is-cc-1-0-0-000",
         "ltp-direction": "core-model-1-4:TERMINATION_DIRECTION_SINK",
         "client-ltp": [],
         "server-ltp": [
-          "okm-0-0-1-http-c-2300"
+          "okm-2-0-0-http-c-cc-1-0-0-000"
         ],
         "layer-protocol": [
           {
@@ -1776,23 +2011,21 @@
         ]
       },
       {
-        "uuid": "okm-0-0-1-http-c-2300",
+        "uuid": "okm-2-0-0-http-c-cc-1-0-0-000",
         "ltp-direction": "core-model-1-4:TERMINATION_DIRECTION_SINK",
         "client-ltp": [
-          "okm-0-0-1-op-c-2300"
+          "okm-2-0-0-op-c-is-cc-1-0-0-000"
         ],
         "server-ltp": [
-          "okm-0-0-1-tcp-c-2300"
+          "okm-2-0-0-tcp-c-cc-1-0-0-000"
         ],
         "layer-protocol": [
           {
             "local-id": "0",
             "layer-protocol-name": "http-client-interface-1-0:LAYER_PROTOCOL_NAME_TYPE_HTTP_LAYER",
             "http-client-interface-1-0:http-client-interface-pac": {
-              "http-client-interface-capability": {
-                "application-name": "CurrentController"
-              },
               "http-client-interface-configuration": {
+                "application-name": "CurrentController",
                 "release-number": "0.0.6"
               }
             }
@@ -1800,10 +2033,10 @@
         ]
       },
       {
-        "uuid": "okm-0-0-1-tcp-c-2300",
+        "uuid": "okm-2-0-0-tcp-c-cc-1-0-0-000",
         "ltp-direction": "core-model-1-4:TERMINATION_DIRECTION_SINK",
         "client-ltp": [
-          "okm-0-0-1-http-c-2300"
+          "okm-2-0-0-http-c-cc-1-0-0-000"
         ],
         "server-ltp": [],
         "layer-protocol": [
@@ -1812,12 +2045,13 @@
             "layer-protocol-name": "tcp-client-interface-1-0:LAYER_PROTOCOL_NAME_TYPE_TCP_LAYER",
             "tcp-client-interface-1-0:tcp-client-interface-pac": {
               "tcp-client-interface-configuration": {
+                "remote-protocol": "http",
                 "remote-address": {
                   "ip-address": {
-                    "ipv-4-address": "10.118.125.186"
+                    "ipv-4-address": "1.1.4.1"
                   }
                 },
-                "remote-port": 2000
+                "remote-port": 4001
               }
             }
           }
@@ -1826,10 +2060,10 @@
     ],
     "forwarding-domain": [
       {
-        "uuid": "okm-0-0-1-op-fd-0000",
+        "uuid": "okm-2-0-0-op-fd-000",
         "forwarding-construct": [
           {
-            "uuid": "okm-0-0-1-op-fc-0000",
+            "uuid": "okm-2-0-0-op-fc-bm-000",
             "name": [
               {
                 "value-name": "ForwardingKind",
@@ -1844,22 +2078,22 @@
               {
                 "local-id": "000",
                 "port-direction": "core-model-1-4:PORT_DIRECTION_TYPE_MANAGEMENT",
-                "logical-termination-point": "okm-0-0-1-op-s-0000"
+                "logical-termination-point": "okm-2-0-0-op-s-bm-000"
               },
               {
                 "local-id": "100",
                 "port-direction": "core-model-1-4:PORT_DIRECTION_TYPE_INPUT",
-                "logical-termination-point": "okm-0-0-1-op-s-0000"
+                "logical-termination-point": "okm-2-0-0-op-s-bm-000"
               },
               {
                 "local-id": "200",
                 "port-direction": "core-model-1-4:PORT_DIRECTION_TYPE_OUTPUT",
-                "logical-termination-point": "okm-0-0-1-op-c-0020"
+                "logical-termination-point": "okm-2-0-0-op-c-bm-ro-2-0-0-000"
               }
             ]
           },
           {
-            "uuid": "okm-0-0-1-op-fc-0001",
+            "uuid": "okm-2-0-0-op-fc-bm-001",
             "name": [
               {
                 "value-name": "ForwardingKind",
@@ -1874,17 +2108,17 @@
               {
                 "local-id": "100",
                 "port-direction": "core-model-1-4:PORT_DIRECTION_TYPE_INPUT",
-                "logical-termination-point": "okm-0-0-1-op-s-0001"
+                "logical-termination-point": "okm-2-0-0-op-s-bm-001"
               },
               {
                 "local-id": "200",
                 "port-direction": "core-model-1-4:PORT_DIRECTION_TYPE_OUTPUT",
-                "logical-termination-point": "okm-0-0-1-op-c-0000"
+                "logical-termination-point": "okm-2-0-0-op-c-bm-or-1-0-0-000"
               }
             ]
           },
           {
-            "uuid": "okm-0-0-1-op-fc-0002",
+            "uuid": "okm-2-0-0-op-fc-bm-002",
             "name": [
               {
                 "value-name": "ForwardingKind",
@@ -1899,122 +2133,122 @@
               {
                 "local-id": "000",
                 "port-direction": "core-model-1-4:PORT_DIRECTION_TYPE_MANAGEMENT",
-                "logical-termination-point": "okm-0-0-1-op-s-0002"
+                "logical-termination-point": "okm-2-0-0-op-s-bm-002"
               },
               {
                 "local-id": "100",
                 "port-direction": "core-model-1-4:PORT_DIRECTION_TYPE_INPUT",
-                "logical-termination-point": "okm-0-0-1-op-s-0000"
+                "logical-termination-point": "okm-2-0-0-op-s-bm-000"
               },
               {
                 "local-id": "101",
                 "port-direction": "core-model-1-4:PORT_DIRECTION_TYPE_INPUT",
-                "logical-termination-point": "okm-0-0-1-op-s-0001"
+                "logical-termination-point": "okm-2-0-0-op-s-bm-001"
               },
               {
                 "local-id": "102",
                 "port-direction": "core-model-1-4:PORT_DIRECTION_TYPE_INPUT",
-                "logical-termination-point": "okm-0-0-1-op-s-0002"
+                "logical-termination-point": "okm-2-0-0-op-s-bm-002"
               },
               {
                 "local-id": "103",
                 "port-direction": "core-model-1-4:PORT_DIRECTION_TYPE_INPUT",
-                "logical-termination-point": "okm-0-0-1-op-s-0003"
+                "logical-termination-point": "okm-2-0-0-op-s-bm-003"
               },
               {
                 "local-id": "104",
                 "port-direction": "core-model-1-4:PORT_DIRECTION_TYPE_INPUT",
-                "logical-termination-point": "okm-0-0-1-op-s-0004"
+                "logical-termination-point": "okm-2-0-0-op-s-bm-004"
               },
               {
                 "local-id": "105",
                 "port-direction": "core-model-1-4:PORT_DIRECTION_TYPE_INPUT",
-                "logical-termination-point": "okm-0-0-1-op-s-0005"
+                "logical-termination-point": "okm-2-0-0-op-s-bm-005"
               },
               {
                 "local-id": "106",
                 "port-direction": "core-model-1-4:PORT_DIRECTION_TYPE_INPUT",
-                "logical-termination-point": "okm-0-0-1-op-s-0007"
+                "logical-termination-point": "okm-2-0-0-op-s-bm-007"
               },
               {
                 "local-id": "107",
                 "port-direction": "core-model-1-4:PORT_DIRECTION_TYPE_INPUT",
-                "logical-termination-point": "okm-0-0-1-op-s-0008"
+                "logical-termination-point": "okm-2-0-0-op-s-bm-008"
               },
               {
                 "local-id": "108",
                 "port-direction": "core-model-1-4:PORT_DIRECTION_TYPE_INPUT",
-                "logical-termination-point": "okm-0-0-1-op-s-0009"
+                "logical-termination-point": "okm-2-0-0-op-s-bm-009"
               },
               {
                 "local-id": "109",
                 "port-direction": "core-model-1-4:PORT_DIRECTION_TYPE_INPUT",
-                "logical-termination-point": "okm-0-0-1-op-s-0010"
+                "logical-termination-point": "okm-2-0-0-op-s-bm-010"
               },
               {
                 "local-id": "110",
                 "port-direction": "core-model-1-4:PORT_DIRECTION_TYPE_INPUT",
-                "logical-termination-point": "okm-0-0-1-op-s-0011"
+                "logical-termination-point": "okm-2-0-0-op-s-bm-011"
               },
               {
                 "local-id": "111",
                 "port-direction": "core-model-1-4:PORT_DIRECTION_TYPE_INPUT",
-                "logical-termination-point": "okm-0-0-1-op-s-1000"
+                "logical-termination-point": "okm-2-0-0-op-s-im-000"
               },
               {
                 "local-id": "112",
                 "port-direction": "core-model-1-4:PORT_DIRECTION_TYPE_INPUT",
-                "logical-termination-point": "okm-0-0-1-op-s-2001"
+                "logical-termination-point": "okm-2-0-0-op-s-bs-001"
               },
               {
                 "local-id": "113",
                 "port-direction": "core-model-1-4:PORT_DIRECTION_TYPE_INPUT",
-                "logical-termination-point": "okm-0-0-1-op-s-2002"
+                "logical-termination-point": "okm-2-0-0-op-s-bs-002"
               },
               {
                 "local-id": "114",
                 "port-direction": "core-model-1-4:PORT_DIRECTION_TYPE_INPUT",
-                "logical-termination-point": "okm-0-0-1-op-s-2003"
+                "logical-termination-point": "okm-2-0-0-op-s-bs-003"
               },
               {
                 "local-id": "115",
                 "port-direction": "core-model-1-4:PORT_DIRECTION_TYPE_INPUT",
-                "logical-termination-point": "okm-0-0-1-op-s-2004"
+                "logical-termination-point": "okm-2-0-0-op-s-bs-004"
               },
               {
                 "local-id": "116",
                 "port-direction": "core-model-1-4:PORT_DIRECTION_TYPE_INPUT",
-                "logical-termination-point": "okm-0-0-1-op-s-3000"
+                "logical-termination-point": "okm-2-0-0-op-s-bs-000"
               },
               {
                 "local-id": "117",
                 "port-direction": "core-model-1-4:PORT_DIRECTION_TYPE_INPUT",
-                "logical-termination-point": "okm-0-0-1-op-s-3001"
+                "logical-termination-point": "okm-2-0-0-op-s-is-001"
               },
               {
                 "local-id": "118",
                 "port-direction": "core-model-1-4:PORT_DIRECTION_TYPE_INPUT",
-                "logical-termination-point": "okm-0-0-1-op-s-3002"
+                "logical-termination-point": "okm-2-0-0-op-s-is-002"
               },
               {
                 "local-id": "119",
                 "port-direction": "core-model-1-4:PORT_DIRECTION_TYPE_INPUT",
-                "logical-termination-point": "okm-0-0-1-op-s-3003"
+                "logical-termination-point": "okm-2-0-0-op-s-is-003"
               },
               {
                 "local-id": "120",
                 "port-direction": "core-model-1-4:PORT_DIRECTION_TYPE_INPUT",
-                "logical-termination-point": "okm-0-0-1-op-s-3004"
+                "logical-termination-point": "okm-2-0-0-op-s-is-004"
               },
               {
                 "local-id": "200",
                 "port-direction": "core-model-1-4:PORT_DIRECTION_TYPE_OUTPUT",
-                "logical-termination-point": "okm-0-0-1-op-c-0040"
+                "logical-termination-point": "okm-2-0-0-op-c-bs-eatl-1-0-0-000"
               }
             ]
           },
           {
-            "uuid": "okm-0-0-1-op-fc-0003",
+            "uuid": "okm-2-0-0-op-fc-bm-003",
             "name": [
               {
                 "value-name": "ForwardingKind",
@@ -2029,17 +2263,17 @@
               {
                 "local-id": "000",
                 "port-direction": "core-model-1-4:PORT_DIRECTION_TYPE_MANAGEMENT",
-                "logical-termination-point": "okm-0-0-1-op-s-0003"
+                "logical-termination-point": "okm-2-0-0-op-s-bm-003"
               },
               {
                 "local-id": "200",
                 "port-direction": "core-model-1-4:PORT_DIRECTION_TYPE_OUTPUT",
-                "logical-termination-point": "okm-0-0-1-op-c-0050"
+                "logical-termination-point": "okm-2-0-0-op-c-bs-ol-1-0-0-000"
               }
             ]
           },
           {
-            "uuid": "okm-0-0-1-op-fc-0004",
+            "uuid": "okm-2-0-0-op-fc-bm-004",
             "name": [
               {
                 "value-name": "ForwardingKind",
@@ -2054,17 +2288,17 @@
               {
                 "local-id": "000",
                 "port-direction": "core-model-1-4:PORT_DIRECTION_TYPE_MANAGEMENT",
-                "logical-termination-point": "okm-0-0-1-op-s-0005"
+                "logical-termination-point": "okm-2-0-0-op-s-bm-005"
               },
               {
                 "local-id": "200",
                 "port-direction": "core-model-1-4:PORT_DIRECTION_TYPE_OUTPUT",
-                "logical-termination-point": "okm-0-0-1-op-c-0060"
+                "logical-termination-point": "okm-2-0-0-op-c-bs-aa-1-0-0-000"
               }
             ]
           },
           {
-            "uuid": "okm-0-0-1-op-fc-0110",
+            "uuid": "okm-2-0-0-op-fc-im-110",
             "name": [
               {
                 "value-name": "ForwardingKind",
@@ -2079,17 +2313,17 @@
               {
                 "local-id": "100",
                 "port-direction": "core-model-1-4:PORT_DIRECTION_TYPE_INPUT",
-                "logical-termination-point": "okm-0-0-1-op-s-1000"
+                "logical-termination-point": "okm-2-0-0-op-s-im-000"
               },
               {
                 "local-id": "200",
                 "port-direction": "core-model-1-4:PORT_DIRECTION_TYPE_OUTPUT",
-                "logical-termination-point": "okm-0-0-1-op-c-1010"
+                "logical-termination-point": "okm-2-0-0-op-c-im-nr-2-0-0-000"
               }
             ]
           },
           {
-            "uuid": "okm-0-0-1-op-fc-0111",
+            "uuid": "okm-2-0-0-op-fc-im-111",
             "name": [
               {
                 "value-name": "ForwardingKind",
@@ -2104,17 +2338,17 @@
               {
                 "local-id": "100",
                 "port-direction": "core-model-1-4:PORT_DIRECTION_TYPE_INPUT",
-                "logical-termination-point": "okm-0-0-1-op-s-1000"
+                "logical-termination-point": "okm-2-0-0-op-s-im-000"
               },
               {
                 "local-id": "200",
                 "port-direction": "core-model-1-4:PORT_DIRECTION_TYPE_OUTPUT",
-                "logical-termination-point": "okm-0-0-1-op-c-3020"
+                "logical-termination-point": "okm-2-0-0-op-c-im-ro-2-0-0-000"
               }
             ]
           },
           {
-            "uuid": "okm-0-0-1-op-fc-0112",
+            "uuid": "okm-2-0-0-op-fc-im-112",
             "name": [
               {
                 "value-name": "ForwardingKind",
@@ -2129,17 +2363,17 @@
               {
                 "local-id": "100",
                 "port-direction": "core-model-1-4:PORT_DIRECTION_TYPE_INPUT",
-                "logical-termination-point": "okm-0-0-1-op-s-1000"
+                "logical-termination-point": "okm-2-0-0-op-s-im-000"
               },
               {
                 "local-id": "200",
                 "port-direction": "core-model-1-4:PORT_DIRECTION_TYPE_OUTPUT",
-                "logical-termination-point": "okm-0-0-1-op-c-3021"
+                "logical-termination-point": "okm-2-0-0-op-c-im-ro-2-0-0-001"
               }
             ]
           },
           {
-            "uuid": "okm-0-0-1-op-fc-0113",
+            "uuid": "okm-2-0-0-op-fc-im-113",
             "name": [
               {
                 "value-name": "ForwardingKind",
@@ -2154,17 +2388,17 @@
               {
                 "local-id": "100",
                 "port-direction": "core-model-1-4:PORT_DIRECTION_TYPE_INPUT",
-                "logical-termination-point": "okm-0-0-1-op-s-1000"
+                "logical-termination-point": "okm-2-0-0-op-s-im-000"
               },
               {
                 "local-id": "200",
                 "port-direction": "core-model-1-4:PORT_DIRECTION_TYPE_OUTPUT",
-                "logical-termination-point": "okm-0-0-1-op-c-3071"
+                "logical-termination-point": "okm-2-0-0-op-c-im-alt-1-0-0-000"
               }
             ]
           },
           {
-            "uuid": "okm-0-0-1-op-fc-0114",
+            "uuid": "okm-2-0-0-op-fc-im-114",
             "name": [
               {
                 "value-name": "ForwardingKind",
@@ -2179,17 +2413,17 @@
               {
                 "local-id": "100",
                 "port-direction": "core-model-1-4:PORT_DIRECTION_TYPE_INPUT",
-                "logical-termination-point": "okm-0-0-1-op-s-1000"
+                "logical-termination-point": "okm-2-0-0-op-s-im-000"
               },
               {
                 "local-id": "200",
                 "port-direction": "core-model-1-4:PORT_DIRECTION_TYPE_OUTPUT",
-                "logical-termination-point": "okm-0-0-1-op-c-3022"
+                "logical-termination-point": "okm-2-0-0-op-c-im-ro-2-0-0-002"
               }
             ]
           },
           {
-            "uuid": "okm-0-0-1-op-fc-0115",
+            "uuid": "okm-2-0-0-op-fc-im-115",
             "name": [
               {
                 "value-name": "ForwardingKind",
@@ -2204,17 +2438,17 @@
               {
                 "local-id": "100",
                 "port-direction": "core-model-1-4:PORT_DIRECTION_TYPE_INPUT",
-                "logical-termination-point": "okm-0-0-1-op-s-1000"
+                "logical-termination-point": "okm-2-0-0-op-s-im-000"
               },
               {
                 "local-id": "200",
                 "port-direction": "core-model-1-4:PORT_DIRECTION_TYPE_OUTPUT",
-                "logical-termination-point": "okm-0-0-1-op-c-3072"
+                "logical-termination-point": "okm-2-0-0-op-c-im-alt-1-0-0-001"
               }
             ]
           },
           {
-            "uuid": "okm-0-0-1-op-fc-0105",
+            "uuid": "okm-2-0-0-op-fc-bm-105",
             "name": [
               {
                 "value-name": "ForwardingKind",
@@ -2229,22 +2463,22 @@
               {
                 "local-id": "000",
                 "port-direction": "core-model-1-4:PORT_DIRECTION_TYPE_MANAGEMENT",
-                "logical-termination-point": "okm-0-0-1-op-s-0001"
+                "logical-termination-point": "okm-2-0-0-op-s-bm-001"
               },
               {
                 "local-id": "100",
                 "port-direction": "core-model-1-4:PORT_DIRECTION_TYPE_INPUT",
-                "logical-termination-point": "okm-0-0-1-op-s-1000"
+                "logical-termination-point": "okm-2-0-0-op-s-im-000"
               },
               {
                 "local-id": "200",
                 "port-direction": "core-model-1-4:PORT_DIRECTION_TYPE_OUTPUT",
-                "logical-termination-point": "okm-0-0-1-op-c-0021"
+                "logical-termination-point": "okm-2-0-0-op-c-bm-ro-2-0-0-001"
               }
             ]
           },
           {
-            "uuid": "okm-0-0-1-op-fc-0106",
+            "uuid": "okm-2-0-0-op-fc-bm-106",
             "name": [
               {
                 "value-name": "ForwardingKind",
@@ -2259,22 +2493,22 @@
               {
                 "local-id": "000",
                 "port-direction": "core-model-1-4:PORT_DIRECTION_TYPE_MANAGEMENT",
-                "logical-termination-point": "okm-0-0-1-op-s-0001"
+                "logical-termination-point": "okm-2-0-0-op-s-bm-001"
               },
               {
                 "local-id": "100",
                 "port-direction": "core-model-1-4:PORT_DIRECTION_TYPE_INPUT",
-                "logical-termination-point": "okm-0-0-1-op-s-1000"
+                "logical-termination-point": "okm-2-0-0-op-s-im-000"
               },
               {
                 "local-id": "200",
                 "port-direction": "core-model-1-4:PORT_DIRECTION_TYPE_OUTPUT",
-                "logical-termination-point": "okm-0-0-1-op-c-0022"
+                "logical-termination-point": "okm-2-0-0-op-c-bm-ro-2-0-0-002"
               }
             ]
           },
           {
-            "uuid": "okm-0-0-1-op-fc-0107",
+            "uuid": "okm-2-0-0-op-fc-bm-107",
             "name": [
               {
                 "value-name": "ForwardingKind",
@@ -2289,22 +2523,22 @@
               {
                 "local-id": "000",
                 "port-direction": "core-model-1-4:PORT_DIRECTION_TYPE_MANAGEMENT",
-                "logical-termination-point": "okm-0-0-1-op-s-0001"
+                "logical-termination-point": "okm-2-0-0-op-s-bm-001"
               },
               {
                 "local-id": "100",
                 "port-direction": "core-model-1-4:PORT_DIRECTION_TYPE_INPUT",
-                "logical-termination-point": "okm-0-0-1-op-s-0007"
+                "logical-termination-point": "okm-2-0-0-op-s-bm-007"
               },
               {
                 "local-id": "200",
                 "port-direction": "core-model-1-4:PORT_DIRECTION_TYPE_OUTPUT",
-                "logical-termination-point": "okm-0-0-1-op-c-0023"
+                "logical-termination-point": "okm-2-0-0-op-c-bm-ro-2-0-0-003"
               }
             ]
           },
           {
-            "uuid": "okm-0-0-1-op-fc-0005",
+            "uuid": "okm-2-0-0-op-fc-bm-006",
             "name": [
               {
                 "value-name": "ForwardingKind",
@@ -2319,72 +2553,67 @@
               {
                 "local-id": "000",
                 "port-direction": "core-model-1-4:PORT_DIRECTION_TYPE_MANAGEMENT",
-                "logical-termination-point": "okm-0-0-1-op-s-0009"
+                "logical-termination-point": "okm-2-0-0-op-s-bm-009"
               },
               {
                 "local-id": "100",
                 "port-direction": "core-model-1-4:PORT_DIRECTION_TYPE_INPUT",
-                "logical-termination-point": "okm-0-0-1-op-s-0000"
+                "logical-termination-point": "okm-2-0-0-op-s-bm-000"
               },
               {
                 "local-id": "101",
                 "port-direction": "core-model-1-4:PORT_DIRECTION_TYPE_INPUT",
-                "logical-termination-point": "okm-0-0-1-op-s-0001"
+                "logical-termination-point": "okm-2-0-0-op-s-bm-001"
               },
               {
                 "local-id": "102",
                 "port-direction": "core-model-1-4:PORT_DIRECTION_TYPE_INPUT",
-                "logical-termination-point": "okm-0-0-1-op-s-0002"
+                "logical-termination-point": "okm-2-0-0-op-s-bm-002"
               },
               {
                 "local-id": "103",
                 "port-direction": "core-model-1-4:PORT_DIRECTION_TYPE_INPUT",
-                "logical-termination-point": "okm-0-0-1-op-s-0003"
+                "logical-termination-point": "okm-2-0-0-op-s-bm-003"
               },
               {
                 "local-id": "104",
                 "port-direction": "core-model-1-4:PORT_DIRECTION_TYPE_INPUT",
-                "logical-termination-point": "okm-0-0-1-op-s-0005"
+                "logical-termination-point": "okm-2-0-0-op-s-bm-005"
               },
               {
                 "local-id": "105",
                 "port-direction": "core-model-1-4:PORT_DIRECTION_TYPE_INPUT",
-                "logical-termination-point": "okm-0-0-1-op-s-0007"
+                "logical-termination-point": "okm-2-0-0-op-s-bm-007"
               },
               {
                 "local-id": "106",
                 "port-direction": "core-model-1-4:PORT_DIRECTION_TYPE_INPUT",
-                "logical-termination-point": "okm-0-0-1-op-s-0009"
-              },
-              {
-                "local-id": "107",
-                "port-direction": "core-model-1-4:PORT_DIRECTION_TYPE_INPUT",
-                "logical-termination-point": "okm-0-0-1-op-s-0010"
+                "logical-termination-point": "okm-2-0-0-op-s-bm-009"
               },
               {
                 "local-id": "108",
                 "port-direction": "core-model-1-4:PORT_DIRECTION_TYPE_INPUT",
-                "logical-termination-point": "okm-0-0-1-op-s-0011"
+                "logical-termination-point": "okm-2-0-0-op-s-bm-011"
               },
               {
                 "local-id": "109",
                 "port-direction": "core-model-1-4:PORT_DIRECTION_TYPE_INPUT",
-                "logical-termination-point": "okm-0-0-1-op-s-1000"
+                "logical-termination-point": "okm-2-0-0-op-s-im-000"
               },
               {
                 "local-id": "110",
                 "port-direction": "core-model-1-4:PORT_DIRECTION_TYPE_INPUT",
-                "logical-termination-point": "okm-0-0-1-op-s-3001"
+                "logical-termination-point": "okm-2-0-0-op-s-is-001"
               },
               {
                 "local-id": "200",
                 "port-direction": "core-model-1-4:PORT_DIRECTION_TYPE_OUTPUT",
-                "logical-termination-point": "okm-0-0-1-op-c-0071"
+                "logical-termination-point": "okm-2-0-0-op-c-bm-alt-1-0-0-001"
               }
             ]
           },
           {
-            "uuid": "okm-0-0-1-op-fc-0006",
+            "uuid": "okm-2-0-0-op-fc-bm-007",
             "name": [
               {
                 "value-name": "ForwardingKind",
@@ -2399,22 +2628,22 @@
               {
                 "local-id": "000",
                 "port-direction": "core-model-1-4:PORT_DIRECTION_TYPE_MANAGEMENT",
-                "logical-termination-point": "okm-0-0-1-op-s-0009"
+                "logical-termination-point": "okm-2-0-0-op-s-bm-009"
               },
               {
                 "local-id": "100",
                 "port-direction": "core-model-1-4:PORT_DIRECTION_TYPE_INPUT",
-                "logical-termination-point": "okm-0-0-1-op-s-3002"
+                "logical-termination-point": "okm-2-0-0-op-s-is-002"
               },
               {
                 "local-id": "200",
                 "port-direction": "core-model-1-4:PORT_DIRECTION_TYPE_OUTPUT",
-                "logical-termination-point": "okm-0-0-1-op-c-0072"
+                "logical-termination-point": "okm-2-0-0-op-c-bm-alt-1-0-0-002"
               }
             ]
           },
           {
-            "uuid": "okm-0-0-1-op-fc-0007",
+            "uuid": "okm-2-0-0-op-fc-bm-008",
             "name": [
               {
                 "value-name": "ForwardingKind",
@@ -2429,22 +2658,22 @@
               {
                 "local-id": "000",
                 "port-direction": "core-model-1-4:PORT_DIRECTION_TYPE_MANAGEMENT",
-                "logical-termination-point": "okm-0-0-1-op-s-0009"
+                "logical-termination-point": "okm-2-0-0-op-s-bm-009"
               },
               {
                 "local-id": "100",
                 "port-direction": "core-model-1-4:PORT_DIRECTION_TYPE_INPUT",
-                "logical-termination-point": "okm-0-0-1-op-s-3001"
+                "logical-termination-point": "okm-2-0-0-op-s-is-001"
               },
               {
                 "local-id": "200",
                 "port-direction": "core-model-1-4:PORT_DIRECTION_TYPE_OUTPUT",
-                "logical-termination-point": "okm-0-0-1-op-c-0073"
+                "logical-termination-point": "okm-2-0-0-op-c-bm-alt-1-0-0-003"
               }
             ]
           },
           {
-            "uuid": "okm-0-0-1-op-fc-0008",
+            "uuid": "okm-2-0-0-op-fc-bm-009",
             "name": [
               {
                 "value-name": "ForwardingKind",
@@ -2459,17 +2688,17 @@
               {
                 "local-id": "000",
                 "port-direction": "core-model-1-4:PORT_DIRECTION_TYPE_MANAGEMENT",
-                "logical-termination-point": "okm-0-0-1-op-s-0009"
+                "logical-termination-point": "okm-2-0-0-op-s-bm-009"
               },
               {
                 "local-id": "200",
                 "port-direction": "core-model-1-4:PORT_DIRECTION_TYPE_OUTPUT",
-                "logical-termination-point": "okm-0-0-1-op-c-0074"
+                "logical-termination-point": "okm-2-0-0-op-c-bm-alt-1-0-0-004"
               }
             ]
           },
           {
-            "uuid": "okm-0-0-1-op-fc-0009",
+            "uuid": "okm-2-0-0-op-fc-bm-010",
             "name": [
               {
                 "value-name": "ForwardingKind",
@@ -2484,22 +2713,22 @@
               {
                 "local-id": "000",
                 "port-direction": "core-model-1-4:PORT_DIRECTION_TYPE_MANAGEMENT",
-                "logical-termination-point": "okm-0-0-1-op-s-0009"
+                "logical-termination-point": "okm-2-0-0-op-s-bm-009"
               },
               {
                 "local-id": "100",
                 "port-direction": "core-model-1-4:PORT_DIRECTION_TYPE_INPUT",
-                "logical-termination-point": "okm-0-0-1-op-s-0004"
+                "logical-termination-point": "okm-2-0-0-op-s-bm-004"
               },
               {
                 "local-id": "200",
                 "port-direction": "core-model-1-4:PORT_DIRECTION_TYPE_OUTPUT",
-                "logical-termination-point": "okm-0-0-1-op-c-0075"
+                "logical-termination-point": "okm-2-0-0-op-c-bm-alt-1-0-0-005"
               }
             ]
           },
           {
-            "uuid": "okm-0-0-1-op-fc-0010",
+            "uuid": "okm-2-0-0-op-fc-bm-011",
             "name": [
               {
                 "value-name": "ForwardingKind",
@@ -2514,17 +2743,17 @@
               {
                 "local-id": "000",
                 "port-direction": "core-model-1-4:PORT_DIRECTION_TYPE_MANAGEMENT",
-                "logical-termination-point": "okm-0-0-1-op-s-0009"
+                "logical-termination-point": "okm-2-0-0-op-s-bm-009"
               },
               {
                 "local-id": "200",
                 "port-direction": "core-model-1-4:PORT_DIRECTION_TYPE_OUTPUT",
-                "logical-termination-point": "okm-0-0-1-op-c-0071"
+                "logical-termination-point": "okm-2-0-0-op-c-bm-alt-1-0-0-001"
               }
             ]
           },
           {
-            "uuid": "okm-0-0-1-op-fc-0011",
+            "uuid": "okm-2-0-0-op-fc-bm-012",
             "name": [
               {
                 "value-name": "ForwardingKind",
@@ -2539,17 +2768,17 @@
               {
                 "local-id": "000",
                 "port-direction": "core-model-1-4:PORT_DIRECTION_TYPE_MANAGEMENT",
-                "logical-termination-point": "okm-0-0-1-op-s-0009"
+                "logical-termination-point": "okm-2-0-0-op-s-bm-009"
               },
               {
                 "local-id": "200",
                 "port-direction": "core-model-1-4:PORT_DIRECTION_TYPE_OUTPUT",
-                "logical-termination-point": "okm-0-0-1-op-c-0072"
+                "logical-termination-point": "okm-2-0-0-op-c-bm-alt-1-0-0-002"
               }
             ]
           },
           {
-            "uuid": "okm-0-0-1-op-fc-0012",
+            "uuid": "okm-2-0-0-op-fc-bm-013",
             "name": [
               {
                 "value-name": "ForwardingKind",
@@ -2564,17 +2793,17 @@
               {
                 "local-id": "000",
                 "port-direction": "core-model-1-4:PORT_DIRECTION_TYPE_MANAGEMENT",
-                "logical-termination-point": "okm-0-0-1-op-s-0009"
+                "logical-termination-point": "okm-2-0-0-op-s-bm-009"
               },
               {
                 "local-id": "200",
                 "port-direction": "core-model-1-4:PORT_DIRECTION_TYPE_OUTPUT",
-                "logical-termination-point": "okm-0-0-1-op-c-0073"
+                "logical-termination-point": "okm-2-0-0-op-c-bm-alt-1-0-0-003"
               }
             ]
           },
           {
-            "uuid": "okm-0-0-1-op-fc-0013",
+            "uuid": "okm-2-0-0-op-fc-bm-014",
             "name": [
               {
                 "value-name": "ForwardingKind",
@@ -2589,17 +2818,17 @@
               {
                 "local-id": "000",
                 "port-direction": "core-model-1-4:PORT_DIRECTION_TYPE_MANAGEMENT",
-                "logical-termination-point": "okm-0-0-1-op-s-0009"
+                "logical-termination-point": "okm-2-0-0-op-s-bm-009"
               },
               {
                 "local-id": "200",
                 "port-direction": "core-model-1-4:PORT_DIRECTION_TYPE_OUTPUT",
-                "logical-termination-point": "okm-0-0-1-op-c-0074"
+                "logical-termination-point": "okm-2-0-0-op-c-bm-alt-1-0-0-004"
               }
             ]
           },
           {
-            "uuid": "okm-0-0-1-op-fc-0014",
+            "uuid": "okm-2-0-0-op-fc-bm-015",
             "name": [
               {
                 "value-name": "ForwardingKind",
@@ -2614,17 +2843,42 @@
               {
                 "local-id": "000",
                 "port-direction": "core-model-1-4:PORT_DIRECTION_TYPE_MANAGEMENT",
-                "logical-termination-point": "okm-0-0-1-op-s-0009"
+                "logical-termination-point": "okm-2-0-0-op-s-bm-009"
               },
               {
                 "local-id": "200",
                 "port-direction": "core-model-1-4:PORT_DIRECTION_TYPE_OUTPUT",
-                "logical-termination-point": "okm-0-0-1-op-c-0075"
+                "logical-termination-point": "okm-2-0-0-op-c-bm-alt-1-0-0-005"
               }
             ]
           },
           {
-            "uuid": "okm-0-0-1-op-fc-3000",
+            "uuid": "okm-2-0-0-op-fc-is-000",
+            "name": [
+              {
+                "value-name": "ForwardingKind",
+                "value": "core-model-1-4:FORWARDING_KIND_TYPE_INVARIANT_PROCESS_SNIPPET"
+              },
+              {
+                "value-name": "ForwardingName",
+                "value": "LinkUpdateNotificationCausesRequestForLinkEndPoints"
+              }
+            ],
+            "fc-port": [
+              {
+                "local-id": "000",
+                "port-direction": "core-model-1-4:PORT_DIRECTION_TYPE_INPUT",
+                "logical-termination-point": "okm-2-0-0-op-s-is-004"
+              },
+              {
+                "local-id": "200",
+                "port-direction": "core-model-1-4:PORT_DIRECTION_TYPE_OUTPUT",
+                "logical-termination-point": "okm-2-0-0-op-c-is-alt-1-0-0-003"
+              }
+            ]
+          },
+          {
+            "uuid": "okm-2-0-0-op-fc-is-001",
             "name": [
               {
                 "value-name": "ForwardingKind",
@@ -2639,72 +2893,102 @@
               {
                 "local-id": "000",
                 "port-direction": "core-model-1-4:PORT_DIRECTION_TYPE_MANAGEMENT",
-                "logical-termination-point": "okm-0-0-1-op-s-3001"
+                "logical-termination-point": "okm-2-0-0-op-s-is-001"
               },
               {
                 "local-id": "001",
                 "port-direction": "core-model-1-4:PORT_DIRECTION_TYPE_MANAGEMENT",
-                "logical-termination-point": "okm-0-0-1-op-s-3002"
+                "logical-termination-point": "okm-2-0-0-op-s-is-002"
               },
               {
                 "local-id": "100",
                 "port-direction": "core-model-1-4:PORT_DIRECTION_TYPE_INPUT",
-                "logical-termination-point": "okm-0-0-1-op-s-3004"
-              },
-              {
-                "local-id": "200",
-                "port-direction": "core-model-1-4:PORT_DIRECTION_TYPE_OUTPUT",
-                "logical-termination-point": "okm-0-0-1-op-c-3073"
-              },
-              {
-                "local-id": "201",
-                "port-direction": "core-model-1-4:PORT_DIRECTION_TYPE_OUTPUT",
-                "logical-termination-point": "okm-0-0-1-op-c-3074"
+                "logical-termination-point": "okm-2-0-0-op-s-is-004"
               },
               {
                 "local-id": "202",
                 "port-direction": "core-model-1-4:PORT_DIRECTION_TYPE_OUTPUT",
-                "logical-termination-point": "okm-0-0-1-op-c-2020"
+                "logical-termination-point": "okm-2-0-0-op-c-is-ro-2-0-0-000"
               },
               {
                 "local-id": "203",
                 "port-direction": "core-model-1-4:PORT_DIRECTION_TYPE_OUTPUT",
-                "logical-termination-point": "okm-0-0-1-op-c-2030"
+                "logical-termination-point": "okm-2-0-0-op-c-is-tar-1-0-0-000"
               },
               {
                 "local-id": "204",
                 "port-direction": "core-model-1-4:PORT_DIRECTION_TYPE_OUTPUT",
-                "logical-termination-point": "okm-0-0-1-op-c-2040"
+                "logical-termination-point": "okm-2-0-0-op-c-is-eatl-1-0-0-000"
               },
               {
                 "local-id": "205",
                 "port-direction": "core-model-1-4:PORT_DIRECTION_TYPE_OUTPUT",
-                "logical-termination-point": "okm-0-0-1-op-c-2050"
+                "logical-termination-point": "okm-2-0-0-op-c-is-ol-1-0-0-000"
               },
               {
                 "local-id": "206",
                 "port-direction": "core-model-1-4:PORT_DIRECTION_TYPE_OUTPUT",
-                "logical-termination-point": "okm-0-0-1-op-c-2060"
+                "logical-termination-point": "okm-2-0-0-op-c-is-aa-1-0-0-000"
               },
               {
                 "local-id": "207",
                 "port-direction": "core-model-1-4:PORT_DIRECTION_TYPE_OUTPUT",
-                "logical-termination-point": "okm-0-0-1-op-c-2070"
+                "logical-termination-point": "okm-2-0-0-op-c-is-alt-1-0-0-000"
               },
               {
                 "local-id": "208",
                 "port-direction": "core-model-1-4:PORT_DIRECTION_TYPE_OUTPUT",
-                "logical-termination-point": "okm-0-0-1-op-c-2080"
+                "logical-termination-point": "okm-2-0-0-op-c-is-okm-2-0-0-000"
               },
               {
                 "local-id": "209",
                 "port-direction": "core-model-1-4:PORT_DIRECTION_TYPE_OUTPUT",
-                "logical-termination-point": "okm-0-0-1-op-c-2300"
+                "logical-termination-point": "okm-2-0-0-op-c-is-cc-1-0-0-000"
               }
             ]
           },
           {
-            "uuid": "okm-0-0-1-op-fc-3001",
+            "uuid": "okm-2-0-0-op-fc-is-010",
+            "name": [
+              {
+                "value-name": "ForwardingKind",
+                "value": "core-model-1-4:FORWARDING_KIND_TYPE_INVARIANT_PROCESS_SNIPPET"
+              },
+              {
+                "value-name": "ForwardingName",
+                "value": "CyclicOperationCausesRequestForListOfLinks"
+              }
+            ],
+            "fc-port": [
+              {
+                "local-id": "200",
+                "port-direction": "core-model-1-4:PORT_DIRECTION_TYPE_OUTPUT",
+                "logical-termination-point": "okm-2-0-0-op-c-is-alt-1-0-0-002"
+              }
+            ]
+          },
+          {
+            "uuid": "okm-2-0-0-op-fc-is-011",
+            "name": [
+              {
+                "value-name": "ForwardingKind",
+                "value": "core-model-1-4:FORWARDING_KIND_TYPE_INVARIANT_PROCESS_SNIPPET"
+              },
+              {
+                "value-name": "ForwardingName",
+                "value": "CyclicOperationCausesRequestForLinkEndPoints"
+              }
+            ],
+            "fc-port": [
+              {
+                "local-id": "200",
+                "port-direction": "core-model-1-4:PORT_DIRECTION_TYPE_OUTPUT",
+                "logical-termination-point": "okm-2-0-0-op-c-is-alt-1-0-0-003"
+              }
+            ]
+          },
+          {
+            "uuid": "okm-2-0-0-op-fc-is-012",
             "name": [
               {
                 "value-name": "ForwardingKind",
@@ -2719,52 +3003,52 @@
               {
                 "local-id": "000",
                 "port-direction": "core-model-1-4:PORT_DIRECTION_TYPE_MANAGEMENT",
-                "logical-termination-point": "okm-0-0-1-op-s-3001"
+                "logical-termination-point": "okm-2-0-0-op-s-is-001"
               },
               {
                 "local-id": "001",
                 "port-direction": "core-model-1-4:PORT_DIRECTION_TYPE_MANAGEMENT",
-                "logical-termination-point": "okm-0-0-1-op-s-3002"
+                "logical-termination-point": "okm-2-0-0-op-s-is-002"
               },
               {
                 "local-id": "203",
                 "port-direction": "core-model-1-4:PORT_DIRECTION_TYPE_OUTPUT",
-                "logical-termination-point": "okm-0-0-1-op-c-2020"
+                "logical-termination-point": "okm-2-0-0-op-c-is-ro-2-0-0-000"
               },
               {
                 "local-id": "204",
                 "port-direction": "core-model-1-4:PORT_DIRECTION_TYPE_OUTPUT",
-                "logical-termination-point": "okm-0-0-1-op-c-2030"
+                "logical-termination-point": "okm-2-0-0-op-c-is-tar-1-0-0-000"
               },
               {
                 "local-id": "205",
                 "port-direction": "core-model-1-4:PORT_DIRECTION_TYPE_OUTPUT",
-                "logical-termination-point": "okm-0-0-1-op-c-2040"
+                "logical-termination-point": "okm-2-0-0-op-c-is-eatl-1-0-0-000"
               },
               {
                 "local-id": "206",
                 "port-direction": "core-model-1-4:PORT_DIRECTION_TYPE_OUTPUT",
-                "logical-termination-point": "okm-0-0-1-op-c-2050"
+                "logical-termination-point": "okm-2-0-0-op-c-is-ol-1-0-0-000"
               },
               {
                 "local-id": "207",
                 "port-direction": "core-model-1-4:PORT_DIRECTION_TYPE_OUTPUT",
-                "logical-termination-point": "okm-0-0-1-op-c-2060"
+                "logical-termination-point": "okm-2-0-0-op-c-is-aa-1-0-0-000"
               },
               {
                 "local-id": "208",
                 "port-direction": "core-model-1-4:PORT_DIRECTION_TYPE_OUTPUT",
-                "logical-termination-point": "okm-0-0-1-op-c-2070"
+                "logical-termination-point": "okm-2-0-0-op-c-is-alt-1-0-0-000"
               },
               {
                 "local-id": "209",
                 "port-direction": "core-model-1-4:PORT_DIRECTION_TYPE_OUTPUT",
-                "logical-termination-point": "okm-0-0-1-op-c-2080"
+                "logical-termination-point": "okm-2-0-0-op-c-is-okm-2-0-0-000"
               },
               {
                 "local-id": "210",
                 "port-direction": "core-model-1-4:PORT_DIRECTION_TYPE_OUTPUT",
-                "logical-termination-point": "okm-0-0-1-op-c-2300"
+                "logical-termination-point": "okm-2-0-0-op-c-is-cc-1-0-0-000"
               }
             ]
           }

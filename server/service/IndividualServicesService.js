@@ -15,6 +15,7 @@ const tcpServerInterface = require('onf-core-model-ap/applicationPattern/onfMode
 const httpServerInterface = require('onf-core-model-ap/applicationPattern/onfModel/models/layerProtocols/HttpServerInterface');
 const operationServerInterface = require('onf-core-model-ap/applicationPattern/onfModel/models/layerProtocols/OperationServerInterface');
 const operationClientInterface = require('onf-core-model-ap/applicationPattern/onfModel/models/layerProtocols/OperationClientInterface');
+const onfAttributeFormatter = require('onf-core-model-ap/applicationPattern/onfModel/utility/OnfAttributeFormatter');
 const prepareForwardingAutomation = require('./individualServices/PrepareForwardingAutomation');
 const softwareUpgrade = require('./individualServices/SoftwareUpgrade');
 const profileConstants = require('../utils/profileConstants');
@@ -41,12 +42,12 @@ const DEFAULT_OPERATION_KEY = 'Operation key not yet provided.';
  * customerJourney String Holds information supporting customer’s journey to which the execution applies
  * no response value expected for this operation
  **/
- exports.bequeathYourDataAndDie = async function (body, user, originator, xCorrelator, traceIndicator, customerJourney, operationServerName) {
+exports.bequeathYourDataAndDie = async function (body, user, originator, xCorrelator, traceIndicator, customerJourney, operationServerName) {
   return new Promise(async function (resolve, reject) {
     try {
       /****************************************************************************************
-        * Setting up required local variables from the request body
-      ****************************************************************************************/
+       * Setting up required local variables from the request body
+       ****************************************************************************************/
 
       let applicationName = body["new-application-name"];
       let releaseNumber = body["new-application-release"];
@@ -54,9 +55,9 @@ const DEFAULT_OPERATION_KEY = 'Operation key not yet provided.';
       let applicationPort = body["new-application-port"];
 
       /****************************************************************************************
-        * Prepare logicalTerminatinPointConfigurationInput object to 
-        * configure logical-termination-point
-      ****************************************************************************************/
+       * Prepare logicalTerminatinPointConfigurationInput object to 
+       * configure logical-termination-point
+       ****************************************************************************************/
 
       let isdataTransferRequired = true;
       let currentApplicationName = await httpServerInterface.getApplicationNameAsync();
@@ -64,9 +65,9 @@ const DEFAULT_OPERATION_KEY = 'Operation key not yet provided.';
         let isUpdated = await httpClientInterface.setReleaseNumberAsync(ltpClientConstants.HTTP_NEW_RELEASE, releaseNumber);
         let currentApplicationRemoteAddress = await tcpServerInterface.getLocalAddress();
         let currentApplicationRemotePort = await tcpServerInterface.getLocalPort();
-        if((applicationAddress == currentApplicationRemoteAddress) && 
-          (applicationPort == currentApplicationRemotePort)){
-            isdataTransferRequired = false;
+        if ((applicationAddress == currentApplicationRemoteAddress) &&
+          (applicationPort == currentApplicationRemotePort)) {
+          isdataTransferRequired = false;
         }
         if (isUpdated) {
           applicationName = await httpClientInterface.getApplicationNameAsync("okm-0-0-1-http-c-0010");
@@ -82,8 +83,8 @@ const DEFAULT_OPERATION_KEY = 'Operation key not yet provided.';
             logicalTerminatinPointConfigurationInput
           );
           /****************************************************************************************
-            * Prepare attributes to automate forwarding-construct
-          ****************************************************************************************/
+           * Prepare attributes to automate forwarding-construct
+           ****************************************************************************************/
           let forwardingAutomationInputList = await prepareForwardingAutomation.bequeathYourDataAndDie(
             logicalTerminationPointconfigurationStatus
           );
@@ -95,7 +96,7 @@ const DEFAULT_OPERATION_KEY = 'Operation key not yet provided.';
             traceIndicator,
             customerJourney
           );
-        } 
+        }
       }
       softwareUpgrade.upgradeSoftwareVersion(isdataTransferRequired, user, xCorrelator, traceIndicator, customerJourney)
         .catch(err => console.log(`upgradeSoftwareVersion failed with error: ${err}`));
@@ -167,7 +168,8 @@ exports.disregardApplication = async function (body, user, originator, xCorrelat
  **/
 exports.listApplications = async function (user, originator, xCorrelator, traceIndicator, customerJourney) {
   const clientOperationLtpUuidList = await onfModelUtils.getFcPortOutputDirectionLogicalTerminationPointListForForwardingName(FC_CYCLIC_OPERATION_CAUSES_OPERATION_KEY_UPDATES);
-  const resultList = [];
+  let applicationsList = [];
+
   for (const clientOperationLtpUuid of clientOperationLtpUuidList) {
     const httpLtpUuidList = await LogicalTerminationPoint.getServerLtpListAsync(clientOperationLtpUuid);
     if (httpLtpUuidList.length == 1) {
@@ -177,20 +179,23 @@ exports.listApplications = async function (user, originator, xCorrelator, traceI
       const tcpLtpUuidLilst = await LogicalTerminationPoint.getServerLtpListAsync(httpLtpUuidList[0])
       const tcpLtpRemoteAddress = await tcpClientInterface.getRemoteAddressAsync(tcpLtpUuidLilst[0]);
       const tcpLtpRemotePort = await tcpClientInterface.getRemotePortAsync(tcpLtpUuidLilst[0]);
-      const resultObj = {
-        "application-name": httpLtpAppName,
-        "application-release-number": httpLtpAppReleaseNumber,
-        "application-address": tcpLtpRemoteAddress,
-        "application-port": tcpLtpRemotePort
-      }
-      resultList.push(resultObj);
+      const tcpLtpRemoteProtocol = await tcpClientInterface.getRemoteProtocolAsync(tcpLtpUuidLilst[0]);
+      let clientApplication = {};
+      clientApplication.applicationName = httpLtpAppName;
+      clientApplication.releaseNumber = httpLtpAppReleaseNumber;
+      clientApplication.address = tcpLtpRemoteAddress;
+      clientApplication.protocol = tcpLtpRemoteProtocol;
+      clientApplication.port = tcpLtpRemotePort;
+
+      let application = await onfAttributeFormatter.modifyJsonObjectKeysToKebabCase(clientApplication);
+
+      applicationsList.push(application);
     } else {
       console.log(`Could not find http client uuid in server ltps for operation client with uuid ${clientOperationLtpUuid}`);
     }
   }
-  return resultList;
+  return applicationsList;
 }
-
 
 /**
  * Adds to the list of applications
@@ -279,7 +284,11 @@ exports.startApplicationInGenericRepresentation = async function (user, originat
   // Preparing response-value-list for response body
   const responseValueList = [];
   const applicationName = await httpServerInterface.getApplicationNameAsync();
-  const reponseValue = { 'field-name': "applicationName", 'value': applicationName, 'datatype': typeof applicationName };
+  const reponseValue = {
+    'field-name': "applicationName",
+    'value': applicationName,
+    'datatype': typeof applicationName
+  };
   responseValueList.push(reponseValue);
 
   // Preparing consequent-action-list for response body
@@ -287,7 +296,10 @@ exports.startApplicationInGenericRepresentation = async function (user, originat
   const baseUrl = "http://" + await tcpServerInterface.getLocalAddress() + ":" + await tcpServerInterface.getLocalPort();
   const labelForInformAboutApplication = "Inform about Application";
   const requestForInformAboutApplication = baseUrl + await operationServerInterface.getOperationNameAsync(ltpServerConstants.HTTP_THIS_OPERATION_INFORM_ABOUT_APPLICATION_IN_GENERIC_REPRESENTATION);
-  const consequentActionForInformAboutApplication = { 'label': labelForInformAboutApplication, 'request': requestForInformAboutApplication };
+  const consequentActionForInformAboutApplication = {
+    'label': labelForInformAboutApplication,
+    'request': requestForInformAboutApplication
+  };
   consequentActionList.push(consequentActionForInformAboutApplication);
 
   return {
@@ -302,7 +314,7 @@ exports.scheduleKeyRotation = async function scheduleKeyRotation() {
     console.log(`Reccurent update of operation keys is disabled, "operationMode" is "${profileConstants.OPERATION_MODE_REACTIVE}".`);
     return;
   }
-  
+
   const intervalInMinutes = 5; // TODO make it configurable via profile
   setTimeout(reccurentUpdateKeys, intervalInMinutes * 60000);
   console.log(`Update operation keys has been scheduled in ${intervalInMinutes} minutes.`);
@@ -358,7 +370,10 @@ async function updateOperationKeyForLink(linkUuid, updateKeyOperationLtpUuidList
 
     const updateKeyOperationLtpUuid = await resolveUpdateKeyOperationLtpUuidForApplication(epAppName, epAppReleaseNumber, updateKeyOperationLtpUuidList);
     if (updateKeyOperationLtpUuid) {
-      httpClient.executeOperation(updateKeyOperationLtpUuid, { "operation-uuid": epOperationUuid, "new-operation-key": operationKey })
+      httpClient.executeOperation(updateKeyOperationLtpUuid, {
+          "operation-uuid": epOperationUuid,
+          "new-operation-key": operationKey
+        })
         .then(response => console.log(`Successfully updated operation key for application ${epAppName} version ${epAppReleaseNumber} operation ${epOperationUuid}`))
         .catch(error => console.log(`Failed to update operation key for application ${epAppName} version ${epAppReleaseNumber} operation ${epOperationUuid} with error: ${error.message}`));
     } else {
@@ -368,7 +383,9 @@ async function updateOperationKeyForLink(linkUuid, updateKeyOperationLtpUuidList
 }
 
 async function fetchLinkEndpointListFromAlt(linkUuid, httpClient) {
-  const resp = await httpClient.executeOperation(ltpClientConstants.HTTP_ALT_OPERATION_LIST_ENDPOINTS_OF_LINK, { 'link-uuid': linkUuid });
+  const resp = await httpClient.executeOperation(ltpClientConstants.HTTP_ALT_OPERATION_LIST_ENDPOINTS_OF_LINK, {
+    'link-uuid': linkUuid
+  });
   if (resp['link-end-point-list'] === undefined) {
     return [];
   }
