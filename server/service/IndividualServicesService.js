@@ -1,8 +1,8 @@
 // @ts-check
 'use strict';
 
-const LogicalTerminationPointConfigurationInput = require('onf-core-model-ap/applicationPattern/onfModel/services/models/logicalTerminationPoint/ConfigurationInput');
-const logicalTerminationPointService = require('onf-core-model-ap/applicationPattern/onfModel/services/LogicalTerminationPointServices');
+const LogicalTerminationPointConfigurationInput = require('onf-core-model-ap/applicationPattern/onfModel/services/models/logicalTerminationPoint/ConfigurationInputWithMapping');
+const logicalTerminationPointService = require('onf-core-model-ap/applicationPattern/onfModel/services/LogicalTerminationPointWithMappingServices');
 const prepareALTForwardingAutomation = require('onf-core-model-ap-bs/basicServices/services/PrepareALTForwardingAutomation');
 const forwardingAutomationService = require('onf-core-model-ap/applicationPattern/onfModel/services/ForwardingConstructAutomationServices');
 const ForwardingConstructConfigurationInput = require('onf-core-model-ap/applicationPattern/onfModel/services/models/forwardingConstruct/ConfigurationInput');
@@ -17,6 +17,7 @@ const operationServerInterface = require('onf-core-model-ap/applicationPattern/o
 const operationClientInterface = require('onf-core-model-ap/applicationPattern/onfModel/models/layerProtocols/OperationClientInterface');
 const onfAttributeFormatter = require('onf-core-model-ap/applicationPattern/onfModel/utility/OnfAttributeFormatter');
 const prepareForwardingAutomation = require('./individualServices/PrepareForwardingAutomation');
+const individualServicesOperationsMapping = require('./individualServices/individualServicesOperationsMapping');
 const softwareUpgrade = require('./individualServices/SoftwareUpgrade');
 const profileConstants = require('../utils/profileConstants');
 const stringProfileService = require('./StringProfileService');
@@ -29,6 +30,7 @@ const onfModelUtils = require("../utils/OnfModelUtils");
 
 const FC_CYCLIC_OPERATION_CAUSES_OPERATION_KEY_UPDATES = 'CyclicOperationCausesOperationKeyUpdates';
 const FC_LINK_UPDATE_NOTIFICATION_CAUSES_OPERATION_KEY_UPDATES = 'LinkUpdateNotificationCausesOperationKeyUpdates';
+const UPDATE_OPERATION_KEY_OPERATION = '/v1/update-operation-key'
 const DEFAULT_OPERATION_KEY = 'Operation key not yet provided.';
 
 /**
@@ -211,20 +213,26 @@ exports.listApplications = async function (user, originator, xCorrelator, traceI
 exports.regardApplication = async function (body, user, originator, xCorrelator, traceIndicator, customerJourney, operationServerName) {
   // get data from request body
   const appName = body['application-name'];
-  const appReleaseNumber = body['application-release-number'];
-  const appAddress = body['application-address'];
-  const appPort = body['application-port'];
+  const appReleaseNumber = body['relase-number'];
+  const tcpInfo = [{
+    "address": body['address'],
+    "protocol": body['protocol'],
+    "port": body['port']
+  }]
+  let operationsMapping = individualServicesOperationsMapping.individualServicesOperationsMapping;
+  let operationNamesByAttributes = new Map();
+  operationNamesByAttributes.set("update-operation-key", UPDATE_OPERATION_KEY_OPERATION);
 
   // create/update op, tcp, http logical-termination-points for the given app
-  const operationList = ['/v1/update-operation-key']; // TODO should this be part of request body?
   const logicalTerminatinPointConfigurationInput = new LogicalTerminationPointConfigurationInput(
     appName,
     appReleaseNumber,
-    appAddress,
-    appPort,
-    operationList
+    tcpInfo,
+    operationServerName,
+    operationNamesByAttributes,
+    operationsMapping
   );
-  const logicalTerminationPointConfigurationStatus = await logicalTerminationPointService.createOrUpdateApplicationInformationAsync(logicalTerminatinPointConfigurationInput);
+  const logicalTerminationPointConfigurationStatus = await logicalTerminationPointService.findOrCreateApplicationInformationAsync(logicalTerminatinPointConfigurationInput);
 
   const operationClientUuid = logicalTerminationPointConfigurationStatus.operationClientConfigurationStatusList[0].uuid;
   const cyclicOperationInput = new ForwardingConstructConfigurationInput(FC_CYCLIC_OPERATION_CAUSES_OPERATION_KEY_UPDATES, operationClientUuid);
@@ -238,15 +246,13 @@ exports.regardApplication = async function (body, user, originator, xCorrelator,
   );
 
   forwardingAutomationService.automateForwardingConstructAsync(
-    operationServerName,
-    applicationLayerTopologyForwardingInputList,
+    operationServerName, applicationLayerTopologyForwardingInputList,
     user,
     xCorrelator,
     traceIndicator,
     customerJourney
   ).catch((error) => console.log(`regardApplication - automateForwardingConstructAsync for ${JSON.stringify({ xCorrelator, traceIndicator, user, originator })} failed with error: ${error.message}`));
 }
-
 
 /**
  * Initiates OperationKey update
