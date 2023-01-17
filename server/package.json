@@ -23,8 +23,8 @@
     "oas3-tools": "^2.2.3",
     "randexp": "^0.5.3",
     "response-time": "^2.3.2",
-    "onf-core-model-ap-bs": "~1.0.1",
-    "onf-core-model-ap": "~1.0.1"
+    "onf-core-model-ap-bs": "~2.0.0-alpha.3",
+    "onf-core-model-ap": "~2.0.0-alpha.3"
   },
   "devDependencies": {
     "nodemon": "^2.0.15"
