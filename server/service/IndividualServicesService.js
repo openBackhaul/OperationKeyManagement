@@ -123,7 +123,7 @@ exports.bequeathYourDataAndDie = async function (body, user, originator, xCorrel
 exports.disregardApplication = async function (body, user, originator, xCorrelator, traceIndicator, customerJourney, operationServerName) {
   // get data from request body
   const appName = body["application-name"];
-  const appReleaseNumber = body["application-release-number"];
+  const appReleaseNumber = body["release-number"];
 
   const httpClientUuid = await httpClientInterface.getHttpClientUuidAsync(appName, appReleaseNumber);
   // http ltp for the given app does not exist 
@@ -131,10 +131,8 @@ exports.disregardApplication = async function (body, user, originator, xCorrelat
     return;
   }
 
-  const operationClientUuid = await operationClientInterface.getOperationClientUuidAsync(httpClientUuid, "/v1/update-operation-key");
-  // TODO: uncomment once new UUIDs are in place and https://github.com/openBackhaul/ApplicationPattern/pull/400 is merged
-  //const operationClientUuid = await OperationClientInterface.generateOperationClientUuidAsync(httpClientUuid, "is", "000");
-
+  const operationClientUuid = await operationClientInterface.getOperationClientUuidAsync(httpClientUuid, UPDATE_OPERATION_KEY_OPERATION);
+  
   const logicalTerminationPointConfigurationStatus = await logicalTerminationPointService.deleteApplicationInformationAsync(appName, appReleaseNumber);
 
   const cyclicOperationInput = new ForwardingConstructConfigurationInput(FC_CYCLIC_OPERATION_CAUSES_OPERATION_KEY_UPDATES, operationClientUuid);
