@@ -3,53 +3,53 @@ servers:
   operation-servers:
     own-oam:
       basic:
-        - service-name: /v1/register-yourself
+        - operation-name: /v1/register-yourself
           uuid: okm-2-0-1-op-s-bm-000
-        - service-name: /v1/embed-yourself
+        - operation-name: /v1/embed-yourself
           uuid: okm-2-0-1-op-s-bm-001
-        - service-name: /v1/redirect-service-request-information
+        - operation-name: /v1/redirect-service-request-information
           uuid: okm-2-0-1-op-s-bm-002
-        - service-name: /v1/redirect-oam-request-information
+        - operation-name: /v1/redirect-oam-request-information
           uuid: okm-2-0-1-op-s-bm-003
-        - service-name: /v1/end-subscription
+        - operation-name: /v1/end-subscription
           uuid: okm-2-0-1-op-s-bm-004
-        - service-name: /v1/inquire-oam-request-approvals
+        - operation-name: /v1/inquire-oam-request-approvals
           uuid: okm-2-0-1-op-s-bm-005
-        - service-name: /v1/update-client
+        - operation-name: /v1/update-client
           uuid: okm-2-0-1-op-s-bm-007
-        - service-name: /v1/list-ltps-and-fcs
+        - operation-name: /v1/list-ltps-and-fcs
           uuid: okm-2-0-1-op-s-bm-008
-        - service-name: /v1/redirect-topology-change-information
+        - operation-name: /v1/redirect-topology-change-information
           uuid: okm-2-0-1-op-s-bm-009
-        - service-name: /v1/update-operation-key
+        - operation-name: /v1/update-operation-key
           uuid: okm-2-0-1-op-s-bm-010
-        - service-name: /v1/update-operation-client
+        - operation-name: /v1/update-operation-client
           uuid: okm-2-0-1-op-s-bm-011
       individual:
-        - service-name: /v1/bequeath-your-data-and-die
+        - operation-name: /v1/bequeath-your-data-and-die
           uuid: okm-2-0-1-op-s-im-000
     service:
       basic:
-        - service-name: /v1/start-application-in-generic-representation
+        - operation-name: /v1/start-application-in-generic-representation
           uuid: okm-2-0-1-op-s-bs-000
-        - service-name: /v1/inform-about-application
+        - operation-name: /v1/inform-about-application
           uuid: okm-2-0-1-op-s-bs-001
-        - service-name: /v1/inform-about-application-in-generic-representation
+        - operation-name: /v1/inform-about-application-in-generic-representation
           uuid: okm-2-0-1-op-s-bs-002
-        - service-name: /v1/inform-about-release-history
+        - operation-name: /v1/inform-about-release-history
           uuid: okm-2-0-1-op-s-bs-003
-        - service-name: /v1/inform-about-release-history-in-generic-representation
+        - operation-name: /v1/inform-about-release-history-in-generic-representation
           uuid: okm-2-0-1-op-s-bs-004
-        - service-name: /docs
+        - operation-name: /docs
           uuid: okm-2-0-1-op-s-bs-005
       individual:
-        - service-name: /v1/regard-application
+        - operation-name: /v1/regard-application
           uuid: okm-2-0-1-op-s-is-001
-        - service-name: /v1/disregard-application
+        - operation-name: /v1/disregard-application
           uuid: okm-2-0-1-op-s-is-002
-        - service-name: /v1/list-applications
+        - operation-name: /v1/list-applications
           uuid: okm-2-0-1-op-s-is-003
-        - service-name: /v1/regard-updated-link
+        - operation-name: /v1/regard-updated-link
           uuid: okm-2-0-1-op-s-is-004
   http-server:
     own-application-name: OperationKeyManagement
@@ -77,7 +77,7 @@ clients:
     operation-clients:
       own-oam:
         basic:
-          - service-name: /v1/bequeath-your-data-and-die
+          - operation-name: /v1/bequeath-your-data-and-die
             uuid: okm-2-0-1-op-c-bm-or-1-0-0-000
         individual:
       service:
@@ -97,7 +97,7 @@ clients:
       own-oam:
         basic:
         individual:
-          - service-name: /v1/regard-application
+          - operation-name: /v1/regard-application
             uuid: okm-2-0-1-op-c-im-nr-2-0-1-000
       service:
         basic:
@@ -115,25 +115,25 @@ clients:
     operation-clients:
       own-oam:
         basic:
-          - service-name: /v1/register-application
+          - operation-name: /v1/register-application
             uuid: okm-2-0-1-op-c-bm-ro-2-0-1-000
-          - service-name: /v1/relay-server-replacement
+          - operation-name: /v1/relay-server-replacement
             uuid: okm-2-0-1-op-c-bm-ro-2-0-1-001
-          - service-name: /v1/deregister-application
+          - operation-name: /v1/deregister-application
             uuid: okm-2-0-1-op-c-bm-ro-2-0-1-002
-          - service-name: /v1/relay-operation-update
+          - operation-name: /v1/relay-operation-update
             uuid: okm-2-0-1-op-c-bm-ro-2-0-1-003
         individual:
-          - service-name: /v1/notify-approvals
+          - operation-name: /v1/notify-approvals
             uuid: okm-2-0-1-op-c-im-ro-2-0-1-000
-          - service-name: /v1/notify-withdrawn-approvals
+          - operation-name: /v1/notify-withdrawn-approvals
             uuid: okm-2-0-1-op-c-im-ro-2-0-1-001
-          - service-name: /v1/end-subscription
+          - operation-name: /v1/end-subscription
             uuid: okm-2-0-1-op-c-im-ro-2-0-1-002
       service:
         basic:
         individual:
-          - service-name: /v1/update-operation-key
+          - operation-name: /v1/update-operation-key
             uuid: okm-2-0-1-op-c-is-ro-2-0-1-000
 
   - http-client:
@@ -152,7 +152,7 @@ clients:
       service:
         basic:
         individual:
-          - service-name: /v1/update-operation-key
+          - operation-name: /v1/update-operation-key
             uuid: okm-2-0-1-op-c-is-tar-1-0-0-000
 
   - http-client:
@@ -170,10 +170,10 @@ clients:
         individual:
       service:
         basic:
-          - service-name: /v1/record-service-request
+          - operation-name: /v1/record-service-request
             uuid: okm-2-0-1-op-c-bs-eatl-1-0-0-000
         individual:
-          - service-name: /v1/update-operation-key
+          - operation-name: /v1/update-operation-key
             uuid: okm-2-0-1-op-c-is-eatl-1-0-0-000
 
   - http-client:
@@ -191,10 +191,10 @@ clients:
         individual:
       service:
         basic:
-          - service-name: /v1/record-oam-request
+          - operation-name: /v1/record-oam-request
             uuid: okm-2-0-1-op-c-bs-ol-1-0-0-000
         individual:
-          - service-name: /v1/update-operation-key
+          - operation-name: /v1/update-operation-key
             uuid: okm-2-0-1-op-c-is-ol-1-0-0-000
 
   - http-client:
@@ -212,10 +212,10 @@ clients:
         individual:
       service:
         basic:
-          - service-name: /v1/approve-oam-request
+          - operation-name: /v1/approve-oam-request
             uuid: okm-2-0-1-op-c-bs-aa-1-0-0-000
         individual:
-          - service-name: /v1/update-operation-key
+          - operation-name: /v1/update-operation-key
             uuid: okm-2-0-1-op-c-is-aa-1-0-0-000
 
   - http-client:
@@ -230,31 +230,31 @@ clients:
     operation-clients:
       own-oam:
         basic:
-          - service-name: /v1/update-all-ltps-and-fcs
+          - operation-name: /v1/update-all-ltps-and-fcs
             uuid: okm-2-0-1-op-c-bm-alt-1-0-0-000
-          - service-name: /v1/update-ltp
+          - operation-name: /v1/update-ltp
             uuid: okm-2-0-1-op-c-bm-alt-1-0-0-001
-          - service-name: /v1/delete-ltp-and-dependents
+          - operation-name: /v1/delete-ltp-and-dependents
             uuid: okm-2-0-1-op-c-bm-alt-1-0-0-002
-          - service-name: /v1/update-fc
+          - operation-name: /v1/update-fc
             uuid: okm-2-0-1-op-c-bm-alt-1-0-0-003
-          - service-name: /v1/update-fc-port
+          - operation-name: /v1/update-fc-port
             uuid: okm-2-0-1-op-c-bm-alt-1-0-0-004
-          - service-name: /v1/delete-fc-port
+          - operation-name: /v1/delete-fc-port
             uuid: okm-2-0-1-op-c-bm-alt-1-0-0-005
         individual:
-          - service-name: /v1/notify-link-updates
+          - operation-name: /v1/notify-link-updates
             uuid: okm-2-0-1-op-c-im-alt-1-0-0-000
-          - service-name: /v1/end-subscription
+          - operation-name: /v1/end-subscription
             uuid: okm-2-0-1-op-c-im-alt-1-0-0-001
       service:
         basic:
         individual:
-          - service-name: /v1/update-operation-key
+          - operation-name: /v1/update-operation-key
             uuid: okm-2-0-1-op-c-is-alt-1-0-0-000
-          - service-name: /v1/list-link-uuids
+          - operation-name: /v1/list-link-uuids
             uuid: okm-2-0-1-op-c-is-alt-1-0-0-002
-          - service-name: /v1/list-end-points-of-link
+          - operation-name: /v1/list-end-points-of-link
             uuid: okm-2-0-1-op-c-is-alt-1-0-0-003
 
   - http-client:
@@ -273,7 +273,7 @@ clients:
       service:
         basic:
         individual:
-          - service-name: /v1/update-operation-key
+          - operation-name: /v1/update-operation-key
             uuid: okm-2-0-1-op-c-is-okm-2-0-1-000
 
   - http-client:
@@ -292,5 +292,5 @@ clients:
       service:
         basic:
         individual:
-          - service-name: /v1/update-operation-key
+          - operation-name: /v1/update-operation-key
             uuid: okm-2-0-1-op-c-is-cc-1-0-0-000
