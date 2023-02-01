@@ -267,17 +267,14 @@ async function PromptForBequeathingDataCausesRObeingRequestedToNotifyWithdrawnAp
        ************************************************************************************/
       try {
 
-        let forwardingName = "PromptForBequeathingDataCausesTransferOfListOfApplications"
-        let newReleaseOperationClientUuid = (await onfModelUtils.getFcPortOutputDirectionLogicalTerminationPointListForForwardingName(forwardingName))[0];
-        let newReleaseHttpClientUuid = (await logicalTerminationPoint.getServerLtpListAsync(newReleaseOperationClientUuid))[0];
-        let newReleaseTcpClientUuid = (await logicalTerminationPoint.getServerLtpListAsync(newReleaseHttpClientUuid))[0];
+        let uuid = await getHttpClientAndTcpClientUuid();
 
         let applicationName = await httpServerInterface.getApplicationNameAsync();
-        let releaseNumber = await httpClientInterface.getReleaseNumberAsync(newReleaseHttpClientUuid);
+        let releaseNumber = await httpClientInterface.getReleaseNumberAsync(uuid.httpClientUuid);
         let disregardApplicationOperation = await OperationServerInterface.getOperationNameAsync("okm-2-0-1-op-s-is-002");
-        let applicationProtocol = await tcpClientInterface.getRemoteProtocolAsync(newReleaseTcpClientUuid);
-        let applicationAddress = await tcpClientInterface.getRemoteAddressAsync(newReleaseTcpClientUuid);
-        let applicationPort = await tcpClientInterface.getRemotePortAsync(newReleaseTcpClientUuid);
+        let applicationProtocol = await tcpClientInterface.getRemoteProtocolAsync(uuid.tcpClientUuid);
+        let applicationAddress = await tcpClientInterface.getRemoteAddressAsync(uuid.tcpClientUuid);
+        let applicationPort = await tcpClientInterface.getRemotePortAsync(uuid.tcpClientUuid);
 
         /***********************************************************************************
          * PromptForBequeathingDataCausesRObeingRequestedToNotifyWithdrawnApprovalsToNewRelease
@@ -462,7 +459,7 @@ async function PromptForBequeathingDataCausesALTbeingRequestedToStopNotification
       let forwardingKindNameOfTheBequeathOperation = "PromptForBequeathingDataCausesALTbeingRequestedToStopNotificationsToOldRelease";
 
       let notifyLinkUpdatesForwardingName = "PromptForBequeathingDataCausesALTbeingRequestedToNotifyLinkUpdatesToNewRelease"
-      let notifyLinkUpdatesOperationName = (await onfModelUtils.getFcPortOutputDirectionLogicalTerminationPointListForForwardingName(notifyLinkUpdatesForwardingName))[0];
+      let operationClientUuidOfNotifyLinkUpdatesOperation = (await onfModelUtils.getFcPortOutputDirectionLogicalTerminationPointListForForwardingName(notifyLinkUpdatesForwardingName))[0];
 
       /***********************************************************************************
        * Preparing requestBody 
@@ -470,7 +467,7 @@ async function PromptForBequeathingDataCausesALTbeingRequestedToStopNotification
       try {
         let applicationName = await httpServerInterface.getApplicationNameAsync();
         let releaseNumber = await httpServerInterface.getReleaseNumberAsync();
-        let subscriptionName = await OperationClientInterface.getOperationNameAsync(notifyLinkUpdatesOperationName);
+        let subscriptionName = await OperationClientInterface.getOperationNameAsync(operationClientUuidOfNotifyLinkUpdatesOperation);
 
         /***********************************************************************************
          * PromptForBequeathingDataCausesALTbeingRequestedToStopNotificationsToOldRelease
