@@ -70,7 +70,7 @@ exports.bequeathYourDataAndDie = async function (body, user, originator, xCorrel
         if ((applicationAddress == currentApplicationRemoteAddress) &&
           (applicationPort == currentApplicationRemotePort)) {
           isdataTransferRequired = false;
-        }
+      }
         if (isUpdated) {
           applicationName = await httpClientInterface.getApplicationNameAsync("okm-0-0-1-http-c-0010");
           let operationList = [];
@@ -80,25 +80,25 @@ exports.bequeathYourDataAndDie = async function (body, user, originator, xCorrel
             applicationAddress,
             applicationPort,
             operationList
-          );
+      );
           let logicalTerminationPointconfigurationStatus = await logicalTerminationPointService.createOrUpdateApplicationInformationAsync(
             logicalTerminatinPointConfigurationInput
-          );
-          /****************************************************************************************
-           * Prepare attributes to automate forwarding-construct
-           ****************************************************************************************/
-          let forwardingAutomationInputList = await prepareForwardingAutomation.bequeathYourDataAndDie(
+      );
+      /****************************************************************************************
+       * Prepare attributes to automate forwarding-construct
+       ****************************************************************************************/
+        let forwardingAutomationInputList = await prepareForwardingAutomation.bequeathYourDataAndDie(
             logicalTerminationPointconfigurationStatus
-          );
-          forwardingAutomationService.automateForwardingConstructAsync(
-            operationServerName,
-            forwardingAutomationInputList,
-            user,
-            xCorrelator,
-            traceIndicator,
-            customerJourney
-          );
-        }
+        );
+        forwardingAutomationService.automateForwardingConstructAsync(
+          operationServerName,
+          forwardingAutomationInputList,
+          user,
+          xCorrelator,
+          traceIndicator,
+          customerJourney
+        );
+      }
       }
       softwareUpgrade.upgradeSoftwareVersion(isdataTransferRequired, user, xCorrelator, traceIndicator, customerJourney)
         .catch(err => console.log(`upgradeSoftwareVersion failed with error: ${err}`));
@@ -132,7 +132,7 @@ exports.disregardApplication = async function (body, user, originator, xCorrelat
   }
 
   const operationClientUuid = await operationClientInterface.getOperationClientUuidAsync(httpClientUuid, UPDATE_OPERATION_KEY_OPERATION);
-  
+
   const logicalTerminationPointConfigurationStatus = await logicalTerminationPointService.deleteApplicationInformationAsync(appName, appReleaseNumber);
 
   const cyclicOperationInput = new ForwardingConstructConfigurationInput(FC_CYCLIC_OPERATION_CAUSES_OPERATION_KEY_UPDATES, operationClientUuid);
@@ -273,45 +273,6 @@ exports.regardUpdatedLink = async function (body, user, originator, xCorrelator,
     .catch((error) => console.log(`regardUpdatedLink - failed update key for link ${linkUuid} with error: ${error.message}`));
 }
 
-
-/**
- * Starts application in generic representation
- *
- * user String User identifier from the system starting the service call
- * originator String 'Identification for the system consuming the API, as defined in  [/core-model-1-4:control-construct/logical-termination-point={uuid}/layer-protocol=0/http-client-interface-1-0:http-client-interface-pac/http-client-interface-capability/application-name]' 
- * xCorrelator String UUID for the service execution flow that allows to correlate requests and responses
- * traceIndicator String Sequence of request numbers along the flow
- * customerJourney String Holds information supporting customer’s journey to which the execution applies
- * returns inline_response_200
- **/
-exports.startApplicationInGenericRepresentation = async function (user, originator, xCorrelator, traceIndicator, customerJourney) {
-  // Preparing response-value-list for response body
-  const responseValueList = [];
-  const applicationName = await httpServerInterface.getApplicationNameAsync();
-  const reponseValue = {
-    'field-name': "applicationName",
-    'value': applicationName,
-    'datatype': typeof applicationName
-  };
-  responseValueList.push(reponseValue);
-
-  // Preparing consequent-action-list for response body
-  const consequentActionList = [];
-  const baseUrl = "http://" + await tcpServerInterface.getLocalAddress() + ":" + await tcpServerInterface.getLocalPort();
-  const labelForInformAboutApplication = "Inform about Application";
-  const requestForInformAboutApplication = baseUrl + await operationServerInterface.getOperationNameAsync(ltpServerConstants.HTTP_THIS_OPERATION_INFORM_ABOUT_APPLICATION_IN_GENERIC_REPRESENTATION);
-  const consequentActionForInformAboutApplication = {
-    'label': labelForInformAboutApplication,
-    'request': requestForInformAboutApplication
-  };
-  consequentActionList.push(consequentActionForInformAboutApplication);
-
-  return {
-    'response-value-list': responseValueList,
-    'consequent-action-list': consequentActionList
-  };
-}
-
 exports.scheduleKeyRotation = async function scheduleKeyRotation() {
   const operationModeValue = await stringProfileService.getOperationModeProfileStringValue();
   if (operationModeValue === profileConstants.OPERATION_MODE_REACTIVE) {
@@ -375,9 +336,9 @@ async function updateOperationKeyForLink(linkUuid, updateKeyOperationLtpUuidList
     const updateKeyOperationLtpUuid = await resolveUpdateKeyOperationLtpUuidForApplication(epAppName, epAppReleaseNumber, updateKeyOperationLtpUuidList);
     if (updateKeyOperationLtpUuid) {
       httpClient.executeOperation(updateKeyOperationLtpUuid, {
-          "operation-uuid": epOperationUuid,
-          "new-operation-key": operationKey
-        })
+        "operation-uuid": epOperationUuid,
+        "new-operation-key": operationKey
+      })
         .then(response => console.log(`Successfully updated operation key for application ${epAppName} version ${epAppReleaseNumber} operation ${epOperationUuid}`))
         .catch(error => console.log(`Failed to update operation key for application ${epAppName} version ${epAppReleaseNumber} operation ${epOperationUuid} with error: ${error.message}`));
     } else {

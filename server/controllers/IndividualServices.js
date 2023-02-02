@@ -152,31 +152,3 @@ module.exports.regardUpdatedLink = async function regardUpdatedLink(req, res, ne
     .catch((error) => console.log(`regardUpdatedLink - record service request ${JSON.stringify({ xCorrelator, traceIndicator, user, originator, reqUrl: req.url, responseCode, reqBody: req.body, responseBody })} failed with error: ${error.message}`));
 };
 
-module.exports.startApplicationInGenericRepresentation = async function startApplicationInGenericRepresentation(req, res, next, user, originator, xCorrelator, traceIndicator, customerJourney) {
-  const startTime = process.hrtime();
-  let responseCode;
-  let responseBody;
-  try {
-    responseCode = responseCodeEnum.code.OK;
-    responseBody = await IndividualServices.startApplicationInGenericRepresentation(user, originator, xCorrelator, traceIndicator, customerJourney);
-  } catch (error) {
-    if (error == undefined) {
-      error = new Error('unknown error');
-    }
-    console.log(`startApplicationInGenericRepresentation - failed with error: ${error.message}`)
-    responseCode = responseCodeEnum.code.INTERNAL_SERVER_ERROR;
-    responseBody = { 'message': error.message };
-  }
-  let responseHeader;
-  try {
-    responseHeader = await restResponseHeader.createResponseHeader(xCorrelator, startTime, req.url);
-  } catch (error) {
-    if (error == undefined) {
-      error = new Error('unknown error');
-    }
-    console.log(`startApplicationInGenericRepresentation - create response header failed with error: ${error.message}`)
-  }
-  restResponseBuilder.buildResponse(res, responseCode, responseBody, responseHeader);
-  executionAndTraceService.recordServiceRequest(xCorrelator, traceIndicator, user, originator, req.url, responseCode, req.body, responseBody)
-    .catch((error) => console.log(`startApplicationInGenericRepresentation - record service request ${JSON.stringify({ xCorrelator, traceIndicator, user, originator, reqUrl: req.url, responseCode, reqBody: req.body, responseBody })} failed with error: ${error.message}`));
-};
