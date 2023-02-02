@@ -1,13 +1,13 @@
 'use strict';
 
-var HttpServer = require('../service/HttpServerService');
+var GenericResponseProfile = require('../service/GenericResponseProfileService');
 var responseBuilder = require('onf-core-model-ap/applicationPattern/rest/server/ResponseBuilder');
 var responseCodeEnum = require('onf-core-model-ap/applicationPattern/rest/server/ResponseCode');
 var oamLogService = require('onf-core-model-ap/applicationPattern/services/OamLogService');
 
-module.exports.getHttpServerApplicationName = async function getHttpServerApplicationName(req, res, next, uuid) {
+module.exports.getGenericResponseProfileDatatype = async function getGenericResponseProfileDatatype (req, res, next, uuid) {
   let responseCode = responseCodeEnum.code.OK;
-  await HttpServer.getHttpServerApplicationName(req.url)
+  await GenericResponseProfile.getGenericResponseProfileDatatype(req.url)
     .then(function (response) {
       responseBuilder.buildResponse(res, responseCode, response);
     })
@@ -18,9 +18,9 @@ module.exports.getHttpServerApplicationName = async function getHttpServerApplic
   oamLogService.recordOamRequest(req.url, req.body, responseCode, req.headers.authorization, req.method);
 };
 
-module.exports.getHttpServerApplicationPurpose = async function getHttpServerApplicationPurpose(req, res, next, uuid) {
+module.exports.getGenericResponseProfileDescription = async function getGenericResponseProfileDescription (req, res, next, uuid) {
   let responseCode = responseCodeEnum.code.OK;
-  await HttpServer.getHttpServerApplicationPurpose(req.url)
+  await GenericResponseProfile.getGenericResponseProfileDescription(req.url)
     .then(function (response) {
       responseBuilder.buildResponse(res, responseCode, response);
     })
@@ -31,9 +31,9 @@ module.exports.getHttpServerApplicationPurpose = async function getHttpServerApp
   oamLogService.recordOamRequest(req.url, req.body, responseCode, req.headers.authorization, req.method);
 };
 
-module.exports.getHttpServerDataUpdatePeriode = async function getHttpServerDataUpdatePeriode(req, res, next, uuid) {
+module.exports.getGenericResponseProfileFieldName = async function getGenericResponseProfileFieldName (req, res, next, uuid) {
   let responseCode = responseCodeEnum.code.OK;
-  await HttpServer.getHttpServerDataUpdatePeriode(req.url)
+  await GenericResponseProfile.getGenericResponseProfileFieldName(req.url)
     .then(function (response) {
       responseBuilder.buildResponse(res, responseCode, response);
     })
@@ -44,9 +44,9 @@ module.exports.getHttpServerDataUpdatePeriode = async function getHttpServerData
   oamLogService.recordOamRequest(req.url, req.body, responseCode, req.headers.authorization, req.method);
 };
 
-module.exports.getHttpServerOwnerEmailAddress = async function getHttpServerOwnerEmailAddress(req, res, next, uuid) {
+module.exports.getGenericResponseProfileOperationName = async function getGenericResponseProfileOperationName (req, res, next, uuid) {
   let responseCode = responseCodeEnum.code.OK;
-  await HttpServer.getHttpServerOwnerEmailAddress(req.url)
+  await GenericResponseProfile.getGenericResponseProfileOperationName(req.url)
     .then(function (response) {
       responseBuilder.buildResponse(res, responseCode, response);
     })
@@ -57,9 +57,9 @@ module.exports.getHttpServerOwnerEmailAddress = async function getHttpServerOwne
   oamLogService.recordOamRequest(req.url, req.body, responseCode, req.headers.authorization, req.method);
 };
 
-module.exports.getHttpServerOwnerName = async function getHttpServerOwnerName(req, res, next, uuid) {
+module.exports.getGenericResponseProfileValue = async function getGenericResponseProfileValue (req, res, next, uuid) {
   let responseCode = responseCodeEnum.code.OK;
-  await HttpServer.getHttpServerOwnerName(req.url)
+  await GenericResponseProfile.getGenericResponseProfileValue(req.url)
     .then(function (response) {
       responseBuilder.buildResponse(res, responseCode, response);
     })
@@ -70,22 +70,9 @@ module.exports.getHttpServerOwnerName = async function getHttpServerOwnerName(re
   oamLogService.recordOamRequest(req.url, req.body, responseCode, req.headers.authorization, req.method);
 };
 
-module.exports.getHttpServerReleaseList = async function getHttpServerReleaseList(req, res, next, uuid) {
-  let responseCode = responseCodeEnum.code.OK;
-  await HttpServer.getHttpServerReleaseList(req.url)
-    .then(function (response) {
-      responseBuilder.buildResponse(res, responseCode, response);
-    })
-    .catch(function (response) {
-      responseCode = responseCodeEnum.code.INTERNAL_SERVER_ERROR;
-      responseBuilder.buildResponse(res, responseCode, response);
-    });
-  oamLogService.recordOamRequest(req.url, req.body, responseCode, req.headers.authorization, req.method);
-};
-
-module.exports.getHttpServerReleaseNumber = async function getHttpServerReleaseNumber(req, res, next, uuid) {
-  let responseCode = responseCodeEnum.code.OK;
-  await HttpServer.getHttpServerReleaseNumber(req.url)
+module.exports.putGenericResponseProfileValue = async function putGenericResponseProfileValue (req, res, next, body, uuid) {
+  let responseCode = responseCodeEnum.code.NO_CONTENT;
+  await GenericResponseProfile.putGenericResponseProfileValue(req.url, body)
     .then(function (response) {
       responseBuilder.buildResponse(res, responseCode, response);
     })

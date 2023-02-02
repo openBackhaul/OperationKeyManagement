@@ -5,7 +5,7 @@ var fileOperation = require('onf-core-model-ap/applicationPattern/databaseDriver
  * Returns the configured life cycle state of the operation
  *
  * uuid String 
- * returns inline_response_200_11
+ * returns inline_response_200_28
  **/
 exports.getOperationServerLifeCycleState = function (url) {
   return new Promise(async function (resolve, reject) {
@@ -31,7 +31,7 @@ exports.getOperationServerLifeCycleState = function (url) {
  * Returns key for connecting
  *
  * uuid String 
- * returns inline_response_200_12
+ * returns inline_response_200_29
  **/
 exports.getOperationServerOperationKey = function (url) {
   return new Promise(async function (resolve, reject) {
@@ -58,7 +58,7 @@ exports.getOperationServerOperationKey = function (url) {
  * Returns operation name
  *
  * uuid String 
- * returns inline_response_200_10
+ * returns inline_response_200_27
  **/
 exports.getOperationServerOperationName = function (url) {
   return new Promise(async function (resolve, reject) {
@@ -116,4 +116,3 @@ exports.putOperationServerOperationKey = function (url, body) {
     }
   });
 }
-

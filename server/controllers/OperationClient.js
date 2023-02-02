@@ -98,7 +98,7 @@ module.exports.putOperationClientOperationKey = async function putOperationClien
 
 module.exports.putOperationClientOperationName = async function putOperationClientOperationName(req, res, next, body, uuid) {
   let responseCode = responseCodeEnum.code.NO_CONTENT;
-  await OperationClient.putOperationClientOperationName(req.url, body)
+  await OperationClient.putOperationClientOperationName(req.url, body, uuid)
     .then(function (response) {
       responseBuilder.buildResponse(res, responseCode, response);
     })

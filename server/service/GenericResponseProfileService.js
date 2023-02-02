@@ -1,19 +1,20 @@
 'use strict';
+
 var fileOperation = require('onf-core-model-ap/applicationPattern/databaseDriver/JSONDriver');
 
 /**
- * Returns application name
+ * Returns the Datatype of the Field
  *
  * uuid String 
- * returns inline_response_200_30
+ * returns inline_response_200_15
  **/
-exports.getHttpServerApplicationName = function (url) {
+exports.getGenericResponseProfileDatatype = function (url) {
   return new Promise(async function (resolve, reject) {
     try {
       var value = await fileOperation.readFromDatabaseAsync(url);
       var response = {};
       response['application/json'] = {
-        "http-server-interface-1-0:application-name": value
+        "response-profile-1-0:datatype": value
       };
       if (Object.keys(response).length > 0) {
         resolve(response[Object.keys(response)[0]]);
@@ -28,18 +29,18 @@ exports.getHttpServerApplicationName = function (url) {
 
 
 /**
- * Returns application purpose
+ * Returns the Description of the Field
  *
  * uuid String 
- * returns inline_response_200_32
+ * returns inline_response_200_14
  **/
-exports.getHttpServerApplicationPurpose = function (url) {
+exports.getGenericResponseProfileDescription = function (url) {
   return new Promise(async function (resolve, reject) {
     try {
       var value = await fileOperation.readFromDatabaseAsync(url);
       var response = {};
       response['application/json'] = {
-        "http-server-interface-1-0:application-purpose": value
+        "response-profile-1-0:description": value
       };
       if (Object.keys(response).length > 0) {
         resolve(response[Object.keys(response)[0]]);
@@ -54,18 +55,18 @@ exports.getHttpServerApplicationPurpose = function (url) {
 
 
 /**
- * Returns update period
+ * Returns the name of the Field
  *
  * uuid String 
- * returns inline_response_200_33
+ * returns inline_response_200_13
  **/
-exports.getHttpServerDataUpdatePeriode = function (url) {
+exports.getGenericResponseProfileFieldName = function (url) {
   return new Promise(async function (resolve, reject) {
     try {
       var value = await fileOperation.readFromDatabaseAsync(url);
       var response = {};
       response['application/json'] = {
-        "http-server-interface-1-0:data-update-period": value
+        "response-profile-1-0:field-name": value
       };
       if (Object.keys(response).length > 0) {
         resolve(response[Object.keys(response)[0]]);
@@ -80,18 +81,18 @@ exports.getHttpServerDataUpdatePeriode = function (url) {
 
 
 /**
- * Returns owner email address
+ * Returns the name of the Operation
  *
  * uuid String 
- * returns inline_response_200_35
+ * returns inline_response_200_12
  **/
-exports.getHttpServerOwnerEmailAddress = function (url) {
+exports.getGenericResponseProfileOperationName = function (url) {
   return new Promise(async function (resolve, reject) {
     try {
       var value = await fileOperation.readFromDatabaseAsync(url);
       var response = {};
       response['application/json'] = {
-        "http-server-interface-1-0:owner-email-address": value
+        "response-profile-1-0:operation-name": value
       };
       if (Object.keys(response).length > 0) {
         resolve(response[Object.keys(response)[0]]);
@@ -106,18 +107,18 @@ exports.getHttpServerOwnerEmailAddress = function (url) {
 
 
 /**
- * Returns owner name
+ * Returns the Value of the Field
  *
  * uuid String 
- * returns inline_response_200_34
+ * returns inline_response_200_16
  **/
-exports.getHttpServerOwnerName = function (url) {
+exports.getGenericResponseProfileValue = function (url) {
   return new Promise(async function (resolve, reject) {
     try {
       var value = await fileOperation.readFromDatabaseAsync(url);
       var response = {};
       response['application/json'] = {
-        "http-server-interface-1-0:owner-name": value
+        "response-profile-1-0:value": value
       };
       if (Object.keys(response).length > 0) {
         resolve(response[Object.keys(response)[0]]);
@@ -132,52 +133,19 @@ exports.getHttpServerOwnerName = function (url) {
 
 
 /**
- * Returns list of releases
+ * Configures the Value of the Field
  *
+ * body Responseprofileconfiguration_value_body 
  * uuid String 
- * returns inline_response_200_36
+ * no response value expected for this operation
  **/
-exports.getHttpServerReleaseList = function (url) {
+exports.putGenericResponseProfileValue = function (url, body) {
   return new Promise(async function (resolve, reject) {
     try {
-      var value = await fileOperation.readFromDatabaseAsync(url);
-      var response = {};
-      response['application/json'] = {
-        "http-server-interface-1-0:release-list": value
-      };
-      if (Object.keys(response).length > 0) {
-        resolve(response[Object.keys(response)[0]]);
-      } else {
-        resolve();
-      }
-    } catch (error) {
-      reject();
-    }
-  });
-}
+      await fileOperation.writeToDatabaseAsync(url, body, false);
 
-
-/**
- * Returns release number
- *
- * uuid String 
- * returns inline_response_200_31
- **/
-exports.getHttpServerReleaseNumber = function (url) {
-  return new Promise(async function (resolve, reject) {
-    try {
-      var value = await fileOperation.readFromDatabaseAsync(url);
-      var response = {};
-      response['application/json'] = {
-        "http-server-interface-1-0:release-number": value
-      };
-      if (Object.keys(response).length > 0) {
-        resolve(response[Object.keys(response)[0]]);
-      } else {
-        resolve();
-      }
-    } catch (error) {
-      reject();
-    }
+      resolve();
+    } catch (error) {}
+    reject();
   });
 }
