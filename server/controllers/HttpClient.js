@@ -31,9 +31,22 @@ module.exports.getHttpClientReleaseNumber = async function getHttpClientReleaseN
   oamLogService.recordOamRequest(req.url, req.body, responseCode, req.headers.authorization, req.method);
 };
 
+module.exports.putHttpClientApplicationName = async function putHttpClientApplicationName(req, res, next, body, uuid) {
+  let responseCode = responseCodeEnum.code.NO_CONTENT;
+  await HttpClient.putHttpClientApplicationName(req.url, body, uuid)
+    .then(function (response) {
+      responseBuilder.buildResponse(res, responseCode, response);
+    })
+    .catch(function (response) {
+      responseCode = responseCodeEnum.code.INTERNAL_SERVER_ERROR;
+      responseBuilder.buildResponse(res, responseCode, response);
+    });
+  oamLogService.recordOamRequest(req.url, req.body, responseCode, req.headers.authorization, req.method);
+};
+
 module.exports.putHttpClientReleaseNumber = async function putHttpClientReleaseNumber(req, res, next, body, uuid) {
   let responseCode = responseCodeEnum.code.NO_CONTENT;
-  await HttpClient.putHttpClientReleaseNumber(body, req.url)
+  await HttpClient.putHttpClientReleaseNumber(req.url, body, uuid)
     .then(function (response) {
       responseBuilder.buildResponse(res, responseCode, response);
     })

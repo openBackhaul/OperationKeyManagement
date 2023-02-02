@@ -1,11 +1,14 @@
 'use strict';
 var fileOperation = require('onf-core-model-ap/applicationPattern/databaseDriver/JSONDriver');
+const prepareForwardingAutomation = require('./individualServices/PrepareForwardingAutomation');
+const ForwardingAutomationService = require('onf-core-model-ap/applicationPattern/onfModel/services/ForwardingConstructAutomationServices');
+
 
 /**
  * Returns name of application to be addressed
  *
  * uuid String 
- * returns inline_response_200_27
+ * returns inline_response_200_46
  **/
 exports.getHttpClientApplicationName = function (url) {
   return new Promise(async function (resolve, reject) {
@@ -20,7 +23,7 @@ exports.getHttpClientApplicationName = function (url) {
       } else {
         resolve();
       }
-    } catch (error) { }
+    } catch (error) {}
     reject();
   });
 }
@@ -30,7 +33,7 @@ exports.getHttpClientApplicationName = function (url) {
  * Returns release number of application to be addressed
  *
  * uuid String 
- * returns inline_response_200_28
+ * returns inline_response_200_47
  **/
 exports.getHttpClientReleaseNumber = function (url) {
   return new Promise(async function (resolve, reject) {
@@ -45,11 +48,39 @@ exports.getHttpClientReleaseNumber = function (url) {
       } else {
         resolve();
       }
-    } catch (error) { }
+    } catch (error) {}
     reject();
   });
 }
 
+
+/**
+ * Configures name of application to be addressed
+ *
+ * body Httpclientinterfaceconfiguration_applicationname_body 
+ * uuid String 
+ * no response value expected for this operation
+ **/
+exports.putHttpClientApplicationName = function (url, body, uuid) {
+  return new Promise(async function (resolve, reject) {
+    try {
+      let isUpdated = await fileOperation.writeToDatabaseAsync(url, body, false);
+      /****************************************************************************************
+       * Prepare attributes to automate forwarding-construct
+       ****************************************************************************************/
+      if (isUpdated) {
+        let forwardingAutomationInputList = await prepareForwardingAutomation.OAMLayerRequest(
+          uuid
+        );
+        ForwardingAutomationService.automateForwardingConstructWithoutInputAsync(
+          forwardingAutomationInputList
+        );
+      }
+      resolve();
+    } catch (error) {}
+    reject();
+  });
+}
 
 /**
  * Configures release number of application to be addressed
@@ -58,12 +89,23 @@ exports.getHttpClientReleaseNumber = function (url) {
  * uuid String 
  * no response value expected for this operation
  **/
-exports.putHttpClientReleaseNumber = function (body, url) {
+exports.putHttpClientReleaseNumber = function (url, body, uuid) {
   return new Promise(async function (resolve, reject) {
     try {
-      await fileOperation.writeToDatabaseAsync(url, body, false);
+      let isUpdated = await fileOperation.writeToDatabaseAsync(url, body, false);
+      /****************************************************************************************
+       * Prepare attributes to automate forwarding-construct
+       ****************************************************************************************/
+      if (isUpdated) {
+        let forwardingAutomationInputList = await prepareForwardingAutomation.OAMLayerRequest(
+          uuid
+        );
+        ForwardingAutomationService.automateForwardingConstructWithoutInputAsync(
+          forwardingAutomationInputList
+        );
+      }
       resolve();
-    } catch (error) { }
+    } catch (error) {}
     reject();
   });
 }
