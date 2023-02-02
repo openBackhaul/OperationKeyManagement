@@ -70,7 +70,7 @@ exports.bequeathYourDataAndDie = async function (body, user, originator, xCorrel
         if ((applicationAddress == currentApplicationRemoteAddress) &&
           (applicationPort == currentApplicationRemotePort)) {
           isdataTransferRequired = false;
-        }
+      }
         if (isUpdated) {
           applicationName = await httpClientInterface.getApplicationNameAsync("okm-0-0-1-http-c-0010");
           let operationList = [];
@@ -80,25 +80,25 @@ exports.bequeathYourDataAndDie = async function (body, user, originator, xCorrel
             applicationAddress,
             applicationPort,
             operationList
-          );
+      );
           let logicalTerminationPointconfigurationStatus = await logicalTerminationPointService.createOrUpdateApplicationInformationAsync(
             logicalTerminatinPointConfigurationInput
-          );
-          /****************************************************************************************
-           * Prepare attributes to automate forwarding-construct
-           ****************************************************************************************/
-          let forwardingAutomationInputList = await prepareForwardingAutomation.bequeathYourDataAndDie(
+      );
+      /****************************************************************************************
+       * Prepare attributes to automate forwarding-construct
+       ****************************************************************************************/
+        let forwardingAutomationInputList = await prepareForwardingAutomation.bequeathYourDataAndDie(
             logicalTerminationPointconfigurationStatus
-          );
-          forwardingAutomationService.automateForwardingConstructAsync(
-            operationServerName,
-            forwardingAutomationInputList,
-            user,
-            xCorrelator,
-            traceIndicator,
-            customerJourney
-          );
-        }
+        );
+        forwardingAutomationService.automateForwardingConstructAsync(
+          operationServerName,
+          forwardingAutomationInputList,
+          user,
+          xCorrelator,
+          traceIndicator,
+          customerJourney
+        );
+      }
       }
       softwareUpgrade.upgradeSoftwareVersion(isdataTransferRequired, user, xCorrelator, traceIndicator, customerJourney)
         .catch(err => console.log(`upgradeSoftwareVersion failed with error: ${err}`));
@@ -132,7 +132,7 @@ exports.disregardApplication = async function (body, user, originator, xCorrelat
   }
 
   const operationClientUuid = await operationClientInterface.getOperationClientUuidAsync(httpClientUuid, UPDATE_OPERATION_KEY_OPERATION);
-  
+
   const logicalTerminationPointConfigurationStatus = await logicalTerminationPointService.deleteApplicationInformationAsync(appName, appReleaseNumber);
 
   const cyclicOperationInput = new ForwardingConstructConfigurationInput(FC_CYCLIC_OPERATION_CAUSES_OPERATION_KEY_UPDATES, operationClientUuid);
@@ -350,7 +350,8 @@ async function reccurentUpdateKeys() {
 }
 
 async function fetchLinkUuidListFromAlt(httpClient) {
-  const resp = await httpClient.executeOperation(ltpClientConstants.HTTP_ALT_OPERATION_LIST_LINK_UUIDS);
+  let operationClientUuidOfListLinkUuids = (await onfModelUtils.getFcPortOutputDirectionLogicalTerminationPointListForForwardingName("CyclicOperationCausesRequestForListOfLinks"))[0];
+  const resp = await httpClient.executeOperation(operationClientUuidOfListLinkUuids);
   if (resp['link-uuid-list'] === undefined) {
     return [];
   }
@@ -364,7 +365,7 @@ async function updateOperationKeyForLink(linkUuid, updateKeyOperationLtpUuidList
   const operationKey = operationModeValue === profileConstants.OPERATION_MODE_OFF ? DEFAULT_OPERATION_KEY : generateOperationKey();
   for (const linkEndpoint of linkEndpointList) {
     const epAppName = linkEndpoint['application-name'];
-    const epAppReleaseNumber = linkEndpoint['application-release-number'];
+    const epAppReleaseNumber = linkEndpoint['release-number'];
     const epOperationUuid = linkEndpoint['operation-uuid'];
 
     if (!epAppName || !epAppReleaseNumber || !epOperationUuid) {
@@ -387,7 +388,8 @@ async function updateOperationKeyForLink(linkUuid, updateKeyOperationLtpUuidList
 }
 
 async function fetchLinkEndpointListFromAlt(linkUuid, httpClient) {
-  const resp = await httpClient.executeOperation(ltpClientConstants.HTTP_ALT_OPERATION_LIST_ENDPOINTS_OF_LINK, {
+  let operationClientUuidOfListEndPointsOfLink = (await onfModelUtils.getFcPortOutputDirectionLogicalTerminationPointListForForwardingName("CyclicOperationCausesRequestForLinkEndPoints"))[0];
+  const resp = await httpClient.executeOperation(operationClientUuidOfListEndPointsOfLink, {
     'link-uuid': linkUuid
   });
   if (resp['link-end-point-list'] === undefined) {
