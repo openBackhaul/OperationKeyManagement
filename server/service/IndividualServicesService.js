@@ -70,7 +70,7 @@ exports.bequeathYourDataAndDie = async function (body, user, originator, xCorrel
         if ((applicationAddress == currentApplicationRemoteAddress) &&
           (applicationPort == currentApplicationRemotePort)) {
           isdataTransferRequired = false;
-      }
+        }
         if (isUpdated) {
           applicationName = await httpClientInterface.getApplicationNameAsync("okm-0-0-1-http-c-0010");
           let operationList = [];
@@ -80,25 +80,25 @@ exports.bequeathYourDataAndDie = async function (body, user, originator, xCorrel
             applicationAddress,
             applicationPort,
             operationList
-      );
+          );
           let logicalTerminationPointconfigurationStatus = await logicalTerminationPointService.createOrUpdateApplicationInformationAsync(
             logicalTerminatinPointConfigurationInput
-      );
-      /****************************************************************************************
-       * Prepare attributes to automate forwarding-construct
-       ****************************************************************************************/
-        let forwardingAutomationInputList = await prepareForwardingAutomation.bequeathYourDataAndDie(
+          );
+          /****************************************************************************************
+           * Prepare attributes to automate forwarding-construct
+           ****************************************************************************************/
+          let forwardingAutomationInputList = await prepareForwardingAutomation.bequeathYourDataAndDie(
             logicalTerminationPointconfigurationStatus
-        );
-        forwardingAutomationService.automateForwardingConstructAsync(
-          operationServerName,
-          forwardingAutomationInputList,
-          user,
-          xCorrelator,
-          traceIndicator,
-          customerJourney
-        );
-      }
+          );
+          forwardingAutomationService.automateForwardingConstructAsync(
+            operationServerName,
+            forwardingAutomationInputList,
+            user,
+            xCorrelator,
+            traceIndicator,
+            customerJourney
+          );
+        }
       }
       softwareUpgrade.upgradeSoftwareVersion(isdataTransferRequired, user, xCorrelator, traceIndicator, customerJourney)
         .catch(err => console.log(`upgradeSoftwareVersion failed with error: ${err}`));
@@ -336,9 +336,9 @@ async function updateOperationKeyForLink(linkUuid, updateKeyOperationLtpUuidList
     const updateKeyOperationLtpUuid = await resolveUpdateKeyOperationLtpUuidForApplication(epAppName, epAppReleaseNumber, updateKeyOperationLtpUuidList);
     if (updateKeyOperationLtpUuid) {
       httpClient.executeOperation(updateKeyOperationLtpUuid, {
-        "operation-uuid": epOperationUuid,
-        "new-operation-key": operationKey
-      })
+          "operation-uuid": epOperationUuid,
+          "new-operation-key": operationKey
+        })
         .then(response => console.log(`Successfully updated operation key for application ${epAppName} version ${epAppReleaseNumber} operation ${epOperationUuid}`))
         .catch(error => console.log(`Failed to update operation key for application ${epAppName} version ${epAppReleaseNumber} operation ${epOperationUuid} with error: ${error.message}`));
     } else {
