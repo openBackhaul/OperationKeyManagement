@@ -74,20 +74,20 @@ exports.bequeathYourDataAndDie = async function (body, user, originator, xCorrel
       let currentNewReleaseRemoteAddress = await tcpClientInterface.getRemoteAddressAsync(uuid.tcpClientUuid);
       let currentNewReleaseRemoteProtocol = await tcpClientInterface.getRemoteProtocolAsync(uuid.tcpClientUuid);
       let currentNewReleaseRemotePort = await tcpClientInterface.getRemotePortAsync(uuid.tcpClientUuid);
-      if(applicationName != currentNewReleaseApplicationName) {
-       isUpdated.applicationName = await httpClientInterface.setApplicationNameAsync(uuid.httpClientUuid, applicationName)
+      if (applicationName != currentNewReleaseApplicationName) {
+        isUpdated.applicationName = await httpClientInterface.setApplicationNameAsync(uuid.httpClientUuid, applicationName)
       }
-      if(releaseNumber != currentNewReleaseNumber) {
-       isUpdated.releaseNumber = await httpClientInterface.setReleaseNumberAsync(uuid.httpClientUuid, releaseNumber);
+      if (releaseNumber != currentNewReleaseNumber) {
+        isUpdated.releaseNumber = await httpClientInterface.setReleaseNumberAsync(uuid.httpClientUuid, releaseNumber);
       }
-      if(address != currentNewReleaseRemoteAddress) {
-       isUpdated.address = await tcpClientInterface.setRemoteAddressAsync(uuid.tcpClientUuid, address);
+      if (JSON.stringify(address) != JSON.stringify(currentNewReleaseRemoteAddress)) {
+        isUpdated.address = await tcpClientInterface.setRemoteAddressAsync(uuid.tcpClientUuid, address);
       }
-      if(port != currentNewReleaseRemoteProtocol) {
+      if (port != currentNewReleaseRemotePort) {
         isUpdated.port = await tcpClientInterface.setRemotePortAsync(uuid.tcpClientUuid, port);
       }
-      if(protocol != currentNewReleaseRemotePort){
-       isUpdated.protocol = await tcpClientInterface.setRemoteProtocolAsync(uuid.tcpClientUuid, protocol);
+      if (protocol != currentNewReleaseRemoteProtocol) {
+        isUpdated.protocol = await tcpClientInterface.setRemoteProtocolAsync(uuid.tcpClientUuid, protocol);
       }
       /****************************************************************************************
        * Check if data transfer is required
@@ -96,7 +96,7 @@ exports.bequeathYourDataAndDie = async function (body, user, originator, xCorrel
       let serverAddress = await tcpServerInterface.getLocalAddressOfTheProtocol(protocol);
       let serverPort = await tcpServerInterface.getLocalPortOfTheProtocol(protocol);
 
-      if ( address ===  serverAddress && port === serverPort) {
+      if (address === serverAddress && port === serverPort) {
         isDataTransferRequired = false;
       }
 
@@ -106,7 +106,7 @@ exports.bequeathYourDataAndDie = async function (body, user, originator, xCorrel
       let isTcpInfoUpdated = false;
       let isHttpInfoUpdated = false;
 
-      if ( isUpdated.address || isUpdated.port || isUpdated.protocol) {
+      if (isUpdated.address || isUpdated.port || isUpdated.protocol) {
         isTcpInfoUpdated = true;
       }
       if (isUpdated.applicationName || isUpdated.releaseNumber) {
@@ -132,19 +132,18 @@ exports.bequeathYourDataAndDie = async function (body, user, originator, xCorrel
       /****************************************************************************************
        * Prepare attributes to automate forwarding-construct
        ****************************************************************************************/
-      if (logicalTerminationPointConfigurationStatus != undefined) {
-        let forwardingAutomationInputList = await prepareForwardingAutomation.bequeathYourDataAndDie(
-          logicalTerminationPointConfigurationStatus
-        );
-        forwardingAutomationService.automateForwardingConstructAsync(
-          operationServerName,
-          forwardingAutomationInputList,
-          user,
-          xCorrelator,
-          traceIndicator,
-          customerJourney
-        );
-      }
+      let forwardingAutomationInputList = await prepareForwardingAutomation.bequeathYourDataAndDie(
+        logicalTerminationPointConfigurationStatus
+      );
+      forwardingAutomationService.automateForwardingConstructAsync(
+        operationServerName,
+        forwardingAutomationInputList,
+        user,
+        xCorrelator,
+        traceIndicator,
+        customerJourney
+      );
+
       softwareUpgrade.upgradeSoftwareVersion(isDataTransferRequired, user, xCorrelator, traceIndicator, customerJourney)
         .catch(err => console.log(`upgradeSoftwareVersion failed with error: ${err}`));
       resolve();
@@ -420,9 +419,9 @@ async function updateOperationKeyForLink(linkUuid, updateKeyOperationLtpUuidList
     const updateKeyOperationLtpUuid = await resolveUpdateKeyOperationLtpUuidForApplication(epAppName, epAppReleaseNumber, updateKeyOperationLtpUuidList);
     if (updateKeyOperationLtpUuid) {
       httpClient.executeOperation(updateKeyOperationLtpUuid, {
-        "operation-uuid": epOperationUuid,
-        "new-operation-key": operationKey
-      })
+          "operation-uuid": epOperationUuid,
+          "new-operation-key": operationKey
+        })
         .then(response => console.log(`Successfully updated operation key for application ${epAppName} version ${epAppReleaseNumber} operation ${epOperationUuid}`))
         .catch(error => console.log(`Failed to update operation key for application ${epAppName} version ${epAppReleaseNumber} operation ${epOperationUuid} with error: ${error.message}`));
     } else {
