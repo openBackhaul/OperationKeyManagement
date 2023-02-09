@@ -16,6 +16,10 @@ const httpServerInterface = require('onf-core-model-ap/applicationPattern/onfMod
 const operationServerInterface = require('onf-core-model-ap/applicationPattern/onfModel/models/layerProtocols/OperationServerInterface');
 const operationClientInterface = require('onf-core-model-ap/applicationPattern/onfModel/models/layerProtocols/OperationClientInterface');
 const onfAttributeFormatter = require('onf-core-model-ap/applicationPattern/onfModel/utility/OnfAttributeFormatter');
+const ConfigurationStatus = require('onf-core-model-ap/applicationPattern/onfModel/services/models/ConfigurationStatus');
+const LogicalTerminationPointConfigurationStatus = require('onf-core-model-ap/applicationPattern/onfModel/services/models/logicalTerminationPoint/ConfigurationStatus');
+
+
 const prepareForwardingAutomation = require('./individualServices/PrepareForwardingAutomation');
 const individualServicesOperationsMapping = require('./individualServices/individualServicesOperationsMapping');
 const softwareUpgrade = require('./individualServices/SoftwareUpgrade');
@@ -27,6 +31,7 @@ const crypto = require('crypto');
 const ltpClientConstants = require('../utils/ltpClientConstants');
 const ltpServerConstants = require('../utils/ltpServerConstants');
 const onfModelUtils = require("../utils/OnfModelUtils");
+
 
 const FC_CYCLIC_OPERATION_CAUSES_OPERATION_KEY_UPDATES = 'CyclicOperationCausesOperationKeyUpdates';
 const FC_LINK_UPDATE_NOTIFICATION_CAUSES_OPERATION_KEY_UPDATES = 'LinkUpdateNotificationCausesOperationKeyUpdates';
@@ -53,54 +58,93 @@ exports.bequeathYourDataAndDie = async function (body, user, originator, xCorrel
 
       let applicationName = body["new-application-name"];
       let releaseNumber = body["new-application-release"];
-      let applicationAddress = body["new-application-address"];
-      let applicationPort = body["new-application-port"];
+      let address = body["new-application-address"];
+      let protocol = body["new-application-protocol"];
+      let port = body["new-application-port"];
+
 
       /****************************************************************************************
-       * Prepare logicalTerminatinPointConfigurationInput object to 
-       * configure logical-termination-point
+       * Updating the New Release application details
        ****************************************************************************************/
 
-      let isdataTransferRequired = true;
-      let currentApplicationName = await httpServerInterface.getApplicationNameAsync();
-      if (currentApplicationName == applicationName) {
-        let isUpdated = await httpClientInterface.setReleaseNumberAsync(ltpClientConstants.HTTP_NEW_RELEASE, releaseNumber);
-        let currentApplicationRemoteAddress = await tcpServerInterface.getLocalAddress();
-        let currentApplicationRemotePort = await tcpServerInterface.getLocalPort();
-        if ((applicationAddress == currentApplicationRemoteAddress) &&
-          (applicationPort == currentApplicationRemotePort)) {
-          isdataTransferRequired = false;
+      let uuid = await softwareUpgrade.getHttpClientAndTcpClientUuid();
+      let isUpdated = {};
+      let currentNewReleaseApplicationName = await httpClientInterface.getApplicationNameAsync(uuid.httpClientUuid);
+      let currentNewReleaseNumber = await httpClientInterface.getReleaseNumberAsync(uuid.httpClientUuid);
+      let currentNewReleaseRemoteAddress = await tcpClientInterface.getRemoteAddressAsync(uuid.tcpClientUuid);
+      let currentNewReleaseRemoteProtocol = await tcpClientInterface.getRemoteProtocolAsync(uuid.tcpClientUuid);
+      let currentNewReleaseRemotePort = await tcpClientInterface.getRemotePortAsync(uuid.tcpClientUuid);
+      if (applicationName != currentNewReleaseApplicationName) {
+        isUpdated.applicationName = await httpClientInterface.setApplicationNameAsync(uuid.httpClientUuid, applicationName)
       }
-        if (isUpdated) {
-          applicationName = await httpClientInterface.getApplicationNameAsync("okm-0-0-1-http-c-0010");
-          let operationList = [];
-          let logicalTerminatinPointConfigurationInput = new LogicalTerminationPointConfigurationInput(
-            applicationName,
-            releaseNumber,
-            applicationAddress,
-            applicationPort,
-            operationList
+      if (releaseNumber != currentNewReleaseNumber) {
+        isUpdated.releaseNumber = await httpClientInterface.setReleaseNumberAsync(uuid.httpClientUuid, releaseNumber);
+      }
+      if (JSON.stringify(address) != JSON.stringify(currentNewReleaseRemoteAddress)) {
+        isUpdated.address = await tcpClientInterface.setRemoteAddressAsync(uuid.tcpClientUuid, address);
+      }
+      if (port != currentNewReleaseRemotePort) {
+        isUpdated.port = await tcpClientInterface.setRemotePortAsync(uuid.tcpClientUuid, port);
+      }
+      if (protocol != currentNewReleaseRemoteProtocol) {
+        isUpdated.protocol = await tcpClientInterface.setRemoteProtocolAsync(uuid.tcpClientUuid, protocol);
+      }
+      /****************************************************************************************
+       * Check if data transfer is required
+       *****************************************************************************************/
+      let isDataTransferRequired = true;
+      let serverAddress = await tcpServerInterface.getLocalAddressOfTheProtocol(protocol);
+      let serverPort = await tcpServerInterface.getLocalPortOfTheProtocol(protocol);
+
+      if (JSON.stringify(address) == JSON.stringify(serverAddress) && port === serverPort) {
+        isDataTransferRequired = false;
+      }
+
+      /****************************************************************************************
+       * Updating the Configuration Status based on the application information updated
+       *****************************************************************************************/
+      let isTcpInfoUpdated = false;
+      let isHttpInfoUpdated = false;
+
+      if (isUpdated.address || isUpdated.port || isUpdated.protocol) {
+        isTcpInfoUpdated = true;
+      }
+      if (isUpdated.applicationName || isUpdated.releaseNumber) {
+        isHttpInfoUpdated = true;
+      }
+
+      let tcpClientConfigurationStatus = new ConfigurationStatus(
+        uuid.tcpClientUuid,
+        '',
+        isTcpInfoUpdated
       );
-          let logicalTerminationPointconfigurationStatus = await logicalTerminationPointService.createOrUpdateApplicationInformationAsync(
-            logicalTerminatinPointConfigurationInput
+      let httpClientConfigurationStatus = new ConfigurationStatus(
+        uuid.httpClientUuid,
+        '',
+        isHttpInfoUpdated
+      );
+
+      let logicalTerminationPointConfigurationStatus = new LogicalTerminationPointConfigurationStatus(
+        false,
+        httpClientConfigurationStatus,
+        [tcpClientConfigurationStatus]
       );
       /****************************************************************************************
        * Prepare attributes to automate forwarding-construct
        ****************************************************************************************/
-        let forwardingAutomationInputList = await prepareForwardingAutomation.bequeathYourDataAndDie(
-            logicalTerminationPointconfigurationStatus
-        );
-        forwardingAutomationService.automateForwardingConstructAsync(
-          operationServerName,
-          forwardingAutomationInputList,
-          user,
-          xCorrelator,
-          traceIndicator,
-          customerJourney
-        );
-      }
-      }
-      softwareUpgrade.upgradeSoftwareVersion(isdataTransferRequired, user, xCorrelator, traceIndicator, customerJourney)
+      let forwardingAutomationInputList = await prepareForwardingAutomation.bequeathYourDataAndDie(
+        logicalTerminationPointConfigurationStatus
+      );
+      forwardingAutomationService.automateForwardingConstructAsync(
+        operationServerName,
+        forwardingAutomationInputList,
+        user,
+        xCorrelator,
+        traceIndicator,
+        customerJourney
+      );
+
+      softwareUpgrade.upgradeSoftwareVersion(isDataTransferRequired, user, xCorrelator, traceIndicator, customerJourney)
         .catch(err => console.log(`upgradeSoftwareVersion failed with error: ${err}`));
       resolve();
     } catch (error) {
