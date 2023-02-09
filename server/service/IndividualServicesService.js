@@ -96,7 +96,7 @@ exports.bequeathYourDataAndDie = async function (body, user, originator, xCorrel
       let serverAddress = await tcpServerInterface.getLocalAddressOfTheProtocol(protocol);
       let serverPort = await tcpServerInterface.getLocalPortOfTheProtocol(protocol);
 
-      if (address === serverAddress && port === serverPort) {
+      if (JSON.stringify(address) == JSON.stringify(serverAddress) && port === serverPort) {
         isDataTransferRequired = false;
       }
 
