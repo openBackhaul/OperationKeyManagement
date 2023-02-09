@@ -317,45 +317,6 @@ exports.regardUpdatedLink = async function (body, user, originator, xCorrelator,
     .catch((error) => console.log(`regardUpdatedLink - failed update key for link ${linkUuid} with error: ${error.message}`));
 }
 
-
-/**
- * Starts application in generic representation
- *
- * user String User identifier from the system starting the service call
- * originator String 'Identification for the system consuming the API, as defined in  [/core-model-1-4:control-construct/logical-termination-point={uuid}/layer-protocol=0/http-client-interface-1-0:http-client-interface-pac/http-client-interface-capability/application-name]' 
- * xCorrelator String UUID for the service execution flow that allows to correlate requests and responses
- * traceIndicator String Sequence of request numbers along the flow
- * customerJourney String Holds information supporting customer’s journey to which the execution applies
- * returns inline_response_200
- **/
-exports.startApplicationInGenericRepresentation = async function (user, originator, xCorrelator, traceIndicator, customerJourney) {
-  // Preparing response-value-list for response body
-  const responseValueList = [];
-  const applicationName = await httpServerInterface.getApplicationNameAsync();
-  const reponseValue = {
-    'field-name': "applicationName",
-    'value': applicationName,
-    'datatype': typeof applicationName
-  };
-  responseValueList.push(reponseValue);
-
-  // Preparing consequent-action-list for response body
-  const consequentActionList = [];
-  const baseUrl = "http://" + await tcpServerInterface.getLocalAddress() + ":" + await tcpServerInterface.getLocalPort();
-  const labelForInformAboutApplication = "Inform about Application";
-  const requestForInformAboutApplication = baseUrl + await operationServerInterface.getOperationNameAsync(ltpServerConstants.HTTP_THIS_OPERATION_INFORM_ABOUT_APPLICATION_IN_GENERIC_REPRESENTATION);
-  const consequentActionForInformAboutApplication = {
-    'label': labelForInformAboutApplication,
-    'request': requestForInformAboutApplication
-  };
-  consequentActionList.push(consequentActionForInformAboutApplication);
-
-  return {
-    'response-value-list': responseValueList,
-    'consequent-action-list': consequentActionList
-  };
-}
-
 exports.scheduleKeyRotation = async function scheduleKeyRotation() {
   const operationModeValue = await stringProfileService.getOperationModeProfileStringValue();
   if (operationModeValue === profileConstants.OPERATION_MODE_REACTIVE) {
@@ -394,7 +355,8 @@ async function reccurentUpdateKeys() {
 }
 
 async function fetchLinkUuidListFromAlt(httpClient) {
-  const resp = await httpClient.executeOperation(ltpClientConstants.HTTP_ALT_OPERATION_LIST_LINK_UUIDS);
+  let operationClientUuidOfListLinkUuids = (await onfModelUtils.getFcPortOutputDirectionLogicalTerminationPointListForForwardingName("CyclicOperationCausesRequestForListOfLinks"))[0];
+  const resp = await httpClient.executeOperation(operationClientUuidOfListLinkUuids);
   if (resp['link-uuid-list'] === undefined) {
     return [];
   }
@@ -408,7 +370,7 @@ async function updateOperationKeyForLink(linkUuid, updateKeyOperationLtpUuidList
   const operationKey = operationModeValue === profileConstants.OPERATION_MODE_OFF ? DEFAULT_OPERATION_KEY : generateOperationKey();
   for (const linkEndpoint of linkEndpointList) {
     const epAppName = linkEndpoint['application-name'];
-    const epAppReleaseNumber = linkEndpoint['application-release-number'];
+    const epAppReleaseNumber = linkEndpoint['release-number'];
     const epOperationUuid = linkEndpoint['operation-uuid'];
 
     if (!epAppName || !epAppReleaseNumber || !epOperationUuid) {
@@ -431,7 +393,8 @@ async function updateOperationKeyForLink(linkUuid, updateKeyOperationLtpUuidList
 }
 
 async function fetchLinkEndpointListFromAlt(linkUuid, httpClient) {
-  const resp = await httpClient.executeOperation(ltpClientConstants.HTTP_ALT_OPERATION_LIST_ENDPOINTS_OF_LINK, {
+  let operationClientUuidOfListEndPointsOfLink = (await onfModelUtils.getFcPortOutputDirectionLogicalTerminationPointListForForwardingName("CyclicOperationCausesRequestForLinkEndPoints"))[0];
+  const resp = await httpClient.executeOperation(operationClientUuidOfListEndPointsOfLink, {
     'link-uuid': linkUuid
   });
   if (resp['link-end-point-list'] === undefined) {

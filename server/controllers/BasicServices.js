@@ -25,7 +25,7 @@ module.exports.embedYourself = async function embedYourself(req, res, next, body
       });
     executionAndTraceService.recordServiceRequest(xCorrelator, traceIndicator, user, originator, req.url, responseCode, req.body, responseBodyToDocument)
       .catch((error) => console.log(`embedYourself - record service request ${JSON.stringify({ xCorrelator, traceIndicator, user, originator, reqUrl: req.url, responseCode, reqBody: req.body, responseBodyToDocument })} failed with error: ${error.message}`));
-  } catch (error) { }
+  } catch (error) {}
 
 };
 
@@ -48,7 +48,7 @@ module.exports.endSubscription = async function endSubscription(req, res, next, 
       });
     executionAndTraceService.recordServiceRequest(xCorrelator, traceIndicator, user, originator, req.url, responseCode, req.body, responseBodyToDocument)
       .catch((error) => console.log(`endSubscription - record service request ${JSON.stringify({ xCorrelator, traceIndicator, user, originator, reqUrl: req.url, responseCode, reqBody: req.body, responseBodyToDocument })} failed with error: ${error.message}`));
-  } catch (error) { }
+  } catch (error) {}
 
 };
 
@@ -71,7 +71,7 @@ module.exports.informAboutApplication = async function informAboutApplication(re
       });
     executionAndTraceService.recordServiceRequest(xCorrelator, traceIndicator, user, originator, req.url, responseCode, req.body, responseBodyToDocument)
       .catch((error) => console.log(`informAboutApplication - record service request ${JSON.stringify({ xCorrelator, traceIndicator, user, originator, reqUrl: req.url, responseCode, reqBody: req.body, responseBodyToDocument })} failed with error: ${error.message}`));
-  } catch (error) { }
+  } catch (error) {}
 
 };
 
@@ -94,7 +94,7 @@ module.exports.informAboutApplicationInGenericRepresentation = async function in
       });
     executionAndTraceService.recordServiceRequest(xCorrelator, traceIndicator, user, originator, req.url, responseCode, req.body, responseBodyToDocument)
       .catch((error) => console.log(`informAboutApplicationInGenericRepresentation - record service request ${JSON.stringify({ xCorrelator, traceIndicator, user, originator, reqUrl: req.url, responseCode, reqBody: req.body, responseBodyToDocument })} failed with error: ${error.message}`));
-  } catch (error) { }
+  } catch (error) {}
 
 };
 
@@ -117,7 +117,7 @@ module.exports.informAboutReleaseHistory = async function informAboutReleaseHist
       });
     executionAndTraceService.recordServiceRequest(xCorrelator, traceIndicator, user, originator, req.url, responseCode, req.body, responseBodyToDocument)
       .catch((error) => console.log(`informAboutReleaseHistory - record service request ${JSON.stringify({ xCorrelator, traceIndicator, user, originator, reqUrl: req.url, responseCode, reqBody: req.body, responseBodyToDocument })} failed with error: ${error.message}`));
-  } catch (error) { }
+  } catch (error) {}
 
 };
 
@@ -140,7 +140,7 @@ module.exports.informAboutReleaseHistoryInGenericRepresentation = async function
       });
     executionAndTraceService.recordServiceRequest(xCorrelator, traceIndicator, user, originator, req.url, responseCode, req.body, responseBodyToDocument)
       .catch((error) => console.log(`informAboutReleaseHistoryInGenericRepresentation - record service request ${JSON.stringify({ xCorrelator, traceIndicator, user, originator, reqUrl: req.url, responseCode, reqBody: req.body, responseBodyToDocument })} failed with error: ${error.message}`));
-  } catch (error) { }
+  } catch (error) {}
 
 };
 
@@ -163,7 +163,7 @@ module.exports.inquireOamRequestApprovals = async function inquireOamRequestAppr
       });
     executionAndTraceService.recordServiceRequest(xCorrelator, traceIndicator, user, originator, req.url, responseCode, req.body, responseBodyToDocument)
       .catch((error) => console.log(`inquireOamRequestApprovals - record service request ${JSON.stringify({ xCorrelator, traceIndicator, user, originator, reqUrl: req.url, responseCode, reqBody: req.body, responseBodyToDocument })} failed with error: ${error.message}`));
-  } catch (error) { }
+  } catch (error) {}
 
 };
 
@@ -186,7 +186,7 @@ module.exports.listLtpsAndFcs = async function listLtpsAndFcs(req, res, next, us
       });
     executionAndTraceService.recordServiceRequest(xCorrelator, traceIndicator, user, originator, req.url, responseCode, req.body, responseBodyToDocument)
       .catch((error) => console.log(`embedYolistLtpsAndFcsurself - record service request ${JSON.stringify({ xCorrelator, traceIndicator, user, originator, reqUrl: req.url, responseCode, reqBody: req.body, responseBodyToDocument })} failed with error: ${error.message}`));
-  } catch (error) { }
+  } catch (error) {}
 
 };
 
@@ -209,7 +209,7 @@ module.exports.redirectOamRequestInformation = async function redirectOamRequest
       });
     executionAndTraceService.recordServiceRequest(xCorrelator, traceIndicator, user, originator, req.url, responseCode, req.body, responseBodyToDocument)
       .catch((error) => console.log(`redirectOamRequestInformation - record service request ${JSON.stringify({ xCorrelator, traceIndicator, user, originator, reqUrl: req.url, responseCode, reqBody: req.body, responseBodyToDocument })} failed with error: ${error.message}`));
-  } catch (error) { }
+  } catch (error) {}
 
 };
 
@@ -232,7 +232,7 @@ module.exports.redirectServiceRequestInformation = async function redirectServic
       });
     executionAndTraceService.recordServiceRequest(xCorrelator, traceIndicator, user, originator, req.url, responseCode, req.body, responseBodyToDocument)
       .catch((error) => console.log(`redirectServiceRequestInformation - record service request ${JSON.stringify({ xCorrelator, traceIndicator, user, originator, reqUrl: req.url, responseCode, reqBody: req.body, responseBodyToDocument })} failed with error: ${error.message}`));
-  } catch (error) { }
+  } catch (error) {}
 
 };
 
@@ -255,7 +255,7 @@ module.exports.redirectTopologyChangeInformation = async function redirectTopolo
       });
     executionAndTraceService.recordServiceRequest(xCorrelator, traceIndicator, user, originator, req.url, responseCode, req.body, responseBodyToDocument)
       .catch((error) => console.log(`redirectTopologyChangeInformation - record service request ${JSON.stringify({ xCorrelator, traceIndicator, user, originator, reqUrl: req.url, responseCode, reqBody: req.body, responseBodyToDocument })} failed with error: ${error.message}`));
-  } catch (error) { }
+  } catch (error) {}
 
 };
 
@@ -278,7 +278,7 @@ module.exports.registerYourself = async function registerYourself(req, res, next
       });
     executionAndTraceService.recordServiceRequest(xCorrelator, traceIndicator, user, originator, req.url, responseCode, req.body, responseBodyToDocument)
       .catch((error) => console.log(`registerYourself - record service request ${JSON.stringify({ xCorrelator, traceIndicator, user, originator, reqUrl: req.url, responseCode, reqBody: req.body, responseBodyToDocument })} failed with error: ${error.message}`));
-  } catch (error) { }
+  } catch (error) {}
 
 };
 
@@ -301,7 +301,7 @@ module.exports.updateClient = async function updateClient(req, res, next, body, 
       });
     executionAndTraceService.recordServiceRequest(xCorrelator, traceIndicator, user, originator, req.url, responseCode, req.body, responseBodyToDocument)
       .catch((error) => console.log(`updateClient - record service request ${JSON.stringify({ xCorrelator, traceIndicator, user, originator, reqUrl: req.url, responseCode, reqBody: req.body, responseBodyToDocument })} failed with error: ${error.message}`));
-  } catch (error) { }
+  } catch (error) {}
 
 };
 
@@ -324,7 +324,7 @@ module.exports.updateOperationClient = async function updateOperationClient(req,
       });
     executionAndTraceService.recordServiceRequest(xCorrelator, traceIndicator, user, originator, req.url, responseCode, req.body, responseBodyToDocument)
       .catch((error) => console.log(`updateOperationClient - record service request ${JSON.stringify({ xCorrelator, traceIndicator, user, originator, reqUrl: req.url, responseCode, reqBody: req.body, responseBodyToDocument })} failed with error: ${error.message}`));
-  } catch (error) { }
+  } catch (error) {}
 
 };
 
@@ -347,6 +347,37 @@ module.exports.updateOperationKey = async function updateOperationKey(req, res, 
       });
     executionAndTraceService.recordServiceRequest(xCorrelator, traceIndicator, user, originator, req.url, responseCode, req.body, responseBodyToDocument)
       .catch((error) => console.log(`updateOperationKey - record service request ${JSON.stringify({ xCorrelator, traceIndicator, user, originator, reqUrl: req.url, responseCode, reqBody: req.body, responseBodyToDocument })} failed with error: ${error.message}`));
-  } catch (error) { }
+  } catch (error) {}
 
+};
+
+module.exports.startApplicationInGenericRepresentation = async function startApplicationInGenericRepresentation(req, res, next, user, originator, xCorrelator, traceIndicator, customerJourney) {
+  const startTime = process.hrtime();
+  let responseCode;
+  let responseBody;
+  try {
+    responseCode = responseCodeEnum.code.OK;
+    responseBody = await BasicServices.startApplicationInGenericRepresentation(user, originator, xCorrelator, traceIndicator, customerJourney);
+  } catch (error) {
+    if (error == undefined) {
+      error = new Error('unknown error');
+    }
+    console.log(`startApplicationInGenericRepresentation - failed with error: ${error.message}`)
+    responseCode = responseCodeEnum.code.INTERNAL_SERVER_ERROR;
+    responseBody = {
+      'message': error.message
+    };
+  }
+  let responseHeader;
+  try {
+    responseHeader = await restResponseHeader.createResponseHeader(xCorrelator, startTime, req.url);
+  } catch (error) {
+    if (error == undefined) {
+      error = new Error('unknown error');
+    }
+    console.log(`startApplicationInGenericRepresentation - create response header failed with error: ${error.message}`)
+  }
+  restResponseBuilder.buildResponse(res, responseCode, responseBody, responseHeader);
+  executionAndTraceService.recordServiceRequest(xCorrelator, traceIndicator, user, originator, req.url, responseCode, req.body, responseBody)
+    .catch((error) => console.log(`startApplicationInGenericRepresentation - record service request ${JSON.stringify({ xCorrelator, traceIndicator, user, originator, reqUrl: req.url, responseCode, reqBody: req.body, responseBody })} failed with error: ${error.message}`));
 };

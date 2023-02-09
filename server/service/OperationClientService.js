@@ -1,11 +1,14 @@
 'use strict';
 var fileOperation = require('onf-core-model-ap/applicationPattern/databaseDriver/JSONDriver');
+const prepareForwardingAutomation = require('./individualServices/PrepareForwardingAutomation');
+const ForwardingAutomationService = require('onf-core-model-ap/applicationPattern/onfModel/services/ForwardingConstructAutomationServices');
+
 
 /**
  * Returns detailed logging configuration.
  *
  * uuid String 
- * returns inline_response_200_26
+ * returns inline_response_200_45
  **/
 exports.getOperationClientDetailedLoggingIsOn = function (url) {
   return new Promise(async function (resolve, reject) {
@@ -31,7 +34,7 @@ exports.getOperationClientDetailedLoggingIsOn = function (url) {
  * Returns life cycle state of the operation
  *
  * uuid String 
- * returns inline_response_200_25
+ * returns inline_response_200_44
  **/
 exports.getOperationClientLifeCycleState = function (url) {
   return new Promise(async function (resolve, reject) {
@@ -57,7 +60,7 @@ exports.getOperationClientLifeCycleState = function (url) {
  * Returns key used for connecting to server.
  *
  * uuid String 
- * returns inline_response_200_23
+ * returns inline_response_200_42
  **/
 exports.getOperationClientOperationKey = function (url) {
   return new Promise(async function (resolve, reject) {
@@ -83,7 +86,7 @@ exports.getOperationClientOperationKey = function (url) {
  * Returns operation name
  *
  * uuid String 
- * returns inline_response_200_22
+ * returns inline_response_200_41
  **/
 exports.getOperationClientOperationName = function (url) {
   return new Promise(async function (resolve, reject) {
@@ -109,7 +112,7 @@ exports.getOperationClientOperationName = function (url) {
  * Returns operational state of the operation
  *
  * uuid String 
- * returns inline_response_200_24
+ * returns inline_response_200_43
  **/
 exports.getOperationClientOperationalState = function (url) {
   return new Promise(async function (resolve, reject) {
@@ -176,10 +179,21 @@ exports.putOperationClientOperationKey = function (url, body) {
  * uuid String 
  * no response value expected for this operation
  **/
-exports.putOperationClientOperationName = function (url, body) {
+exports.putOperationClientOperationName = function (url, body, uuid) {
   return new Promise(async function (resolve, reject) {
     try {
-      await fileOperation.writeToDatabaseAsync(url, body, false);
+      let isUpdated = await fileOperation.writeToDatabaseAsync(url, body, false);
+      /****************************************************************************************
+       * Prepare attributes to automate forwarding-construct
+       ****************************************************************************************/
+      if (isUpdated) {
+        let forwardingAutomationInputList = await prepareForwardingAutomation.OAMLayerRequest(
+          uuid
+        );
+        ForwardingAutomationService.automateForwardingConstructWithoutInputAsync(
+          forwardingAutomationInputList
+        );
+      }
       resolve();
     } catch (error) {
       reject();
