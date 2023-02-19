@@ -80,7 +80,7 @@ module.exports.informAboutApplicationInGenericRepresentation = async function in
     let startTime = process.hrtime();
     let responseCode = responseCodeEnum.code.OK;
     let responseBodyToDocument = {};
-    await BasicServices.informAboutApplicationInGenericRepresentation(user, originator, xCorrelator, traceIndicator, customerJourney)
+    await BasicServices.informAboutApplicationInGenericRepresentation(user, originator, xCorrelator, traceIndicator, customerJourney, req.url)
       .then(async function (responseBody) {
         responseBodyToDocument = responseBody;
         let responseHeader = await restResponseHeader.createResponseHeader(xCorrelator, startTime, req.url);
@@ -126,7 +126,7 @@ module.exports.informAboutReleaseHistoryInGenericRepresentation = async function
     let startTime = process.hrtime();
     let responseCode = responseCodeEnum.code.OK;
     let responseBodyToDocument = {};
-    await BasicServices.informAboutReleaseHistoryInGenericRepresentation(user, originator, xCorrelator, traceIndicator, customerJourney)
+    await BasicServices.informAboutReleaseHistoryInGenericRepresentation(user, originator, xCorrelator, traceIndicator, customerJourney, req.url)
       .then(async function (responseBody) {
         responseBodyToDocument = responseBody;
         let responseHeader = await restResponseHeader.createResponseHeader(xCorrelator, startTime, req.url);
@@ -357,7 +357,7 @@ module.exports.startApplicationInGenericRepresentation = async function startApp
   let responseBody;
   try {
     responseCode = responseCodeEnum.code.OK;
-    responseBody = await BasicServices.startApplicationInGenericRepresentation(user, originator, xCorrelator, traceIndicator, customerJourney);
+    responseBody = await BasicServices.startApplicationInGenericRepresentation(user, originator, xCorrelator, traceIndicator, customerJourney, req.url);
   } catch (error) {
     if (error == undefined) {
       error = new Error('unknown error');
