@@ -255,7 +255,7 @@ exports.listApplications = async function (user, originator, xCorrelator, traceI
 exports.regardApplication = async function (body, user, originator, xCorrelator, traceIndicator, customerJourney, operationServerName) {
   // get data from request body
   const appName = body['application-name'];
-  const appReleaseNumber = body['relase-number'];
+  const appReleaseNumber = body['release-number'];
   const tcpInfo = [{
     "address": body['address'],
     "protocol": body['protocol'],
