@@ -12,7 +12,7 @@ const operationModeStringValuePath = `${onfPaths.PROFILE}=okm-0-0-1-string-p-000
  * Returns the enumeration values of the String
  *
  * uuid String 
- * returns inline_response_200_24
+ * returns inline_response_200_18
  **/
 exports.getStringProfileEnumeration = function (url) {
   return new Promise(async function (resolve, reject) {
@@ -38,7 +38,7 @@ exports.getStringProfileEnumeration = function (url) {
  * Returns the pattern of the String
  *
  * uuid String 
- * returns inline_response_200_25
+ * returns inline_response_200_19
  **/
 exports.getStringProfilePattern = function (url) {
   return new Promise(async function (resolve, reject) {
@@ -63,7 +63,7 @@ exports.getStringProfilePattern = function (url) {
 /**
  * Returns the name of the String
  *
- * returns inline_response_200_23
+ * returns inline_response_200_17
  **/
 exports.getStringProfileStringName = function (url) {
   return new Promise(async function (resolve, reject) {
@@ -88,7 +88,7 @@ exports.getStringProfileStringName = function (url) {
 /**
  * Returns the configured value of the String
  *
- * * returns inline_response_200_26
+ * * returns inline_response_200_20
  **/
 exports.getStringProfileStringValue = function (url) {
   return new Promise(async function (resolve, reject) {

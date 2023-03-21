@@ -8,7 +8,7 @@ const ForwardingAutomationService = require('onf-core-model-ap/applicationPatter
  * Returns Description of TcpServer
  *
  * uuid String 
- * returns inline_response_200_37
+ * returns inline_response_200_31
  **/
 exports.getTcpServerDescription = function (url) {
   return new Promise(async function (resolve, reject) {
@@ -33,7 +33,7 @@ exports.getTcpServerDescription = function (url) {
  * Returns address of the server
  *
  * uuid String 
- * returns inline_response_200_39
+ * returns inline_response_200_33
  **/
 exports.getTcpServerLocalAddress = function (url) {
   return new Promise(async function (resolve, reject) {
@@ -58,7 +58,7 @@ exports.getTcpServerLocalAddress = function (url) {
  * Returns Protocol of TcpServer
  *
  * uuid String 
- * returns inline_response_200_38
+ * returns inline_response_200_32
  **/
 exports.getTcpServerLocalProtocol = function (url) {
   return new Promise(async function (resolve, reject) {
@@ -83,7 +83,7 @@ exports.getTcpServerLocalProtocol = function (url) {
  * Returns TCP port of the server
  *
  * uuid String 
- * returns inline_response_200_40
+ * returns inline_response_200_34
  **/
 exports.getTcpServerLocalPort = function (url) {
   return new Promise(async function (resolve, reject) {
@@ -169,7 +169,7 @@ exports.putTcpServerLocalAddress = function (url, body, uuid) {
  * uuid String 
  * no response value expected for this operation
  **/
-exports.putTcpServerLocalPort = function (url, body) {
+exports.putTcpServerLocalPort = function (url, body, uuid) {
   return new Promise(async function (resolve, reject) {
     try {
       let isUpdated = await fileOperation.writeToDatabaseAsync(url, body, false);

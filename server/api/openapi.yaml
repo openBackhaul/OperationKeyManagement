@@ -18026,630 +18026,6 @@ paths:
       security:
       - basicAuth: []
       x-swagger-router-controller: GenericResponseProfile
-  ? /core-model-1-4:control-construct/profile-collection/profile={uuid}/file-profile-1-0:file-profile-pac/file-profile-capability/file-identifier
-  : get:
-      tags:
-      - FileProfile
-      summary: Returns the identifier of the file
-      operationId: getFileProfileFileIdentifier
-      parameters:
-      - name: uuid
-        in: path
-        required: true
-        style: simple
-        explode: false
-        schema:
-          pattern: "^([a-z]{2,6})-([0-9]{1,2})-([0-9]{1,2})-([0-9]{1,2})-file-p-([0-9]{3})$"
-          type: string
-          example: ro-2-0-1-file-p-000
-      responses:
-        "200":
-          description: File identifier provided
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/inline_response_200_17'
-        "400":
-          description: Response in case of errored OaM requests
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/errorDescription'
-        "401":
-          description: Response in case of errored OaM requests
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/errorDescription'
-        "403":
-          description: Response in case of errored OaM requests
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/errorDescription'
-        "404":
-          description: Response in case of errored OaM requests
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/errorDescription'
-        "500":
-          description: Response in case of errored OaM requests
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/errorDescription'
-        default:
-          description: Response in case of errored OaM requests
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/errorDescription'
-      security:
-      - basicAuth: []
-      x-swagger-router-controller: FileProfile
-  ? /core-model-1-4:control-construct/profile-collection/profile={uuid}/file-profile-1-0:file-profile-pac/file-profile-capability/file-description
-  : get:
-      tags:
-      - FileProfile
-      summary: Returns the description of the file
-      operationId: getFileProfileFileDescription
-      parameters:
-      - name: uuid
-        in: path
-        required: true
-        style: simple
-        explode: false
-        schema:
-          pattern: "^([a-z]{2,6})-([0-9]{1,2})-([0-9]{1,2})-([0-9]{1,2})-file-p-([0-9]{3})$"
-          type: string
-          example: ro-2-0-1-file-p-000
-      responses:
-        "200":
-          description: File description provided
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/inline_response_200_18'
-        "400":
-          description: Response in case of errored OaM requests
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/errorDescription'
-        "401":
-          description: Response in case of errored OaM requests
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/errorDescription'
-        "403":
-          description: Response in case of errored OaM requests
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/errorDescription'
-        "404":
-          description: Response in case of errored OaM requests
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/errorDescription'
-        "500":
-          description: Response in case of errored OaM requests
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/errorDescription'
-        default:
-          description: Response in case of errored OaM requests
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/errorDescription'
-      security:
-      - basicAuth: []
-      x-swagger-router-controller: FileProfile
-  ? /core-model-1-4:control-construct/profile-collection/profile={uuid}/file-profile-1-0:file-profile-pac/file-profile-configuration/file-path
-  : get:
-      tags:
-      - FileProfile
-      summary: Returns the path of the file
-      operationId: getFileProfileFilePath
-      parameters:
-      - name: uuid
-        in: path
-        required: true
-        style: simple
-        explode: false
-        schema:
-          pattern: "^([a-z]{2,6})-([0-9]{1,2})-([0-9]{1,2})-([0-9]{1,2})-file-p-([0-9]{3})$"
-          type: string
-          example: ro-2-0-1-file-p-000
-      responses:
-        "200":
-          description: File path provided
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/inline_response_200_19'
-        "400":
-          description: Response in case of errored OaM requests
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/errorDescription'
-        "401":
-          description: Response in case of errored OaM requests
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/errorDescription'
-        "403":
-          description: Response in case of errored OaM requests
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/errorDescription'
-        "404":
-          description: Response in case of errored OaM requests
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/errorDescription'
-        "500":
-          description: Response in case of errored OaM requests
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/errorDescription'
-        default:
-          description: Response in case of errored OaM requests
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/errorDescription'
-      security:
-      - basicAuth: []
-      x-swagger-router-controller: FileProfile
-    put:
-      tags:
-      - FileProfile
-      summary: Configures path of the file
-      operationId: putFileProfileFilePath
-      parameters:
-      - name: uuid
-        in: path
-        required: true
-        style: simple
-        explode: false
-        schema:
-          pattern: "^([a-z]{2,6})-([0-9]{1,2})-([0-9]{1,2})-([0-9]{1,2})-file-p-([0-9]{3})$"
-          type: string
-          example: ro-2-0-1-file-p-000
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/fileprofileconfiguration_filepath_body'
-        required: true
-      responses:
-        "204":
-          description: File path configured
-        "400":
-          description: Response in case of errored OaM requests
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/errorDescription'
-        "401":
-          description: Response in case of errored OaM requests
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/errorDescription'
-        "403":
-          description: Response in case of errored OaM requests
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/errorDescription'
-        "404":
-          description: Response in case of errored OaM requests
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/errorDescription'
-        "500":
-          description: Response in case of errored OaM requests
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/errorDescription'
-        default:
-          description: Response in case of errored OaM requests
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/errorDescription'
-      security:
-      - basicAuth: []
-      x-swagger-router-controller: FileProfile
-  ? /core-model-1-4:control-construct/profile-collection/profile={uuid}/file-profile-1-0:file-profile-pac/file-profile-configuration/user-name
-  : get:
-      tags:
-      - FileProfile
-      summary: Returns the user name for acccessing the file
-      operationId: getFileProfileUserName
-      parameters:
-      - name: uuid
-        in: path
-        required: true
-        style: simple
-        explode: false
-        schema:
-          pattern: "^([a-z]{2,6})-([0-9]{1,2})-([0-9]{1,2})-([0-9]{1,2})-file-p-([0-9]{3})$"
-          type: string
-          example: ro-2-0-1-file-p-000
-      responses:
-        "200":
-          description: User name provided
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/inline_response_200_20'
-        "400":
-          description: Response in case of errored OaM requests
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/errorDescription'
-        "401":
-          description: Response in case of errored OaM requests
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/errorDescription'
-        "403":
-          description: Response in case of errored OaM requests
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/errorDescription'
-        "404":
-          description: Response in case of errored OaM requests
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/errorDescription'
-        "500":
-          description: Response in case of errored OaM requests
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/errorDescription'
-        default:
-          description: Response in case of errored OaM requests
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/errorDescription'
-      security:
-      - basicAuth: []
-      x-swagger-router-controller: FileProfile
-    put:
-      tags:
-      - FileProfile
-      summary: Configures the user name for acccessing the file
-      operationId: putFileProfileUserName
-      parameters:
-      - name: uuid
-        in: path
-        required: true
-        style: simple
-        explode: false
-        schema:
-          pattern: "^([a-z]{2,6})-([0-9]{1,2})-([0-9]{1,2})-([0-9]{1,2})-file-p-([0-9]{3})$"
-          type: string
-          example: ro-2-0-1-file-p-000
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/fileprofileconfiguration_username_body'
-        required: true
-      responses:
-        "204":
-          description: User name configured
-        "400":
-          description: Response in case of errored OaM requests
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/errorDescription'
-        "401":
-          description: Response in case of errored OaM requests
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/errorDescription'
-        "403":
-          description: Response in case of errored OaM requests
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/errorDescription'
-        "404":
-          description: Response in case of errored OaM requests
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/errorDescription'
-        "500":
-          description: Response in case of errored OaM requests
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/errorDescription'
-        default:
-          description: Response in case of errored OaM requests
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/errorDescription'
-      security:
-      - basicAuth: []
-      x-swagger-router-controller: FileProfile
-  ? /core-model-1-4:control-construct/profile-collection/profile={uuid}/file-profile-1-0:file-profile-pac/file-profile-configuration/password
-  : get:
-      tags:
-      - FileProfile
-      summary: Returns the password for acccessing the file
-      operationId: getFileProfilePassword
-      parameters:
-      - name: uuid
-        in: path
-        required: true
-        style: simple
-        explode: false
-        schema:
-          pattern: "^([a-z]{2,6})-([0-9]{1,2})-([0-9]{1,2})-([0-9]{1,2})-file-p-([0-9]{3})$"
-          type: string
-          example: ro-2-0-1-file-p-000
-      responses:
-        "200":
-          description: Password provided
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/inline_response_200_21'
-        "400":
-          description: Response in case of errored OaM requests
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/errorDescription'
-        "401":
-          description: Response in case of errored OaM requests
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/errorDescription'
-        "403":
-          description: Response in case of errored OaM requests
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/errorDescription'
-        "404":
-          description: Response in case of errored OaM requests
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/errorDescription'
-        "500":
-          description: Response in case of errored OaM requests
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/errorDescription'
-        default:
-          description: Response in case of errored OaM requests
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/errorDescription'
-      security:
-      - basicAuth: []
-      x-swagger-router-controller: FileProfile
-    put:
-      tags:
-      - FileProfile
-      summary: Configures the password for acccessing the file
-      operationId: putFileProfilePassword
-      parameters:
-      - name: uuid
-        in: path
-        required: true
-        style: simple
-        explode: false
-        schema:
-          pattern: "^([a-z]{2,6})-([0-9]{1,2})-([0-9]{1,2})-([0-9]{1,2})-file-p-([0-9]{3})$"
-          type: string
-          example: ro-2-0-1-file-p-000
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/fileprofileconfiguration_password_body'
-        required: true
-      responses:
-        "204":
-          description: Password configured
-        "400":
-          description: Response in case of errored OaM requests
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/errorDescription'
-        "401":
-          description: Response in case of errored OaM requests
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/errorDescription'
-        "403":
-          description: Response in case of errored OaM requests
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/errorDescription'
-        "404":
-          description: Response in case of errored OaM requests
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/errorDescription'
-        "500":
-          description: Response in case of errored OaM requests
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/errorDescription'
-        default:
-          description: Response in case of errored OaM requests
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/errorDescription'
-      security:
-      - basicAuth: []
-      x-swagger-router-controller: FileProfile
-  ? /core-model-1-4:control-construct/profile-collection/profile={uuid}/file-profile-1-0:file-profile-pac/file-profile-configuration/operation
-  : get:
-      tags:
-      - FileProfile
-      summary: Returns the allowed operation on the file
-      operationId: getFileProfileOperation
-      parameters:
-      - name: uuid
-        in: path
-        required: true
-        style: simple
-        explode: false
-        schema:
-          pattern: "^([a-z]{2,6})-([0-9]{1,2})-([0-9]{1,2})-([0-9]{1,2})-file-p-([0-9]{3})$"
-          type: string
-          example: ro-2-0-1-file-p-000
-      responses:
-        "200":
-          description: Operation provided
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/inline_response_200_22'
-        "400":
-          description: Response in case of errored OaM requests
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/errorDescription'
-        "401":
-          description: Response in case of errored OaM requests
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/errorDescription'
-        "403":
-          description: Response in case of errored OaM requests
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/errorDescription'
-        "404":
-          description: Response in case of errored OaM requests
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/errorDescription'
-        "500":
-          description: Response in case of errored OaM requests
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/errorDescription'
-        default:
-          description: Response in case of errored OaM requests
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/errorDescription'
-      security:
-      - basicAuth: []
-      x-swagger-router-controller: FileProfile
-    put:
-      tags:
-      - FileProfile
-      summary: Configures the allowed operation on the file
-      operationId: putFileProfileOperation
-      parameters:
-      - name: uuid
-        in: path
-        required: true
-        style: simple
-        explode: false
-        schema:
-          pattern: "^([a-z]{2,6})-([0-9]{1,2})-([0-9]{1,2})-([0-9]{1,2})-file-p-([0-9]{3})$"
-          type: string
-          example: ro-2-0-1-file-p-000
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/fileprofileconfiguration_operation_body'
-        required: true
-      responses:
-        "204":
-          description: Operation configured
-        "400":
-          description: Response in case of errored OaM requests
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/errorDescription'
-        "401":
-          description: Response in case of errored OaM requests
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/errorDescription'
-        "403":
-          description: Response in case of errored OaM requests
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/errorDescription'
-        "404":
-          description: Response in case of errored OaM requests
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/errorDescription'
-        "500":
-          description: Response in case of errored OaM requests
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/errorDescription'
-        default:
-          description: Response in case of errored OaM requests
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/errorDescription'
-      security:
-      - basicAuth: []
-      x-swagger-router-controller: FileProfile
   ? /core-model-1-4:control-construct/profile-collection/profile={uuid}/string-profile-1-0:string-profile-pac/string-profile-capability/string-name
   : get:
       tags:
@@ -18672,7 +18048,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/inline_response_200_23'
+                $ref: '#/components/schemas/inline_response_200_17'
         "400":
           description: Response in case of errored OaM requests
           content:
@@ -18734,7 +18110,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/inline_response_200_24'
+                $ref: '#/components/schemas/inline_response_200_18'
         "400":
           description: Response in case of errored OaM requests
           content:
@@ -18796,7 +18172,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/inline_response_200_25'
+                $ref: '#/components/schemas/inline_response_200_19'
         "400":
           description: Response in case of errored OaM requests
           content:
@@ -18858,7 +18234,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/inline_response_200_26'
+                $ref: '#/components/schemas/inline_response_200_20'
         "400":
           description: Response in case of errored OaM requests
           content:
@@ -19012,7 +18388,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/inline_response_200_27'
+                $ref: '#/components/schemas/inline_response_200_21'
         "400":
           description: Response in case of errored OaM requests
           content:
@@ -19074,7 +18450,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/inline_response_200_28'
+                $ref: '#/components/schemas/inline_response_200_22'
         "400":
           description: Response in case of errored OaM requests
           content:
@@ -19199,7 +18575,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/inline_response_200_29'
+                $ref: '#/components/schemas/inline_response_200_23'
         "400":
           description: Response in case of errored OaM requests
           content:
@@ -19324,7 +18700,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/inline_response_200_30'
+                $ref: '#/components/schemas/inline_response_200_24'
         "400":
           description: Response in case of errored OaM requests
           content:
@@ -19386,7 +18762,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/inline_response_200_31'
+                $ref: '#/components/schemas/inline_response_200_25'
         "400":
           description: Response in case of errored OaM requests
           content:
@@ -19448,7 +18824,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/inline_response_200_32'
+                $ref: '#/components/schemas/inline_response_200_26'
         "400":
           description: Response in case of errored OaM requests
           content:
@@ -19510,7 +18886,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/inline_response_200_33'
+                $ref: '#/components/schemas/inline_response_200_27'
         "400":
           description: Response in case of errored OaM requests
           content:
@@ -19572,7 +18948,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/inline_response_200_34'
+                $ref: '#/components/schemas/inline_response_200_28'
         "400":
           description: Response in case of errored OaM requests
           content:
@@ -19634,7 +19010,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/inline_response_200_35'
+                $ref: '#/components/schemas/inline_response_200_29'
         "400":
           description: Response in case of errored OaM requests
           content:
@@ -19696,7 +19072,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/inline_response_200_36'
+                $ref: '#/components/schemas/inline_response_200_30'
         "400":
           description: Response in case of errored OaM requests
           content:
@@ -19758,7 +19134,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/inline_response_200_37'
+                $ref: '#/components/schemas/inline_response_200_31'
         "400":
           description: Response in case of errored OaM requests
           content:
@@ -19883,7 +19259,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/inline_response_200_38'
+                $ref: '#/components/schemas/inline_response_200_32'
         "400":
           description: Response in case of errored OaM requests
           content:
@@ -20008,7 +19384,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/inline_response_200_39'
+                $ref: '#/components/schemas/inline_response_200_33'
         "400":
           description: Response in case of errored OaM requests
           content:
@@ -20133,7 +19509,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/inline_response_200_40'
+                $ref: '#/components/schemas/inline_response_200_34'
         "400":
           description: Response in case of errored OaM requests
           content:
@@ -20258,7 +19634,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/inline_response_200_41'
+                $ref: '#/components/schemas/inline_response_200_35'
         "400":
           description: Response in case of errored OaM requests
           content:
@@ -20383,7 +19759,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/inline_response_200_42'
+                $ref: '#/components/schemas/inline_response_200_36'
         "400":
           description: Response in case of errored OaM requests
           content:
@@ -20508,7 +19884,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/inline_response_200_43'
+                $ref: '#/components/schemas/inline_response_200_37'
         "400":
           description: Response in case of errored OaM requests
           content:
@@ -20570,7 +19946,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/inline_response_200_44'
+                $ref: '#/components/schemas/inline_response_200_38'
         "400":
           description: Response in case of errored OaM requests
           content:
@@ -20632,7 +20008,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/inline_response_200_45'
+                $ref: '#/components/schemas/inline_response_200_39'
         "400":
           description: Response in case of errored OaM requests
           content:
@@ -20757,7 +20133,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/inline_response_200_46'
+                $ref: '#/components/schemas/inline_response_200_40'
         "400":
           description: Response in case of errored OaM requests
           content:
@@ -20882,7 +20258,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/inline_response_200_47'
+                $ref: '#/components/schemas/inline_response_200_41'
         "400":
           description: Response in case of errored OaM requests
           content:
@@ -21007,7 +20383,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/inline_response_200_48'
+                $ref: '#/components/schemas/inline_response_200_42'
         "400":
           description: Response in case of errored OaM requests
           content:
@@ -21132,7 +20508,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/inline_response_200_49'
+                $ref: '#/components/schemas/inline_response_200_43'
         "400":
           description: Response in case of errored OaM requests
           content:
@@ -21257,7 +20633,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/inline_response_200_50'
+                $ref: '#/components/schemas/inline_response_200_44'
         "400":
           description: Response in case of errored OaM requests
           content:
@@ -23295,110 +22671,6 @@ components:
           $ref: '#/components/schemas/coremodel14controlconstructprofilecollectionprofileuuidresponseprofile10responseprofilepacresponseprofileconfigurationvalue_responseprofile10value'
     inline_response_200_17:
       required:
-      - file-profile-1-0:file-identifier
-      type: object
-      properties:
-        file-profile-1-0:file-identifier:
-          type: string
-          example: applicationData
-      example:
-        file-profile-1-0:file-identifier: applicationData
-    inline_response_200_18:
-      required:
-      - file-profile-1-0:file-description
-      type: object
-      properties:
-        file-profile-1-0:file-description:
-          type: string
-          example: "Holds administrator-names, user-names, authorization codes and\
-            \ allowed-methods."
-      example:
-        file-profile-1-0:file-description: "Holds administrator-names, user-names,\
-          \ authorization codes and allowed-methods."
-    inline_response_200_19:
-      required:
-      - file-profile-1-0:file-path
-      type: object
-      properties:
-        file-profile-1-0:file-path:
-          type: string
-          example: ../application-data/application-data.json
-      example:
-        file-profile-1-0:file-path: ../application-data/application-data.json
-    fileprofileconfiguration_filepath_body:
-      required:
-      - file-profile-1-0:file-path
-      type: object
-      properties:
-        file-profile-1-0:file-path:
-          type: string
-          example: ../application-data/application-data.json
-    inline_response_200_20:
-      required:
-      - file-profile-1-0:user-name
-      type: object
-      properties:
-        file-profile-1-0:user-name:
-          type: string
-          example: firstname.surname
-      example:
-        file-profile-1-0:user-name: firstname.surname
-    fileprofileconfiguration_username_body:
-      required:
-      - file-profile-1-0:user-name
-      type: object
-      properties:
-        file-profile-1-0:user-name:
-          type: string
-          example: firstname.surname
-    inline_response_200_21:
-      required:
-      - file-profile-1-0:password
-      type: object
-      properties:
-        file-profile-1-0:password:
-          type: string
-          example: stupid_phrase
-      example:
-        file-profile-1-0:password: stupid_phrase
-    fileprofileconfiguration_password_body:
-      required:
-      - file-profile-1-0:password
-      type: object
-      properties:
-        file-profile-1-0:password:
-          type: string
-          example: stupid_phrase
-    inline_response_200_22:
-      required:
-      - file-profile-1-0:operation
-      type: object
-      properties:
-        file-profile-1-0:operation:
-          type: string
-          example: file-profile-1-0:OPERATION_TYPE_READ_ONLY
-          enum:
-          - file-profile-1-0:OPERATION_TYPE_READ_ONLY
-          - file-profile-1-0:OPERATION_TYPE_READ_WRITE
-          - file-profile-1-0:OPERATION_TYPE_OFF
-          - file-profile-1-0:OPERATION_TYPE_NOT_YET_DEFINED
-      example:
-        file-profile-1-0:operation: file-profile-1-0:OPERATION_TYPE_READ_ONLY
-    fileprofileconfiguration_operation_body:
-      required:
-      - file-profile-1-0:operation
-      type: object
-      properties:
-        file-profile-1-0:operation:
-          type: string
-          example: file-profile-1-0:OPERATION_TYPE_READ_WRITE
-          enum:
-          - file-profile-1-0:OPERATION_TYPE_READ_ONLY
-          - file-profile-1-0:OPERATION_TYPE_READ_WRITE
-          - file-profile-1-0:OPERATION_TYPE_OFF
-          - file-profile-1-0:OPERATION_TYPE_NOT_YET_DEFINED
-    inline_response_200_23:
-      required:
       - string-profile-1-0:string-name
       type: object
       properties:
@@ -23407,7 +22679,7 @@ components:
           example: operationMode
       example:
         string-profile-1-0:string-name: operationMode
-    inline_response_200_24:
+    inline_response_200_18:
       required:
       - string-profile-1-0:enumeration
       type: object
@@ -23426,7 +22698,7 @@ components:
         - string-profile-1-0:STRING_VALUE_TYPE_REACTIVE
         - string-profile-1-0:STRING_VALUE_TYPE_PROTECTION
         - string-profile-1-0:STRING_VALUE_TYPE_OFF
-    inline_response_200_25:
+    inline_response_200_19:
       required:
       - string-profile-1-0:pattern
       type: object
@@ -23436,7 +22708,7 @@ components:
           example: "^((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$"
       example:
         string-profile-1-0:pattern: "^((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$"
-    inline_response_200_26:
+    inline_response_200_20:
       required:
       - string-profile-1-0:string-value
       type: object
@@ -23454,7 +22726,7 @@ components:
         string-profile-1-0:string-value:
           type: string
           example: string-profile-1-0:STRING_VALUE_TYPE_OFF
-    inline_response_200_27:
+    inline_response_200_21:
       required:
       - operation-server-interface-1-0:operation-name
       type: object
@@ -23464,7 +22736,7 @@ components:
           example: /v1/register-yourself
       example:
         operation-server-interface-1-0:operation-name: /v1/register-yourself
-    inline_response_200_28:
+    inline_response_200_22:
       required:
       - operation-server-interface-1-0:life-cycle-state
       type: object
@@ -23496,7 +22768,7 @@ components:
           - operation-server-interface-1-0:LIFE_CYCLE_STATE_TYPE_OBSOLETE
           - operation-server-interface-1-0:LIFE_CYCLE_STATE_TYPE_UNKNOWN
           - operation-server-interface-1-0:LIFE_CYCLE_STATE_TYPE_NOT_YET_DEFINED
-    inline_response_200_29:
+    inline_response_200_23:
       required:
       - operation-server-interface-1-0:operation-key
       type: object
@@ -23515,7 +22787,7 @@ components:
           minLength: 5
           type: string
           example: Operation key not yet provided.
-    inline_response_200_30:
+    inline_response_200_24:
       required:
       - http-server-interface-1-0:application-name
       type: object
@@ -23525,7 +22797,7 @@ components:
           example: ApplicationName
       example:
         http-server-interface-1-0:application-name: ApplicationName
-    inline_response_200_31:
+    inline_response_200_25:
       required:
       - http-server-interface-1-0:release-number
       type: object
@@ -23535,7 +22807,7 @@ components:
           example: 1.0.0
       example:
         http-server-interface-1-0:release-number: 1.0.0
-    inline_response_200_32:
+    inline_response_200_26:
       required:
       - http-server-interface-1-0:application-purpose
       type: object
@@ -23546,7 +22818,7 @@ components:
       example:
         http-server-interface-1-0:application-purpose: Brief description of the purpose
           of the application.
-    inline_response_200_33:
+    inline_response_200_27:
       required:
       - http-server-interface-1-0:data-update-period
       type: object
@@ -23561,7 +22833,7 @@ components:
           - http-server-interface-1-0:DATA_UPDATE_PERIOD_TYPE_MANUAL
       example:
         http-server-interface-1-0:data-update-period: http-server-interface-1-0:DATA_UPDATE_PERIOD_TYPE_REAL_TIME
-    inline_response_200_34:
+    inline_response_200_28:
       required:
       - http-server-interface-1-0:owner-name
       type: object
@@ -23571,7 +22843,7 @@ components:
           example: Thorsten Heinze
       example:
         http-server-interface-1-0:owner-name: Thorsten Heinze
-    inline_response_200_35:
+    inline_response_200_29:
       required:
       - http-server-interface-1-0:owner-email-address
       type: object
@@ -23581,7 +22853,7 @@ components:
           example: Thorsten.Heinze@telefonica.com
       example:
         http-server-interface-1-0:owner-email-address: Thorsten.Heinze@telefonica.com
-    inline_response_200_36:
+    inline_response_200_30:
       required:
       - http-server-interface-1-0:release-list
       type: object
@@ -23595,14 +22867,14 @@ components:
             release-date: 20.11.2010
             changes: Initial version.
           items:
-            $ref: '#/components/schemas/inline_response_200_36_httpserverinterface10releaselist'
+            $ref: '#/components/schemas/inline_response_200_30_httpserverinterface10releaselist'
       example:
         http-server-interface-1-0:release-list:
         - local-id: 0
           release-number: 1.0.0
           release-date: 20.11.2010
           changes: Initial version.
-    inline_response_200_37:
+    inline_response_200_31:
       required:
       - tcp-server-interface-1-0:description
       type: object
@@ -23618,7 +22890,7 @@ components:
       properties:
         tcp-server-interface-1-0:description:
           type: string
-    inline_response_200_38:
+    inline_response_200_32:
       required:
       - tcp-server-interface-1-0:local-protocol
       type: object
@@ -23642,13 +22914,13 @@ components:
           - tcp-server-interface-1-0:PROTOCOL_TYPE_HTTP
           - tcp-server-interface-1-0:PROTOCOL_TYPE_HTTPS
           - tcp-server-interface-1-0:PROTOCOL_TYPE_NOT_YET_DEFINED
-    inline_response_200_39:
+    inline_response_200_33:
       required:
       - tcp-server-interface-1-0:local-address
       type: object
       properties:
         tcp-server-interface-1-0:local-address:
-          $ref: '#/components/schemas/inline_response_200_39_tcpserverinterface10localaddress'
+          $ref: '#/components/schemas/inline_response_200_33_tcpserverinterface10localaddress'
       example:
         tcp-server-interface-1-0:local-address:
           ipv-4-address: 1.1.4.1
@@ -23674,7 +22946,7 @@ components:
       example:
         tcp-server-interface-1-0:local-address:
           ipv-4-address: 1.1.4.1
-    inline_response_200_40:
+    inline_response_200_34:
       required:
       - tcp-server-interface-1-0:local-port
       type: object
@@ -23694,7 +22966,7 @@ components:
           minimum: 0
           type: integer
           example: 1000
-    inline_response_200_41:
+    inline_response_200_35:
       required:
       - operation-client-interface-1-0:operation-name
       type: object
@@ -23713,7 +22985,7 @@ components:
           minLength: 6
           type: string
           example: /v1/bequeath-your-data-and-die
-    inline_response_200_42:
+    inline_response_200_36:
       required:
       - operation-client-interface-1-0:operation-key
       type: object
@@ -23732,7 +23004,7 @@ components:
           minLength: 5
           type: string
           example: Operation key not yet provided.
-    inline_response_200_43:
+    inline_response_200_37:
       required:
       - operation-client-interface-1-0:operational-state
       type: object
@@ -23746,7 +23018,7 @@ components:
           - operation-client-interface-1-0:OPERATIONAL_STATE_TYPE_NOT_YET_DEFINED
       example:
         operation-client-interface-1-0:operational-state: operation-client-interface-1-0:OPERATIONAL_STATE_TYPE_NOT_YET_DEFINED
-    inline_response_200_44:
+    inline_response_200_38:
       required:
       - operation-client-interface-1-0:life-cycle-state
       type: object
@@ -23763,7 +23035,7 @@ components:
           - operation-client-interface-1-0:LIFE_CYCLE_STATE_TYPE_NOT_YET_DEFINED
       example:
         operation-client-interface-1-0:life-cycle-state: operation-client-interface-1-0:LIFE_CYCLE_STATE_TYPE_NOT_YET_DEFINED
-    inline_response_200_45:
+    inline_response_200_39:
       required:
       - operation-client-interface-1-0:detailed-logging-is-on
       type: object
@@ -23781,7 +23053,7 @@ components:
         operation-client-interface-1-0:detailed-logging-is-on:
           type: boolean
           example: false
-    inline_response_200_46:
+    inline_response_200_40:
       required:
       - http-client-interface-1-0:application-name
       type: object
@@ -23800,7 +23072,7 @@ components:
           pattern: "^([A-Z][a-z0-9]+){2,}$"
           type: string
           example: NewApplication
-    inline_response_200_47:
+    inline_response_200_41:
       required:
       - http-client-interface-1-0:release-number
       type: object
@@ -23819,7 +23091,7 @@ components:
           pattern: "^([0-9]{1,2})\\.([0-9]{1,2})\\.([0-9]{1,2})$"
           type: string
           example: 1.0.0
-    inline_response_200_48:
+    inline_response_200_42:
       required:
       - tcp-client-interface-1-0:remote-protocol
       type: object
@@ -23843,13 +23115,13 @@ components:
           - tcp-client-interface-1-0:PROTOCOL_TYPE_HTTP
           - tcp-client-interface-1-0:PROTOCOL_TYPE_HTTPS
           - tcp-client-interface-1-0:PROTOCOL_TYPE_NOT_YET_DEFINED
-    inline_response_200_49:
+    inline_response_200_43:
       required:
       - tcp-client-interface-1-0:remote-address
       type: object
       properties:
         tcp-client-interface-1-0:remote-address:
-          $ref: '#/components/schemas/inline_response_200_49_tcpclientinterface10remoteaddress'
+          $ref: '#/components/schemas/inline_response_200_43_tcpclientinterface10remoteaddress'
       example:
         tcp-client-interface-1-0:remote-address:
           ip-address:
@@ -23884,7 +23156,7 @@ components:
         tcp-client-interface-1-0:remote-address:
           ip-address:
             ipv-4-address: 1.1.4.1
-    inline_response_200_50:
+    inline_response_200_44:
       required:
       - tcp-client-interface-1-0:remote-port
       type: object
@@ -24545,7 +23817,7 @@ components:
                         string-name:
                           type: string
                         enumeration:
-                          type: string
+                          type: array
                         pattern:
                           type: string
                     string-profile-configuration:
@@ -25495,7 +24767,7 @@ components:
           type: string
       additionalProperties: false
       example: "{\"static-field-name\":\"applicationName\"}"
-    inline_response_200_36_httpserverinterface10releaselist:
+    inline_response_200_30_httpserverinterface10releaselist:
       required:
       - changes
       - local-id
@@ -25511,23 +24783,23 @@ components:
           type: string
         changes:
           type: string
-    inline_response_200_39_tcpserverinterface10localaddress:
+    inline_response_200_33_tcpserverinterface10localaddress:
       type: object
       properties:
         ipv-4-address:
           type: string
         domain-name:
           type: string
-    inline_response_200_49_tcpclientinterface10remoteaddress_ipaddress:
+    inline_response_200_43_tcpclientinterface10remoteaddress_ipaddress:
       type: object
       properties:
         ipv-4-address:
           type: string
-    inline_response_200_49_tcpclientinterface10remoteaddress:
+    inline_response_200_43_tcpclientinterface10remoteaddress:
       type: object
       properties:
         ip-address:
-          $ref: '#/components/schemas/inline_response_200_49_tcpclientinterface10remoteaddress_ipaddress'
+          $ref: '#/components/schemas/inline_response_200_43_tcpclientinterface10remoteaddress_ipaddress'
         domain-name:
           type: string
   responses:
