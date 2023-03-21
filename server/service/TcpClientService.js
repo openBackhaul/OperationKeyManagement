@@ -7,7 +7,7 @@ const ForwardingAutomationService = require('onf-core-model-ap/applicationPatter
  * Returns remote address
  *
  * uuid String 
- * returns inline_response_200_49
+ * returns inline_response_200_43
  **/
 exports.getTcpClientRemoteAddress = function (url) {
   return new Promise(async function (resolve, reject) {
@@ -33,7 +33,7 @@ exports.getTcpClientRemoteAddress = function (url) {
  * Returns target TCP port at server
  *
  * uuid String 
- * returns inline_response_200_50
+ * returns inline_response_200_44
  **/
 exports.getTcpClientRemotePort = function (url) {
   return new Promise(async function (resolve, reject) {
@@ -58,7 +58,7 @@ exports.getTcpClientRemotePort = function (url) {
  * Returns protocol for addressing remote side
  *
  * uuid String 
- * returns inline_response_200_48
+ * returns inline_response_200_42
  **/
 exports.getTcpClientRemoteProtocol = function (url) {
   return new Promise(async function (resolve, reject) {

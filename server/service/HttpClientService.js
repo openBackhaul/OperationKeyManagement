@@ -8,7 +8,7 @@ const ForwardingAutomationService = require('onf-core-model-ap/applicationPatter
  * Returns name of application to be addressed
  *
  * uuid String 
- * returns inline_response_200_46
+ * returns inline_response_200_40
  **/
 exports.getHttpClientApplicationName = function (url) {
   return new Promise(async function (resolve, reject) {
@@ -33,7 +33,7 @@ exports.getHttpClientApplicationName = function (url) {
  * Returns release number of application to be addressed
  *
  * uuid String 
- * returns inline_response_200_47
+ * returns inline_response_200_41
  **/
 exports.getHttpClientReleaseNumber = function (url) {
   return new Promise(async function (resolve, reject) {

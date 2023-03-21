@@ -8,7 +8,7 @@ const ForwardingAutomationService = require('onf-core-model-ap/applicationPatter
  * Returns detailed logging configuration.
  *
  * uuid String 
- * returns inline_response_200_45
+ * returns inline_response_200_39
  **/
 exports.getOperationClientDetailedLoggingIsOn = function (url) {
   return new Promise(async function (resolve, reject) {
@@ -34,7 +34,7 @@ exports.getOperationClientDetailedLoggingIsOn = function (url) {
  * Returns life cycle state of the operation
  *
  * uuid String 
- * returns inline_response_200_44
+ * returns inline_response_200_38
  **/
 exports.getOperationClientLifeCycleState = function (url) {
   return new Promise(async function (resolve, reject) {
@@ -60,7 +60,7 @@ exports.getOperationClientLifeCycleState = function (url) {
  * Returns key used for connecting to server.
  *
  * uuid String 
- * returns inline_response_200_42
+ * returns inline_response_200_36
  **/
 exports.getOperationClientOperationKey = function (url) {
   return new Promise(async function (resolve, reject) {
@@ -86,7 +86,7 @@ exports.getOperationClientOperationKey = function (url) {
  * Returns operation name
  *
  * uuid String 
- * returns inline_response_200_41
+ * returns inline_response_200_35
  **/
 exports.getOperationClientOperationName = function (url) {
   return new Promise(async function (resolve, reject) {
@@ -112,7 +112,7 @@ exports.getOperationClientOperationName = function (url) {
  * Returns operational state of the operation
  *
  * uuid String 
- * returns inline_response_200_43
+ * returns inline_response_200_37
  **/
 exports.getOperationClientOperationalState = function (url) {
   return new Promise(async function (resolve, reject) {

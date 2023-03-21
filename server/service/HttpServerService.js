@@ -5,7 +5,7 @@ var fileOperation = require('onf-core-model-ap/applicationPattern/databaseDriver
  * Returns application name
  *
  * uuid String 
- * returns inline_response_200_30
+ * returns inline_response_200_24
  **/
 exports.getHttpServerApplicationName = function (url) {
   return new Promise(async function (resolve, reject) {
@@ -31,7 +31,7 @@ exports.getHttpServerApplicationName = function (url) {
  * Returns application purpose
  *
  * uuid String 
- * returns inline_response_200_32
+ * returns inline_response_200_26
  **/
 exports.getHttpServerApplicationPurpose = function (url) {
   return new Promise(async function (resolve, reject) {
@@ -57,7 +57,7 @@ exports.getHttpServerApplicationPurpose = function (url) {
  * Returns update period
  *
  * uuid String 
- * returns inline_response_200_33
+ * returns inline_response_200_27
  **/
 exports.getHttpServerDataUpdatePeriode = function (url) {
   return new Promise(async function (resolve, reject) {
@@ -83,7 +83,7 @@ exports.getHttpServerDataUpdatePeriode = function (url) {
  * Returns owner email address
  *
  * uuid String 
- * returns inline_response_200_35
+ * returns inline_response_200_29
  **/
 exports.getHttpServerOwnerEmailAddress = function (url) {
   return new Promise(async function (resolve, reject) {
@@ -109,7 +109,7 @@ exports.getHttpServerOwnerEmailAddress = function (url) {
  * Returns owner name
  *
  * uuid String 
- * returns inline_response_200_34
+ * returns inline_response_200_28
  **/
 exports.getHttpServerOwnerName = function (url) {
   return new Promise(async function (resolve, reject) {
@@ -135,7 +135,7 @@ exports.getHttpServerOwnerName = function (url) {
  * Returns list of releases
  *
  * uuid String 
- * returns inline_response_200_36
+ * returns inline_response_200_30
  **/
 exports.getHttpServerReleaseList = function (url) {
   return new Promise(async function (resolve, reject) {
@@ -161,7 +161,7 @@ exports.getHttpServerReleaseList = function (url) {
  * Returns release number
  *
  * uuid String 
- * returns inline_response_200_31
+ * returns inline_response_200_25
  **/
 exports.getHttpServerReleaseNumber = function (url) {
   return new Promise(async function (resolve, reject) {
