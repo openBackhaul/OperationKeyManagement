@@ -417,7 +417,7 @@ async function PromptForBequeathingDataCausesRObeingRequestedToStopNotifications
           let requestBody = {};
           requestBody.subscriberApplication = applicationName;
           requestBody.subscriberReleaseNumber = releaseNumber;
-          requestBody.subscription = subscriptionName;
+          requestBody.subscription = subscriptionName.toString();
           requestBody = onfAttributeFormatter.modifyJsonObjectKeysToKebabCase(requestBody);
           result = await forwardRequest(
             forwardingKindNameOfTheBequeathOperation,
