@@ -398,8 +398,8 @@ async function PromptForBequeathingDataCausesRObeingRequestedToStopNotifications
       let listOfOperationToBeUnsubscribed = [];
       let approvalOperationName = await operationClientInterface.getOperationNameAsync(operationClientUuidOfApprovalOperation);
       let deregistrationOperationName = await operationClientInterface.getOperationNameAsync(operationClientUuidOfWithdrawnApprovalOperation);
-      listOfOperationToBeUnsubscribed.push((approvalOperationName)[0]);
-      listOfOperationToBeUnsubscribed.push((deregistrationOperationName)[0]);
+      listOfOperationToBeUnsubscribed.push(approvalOperationName);
+      listOfOperationToBeUnsubscribed.push(deregistrationOperationName);
       /***********************************************************************************
        * Preparing requestBody 
        ************************************************************************************/
