@@ -17,6 +17,7 @@ const OperationClientInterface = require('onf-core-model-ap/applicationPattern/o
 const eventDispatcher = require('onf-core-model-ap/applicationPattern/rest/client/eventDispatcher');
 const ltpClientConstants = require('../../utils/ltpClientConstants');
 const onfModelUtils = require("../../utils/OnfModelUtils");
+const forwardingNamePromptForBequeathingDataCausesTransferOfListOfApplications = "PromptForBequeathingDataCausesTransferOfListOfApplications"
 
 
 /**
@@ -203,7 +204,7 @@ async function PromptForBequeathingDataCausesRObeingRequestedToNotifyApprovalsOf
        ************************************************************************************/
       try {
 
-        let uuid = await getHttpClientAndTcpClientUuid();
+        let uuid = await getHttpClientAndTcpClientUuid(forwardingNamePromptForBequeathingDataCausesTransferOfListOfApplications);
 
         let applicationName = await httpClientInterface.getApplicationNameAsync(uuid.httpClientUuid);
         let releaseNumber = await httpClientInterface.getReleaseNumberAsync(uuid.httpClientUuid);
@@ -267,7 +268,7 @@ async function PromptForBequeathingDataCausesRObeingRequestedToNotifyWithdrawnAp
        ************************************************************************************/
       try {
 
-        let uuid = await getHttpClientAndTcpClientUuid();
+        let uuid = await getHttpClientAndTcpClientUuid(forwardingNamePromptForBequeathingDataCausesTransferOfListOfApplications);
 
         let applicationName = await httpServerInterface.getApplicationNameAsync();
         let releaseNumber = await httpClientInterface.getReleaseNumberAsync(uuid.httpClientUuid);
@@ -331,7 +332,7 @@ async function PromptForBequeathingDataCausesALTbeingRequestedToNotifyLinkUpdate
        ************************************************************************************/
       try {
 
-        let uuid = await getHttpClientAndTcpClientUuid();
+        let uuid = await getHttpClientAndTcpClientUuid(forwardingNamePromptForBequeathingDataCausesTransferOfListOfApplications);
 
         let applicationName = await httpServerInterface.getApplicationNameAsync();
         let releaseNumber = await httpClientInterface.getReleaseNumberAsync(uuid.httpClientUuid);
@@ -689,15 +690,15 @@ function forwardRequest(forwardingKindName, attributeList, user, xCorrelator, tr
  * 
  * return {object} uuid
  **/
-var getHttpClientAndTcpClientUuid = exports.getHttpClientAndTcpClientUuid = function getHttpClientAndTcpClientUuid() {
+var getHttpClientAndTcpClientUuid = exports.getHttpClientAndTcpClientUuid = function getHttpClientAndTcpClientUuid(forwardingName) {
   return new Promise(async function (resolve, reject) {
     try {
       let uuidList = {};
-      let forwardingName = "PromptForBequeathingDataCausesTransferOfListOfApplications"
       let operationClientUuid = (await onfModelUtils.getFcPortOutputDirectionLogicalTerminationPointListForForwardingName(forwardingName))[0];
       let httpClientUuid = (await logicalTerminationPoint.getServerLtpListAsync(operationClientUuid))[0];
       let tcpClientUuid = (await logicalTerminationPoint.getServerLtpListAsync(httpClientUuid))[0];
-      uuidList = { httpClientUuid, tcpClientUuid }
+      let applicationName = await httpClientInterface.getApplicationNameAsync(httpClientUuid)
+      uuidList = { httpClientUuid, tcpClientUuid, "application-name":applicationName }
       resolve(uuidList);
     } catch (error) {
       reject(error);

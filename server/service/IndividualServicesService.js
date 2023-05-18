@@ -62,12 +62,15 @@ exports.bequeathYourDataAndDie = async function (body, user, originator, xCorrel
       let protocol = body["new-application-protocol"];
       let port = body["new-application-port"];
 
-
+      const oldReleaseLtpDetails = await softwareUpgrade.getHttpClientAndTcpClientUuid('PromptForEmbeddingCausesRequestForBequeathingData');
+      if(oldReleaseLtpDetails['application-name'] === "OldRelease"){
+        throw new Error(`/v1/bequeath-your-data-and-die could not be addressed as the client application name is still OldRelease`)
+      }
       /****************************************************************************************
        * Updating the New Release application details
        ****************************************************************************************/
 
-      let uuid = await softwareUpgrade.getHttpClientAndTcpClientUuid();
+      let uuid = await softwareUpgrade.getHttpClientAndTcpClientUuid("PromptForBequeathingDataCausesTransferOfListOfApplications");
       let isUpdated = {};
       let currentNewReleaseApplicationName = await httpClientInterface.getApplicationNameAsync(uuid.httpClientUuid);
       let currentNewReleaseNumber = await httpClientInterface.getReleaseNumberAsync(uuid.httpClientUuid);
