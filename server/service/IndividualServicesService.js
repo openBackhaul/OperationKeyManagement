@@ -89,17 +89,7 @@ exports.bequeathYourDataAndDie = async function (body, user, originator, xCorrel
       if (protocol != currentNewReleaseRemoteProtocol) {
         isUpdated.protocol = await tcpClientInterface.setRemoteProtocolAsync(uuid.tcpClientUuid, protocol);
       }
-      /****************************************************************************************
-       * Check if data transfer is required
-       *****************************************************************************************/
-      let isDataTransferRequired = true;
-      let serverAddress = await tcpServerInterface.getLocalAddressOfTheProtocol(protocol);
-      let serverPort = await tcpServerInterface.getLocalPortOfTheProtocol(protocol);
-
-      if (JSON.stringify(address) == JSON.stringify(serverAddress) && port === serverPort) {
-        isDataTransferRequired = false;
-      }
-
+      
       /****************************************************************************************
        * Updating the Configuration Status based on the application information updated
        *****************************************************************************************/
