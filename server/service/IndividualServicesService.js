@@ -66,7 +66,7 @@ exports.bequeathYourDataAndDie = async function (body, user, originator, xCorrel
       /****************************************************************************************
        * Updating the New Release application details
        ****************************************************************************************/
-
+      let isDataTransferRequired = true; 
       let uuid = await softwareUpgrade.getHttpClientAndTcpClientUuid();
       let isUpdated = {};
       let currentNewReleaseApplicationName = await httpClientInterface.getApplicationNameAsync(uuid.httpClientUuid);
