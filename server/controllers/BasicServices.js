@@ -341,7 +341,11 @@ module.exports.updateOperationKey = async function updateOperationKey(req, res, 
       })
       .catch(async function (responseBody) {
         responseBodyToDocument = responseBody;
+        if(responseBody== "OperationClientUuidisnotPresent"|| responseBody == "OperationServerUuidisnotPresent"){
+          responseCode = responseCodeEnum.code.BAD_REQUEST;
+        }else{
         responseCode = responseCodeEnum.code.INTERNAL_SERVER_ERROR;
+        }
         let responseHeader = await restResponseHeader.createResponseHeader(xCorrelator, startTime, req.url);
         restResponseBuilder.buildResponse(res, responseCode, responseBody, responseHeader);
       });
