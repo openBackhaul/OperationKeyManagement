@@ -11,14 +11,10 @@ const forwardingConfigurationService = require('onf-core-model-ap/applicationPat
 const LogicalTerminationPoint = require('onf-core-model-ap/applicationPattern/onfModel/models/LogicalTerminationPoint');
 const tcpClientInterface = require('onf-core-model-ap/applicationPattern/onfModel/models/layerProtocols/TcpClientInterface');
 const httpClientInterface = require('onf-core-model-ap/applicationPattern/onfModel/models/layerProtocols/HttpClientInterface');
-const tcpServerInterface = require('onf-core-model-ap/applicationPattern/onfModel/models/layerProtocols/TcpServerInterface');
-const httpServerInterface = require('onf-core-model-ap/applicationPattern/onfModel/models/layerProtocols/HttpServerInterface');
-const operationServerInterface = require('onf-core-model-ap/applicationPattern/onfModel/models/layerProtocols/OperationServerInterface');
 const operationClientInterface = require('onf-core-model-ap/applicationPattern/onfModel/models/layerProtocols/OperationClientInterface');
 const onfAttributeFormatter = require('onf-core-model-ap/applicationPattern/onfModel/utility/OnfAttributeFormatter');
 const ConfigurationStatus = require('onf-core-model-ap/applicationPattern/onfModel/services/models/ConfigurationStatus');
 const LogicalTerminationPointConfigurationStatus = require('onf-core-model-ap/applicationPattern/onfModel/services/models/logicalTerminationPoint/ConfigurationStatus');
-
 
 const prepareForwardingAutomation = require('./individualServices/PrepareForwardingAutomation');
 const individualServicesOperationsMapping = require('./individualServices/individualServicesOperationsMapping');
@@ -28,8 +24,6 @@ const stringProfileService = require('./StringProfileService');
 const HttpClient = require('../utils/HttpClient');
 const crypto = require('crypto');
 
-const ltpClientConstants = require('../utils/ltpClientConstants');
-const ltpServerConstants = require('../utils/ltpServerConstants');
 const onfModelUtils = require("../utils/OnfModelUtils");
 
 
@@ -66,7 +60,6 @@ exports.bequeathYourDataAndDie = async function (body, user, originator, xCorrel
       /****************************************************************************************
        * Updating the New Release application details
        ****************************************************************************************/
-      let isDataTransferRequired = true; 
       let uuid = await softwareUpgrade.getHttpClientAndTcpClientUuid();
       let isUpdated = {};
       let currentNewReleaseApplicationName = await httpClientInterface.getApplicationNameAsync(uuid.httpClientUuid);
@@ -134,7 +127,7 @@ exports.bequeathYourDataAndDie = async function (body, user, originator, xCorrel
         customerJourney
       );
 
-      softwareUpgrade.upgradeSoftwareVersion(isDataTransferRequired, user, xCorrelator, traceIndicator, customerJourney)
+      softwareUpgrade.upgradeSoftwareVersion(user, xCorrelator, traceIndicator, customerJourney, forwardingAutomationInputList.length)
         .catch(err => console.log(`upgradeSoftwareVersion failed with error: ${err}`));
       resolve();
     } catch (error) {
