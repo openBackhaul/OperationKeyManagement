@@ -12,8 +12,8 @@ module.exports.getTcpClientRemoteAddress = async function getTcpClientRemoteAddr
       responseBuilder.buildResponse(res, responseCode, response);
     })
     .catch(function (response) {
-      responseCode = responseCodeEnum.code.INTERNAL_SERVER_ERROR;
-      responseBuilder.buildResponse(res, responseCode, response);
+      let sentResp = responseBuilder.buildResponse(res, undefined, response);
+      responseCode = sentResp.code;
     });
   oamLogService.recordOamRequest(req.url, req.body, responseCode, req.headers.authorization, req.method);
 };
@@ -26,8 +26,8 @@ module.exports.getTcpClientRemotePort = async function getTcpClientRemotePort(re
       responseBuilder.buildResponse(res, responseCode, response);
     })
     .catch(function (response) {
-      responseCode = responseCodeEnum.code.INTERNAL_SERVER_ERROR;
-      responseBuilder.buildResponse(res, responseCode, response);
+      let sentResp = responseBuilder.buildResponse(res, undefined, response);
+      responseCode = sentResp.code;
     });
   oamLogService.recordOamRequest(req.url, req.body, responseCode, req.headers.authorization, req.method);
 };
@@ -39,8 +39,8 @@ module.exports.getTcpClientRemoteProtocol = async function getTcpClientRemotePro
       responseBuilder.buildResponse(res, responseCode, response);
     })
     .catch(function (response) {
-      responseCode = responseCodeEnum.code.INTERNAL_SERVER_ERROR;
-      responseBuilder.buildResponse(res, responseCode, response);
+      let sentResp = responseBuilder.buildResponse(res, undefined, response);
+      responseCode = sentResp.code;
     });
   oamLogService.recordOamRequest(req.url, req.body, responseCode, req.headers.authorization, req.method);
 };
@@ -52,8 +52,8 @@ module.exports.putTcpClientRemoteAddress = async function putTcpClientRemoteAddr
       responseBuilder.buildResponse(res, responseCode, response);
     })
     .catch(function (response) {
-      responseCode = responseCodeEnum.code.INTERNAL_SERVER_ERROR;
-      responseBuilder.buildResponse(res, responseCode, response);
+      let sentResp = responseBuilder.buildResponse(res, undefined, response);
+      responseCode = sentResp.code;
     });
   oamLogService.recordOamRequest(req.url, req.body, responseCode, req.headers.authorization, req.method);
 };
@@ -65,8 +65,8 @@ module.exports.putTcpClientRemotePort = async function putTcpClientRemotePort(re
       responseBuilder.buildResponse(res, responseCode, response);
     })
     .catch(function (response) {
-      responseCode = responseCodeEnum.code.INTERNAL_SERVER_ERROR;
-      responseBuilder.buildResponse(res, responseCode, response);
+      let sentResp = responseBuilder.buildResponse(res, undefined, response);
+      responseCode = sentResp.code;
     });
   oamLogService.recordOamRequest(req.url, req.body, responseCode, req.headers.authorization, req.method);
 };
@@ -78,8 +78,8 @@ module.exports.putTcpClientRemoteProtocol = async function putTcpClientRemotePro
       responseBuilder.buildResponse(res, responseCode, response);
     })
     .catch(function (response) {
-      responseCode = responseCodeEnum.code.INTERNAL_SERVER_ERROR;
-      responseBuilder.buildResponse(res, responseCode, response);
+      let sentResp = responseBuilder.buildResponse(res, undefined, response);
+      responseCode = sentResp.code;
     });
   oamLogService.recordOamRequest(req.url, req.body, responseCode, req.headers.authorization, req.method);
 };
