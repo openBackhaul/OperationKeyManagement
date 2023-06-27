@@ -7,157 +7,104 @@ const restResponseBuilder = require('onf-core-model-ap/applicationPattern/rest/s
 const executionAndTraceService = require('onf-core-model-ap/applicationPattern/services/ExecutionAndTraceService');
 
 module.exports.bequeathYourDataAndDie = async function bequeathYourDataAndDie(req, res, next, body, user, originator, xCorrelator, traceIndicator, customerJourney) {
-  const startTime = process.hrtime();
-  let responseCode;
-  let responseBody;
   try {
-    responseCode = responseCodeEnum.code.NO_CONTENT;
-    responseBody = await IndividualServices.bequeathYourDataAndDie(body, user, originator, xCorrelator, traceIndicator, customerJourney, req.url);
-  } catch (error) {
-    if (error == undefined) {
-      error = new Error('unknown error');
-    }
-    console.log(`bequeathYourDataAndDie - failed with error: ${error.message}`)
-    responseCode = responseCodeEnum.code.INTERNAL_SERVER_ERROR;
-    responseBody = {
-      'message': error.message
-    };
-  }
-  let responseHeader;
-  try {
-    responseHeader = await restResponseHeader.createResponseHeader(xCorrelator, startTime, req.url);
-  } catch (error) {
-    if (error == undefined) {
-      error = new Error('unknown error');
-    }
-    console.log(`bequeathYourDataAndDie - create response header failed with error: ${error.message}`)
-  }
-  restResponseBuilder.buildResponse(res, responseCode, responseBody, responseHeader);
-  executionAndTraceService.recordServiceRequest(xCorrelator, traceIndicator, user, originator, req.url, responseCode, req.body, responseBody)
-    .catch((error) => console.log(`bequeathYourDataAndDie - record service request ${JSON.stringify({ xCorrelator, traceIndicator, user, originator, reqUrl: req.url, responseCode, reqBody: req.body, responseBody })} failed with error: ${error.message}`));
+    let startTime = process.hrtime();
+    let responseCode = responseCodeEnum.code.NO_CONTENT;
+    let responseBodyToDocument = {};
+    await IndividualServices.bequeathYourDataAndDie(body, user, originator, xCorrelator, traceIndicator, customerJourney, req.url)
+      .then(async function (responseBody) {
+        responseBodyToDocument = responseBody;
+        let responseHeader = await restResponseHeader.createResponseHeader(xCorrelator, startTime, req.url);
+        restResponseBuilder.buildResponse(res, responseCode, responseBody, responseHeader);
+      })
+      .catch(async function (responseBody) {
+        let responseHeader = await restResponseHeader.createResponseHeader(xCorrelator, startTime, req.url);
+        let sentResp = restResponseBuilder.buildResponse(res, undefined, responseBody, responseHeader);
+        responseCode = sentResp.code;
+        responseBodyToDocument = sentResp.body;
+      });
+    executionAndTraceService.recordServiceRequest(xCorrelator, traceIndicator, user, originator, req.url, responseCode, req.body, responseBodyToDocument);
+  } catch (error) {}
 };
 
 module.exports.disregardApplication = async function disregardApplication(req, res, next, body, user, originator, xCorrelator, traceIndicator, customerJourney) {
-  const startTime = process.hrtime();
-  let responseCode;
-  let responseBody;
-  // TODO check apiKeyAuth in req.headers.authorization
   try {
-    responseCode = responseCodeEnum.code.NO_CONTENT;
-    responseBody = await IndividualServices.disregardApplication(body, user, originator, xCorrelator, traceIndicator, customerJourney, req.url)
-  } catch (error) {
-    if (error == undefined) {
-      error = new Error('unknown error');
-    }
-    console.log(`disregardApplication - disregard application failed with error: ${error.message}`)
-    responseCode = responseCodeEnum.code.INTERNAL_SERVER_ERROR;
-    responseBody = {
-      'message': error.message
-    };
-  }
-  let responseHeader;
-  try {
-    responseHeader = await restResponseHeader.createResponseHeader(xCorrelator, startTime, req.url);
-  } catch (error) {
-    if (error == undefined) {
-      error = new Error('unknown error');
-    }
-    console.log(`disregardApplication - create response header failed with error: ${error.message}`)
-  }
-  restResponseBuilder.buildResponse(res, responseCode, responseBody, responseHeader);
-  executionAndTraceService.recordServiceRequest(xCorrelator, traceIndicator, user, originator, req.url, responseCode, req.body, responseBody)
-    .catch((error) => console.log(`disregardApplication - record service request ${JSON.stringify({ xCorrelator, traceIndicator, user, originator, reqUrl: req.url, responseCode, reqBody: req.body, responseBody })} failed with error: ${error.message}`));
+      let startTime = process.hrtime();
+      let responseCode = responseCodeEnum.code.NO_CONTENT;
+      let responseBodyToDocument = {};
+      await IndividualServices.disregardApplication(body, user, originator, xCorrelator, traceIndicator, customerJourney, req.url)
+        .then(async function (responseBody) {
+          responseBodyToDocument = responseBody;
+          let responseHeader = await restResponseHeader.createResponseHeader(xCorrelator, startTime, req.url);
+          restResponseBuilder.buildResponse(res, responseCode, responseBody, responseHeader);
+        })
+        .catch(async function (responseBody) {
+          let responseHeader = await restResponseHeader.createResponseHeader(xCorrelator, startTime, req.url);
+          let sentResp = restResponseBuilder.buildResponse(res, undefined, responseBody, responseHeader);
+          responseCode = sentResp.code;
+          responseBodyToDocument = sentResp.body;
+        });
+      executionAndTraceService.recordServiceRequest(xCorrelator, traceIndicator, user, originator, req.url, responseCode, req.body, responseBodyToDocument);
+    } catch (error) {}
 };
 
 module.exports.listApplications = async function listApplications(req, res, next, user, originator, xCorrelator, traceIndicator, customerJourney) {
-  const startTime = process.hrtime();
-  let responseCode;
-  let responseBody;
   try {
-    responseCode = responseCodeEnum.code.OK;
-    responseBody = await IndividualServices.listApplications(user, originator, xCorrelator, traceIndicator, customerJourney);
-  } catch (error) {
-    if (error == undefined) {
-      error = new Error('unknown error');
-    }
-    console.log(`listApplications - list applications failed with error: ${error.message}`)
-    responseCode = responseCodeEnum.code.INTERNAL_SERVER_ERROR;
-    responseBody = {
-      'message': error.message
-    };
-  }
-  let responseHeader;
-  try {
-    responseHeader = await restResponseHeader.createResponseHeader(xCorrelator, startTime, req.url);
-  } catch (error) {
-    if (error == undefined) {
-      error = new Error('unknown error');
-    }
-    console.log(`listApplications - create response header failed with error: ${error.message}`)
-  }
-  restResponseBuilder.buildResponse(res, responseCode, responseBody, responseHeader);
-  executionAndTraceService.recordServiceRequest(xCorrelator, traceIndicator, user, originator, req.url, responseCode, req.body, responseBody)
-    .catch((error) => console.log(`listApplications - record service request ${JSON.stringify({ xCorrelator, traceIndicator, user, originator, reqUrl: req.url, responseCode, reqBody: req.body, responseBody })} failed with error: ${error.message}`));
+      let startTime = process.hrtime();
+      let responseCode = responseCodeEnum.code.OK;
+      let responseBodyToDocument = {};
+      await IndividualServices.listApplications(user, originator, xCorrelator, traceIndicator, customerJourney)
+        .then(async function (responseBody) {
+          responseBodyToDocument = responseBody;
+          let responseHeader = await restResponseHeader.createResponseHeader(xCorrelator, startTime, req.url);
+          restResponseBuilder.buildResponse(res, responseCode, responseBody, responseHeader);
+        })
+        .catch(async function (responseBody) {
+          let responseHeader = await restResponseHeader.createResponseHeader(xCorrelator, startTime, req.url);
+          let sentResp = restResponseBuilder.buildResponse(res, undefined, responseBody, responseHeader);
+          responseCode = sentResp.code;
+          responseBodyToDocument = sentResp.body;
+        });
+      executionAndTraceService.recordServiceRequest(xCorrelator, traceIndicator, user, originator, req.url, responseCode, req.body, responseBodyToDocument);
+    } catch (error) {}
 };
 
 module.exports.regardApplication = async function regardApplication(req, res, next, body, user, originator, xCorrelator, traceIndicator, customerJourney) {
-  const startTime = process.hrtime();
-  let responseCode;
-  let responseBody;
   try {
-    responseCode = responseCodeEnum.code.NO_CONTENT;
-    responseBody = await IndividualServices.regardApplication(body, user, originator, xCorrelator, traceIndicator, customerJourney, req.url);
-  } catch (error) {
-    if (error == undefined) {
-      error = new Error('unknown error');
-    }
-    console.log(`regardApplication - regard application failed with error: ${error.message}`)
-    responseCode = responseCodeEnum.code.INTERNAL_SERVER_ERROR;
-    responseBody = {
-      'message': error.message
-    };
-  }
-  let responseHeader;
-  try {
-    responseHeader = await restResponseHeader.createResponseHeader(xCorrelator, startTime, req.url);
-  } catch (error) {
-    if (error == undefined) {
-      error = new Error('unknown error');
-    }
-    console.log(`regardApplication - create response header failed with error: ${error.message}`)
-  }
-  restResponseBuilder.buildResponse(res, responseCode, responseBody, responseHeader);
-  executionAndTraceService.recordServiceRequest(xCorrelator, traceIndicator, user, originator, req.url, responseCode, req.body, responseBody)
-    .catch((error) => console.log(`regardApplication - record service request ${JSON.stringify({ xCorrelator, traceIndicator, user, originator, reqUrl: req.url, responseCode, reqBody: req.body, responseBody })} failed with error: ${error.message}`));
+      let startTime = process.hrtime();
+      let responseCode = responseCodeEnum.code.NO_CONTENT;
+      let responseBodyToDocument = undefined;
+      await IndividualServices.regardApplication(body, user, originator, xCorrelator, traceIndicator, customerJourney, req.url)
+        .then(async function (responseBody) {
+          let responseHeader = await restResponseHeader.createResponseHeader(xCorrelator, startTime, req.url, responseBody.took);
+          restResponseBuilder.buildResponse(res, responseCode, responseBodyToDocument, responseHeader);
+        })
+        .catch(async function (responseBody) {
+          let responseHeader = await restResponseHeader.createResponseHeader(xCorrelator, startTime, req.url);
+          let sentResp = restResponseBuilder.buildResponse(res, undefined, responseBody, responseHeader);
+          responseCode = sentResp.code;
+          responseBodyToDocument = sentResp.body;
+        });
+      executionAndTraceService.recordServiceRequest(xCorrelator, traceIndicator, user, originator, req.url, responseCode, req.body, responseBodyToDocument);
+    } catch (error) {}
 };
 
 module.exports.regardUpdatedLink = async function regardUpdatedLink(req, res, next, body, user, originator, xCorrelator, traceIndicator, customerJourney) {
-  const startTime = process.hrtime();
-  let responseCode;
-  let responseBody;
   try {
-    responseCode = responseCodeEnum.code.NO_CONTENT;
-    responseBody = await IndividualServices.regardUpdatedLink(body, user, originator, xCorrelator, traceIndicator, customerJourney)
-  } catch (error) {
-    if (error == undefined) {
-      error = new Error('unknown error');
-    }
-    console.log(`regardUpdatedLink - regard updated link failed with error: ${error.message}`)
-    responseCode = responseCodeEnum.code.INTERNAL_SERVER_ERROR;
-    responseBody = {
-      'message': error.message
-    };
-  }
-  let responseHeader;
-  try {
-    responseHeader = await restResponseHeader.createResponseHeader(xCorrelator, startTime, req.url);
-  } catch (error) {
-    if (error == undefined) {
-      error = new Error('unknown error');
-    }
-    console.log(`regardUpdatedLink - create response header failed with error: ${error.message}`)
-  }
-  restResponseBuilder.buildResponse(res, responseCode, responseBody, responseHeader);
-  executionAndTraceService.recordServiceRequest(xCorrelator, traceIndicator, user, originator, req.url, responseCode, req.body, responseBody)
-    .catch((error) => console.log(`regardUpdatedLink - record service request ${JSON.stringify({ xCorrelator, traceIndicator, user, originator, reqUrl: req.url, responseCode, reqBody: req.body, responseBody })} failed with error: ${error.message}`));
+    let startTime = process.hrtime();
+    let responseCode = responseCodeEnum.code.NO_CONTENT;
+    let responseBodyToDocument = undefined;
+    await IndividualServices.regardUpdatedLink(body, user, originator, xCorrelator, traceIndicator, customerJourney)
+      .then(async function (responseBody) {
+        let responseHeader = await restResponseHeader.createResponseHeader(xCorrelator, startTime, req.url, responseBody.took);
+        restResponseBuilder.buildResponse(res, responseCode, responseBodyToDocument, responseHeader);
+      })
+      .catch(async function (responseBody) {
+        let responseHeader = await restResponseHeader.createResponseHeader(xCorrelator, startTime, req.url);
+        let sentResp = restResponseBuilder.buildResponse(res, undefined, responseBody, responseHeader);
+        responseCode = sentResp.code;
+        responseBodyToDocument = sentResp.body;
+      });
+    executionAndTraceService.recordServiceRequest(xCorrelator, traceIndicator, user, originator, req.url, responseCode, req.body, responseBodyToDocument);
+  } catch (error) {}
 };

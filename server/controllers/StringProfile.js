@@ -12,8 +12,8 @@ module.exports.getStringProfileEnumeration = async function getStringProfileEnum
       responseBuilder.buildResponse(res, responseCode, response);
     })
     .catch(function (response) {
-      responseCode = responseCodeEnum.code.INTERNAL_SERVER_ERROR;
-      responseBuilder.buildResponse(res, responseCode, response);
+      let sentResp = responseBuilder.buildResponse(res, undefined, response);
+      responseCode = sentResp.code;
     });
   oamLogService.recordOamRequest(req.url, req.body, responseCode, req.headers.authorization, req.method);
 };
@@ -25,8 +25,8 @@ module.exports.getStringProfilePattern = async function getStringProfilePattern(
       responseBuilder.buildResponse(res, responseCode, response);
     })
     .catch(function (response) {
-      responseCode = responseCodeEnum.code.INTERNAL_SERVER_ERROR;
-      responseBuilder.buildResponse(res, responseCode, response);
+      let sentResp = responseBuilder.buildResponse(res, undefined, response);
+      responseCode = sentResp.code;
     });
   oamLogService.recordOamRequest(req.url, req.body, responseCode, req.headers.authorization, req.method);
 };
@@ -38,8 +38,8 @@ module.exports.getStringProfileStringName = async function getStringProfileStrin
       responseBuilder.buildResponse(res, responseCode, response);
     })
     .catch(function (response) {
-      responseCode = responseCodeEnum.code.INTERNAL_SERVER_ERROR;
-      responseBuilder.buildResponse(res, responseCode, response);
+      let sentResp = responseBuilder.buildResponse(res, undefined, response);
+      responseCode = sentResp.code;
     });
   oamLogService.recordOamRequest(req.url, req.body, responseCode, req.headers.authorization, req.method);
 };
@@ -51,8 +51,8 @@ module.exports.getStringProfileStringValue = async function getStringProfileStri
       responseBuilder.buildResponse(res, responseCode, response);
     })
     .catch(function (response) {
-      responseCode = responseCodeEnum.code.INTERNAL_SERVER_ERROR;
-      responseBuilder.buildResponse(res, responseCode, response);
+      let sentResp = responseBuilder.buildResponse(res, undefined, response);
+      responseCode = sentResp.code;
     });
   oamLogService.recordOamRequest(req.url, req.body, responseCode, req.headers.authorization, req.method);
 };
@@ -64,8 +64,8 @@ module.exports.putStringProfileStringValue = async function putStringProfileStri
       responseBuilder.buildResponse(res, responseCode, response);
     })
     .catch(function (response) {
-      responseCode = responseCodeEnum.code.INTERNAL_SERVER_ERROR;
-      responseBuilder.buildResponse(res, responseCode, response);
+      let sentResp = responseBuilder.buildResponse(res, undefined, response);
+      responseCode = sentResp.code;
     });
   oamLogService.recordOamRequest(req.url, req.body, responseCode, req.headers.authorization, req.method);
 };
