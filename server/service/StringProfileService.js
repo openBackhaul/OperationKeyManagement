@@ -7,6 +7,7 @@ const individualServicesService = require('./IndividualServicesService');
 const ProfileCollection = require('onf-core-model-ap/applicationPattern/onfModel/models/ProfileCollection');
 const Profile = require('onf-core-model-ap/applicationPattern/onfModel/models/Profile');
 const onfAttributes = require('onf-core-model-ap/applicationPattern/onfModel/constants/OnfAttributes');
+const createHttpError = require('http-errors');
 
 /**
  * Returns the enumeration values of the String
@@ -99,5 +100,5 @@ exports.getOperationModeProfileStringValue = async function () {
       return configuration[onfAttributes.STRING_PROFILE.STRING_VALUE];
     }
   }
-  throw new Error("OperationMode String profile not found.");
+  throw new createHttpError.InternalServerError("OperationMode String profile not found.");
 }
