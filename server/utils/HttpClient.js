@@ -5,6 +5,7 @@ const axios = require('axios');
 const crypto = require('crypto');
 const operationClientInterface = require('onf-core-model-ap/applicationPattern/onfModel/models/layerProtocols/OperationClientInterface');
 const httpServerInterface = require('onf-core-model-ap/applicationPattern/onfModel/models/layerProtocols/HttpServerInterface');
+const createHttpError = require('http-errors');
 
 axios.defaults.headers = {};
 
@@ -55,11 +56,11 @@ module.exports = class HttpClient {
   async executeOperation(operationUuid, body, timeout = 5000) {
     const ipAndPort = await operationClientInterface.getTcpClientConnectionInfoAsync(operationUuid);
     if (ipAndPort == undefined) {
-      throw new Error(`Cannot resolve IP and port for invocation of service with UUID ${operationUuid}`);
+      throw new createHttpError.InternalServerError(`Cannot resolve IP and port for invocation of service with UUID ${operationUuid}`);
     }
     const operationName = await operationClientInterface.getOperationNameAsync(operationUuid);
     if (operationName == undefined) {
-      throw new Error(`Cannot resolve operation name for invocation of service with UUID ${operationUuid}`);
+      throw new createHttpError.InternalServerError(`Cannot resolve operation name for invocation of service with UUID ${operationUuid}`);
     }
 
     const operationKey = await operationClientInterface.getOperationKeyAsync(operationUuid);
