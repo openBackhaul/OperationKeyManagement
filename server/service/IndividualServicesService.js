@@ -31,7 +31,7 @@ const FC_CYCLIC_OPERATION_CAUSES_OPERATION_KEY_UPDATES = 'CyclicOperationCausesO
 const FC_LINK_UPDATE_NOTIFICATION_CAUSES_OPERATION_KEY_UPDATES = 'LinkUpdateNotificationCausesOperationKeyUpdates';
 const UPDATE_OPERATION_KEY_OPERATION = '/v1/update-operation-key'
 const DEFAULT_OPERATION_KEY = 'Operation key not yet provided.';
-const NEW_RELEASE_FORWARDING_NAME = 'PromptForBequeathingDataCausesTransferOfListOfApplications'
+const NEW_RELEASE_FORWARDING_NAME = 'PromptForBequeathingDataCausesTransferOfListOfApplications';
 
 
 /**
