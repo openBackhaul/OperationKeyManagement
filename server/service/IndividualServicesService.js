@@ -31,6 +31,8 @@ const FC_CYCLIC_OPERATION_CAUSES_OPERATION_KEY_UPDATES = 'CyclicOperationCausesO
 const FC_LINK_UPDATE_NOTIFICATION_CAUSES_OPERATION_KEY_UPDATES = 'LinkUpdateNotificationCausesOperationKeyUpdates';
 const UPDATE_OPERATION_KEY_OPERATION = '/v1/update-operation-key'
 const DEFAULT_OPERATION_KEY = 'Operation key not yet provided.';
+const NEW_RELEASE_FORWARDING_NAME = 'PromptForBequeathingDataCausesTransferOfListOfApplications'
+
 
 /**
  * Initiates process of embedding a new release
@@ -160,7 +162,7 @@ exports.disregardApplication = async function (body, user, originator, xCorrelat
 
   const operationClientUuid = await operationClientInterface.getOperationClientUuidAsync(httpClientUuid, UPDATE_OPERATION_KEY_OPERATION);
 
-  const logicalTerminationPointConfigurationStatus = await logicalTerminationPointService.deleteApplicationInformationAsync(appName, appReleaseNumber);
+  const logicalTerminationPointConfigurationStatus = await logicalTerminationPointService.deleteApplicationInformationAsync(appName, appReleaseNumber, NEW_RELEASE_FORWARDING_NAME);
 
   const cyclicOperationInput = new ForwardingConstructConfigurationInput(FC_CYCLIC_OPERATION_CAUSES_OPERATION_KEY_UPDATES, operationClientUuid);
   const linkUpdateNotificationInput = new ForwardingConstructConfigurationInput(FC_LINK_UPDATE_NOTIFICATION_CAUSES_OPERATION_KEY_UPDATES, operationClientUuid);
@@ -257,7 +259,7 @@ exports.regardApplication = async function (body, user, originator, xCorrelator,
     operationNamesByAttributes,
     operationsMapping
   );
-  const logicalTerminationPointConfigurationStatus = await logicalTerminationPointService.findOrCreateApplicationInformationAsync(logicalTerminatinPointConfigurationInput);
+  const logicalTerminationPointConfigurationStatus = await logicalTerminationPointService.findOrCreateApplicationInformationAsync(logicalTerminatinPointConfigurationInput, NEW_RELEASE_FORWARDING_NAME);
 
   const operationClientUuid = logicalTerminationPointConfigurationStatus.operationClientConfigurationStatusList[0].uuid;
   const cyclicOperationInput = new ForwardingConstructConfigurationInput(FC_CYCLIC_OPERATION_CAUSES_OPERATION_KEY_UPDATES, operationClientUuid);
