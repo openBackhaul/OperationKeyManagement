@@ -22525,7 +22525,7 @@ components:
                       string-name:
                         type: string
                       enumeration:
-                        type: string
+                        type: array
                       pattern:
                         type: string
                   string-profile-configuration:
