@@ -1,13 +1,13 @@
 'use strict';
 
-var HttpServer = require('../service/HttpServerService');
+var ActionProfile = require('../service/ActionProfileService');
 var responseBuilder = require('onf-core-model-ap/applicationPattern/rest/server/ResponseBuilder');
 var responseCodeEnum = require('onf-core-model-ap/applicationPattern/rest/server/ResponseCode');
 var oamLogService = require('onf-core-model-ap/applicationPattern/services/OamLogService');
 
-module.exports.getHttpServerApplicationName = async function getHttpServerApplicationName(req, res, next, uuid) {
+module.exports.getActionProfileConsequentOperationReference = async function getActionProfileConsequentOperationReference(req, res, next, uuid) {
   let responseCode = responseCodeEnum.code.OK;
-  await HttpServer.getHttpServerApplicationName(req.url)
+  await ActionProfile.getActionProfileConsequentOperationReference(req.url)
     .then(function (response) {
       responseBuilder.buildResponse(res, responseCode, response);
     })
@@ -18,9 +18,9 @@ module.exports.getHttpServerApplicationName = async function getHttpServerApplic
   oamLogService.recordOamRequest(req.url, req.body, responseCode, req.headers.authorization, req.method);
 };
 
-module.exports.getHttpServerApplicationPurpose = async function getHttpServerApplicationPurpose(req, res, next, uuid) {
+module.exports.getActionProfileDisplayInNewBrowserWindow = async function getActionProfileDisplayInNewBrowserWindow(req, res, next, uuid) {
   let responseCode = responseCodeEnum.code.OK;
-  await HttpServer.getHttpServerApplicationPurpose(req.url)
+  await ActionProfile.getActionProfileDisplayInNewBrowserWindow(req.url)
     .then(function (response) {
       responseBuilder.buildResponse(res, responseCode, response);
     })
@@ -31,9 +31,9 @@ module.exports.getHttpServerApplicationPurpose = async function getHttpServerApp
   oamLogService.recordOamRequest(req.url, req.body, responseCode, req.headers.authorization, req.method);
 };
 
-module.exports.getHttpServerDataUpdatePeriode = async function getHttpServerDataUpdatePeriode(req, res, next, uuid) {
+module.exports.getActionProfileInputValueListt = async function getActionProfileInputValueListt(req, res, next, uuid) {
   let responseCode = responseCodeEnum.code.OK;
-  await HttpServer.getHttpServerDataUpdatePeriode(req.url)
+  await ActionProfile.getActionProfileInputValueListt(req.url)
     .then(function (response) {
       responseBuilder.buildResponse(res, responseCode, response);
     })
@@ -44,9 +44,9 @@ module.exports.getHttpServerDataUpdatePeriode = async function getHttpServerData
   oamLogService.recordOamRequest(req.url, req.body, responseCode, req.headers.authorization, req.method);
 };
 
-module.exports.getHttpServerOwnerEmailAddress = async function getHttpServerOwnerEmailAddress(req, res, next, uuid) {
+module.exports.getActionProfileLabel = async function getActionProfileLabel(req, res, next, uuid) {
   let responseCode = responseCodeEnum.code.OK;
-  await HttpServer.getHttpServerOwnerEmailAddress(req.url)
+  await ActionProfile.getActionProfileLabel(req.url)
     .then(function (response) {
       responseBuilder.buildResponse(res, responseCode, response);
     })
@@ -57,9 +57,9 @@ module.exports.getHttpServerOwnerEmailAddress = async function getHttpServerOwne
   oamLogService.recordOamRequest(req.url, req.body, responseCode, req.headers.authorization, req.method);
 };
 
-module.exports.getHttpServerOwnerName = async function getHttpServerOwnerName(req, res, next, uuid) {
+module.exports.getActionProfileOperationName = async function getActionProfileOperationName(req, res, next, uuid) {
   let responseCode = responseCodeEnum.code.OK;
-  await HttpServer.getHttpServerOwnerName(req.url)
+  await ActionProfile.getActionProfileOperationName(req.url)
     .then(function (response) {
       responseBuilder.buildResponse(res, responseCode, response);
     })
@@ -70,22 +70,9 @@ module.exports.getHttpServerOwnerName = async function getHttpServerOwnerName(re
   oamLogService.recordOamRequest(req.url, req.body, responseCode, req.headers.authorization, req.method);
 };
 
-module.exports.getHttpServerReleaseList = async function getHttpServerReleaseList(req, res, next, uuid) {
-  let responseCode = responseCodeEnum.code.OK;
-  await HttpServer.getHttpServerReleaseList(req.url)
-    .then(function (response) {
-      responseBuilder.buildResponse(res, responseCode, response);
-    })
-    .catch(function (response) {
-      let sentResp = responseBuilder.buildResponse(res, undefined, response);
-      responseCode = sentResp.code;
-    });
-  oamLogService.recordOamRequest(req.url, req.body, responseCode, req.headers.authorization, req.method);
-};
-
-module.exports.getHttpServerReleaseNumber = async function getHttpServerReleaseNumber(req, res, next, uuid) {
-  let responseCode = responseCodeEnum.code.OK;
-  await HttpServer.getHttpServerReleaseNumber(req.url)
+module.exports.putActionProfileConsequentOperationReference = async function putActionProfileConsequentOperationReference(req, res, next, body, uuid) {
+  let responseCode = responseCodeEnum.code.NO_CONTENT;
+  await ActionProfile.putActionProfileConsequentOperationReference(req.url, body)
     .then(function (response) {
       responseBuilder.buildResponse(res, responseCode, response);
     })

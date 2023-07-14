@@ -1,8 +1,8 @@
 // @ts-check
 'use strict';
 
-const LogicalTerminationPointConfigurationInput = require('onf-core-model-ap/applicationPattern/onfModel/services/models/logicalTerminationPoint/ConfigurationInput');
-const logicalTerminationPointService = require('onf-core-model-ap/applicationPattern/onfModel/services/LogicalTerminationPointServices');
+const LogicalTerminationPointConfigurationInput = require('onf-core-model-ap/applicationPattern/onfModel/services/models/logicalTerminationPoint/ConfigurationInputWithMapping');
+const logicalTerminationPointService = require('onf-core-model-ap/applicationPattern/onfModel/services/LogicalTerminationPointWithMappingServices');
 const prepareALTForwardingAutomation = require('onf-core-model-ap-bs/basicServices/services/PrepareALTForwardingAutomation');
 const forwardingAutomationService = require('onf-core-model-ap/applicationPattern/onfModel/services/ForwardingConstructAutomationServices');
 const ForwardingConstructConfigurationInput = require('onf-core-model-ap/applicationPattern/onfModel/services/models/forwardingConstruct/ConfigurationInput');
@@ -11,24 +11,28 @@ const forwardingConfigurationService = require('onf-core-model-ap/applicationPat
 const LogicalTerminationPoint = require('onf-core-model-ap/applicationPattern/onfModel/models/LogicalTerminationPoint');
 const tcpClientInterface = require('onf-core-model-ap/applicationPattern/onfModel/models/layerProtocols/TcpClientInterface');
 const httpClientInterface = require('onf-core-model-ap/applicationPattern/onfModel/models/layerProtocols/HttpClientInterface');
-const tcpServerInterface = require('onf-core-model-ap/applicationPattern/onfModel/models/layerProtocols/TcpServerInterface');
-const httpServerInterface = require('onf-core-model-ap/applicationPattern/onfModel/models/layerProtocols/HttpServerInterface');
-const operationServerInterface = require('onf-core-model-ap/applicationPattern/onfModel/models/layerProtocols/OperationServerInterface');
 const operationClientInterface = require('onf-core-model-ap/applicationPattern/onfModel/models/layerProtocols/OperationClientInterface');
+const onfAttributeFormatter = require('onf-core-model-ap/applicationPattern/onfModel/utility/OnfAttributeFormatter');
+const ConfigurationStatus = require('onf-core-model-ap/applicationPattern/onfModel/services/models/ConfigurationStatus');
+const LogicalTerminationPointConfigurationStatus = require('onf-core-model-ap/applicationPattern/onfModel/services/models/logicalTerminationPoint/ConfigurationStatus');
+
 const prepareForwardingAutomation = require('./individualServices/PrepareForwardingAutomation');
+const individualServicesOperationsMapping = require('./individualServices/individualServicesOperationsMapping');
 const softwareUpgrade = require('./individualServices/SoftwareUpgrade');
 const profileConstants = require('../utils/profileConstants');
 const stringProfileService = require('./StringProfileService');
 const HttpClient = require('../utils/HttpClient');
 const crypto = require('crypto');
 
-const ltpClientConstants = require('../utils/ltpClientConstants');
-const ltpServerConstants = require('../utils/ltpServerConstants');
 const onfModelUtils = require("../utils/OnfModelUtils");
+
 
 const FC_CYCLIC_OPERATION_CAUSES_OPERATION_KEY_UPDATES = 'CyclicOperationCausesOperationKeyUpdates';
 const FC_LINK_UPDATE_NOTIFICATION_CAUSES_OPERATION_KEY_UPDATES = 'LinkUpdateNotificationCausesOperationKeyUpdates';
+const UPDATE_OPERATION_KEY_OPERATION = '/v1/update-operation-key'
 const DEFAULT_OPERATION_KEY = 'Operation key not yet provided.';
+const NEW_RELEASE_FORWARDING_NAME = 'PromptForBequeathingDataCausesTransferOfListOfApplications';
+
 
 /**
  * Initiates process of embedding a new release
@@ -41,63 +45,91 @@ const DEFAULT_OPERATION_KEY = 'Operation key not yet provided.';
  * customerJourney String Holds information supporting customer’s journey to which the execution applies
  * no response value expected for this operation
  **/
- exports.bequeathYourDataAndDie = async function (body, user, originator, xCorrelator, traceIndicator, customerJourney, operationServerName) {
+exports.bequeathYourDataAndDie = async function (body, user, originator, xCorrelator, traceIndicator, customerJourney, operationServerName) {
   return new Promise(async function (resolve, reject) {
     try {
       /****************************************************************************************
-        * Setting up required local variables from the request body
-      ****************************************************************************************/
+       * Setting up required local variables from the request body
+       ****************************************************************************************/
 
       let applicationName = body["new-application-name"];
       let releaseNumber = body["new-application-release"];
-      let applicationAddress = body["new-application-address"];
-      let applicationPort = body["new-application-port"];
+      let address = body["new-application-address"];
+      let protocol = body["new-application-protocol"];
+      let port = body["new-application-port"];
+
 
       /****************************************************************************************
-        * Prepare logicalTerminatinPointConfigurationInput object to 
-        * configure logical-termination-point
-      ****************************************************************************************/
-
-      let isdataTransferRequired = true;
-      let currentApplicationName = await httpServerInterface.getApplicationNameAsync();
-      if (currentApplicationName == applicationName) {
-        let isUpdated = await httpClientInterface.setReleaseNumberAsync(ltpClientConstants.HTTP_NEW_RELEASE, releaseNumber);
-        let currentApplicationRemoteAddress = await tcpServerInterface.getLocalAddress();
-        let currentApplicationRemotePort = await tcpServerInterface.getLocalPort();
-        if((applicationAddress == currentApplicationRemoteAddress) && 
-          (applicationPort == currentApplicationRemotePort)){
-            isdataTransferRequired = false;
-        }
-        if (isUpdated) {
-          applicationName = await httpClientInterface.getApplicationNameAsync("okm-0-0-1-http-c-0010");
-          let operationList = [];
-          let logicalTerminatinPointConfigurationInput = new LogicalTerminationPointConfigurationInput(
-            applicationName,
-            releaseNumber,
-            applicationAddress,
-            applicationPort,
-            operationList
-          );
-          let logicalTerminationPointconfigurationStatus = await logicalTerminationPointService.createOrUpdateApplicationInformationAsync(
-            logicalTerminatinPointConfigurationInput
-          );
-          /****************************************************************************************
-            * Prepare attributes to automate forwarding-construct
-          ****************************************************************************************/
-          let forwardingAutomationInputList = await prepareForwardingAutomation.bequeathYourDataAndDie(
-            logicalTerminationPointconfigurationStatus
-          );
-          forwardingAutomationService.automateForwardingConstructAsync(
-            operationServerName,
-            forwardingAutomationInputList,
-            user,
-            xCorrelator,
-            traceIndicator,
-            customerJourney
-          );
-        } 
+       * Updating the New Release application details
+       ****************************************************************************************/
+      let uuid = await softwareUpgrade.getHttpClientAndTcpClientUuid();
+      let isUpdated = {};
+      let currentNewReleaseApplicationName = await httpClientInterface.getApplicationNameAsync(uuid.httpClientUuid);
+      let currentNewReleaseNumber = await httpClientInterface.getReleaseNumberAsync(uuid.httpClientUuid);
+      let currentNewReleaseRemoteAddress = await tcpClientInterface.getRemoteAddressAsync(uuid.tcpClientUuid);
+      let currentNewReleaseRemoteProtocol = await tcpClientInterface.getRemoteProtocolAsync(uuid.tcpClientUuid);
+      let currentNewReleaseRemotePort = await tcpClientInterface.getRemotePortAsync(uuid.tcpClientUuid);
+      if (applicationName != currentNewReleaseApplicationName) {
+        isUpdated.applicationName = await httpClientInterface.setApplicationNameAsync(uuid.httpClientUuid, applicationName)
       }
-      softwareUpgrade.upgradeSoftwareVersion(isdataTransferRequired, user, xCorrelator, traceIndicator, customerJourney)
+      if (releaseNumber != currentNewReleaseNumber) {
+        isUpdated.releaseNumber = await httpClientInterface.setReleaseNumberAsync(uuid.httpClientUuid, releaseNumber);
+      }
+      if (JSON.stringify(address) != JSON.stringify(currentNewReleaseRemoteAddress)) {
+        isUpdated.address = await tcpClientInterface.setRemoteAddressAsync(uuid.tcpClientUuid, address);
+      }
+      if (port != currentNewReleaseRemotePort) {
+        isUpdated.port = await tcpClientInterface.setRemotePortAsync(uuid.tcpClientUuid, port);
+      }
+      if (protocol != currentNewReleaseRemoteProtocol) {
+        isUpdated.protocol = await tcpClientInterface.setRemoteProtocolAsync(uuid.tcpClientUuid, protocol);
+      }
+      
+      /****************************************************************************************
+       * Updating the Configuration Status based on the application information updated
+       *****************************************************************************************/
+      let isTcpInfoUpdated = false;
+      let isHttpInfoUpdated = false;
+
+      if (isUpdated.address || isUpdated.port || isUpdated.protocol) {
+        isTcpInfoUpdated = true;
+      }
+      if (isUpdated.applicationName || isUpdated.releaseNumber) {
+        isHttpInfoUpdated = true;
+      }
+
+      let tcpClientConfigurationStatus = new ConfigurationStatus(
+        uuid.tcpClientUuid,
+        '',
+        isTcpInfoUpdated
+      );
+      let httpClientConfigurationStatus = new ConfigurationStatus(
+        uuid.httpClientUuid,
+        '',
+        isHttpInfoUpdated
+      );
+
+      let logicalTerminationPointConfigurationStatus = new LogicalTerminationPointConfigurationStatus(
+        false,
+        httpClientConfigurationStatus,
+        [tcpClientConfigurationStatus]
+      );
+      /****************************************************************************************
+       * Prepare attributes to automate forwarding-construct
+       ****************************************************************************************/
+      let forwardingAutomationInputList = await prepareForwardingAutomation.bequeathYourDataAndDie(
+        logicalTerminationPointConfigurationStatus
+      );
+      forwardingAutomationService.automateForwardingConstructAsync(
+        operationServerName,
+        forwardingAutomationInputList,
+        user,
+        xCorrelator,
+        traceIndicator,
+        customerJourney
+      );
+
+      softwareUpgrade.upgradeSoftwareVersion(user, xCorrelator, traceIndicator, customerJourney, forwardingAutomationInputList.length)
         .catch(err => console.log(`upgradeSoftwareVersion failed with error: ${err}`));
       resolve();
     } catch (error) {
@@ -120,7 +152,7 @@ const DEFAULT_OPERATION_KEY = 'Operation key not yet provided.';
 exports.disregardApplication = async function (body, user, originator, xCorrelator, traceIndicator, customerJourney, operationServerName) {
   // get data from request body
   const appName = body["application-name"];
-  const appReleaseNumber = body["application-release-number"];
+  const appReleaseNumber = body["release-number"];
 
   const httpClientUuid = await httpClientInterface.getHttpClientUuidAsync(appName, appReleaseNumber);
   // http ltp for the given app does not exist 
@@ -128,11 +160,9 @@ exports.disregardApplication = async function (body, user, originator, xCorrelat
     return;
   }
 
-  const operationClientUuid = await operationClientInterface.getOperationClientUuidAsync(httpClientUuid, "/v1/update-operation-key");
-  // TODO: uncomment once new UUIDs are in place and https://github.com/openBackhaul/ApplicationPattern/pull/400 is merged
-  //const operationClientUuid = await OperationClientInterface.generateOperationClientUuidAsync(httpClientUuid, "is", "000");
+  const operationClientUuid = await operationClientInterface.getOperationClientUuidAsync(httpClientUuid, UPDATE_OPERATION_KEY_OPERATION);
 
-  const logicalTerminationPointConfigurationStatus = await logicalTerminationPointService.deleteApplicationInformationAsync(appName, appReleaseNumber);
+  const logicalTerminationPointConfigurationStatus = await logicalTerminationPointService.deleteApplicationInformationAsync(appName, appReleaseNumber, NEW_RELEASE_FORWARDING_NAME);
 
   const cyclicOperationInput = new ForwardingConstructConfigurationInput(FC_CYCLIC_OPERATION_CAUSES_OPERATION_KEY_UPDATES, operationClientUuid);
   const linkUpdateNotificationInput = new ForwardingConstructConfigurationInput(FC_LINK_UPDATE_NOTIFICATION_CAUSES_OPERATION_KEY_UPDATES, operationClientUuid);
@@ -167,7 +197,8 @@ exports.disregardApplication = async function (body, user, originator, xCorrelat
  **/
 exports.listApplications = async function (user, originator, xCorrelator, traceIndicator, customerJourney) {
   const clientOperationLtpUuidList = await onfModelUtils.getFcPortOutputDirectionLogicalTerminationPointListForForwardingName(FC_CYCLIC_OPERATION_CAUSES_OPERATION_KEY_UPDATES);
-  const resultList = [];
+  let applicationsList = [];
+
   for (const clientOperationLtpUuid of clientOperationLtpUuidList) {
     const httpLtpUuidList = await LogicalTerminationPoint.getServerLtpListAsync(clientOperationLtpUuid);
     if (httpLtpUuidList.length == 1) {
@@ -177,20 +208,23 @@ exports.listApplications = async function (user, originator, xCorrelator, traceI
       const tcpLtpUuidLilst = await LogicalTerminationPoint.getServerLtpListAsync(httpLtpUuidList[0])
       const tcpLtpRemoteAddress = await tcpClientInterface.getRemoteAddressAsync(tcpLtpUuidLilst[0]);
       const tcpLtpRemotePort = await tcpClientInterface.getRemotePortAsync(tcpLtpUuidLilst[0]);
-      const resultObj = {
-        "application-name": httpLtpAppName,
-        "application-release-number": httpLtpAppReleaseNumber,
-        "application-address": tcpLtpRemoteAddress,
-        "application-port": tcpLtpRemotePort
-      }
-      resultList.push(resultObj);
+      const tcpLtpRemoteProtocol = await tcpClientInterface.getRemoteProtocolAsync(tcpLtpUuidLilst[0]);
+      let clientApplication = {};
+      clientApplication.applicationName = httpLtpAppName;
+      clientApplication.releaseNumber = httpLtpAppReleaseNumber;
+      clientApplication.address = tcpLtpRemoteAddress;
+      clientApplication.protocol = tcpLtpRemoteProtocol;
+      clientApplication.port = tcpLtpRemotePort;
+
+      let application = await onfAttributeFormatter.modifyJsonObjectKeysToKebabCase(clientApplication);
+
+      applicationsList.push(application);
     } else {
       console.log(`Could not find http client uuid in server ltps for operation client with uuid ${clientOperationLtpUuid}`);
     }
   }
-  return resultList;
+  return applicationsList;
 }
-
 
 /**
  * Adds to the list of applications
@@ -206,20 +240,26 @@ exports.listApplications = async function (user, originator, xCorrelator, traceI
 exports.regardApplication = async function (body, user, originator, xCorrelator, traceIndicator, customerJourney, operationServerName) {
   // get data from request body
   const appName = body['application-name'];
-  const appReleaseNumber = body['application-release-number'];
-  const appAddress = body['application-address'];
-  const appPort = body['application-port'];
+  const appReleaseNumber = body['release-number'];
+  const tcpInfo = [{
+    "address": body['address'],
+    "protocol": body['protocol'],
+    "port": body['port']
+  }]
+  let operationsMapping = individualServicesOperationsMapping.individualServicesOperationsMapping;
+  let operationNamesByAttributes = new Map();
+  operationNamesByAttributes.set("update-operation-key", UPDATE_OPERATION_KEY_OPERATION);
 
   // create/update op, tcp, http logical-termination-points for the given app
-  const operationList = ['/v1/update-operation-key']; // TODO should this be part of request body?
   const logicalTerminatinPointConfigurationInput = new LogicalTerminationPointConfigurationInput(
     appName,
     appReleaseNumber,
-    appAddress,
-    appPort,
-    operationList
+    tcpInfo,
+    operationServerName,
+    operationNamesByAttributes,
+    operationsMapping
   );
-  const logicalTerminationPointConfigurationStatus = await logicalTerminationPointService.createOrUpdateApplicationInformationAsync(logicalTerminatinPointConfigurationInput);
+  const logicalTerminationPointConfigurationStatus = await logicalTerminationPointService.findOrCreateApplicationInformationAsync(logicalTerminatinPointConfigurationInput, NEW_RELEASE_FORWARDING_NAME);
 
   const operationClientUuid = logicalTerminationPointConfigurationStatus.operationClientConfigurationStatusList[0].uuid;
   const cyclicOperationInput = new ForwardingConstructConfigurationInput(FC_CYCLIC_OPERATION_CAUSES_OPERATION_KEY_UPDATES, operationClientUuid);
@@ -233,15 +273,13 @@ exports.regardApplication = async function (body, user, originator, xCorrelator,
   );
 
   forwardingAutomationService.automateForwardingConstructAsync(
-    operationServerName,
-    applicationLayerTopologyForwardingInputList,
+    operationServerName, applicationLayerTopologyForwardingInputList,
     user,
     xCorrelator,
     traceIndicator,
     customerJourney
   ).catch((error) => console.log(`regardApplication - automateForwardingConstructAsync for ${JSON.stringify({ xCorrelator, traceIndicator, user, originator })} failed with error: ${error.message}`));
 }
-
 
 /**
  * Initiates OperationKey update
@@ -264,45 +302,13 @@ exports.regardUpdatedLink = async function (body, user, originator, xCorrelator,
     .catch((error) => console.log(`regardUpdatedLink - failed update key for link ${linkUuid} with error: ${error.message}`));
 }
 
-
-/**
- * Starts application in generic representation
- *
- * user String User identifier from the system starting the service call
- * originator String 'Identification for the system consuming the API, as defined in  [/core-model-1-4:control-construct/logical-termination-point={uuid}/layer-protocol=0/http-client-interface-1-0:http-client-interface-pac/http-client-interface-capability/application-name]' 
- * xCorrelator String UUID for the service execution flow that allows to correlate requests and responses
- * traceIndicator String Sequence of request numbers along the flow
- * customerJourney String Holds information supporting customer’s journey to which the execution applies
- * returns inline_response_200
- **/
-exports.startApplicationInGenericRepresentation = async function (user, originator, xCorrelator, traceIndicator, customerJourney) {
-  // Preparing response-value-list for response body
-  const responseValueList = [];
-  const applicationName = await httpServerInterface.getApplicationNameAsync();
-  const reponseValue = { 'field-name': "applicationName", 'value': applicationName, 'datatype': typeof applicationName };
-  responseValueList.push(reponseValue);
-
-  // Preparing consequent-action-list for response body
-  const consequentActionList = [];
-  const baseUrl = "http://" + await tcpServerInterface.getLocalAddress() + ":" + await tcpServerInterface.getLocalPort();
-  const labelForInformAboutApplication = "Inform about Application";
-  const requestForInformAboutApplication = baseUrl + await operationServerInterface.getOperationNameAsync(ltpServerConstants.HTTP_THIS_OPERATION_INFORM_ABOUT_APPLICATION_IN_GENERIC_REPRESENTATION);
-  const consequentActionForInformAboutApplication = { 'label': labelForInformAboutApplication, 'request': requestForInformAboutApplication };
-  consequentActionList.push(consequentActionForInformAboutApplication);
-
-  return {
-    'response-value-list': responseValueList,
-    'consequent-action-list': consequentActionList
-  };
-}
-
 exports.scheduleKeyRotation = async function scheduleKeyRotation() {
   const operationModeValue = await stringProfileService.getOperationModeProfileStringValue();
   if (operationModeValue === profileConstants.OPERATION_MODE_REACTIVE) {
     console.log(`Reccurent update of operation keys is disabled, "operationMode" is "${profileConstants.OPERATION_MODE_REACTIVE}".`);
     return;
   }
-  
+
   const intervalInMinutes = 5; // TODO make it configurable via profile
   setTimeout(reccurentUpdateKeys, intervalInMinutes * 60000);
   console.log(`Update operation keys has been scheduled in ${intervalInMinutes} minutes.`);
@@ -334,7 +340,8 @@ async function reccurentUpdateKeys() {
 }
 
 async function fetchLinkUuidListFromAlt(httpClient) {
-  const resp = await httpClient.executeOperation(ltpClientConstants.HTTP_ALT_OPERATION_LIST_LINK_UUIDS);
+  let operationClientUuidOfListLinkUuids = (await onfModelUtils.getFcPortOutputDirectionLogicalTerminationPointListForForwardingName("CyclicOperationCausesRequestForListOfLinks"))[0];
+  const resp = await httpClient.executeOperation(operationClientUuidOfListLinkUuids);
   if (resp['link-uuid-list'] === undefined) {
     return [];
   }
@@ -348,7 +355,7 @@ async function updateOperationKeyForLink(linkUuid, updateKeyOperationLtpUuidList
   const operationKey = operationModeValue === profileConstants.OPERATION_MODE_OFF ? DEFAULT_OPERATION_KEY : generateOperationKey();
   for (const linkEndpoint of linkEndpointList) {
     const epAppName = linkEndpoint['application-name'];
-    const epAppReleaseNumber = linkEndpoint['application-release-number'];
+    const epAppReleaseNumber = linkEndpoint['release-number'];
     const epOperationUuid = linkEndpoint['operation-uuid'];
 
     if (!epAppName || !epAppReleaseNumber || !epOperationUuid) {
@@ -358,7 +365,10 @@ async function updateOperationKeyForLink(linkUuid, updateKeyOperationLtpUuidList
 
     const updateKeyOperationLtpUuid = await resolveUpdateKeyOperationLtpUuidForApplication(epAppName, epAppReleaseNumber, updateKeyOperationLtpUuidList);
     if (updateKeyOperationLtpUuid) {
-      httpClient.executeOperation(updateKeyOperationLtpUuid, { "operation-uuid": epOperationUuid, "new-operation-key": operationKey })
+      httpClient.executeOperation(updateKeyOperationLtpUuid, {
+          "operation-uuid": epOperationUuid,
+          "new-operation-key": operationKey
+        })
         .then(response => console.log(`Successfully updated operation key for application ${epAppName} version ${epAppReleaseNumber} operation ${epOperationUuid}`))
         .catch(error => console.log(`Failed to update operation key for application ${epAppName} version ${epAppReleaseNumber} operation ${epOperationUuid} with error: ${error.message}`));
     } else {
@@ -368,7 +378,10 @@ async function updateOperationKeyForLink(linkUuid, updateKeyOperationLtpUuidList
 }
 
 async function fetchLinkEndpointListFromAlt(linkUuid, httpClient) {
-  const resp = await httpClient.executeOperation(ltpClientConstants.HTTP_ALT_OPERATION_LIST_ENDPOINTS_OF_LINK, { 'link-uuid': linkUuid });
+  let operationClientUuidOfListEndPointsOfLink = (await onfModelUtils.getFcPortOutputDirectionLogicalTerminationPointListForForwardingName("CyclicOperationCausesRequestForLinkEndPoints"))[0];
+  const resp = await httpClient.executeOperation(operationClientUuidOfListEndPointsOfLink, {
+    'link-uuid': linkUuid
+  });
   if (resp['link-end-point-list'] === undefined) {
     return [];
   }

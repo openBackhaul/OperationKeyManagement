@@ -4,7 +4,7 @@ var fileOperation = require('onf-core-model-ap/applicationPattern/databaseDriver
 /**
  * Returns entire data tree
  *
- * returns inline_response_200_7
+ * returns inline_response_200_5
  **/
 exports.getControlConstruct = function () {
   return new Promise(async function (resolve, reject) {
@@ -24,3 +24,28 @@ exports.getControlConstruct = function () {
     }
   });
 }
+
+/**
+ * Returns entire instance of Profile
+ *
+ * uuid String 
+ * returns inline_response_200_6
+ **/
+exports.getProfileInstance = function(url) {
+  return new Promise(async function (resolve, reject) {
+    try {
+      var value = await fileOperation.readFromDatabaseAsync(url);
+      var response = {};
+      response['application/json'] = {
+        "core-model-1-4:profile": value
+      };
+      if (Object.keys(response).length > 0) {
+        resolve(response[Object.keys(response)[0]]);
+      } else {
+        resolve();
+      }
+    } catch (error) {
+      reject();
+    }
+  });
+} 

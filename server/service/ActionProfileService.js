@@ -1,19 +1,20 @@
 'use strict';
+
 var fileOperation = require('onf-core-model-ap/applicationPattern/databaseDriver/JSONDriver');
 
 /**
- * Returns application name
+ * Returns the reference on the consequent operation
  *
  * uuid String 
- * returns inline_response_200_24
+ * returns inline_response_200_11
  **/
-exports.getHttpServerApplicationName = function (url) {
+exports.getActionProfileConsequentOperationReference = function (url) {
   return new Promise(async function (resolve, reject) {
     try {
       var value = await fileOperation.readFromDatabaseAsync(url);
       var response = {};
       response['application/json'] = {
-        "http-server-interface-1-0:application-name": value
+        "action-profile-1-0:consequent-operation-reference": value
       };
       if (Object.keys(response).length > 0) {
         resolve(response[Object.keys(response)[0]]);
@@ -28,18 +29,18 @@ exports.getHttpServerApplicationName = function (url) {
 
 
 /**
- * Returns application purpose
+ * Returns whether to be presented in new browser window
  *
  * uuid String 
- * returns inline_response_200_26
+ * returns inline_response_200_10
  **/
-exports.getHttpServerApplicationPurpose = function (url) {
+exports.getActionProfileDisplayInNewBrowserWindow = function (url) {
   return new Promise(async function (resolve, reject) {
     try {
       var value = await fileOperation.readFromDatabaseAsync(url);
       var response = {};
       response['application/json'] = {
-        "http-server-interface-1-0:application-purpose": value
+        "action-profile-1-0:display-in-new-browser-window": value
       };
       if (Object.keys(response).length > 0) {
         resolve(response[Object.keys(response)[0]]);
@@ -54,18 +55,18 @@ exports.getHttpServerApplicationPurpose = function (url) {
 
 
 /**
- * Returns update period
+ * Returns the list of input values
  *
  * uuid String 
- * returns inline_response_200_27
+ * returns inline_response_200_9
  **/
-exports.getHttpServerDataUpdatePeriode = function (url) {
+exports.getActionProfileInputValueListt = function (url) {
   return new Promise(async function (resolve, reject) {
     try {
       var value = await fileOperation.readFromDatabaseAsync(url);
       var response = {};
       response['application/json'] = {
-        "http-server-interface-1-0:data-update-period": value
+        "action-profile-1-0:input-value-list": value
       };
       if (Object.keys(response).length > 0) {
         resolve(response[Object.keys(response)[0]]);
@@ -80,18 +81,18 @@ exports.getHttpServerDataUpdatePeriode = function (url) {
 
 
 /**
- * Returns owner email address
+ * Returns the Label of the Action
  *
  * uuid String 
- * returns inline_response_200_29
+ * returns inline_response_200_8
  **/
-exports.getHttpServerOwnerEmailAddress = function (url) {
+exports.getActionProfileLabel = function (url) {
   return new Promise(async function (resolve, reject) {
     try {
       var value = await fileOperation.readFromDatabaseAsync(url);
       var response = {};
       response['application/json'] = {
-        "http-server-interface-1-0:owner-email-address": value
+        "action-profile-1-0:label": value
       };
       if (Object.keys(response).length > 0) {
         resolve(response[Object.keys(response)[0]]);
@@ -106,18 +107,18 @@ exports.getHttpServerOwnerEmailAddress = function (url) {
 
 
 /**
- * Returns owner name
+ * Returns the name of the Operation
  *
  * uuid String 
- * returns inline_response_200_28
+ * returns inline_response_200_7
  **/
-exports.getHttpServerOwnerName = function (url) {
+exports.getActionProfileOperationName = function (url) {
   return new Promise(async function (resolve, reject) {
     try {
       var value = await fileOperation.readFromDatabaseAsync(url);
       var response = {};
       response['application/json'] = {
-        "http-server-interface-1-0:owner-name": value
+        "action-profile-1-0:operation-name": value
       };
       if (Object.keys(response).length > 0) {
         resolve(response[Object.keys(response)[0]]);
@@ -132,52 +133,19 @@ exports.getHttpServerOwnerName = function (url) {
 
 
 /**
- * Returns list of releases
+ * Configures the reference on the consequent operation
  *
+ * body Actionprofileconfiguration_consequentoperationreference_body 
  * uuid String 
- * returns inline_response_200_30
+ * no response value expected for this operation
  **/
-exports.getHttpServerReleaseList = function (url) {
+exports.putActionProfileConsequentOperationReference = function (url, body) {
   return new Promise(async function (resolve, reject) {
     try {
-      var value = await fileOperation.readFromDatabaseAsync(url);
-      var response = {};
-      response['application/json'] = {
-        "http-server-interface-1-0:release-list": value
-      };
-      if (Object.keys(response).length > 0) {
-        resolve(response[Object.keys(response)[0]]);
-      } else {
-        resolve();
-      }
-    } catch (error) {
-      reject();
-    }
-  });
-}
+      await fileOperation.writeToDatabaseAsync(url, body, false);
 
-
-/**
- * Returns release number
- *
- * uuid String 
- * returns inline_response_200_25
- **/
-exports.getHttpServerReleaseNumber = function (url) {
-  return new Promise(async function (resolve, reject) {
-    try {
-      var value = await fileOperation.readFromDatabaseAsync(url);
-      var response = {};
-      response['application/json'] = {
-        "http-server-interface-1-0:release-number": value
-      };
-      if (Object.keys(response).length > 0) {
-        resolve(response[Object.keys(response)[0]]);
-      } else {
-        resolve();
-      }
-    } catch (error) {
-      reject();
-    }
+      resolve();
+    } catch (error) {}
+    reject();
   });
 }
