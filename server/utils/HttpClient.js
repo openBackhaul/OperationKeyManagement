@@ -53,7 +53,7 @@ module.exports = class HttpClient {
    * @param {number} timeout Timeout in ms after which the operation fails with error.
    * @returns {Promise<object>} Data from HTTP response body.
    */
-  async executeOperation(operationUuid, body, timeout = 5000) {
+  async executeOperation(operationUuid, body, timeout = 120000) {
     const ipAndPort = await operationClientInterface.getTcpClientConnectionInfoAsync(operationUuid);
     if (ipAndPort == undefined) {
       throw new createHttpError.InternalServerError(`Cannot resolve IP and port for invocation of service with UUID ${operationUuid}`);
@@ -82,7 +82,7 @@ module.exports = class HttpClient {
     }
     const axiosConfig = { timeout: timeout, headers: headers }
 
-    return axios.post(`${ipAndPort} + "/" + ${operationName}`, body, axiosConfig).then(resp => resp.data);
+    return axios.post(`${ipAndPort}` + `${operationName}`, body, axiosConfig).then(resp => resp.data);
   }
 
   #incrementTraceIndicator() {
