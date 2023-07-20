@@ -326,7 +326,7 @@ async function reccurentUpdateKeys() {
     const httpClient = new HttpClient();
     const linkUuidList = await fetchLinkUuidListFromAlt(httpClient);
     for (const linkUuid of linkUuidList) {
-      updateOperationKeyForLink(linkUuid, updateKeyOperationLtpUuidList, httpClient)
+      await updateOperationKeyForLink(linkUuid, updateKeyOperationLtpUuidList, httpClient)
         .catch((error) => console.log(`reccurentUpdateKeys - failed update key for link ${linkUuid} with error: ${error.message}`));
     }
   } catch (error) {

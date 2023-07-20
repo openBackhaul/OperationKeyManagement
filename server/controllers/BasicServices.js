@@ -329,6 +329,26 @@ module.exports.updateOperationKey = async function updateOperationKey(req, res, 
     let startTime = process.hrtime();
     let responseCode = responseCodeEnum.code.NO_CONTENT;
     let responseBodyToDocument = {};
+    let uuidToBeUpdated = body["operation-uuid"];
+    let operationServerOfUpdateOperationKeyInOKM = "okm-2-0-1-op-s-bm-010";
+    if(uuidToBeUpdated == operationServerOfUpdateOperationKeyInOKM){
+      let requestBodyToUpdateOperationClient = {
+        "operation-uuid" : "okm-2-0-1-op-c-is-okm-2-0-1-000",
+        "new-operation-key" : body["new-operation-key"]
+      }
+      await BasicServices.updateOperationKey(requestBodyToUpdateOperationClient, user, originator, xCorrelator, traceIndicator, customerJourney, req.url)
+      .then(async function (responseBody) {
+        responseBodyToDocument = responseBody;
+        let responseHeader = await restResponseHeader.createResponseHeader(xCorrelator, startTime, req.url);
+        restResponseBuilder.buildResponse(res, responseCode, responseBody, responseHeader);
+      })
+      .catch(async function (responseBody) {
+        let responseHeader = await restResponseHeader.createResponseHeader(xCorrelator, startTime, req.url);
+        let sentResp = restResponseBuilder.buildResponse(res, responseCode, responseBody, responseHeader);
+        responseCode = sentResp.code;
+        responseBodyToDocument = sentResp.body;
+      });
+    }
     await BasicServices.updateOperationKey(body, user, originator, xCorrelator, traceIndicator, customerJourney, req.url)
       .then(async function (responseBody) {
         responseBodyToDocument = responseBody;
@@ -341,7 +361,7 @@ module.exports.updateOperationKey = async function updateOperationKey(req, res, 
         responseCode = sentResp.code;
         responseBodyToDocument = sentResp.body;
       });
-    executionAndTraceService.recordServiceRequest(xCorrelator, traceIndicator, user, originator, req.url, responseCode, req.body, responseBodyToDocument);
+    //executionAndTraceService.recordServiceRequest(xCorrelator, traceIndicator, user, originator, req.url, responseCode, req.body, responseBodyToDocument);
   } catch (error) {}
 
 };
