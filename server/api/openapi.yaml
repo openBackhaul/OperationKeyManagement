@@ -21268,7 +21268,6 @@ components:
       type: object
       properties:
         link-uuid:
-          pattern: "^([a-z]{2,6})-([0-9]{1,2})-([0-9]{1,2})-([0-9]{1,2})-op-link-([0-9]{3})$"
           type: string
       example:
         link-uuid: alt-2-0-1-op-link-051
