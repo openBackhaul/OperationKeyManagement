@@ -34,4 +34,4 @@ global.databasePath = './database/load.json'
 
 individualServicesService.scheduleKeyRotation();
 
-appCommons.performApplicationRegistration();
+appCommons.performApplicationRegistration(); 
