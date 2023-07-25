@@ -33,3 +33,5 @@ http.createServer(app).listen(serverPort, function () {
 global.databasePath = './database/load.json'
 
 individualServicesService.scheduleKeyRotation();
+
+appCommons.performApplicationRegistration(); 
