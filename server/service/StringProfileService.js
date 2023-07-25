@@ -84,6 +84,10 @@ exports.putStringProfileStringValue = async function (body, url) {
     newOperationModeValue !== profileConstants.OPERATION_MODE_REACTIVE) {
     individualServicesService.scheduleKeyRotation();
   }
+  if(currentOperationModeValue === profileConstants.OPERATION_MODE_OFF &&
+    newOperationModeValue === profileConstants.OPERATION_MODE_REACTIVE) {
+        individualServicesService.updateKeys();
+    }
 }
 
 /**
