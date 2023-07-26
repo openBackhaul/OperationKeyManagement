@@ -298,7 +298,7 @@ exports.regardUpdatedLink = async function (body, user, originator, xCorrelator,
 
   const updateKeyOperationLtpUuidList = await onfModelUtils.getFcPortOutputDirectionLogicalTerminationPointListForForwardingName(FC_LINK_UPDATE_NOTIFICATION_CAUSES_OPERATION_KEY_UPDATES);
   const httpClient = new HttpClient(user, xCorrelator, traceIndicator, customerJourney);
-  updateOperationKeyForLink(linkUuid, updateKeyOperationLtpUuidList, httpClient)
+  await updateOperationKeyForLink(linkUuid, updateKeyOperationLtpUuidList, httpClient)
     .catch((error) => console.log(`regardUpdatedLink - failed update key for link ${linkUuid} with error: ${error.message}`));
 }
 
@@ -314,6 +314,16 @@ exports.scheduleKeyRotation = async function scheduleKeyRotation() {
   console.log(`Update operation keys has been scheduled in ${intervalInMinutes} minutes.`);
 }
 
+exports.updateKeys  = async function() {
+  const updateKeyOperationLtpUuidList = await onfModelUtils.getFcPortOutputDirectionLogicalTerminationPointListForForwardingName(FC_CYCLIC_OPERATION_CAUSES_OPERATION_KEY_UPDATES);
+  const httpClient = new HttpClient();
+  const linkUuidList = await fetchLinkUuidListFromAlt(httpClient);
+  for (const linkUuid of linkUuidList) {
+    await updateOperationKeyForLink(linkUuid, updateKeyOperationLtpUuidList, httpClient)
+      .catch((error) => console.log(`reccurentUpdateKeys - failed update key for link ${linkUuid} with error: ${error.message}`));
+  }
+}
+
 async function reccurentUpdateKeys() {
   try {
     const operationModeValue = await stringProfileService.getOperationModeProfileStringValue();
@@ -326,7 +336,7 @@ async function reccurentUpdateKeys() {
     const httpClient = new HttpClient();
     const linkUuidList = await fetchLinkUuidListFromAlt(httpClient);
     for (const linkUuid of linkUuidList) {
-      updateOperationKeyForLink(linkUuid, updateKeyOperationLtpUuidList, httpClient)
+      await updateOperationKeyForLink(linkUuid, updateKeyOperationLtpUuidList, httpClient)
         .catch((error) => console.log(`reccurentUpdateKeys - failed update key for link ${linkUuid} with error: ${error.message}`));
     }
   } catch (error) {
@@ -365,7 +375,7 @@ async function updateOperationKeyForLink(linkUuid, updateKeyOperationLtpUuidList
 
     const updateKeyOperationLtpUuid = await resolveUpdateKeyOperationLtpUuidForApplication(epAppName, epAppReleaseNumber, updateKeyOperationLtpUuidList);
     if (updateKeyOperationLtpUuid) {
-      httpClient.executeOperation(updateKeyOperationLtpUuid, {
+      await httpClient.executeOperation(updateKeyOperationLtpUuid, {
           "operation-uuid": epOperationUuid,
           "new-operation-key": operationKey
         })
