@@ -278,7 +278,7 @@ async function PromptForBequeathingDataCausesRObeingRequestedToNotifyWithdrawnAp
  * @param {String} customerJourney Holds information supporting customer’s journey to which the execution applies
  * @returns {boolean} return true if the operation is success or else return false
  */
-async function PromptForBequeathingDataCausesALTbeingRequestedToNotifyLinkUpdatesToNewRelease(user, xCorrelator, traceIndicator, customerJourney, operationServerName) {
+async function PromptForBequeathingDataCausesALTbeingRequestedToNotifyLinkUpdatesToNewRelease(user, xCorrelator, traceIndicator, customerJourney) {
   return new Promise(async function (resolve, reject) {
     try {
       let result = true;
@@ -592,22 +592,18 @@ async function promptForBequeathingDataCausesRequestForDeregisteringOfOldRelease
  * Functions utilized by individual services
  ****************************************************************************************/
 function getFcPortOutputLogicalTerminationPointList(forwardingConstructInstance) {
-  try {
-    let fcPortOutputLogicalTerminationPointList = [];
-    let fcPortList = forwardingConstructInstance[
-      onfAttributes.FORWARDING_CONSTRUCT.FC_PORT];
-    for (let i = 0; i < fcPortList.length; i++) {
-      let fcPort = fcPortList[i];
-      let fcPortPortDirection = fcPort[onfAttributes.FC_PORT.PORT_DIRECTION];
-      if (fcPortPortDirection == FcPort.portDirectionEnum.OUTPUT) {
-        let fclogicalTerminationPoint = fcPort[onfAttributes.FC_PORT.LOGICAL_TERMINATION_POINT];
-        fcPortOutputLogicalTerminationPointList.push(fclogicalTerminationPoint);
-      }
+  let fcPortOutputLogicalTerminationPointList = [];
+  let fcPortList = forwardingConstructInstance[
+    onfAttributes.FORWARDING_CONSTRUCT.FC_PORT];
+  for (let i = 0; i < fcPortList.length; i++) {
+    let fcPort = fcPortList[i];
+    let fcPortPortDirection = fcPort[onfAttributes.FC_PORT.PORT_DIRECTION];
+    if (fcPortPortDirection == FcPort.portDirectionEnum.OUTPUT) {
+      let fclogicalTerminationPoint = fcPort[onfAttributes.FC_PORT.LOGICAL_TERMINATION_POINT];
+      fcPortOutputLogicalTerminationPointList.push(fclogicalTerminationPoint);
     }
-    return fcPortOutputLogicalTerminationPointList;
-  } catch (error) {
-    throw error;
   }
+  return fcPortOutputLogicalTerminationPointList;
 }
 
 /**
