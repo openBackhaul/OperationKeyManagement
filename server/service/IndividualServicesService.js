@@ -1,8 +1,8 @@
 // @ts-check
 'use strict';
 
-const LogicalTerminationPointConfigurationInput = require('onf-core-model-ap/applicationPattern/onfModel/services/models/logicalTerminationPoint/ConfigurationInputWithMapping');
-const logicalTerminationPointService = require('onf-core-model-ap/applicationPattern/onfModel/services/LogicalTerminationPointWithMappingServices');
+const LogicalTerminationPointConfigurationInput = require('onf-core-model-ap/applicationPattern/onfModel/services/models/logicalTerminationPoint/ConfigurationInput');
+const LogicalTerminationPointService = require('onf-core-model-ap/applicationPattern/onfModel/services/LogicalTerminationPointServices');
 const prepareALTForwardingAutomation = require('onf-core-model-ap-bs/basicServices/services/PrepareALTForwardingAutomation');
 const forwardingAutomationService = require('onf-core-model-ap/applicationPattern/onfModel/services/ForwardingConstructAutomationServices');
 const ForwardingConstructConfigurationInput = require('onf-core-model-ap/applicationPattern/onfModel/services/models/forwardingConstruct/ConfigurationInput');
@@ -25,6 +25,7 @@ const HttpClient = require('../utils/HttpClient');
 const crypto = require('crypto');
 
 const onfModelUtils = require("../utils/OnfModelUtils");
+const TcpObject = require('onf-core-model-ap/applicationPattern/onfModel/services/models/TcpObject');
 
 const FC_CYCLIC_OPERATION_CAUSES_OPERATION_KEY_UPDATES = 'CyclicOperationCausesOperationKeyUpdates';
 const FC_LINK_UPDATE_NOTIFICATION_CAUSES_OPERATION_KEY_UPDATES = 'LinkUpdateNotificationCausesOperationKeyUpdates';
@@ -146,23 +147,22 @@ exports.disregardApplication = async function (body, user, originator, xCorrelat
   const appName = body["application-name"];
   const appReleaseNumber = body["release-number"];
 
-  const httpClientUuid = await httpClientInterface.getHttpClientUuidAsync(appName, appReleaseNumber);
-  // http ltp for the given app does not exist 
-  if (httpClientUuid == undefined) {
+  const httpClientUuid = await httpClientInterface.getHttpClientUuidExcludingOldReleaseAndNewRelease(
+    appName, appReleaseNumber, NEW_RELEASE_FORWARDING_NAME
+  )
+  if (!httpClientUuid) {
     return;
   }
-
   const operationClientUuid = await operationClientInterface.getOperationClientUuidAsync(httpClientUuid, UPDATE_OPERATION_KEY_OPERATION);
 
-  const logicalTerminationPointConfigurationStatus = await logicalTerminationPointService.deleteApplicationInformationAsync(appName, appReleaseNumber, NEW_RELEASE_FORWARDING_NAME);
+  await LogicalTerminationPointService.deleteApplicationLtpsAsync(httpClientUuid);
 
   const cyclicOperationInput = new ForwardingConstructConfigurationInput(FC_CYCLIC_OPERATION_CAUSES_OPERATION_KEY_UPDATES, operationClientUuid);
   const linkUpdateNotificationInput = new ForwardingConstructConfigurationInput(FC_LINK_UPDATE_NOTIFICATION_CAUSES_OPERATION_KEY_UPDATES, operationClientUuid);
   const forwardingConfigurationInputList = [cyclicOperationInput, linkUpdateNotificationInput];
   const forwardingConstructConfigurationStatus = await forwardingConfigurationService.unConfigureForwardingConstructAsync(operationServerName, forwardingConfigurationInputList);
 
-  let applicationLayerTopologyForwardingInputList = await prepareALTForwardingAutomation.getALTUnConfigureForwardingAutomationInputAsync(
-    logicalTerminationPointConfigurationStatus,
+  let applicationLayerTopologyForwardingInputList = prepareALTForwardingAutomation.getALTUnConfigureForwardingAutomationInputAsync(
     forwardingConstructConfigurationStatus
   );
 
@@ -227,17 +227,17 @@ exports.regardApplication = async function (body, user, originator, xCorrelator,
   // get data from request body
   const appName = body['application-name'];
   const appReleaseNumber = body['release-number'];
-  const tcpInfo = [{
-    "address": body['address'],
-    "protocol": body['protocol'],
-    "port": body['port']
-  }]
+  const tcpInfo = [new TcpObject(body['protocol'], body['address'], body['port'])];
   let operationsMapping = individualServicesOperationsMapping.individualServicesOperationsMapping;
   let operationNamesByAttributes = new Map();
   operationNamesByAttributes.set("update-operation-key", UPDATE_OPERATION_KEY_OPERATION);
 
   // create/update op, tcp, http logical-termination-points for the given app
+  const httpClientUuid = await httpClientInterface.getHttpClientUuidExcludingOldReleaseAndNewRelease(
+    appName, appReleaseNumber, NEW_RELEASE_FORWARDING_NAME
+  )
   const logicalTerminatinPointConfigurationInput = new LogicalTerminationPointConfigurationInput(
+    httpClientUuid,
     appName,
     appReleaseNumber,
     tcpInfo,
@@ -245,16 +245,16 @@ exports.regardApplication = async function (body, user, originator, xCorrelator,
     operationNamesByAttributes,
     operationsMapping
   );
-  const logicalTerminationPointConfigurationStatus = await logicalTerminationPointService.findOrCreateApplicationInformationAsync(logicalTerminatinPointConfigurationInput, NEW_RELEASE_FORWARDING_NAME);
+  const ltpConfigurationStatus = await LogicalTerminationPointService.createOrUpdateApplicationLtpsAsync(logicalTerminatinPointConfigurationInput, NEW_RELEASE_FORWARDING_NAME);
 
-  const operationClientUuid = logicalTerminationPointConfigurationStatus.operationClientConfigurationStatusList[0].uuid;
+  const operationClientUuid = ltpConfigurationStatus.operationClientConfigurationStatusList[0].uuid;
   const cyclicOperationInput = new ForwardingConstructConfigurationInput(FC_CYCLIC_OPERATION_CAUSES_OPERATION_KEY_UPDATES, operationClientUuid);
   const linkUpdateNotificationInput = new ForwardingConstructConfigurationInput(FC_LINK_UPDATE_NOTIFICATION_CAUSES_OPERATION_KEY_UPDATES, operationClientUuid);
   const forwardingConfigurationInputList = [cyclicOperationInput, linkUpdateNotificationInput];
   const forwardingConstructConfigurationStatus = await forwardingConfigurationService.configureForwardingConstructAsync(operationServerName, forwardingConfigurationInputList);
 
   let applicationLayerTopologyForwardingInputList = await prepareALTForwardingAutomation.getALTForwardingAutomationInputAsync(
-    logicalTerminationPointConfigurationStatus,
+    ltpConfigurationStatus,
     forwardingConstructConfigurationStatus
   );
 
