@@ -1,8 +1,9 @@
 {
 	"info": {
-		"_postman_id": "7505e2dc-23e7-488b-a45d-369c5ba5e97c",
+		"_postman_id": "b46f3048-5fa9-484d-b889-c5b703fcab4d",
 		"name": "OperationKeyManagement+testcases",
-		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "16731944"
 	},
 	"item": [
 		{
@@ -62097,6 +62098,10 @@
 																			"        expectedReleaseNumber = currentInstance[\"release-number\"];\r",
 																			"        foundAnEntryWithTheExpectedHeaderValuesInEatl = false;\r",
 																			"        responseCodeofTriggeredForwarding = 0;\r",
+																			"        if(linkEndPointIndex > 0) {\r",
+																			"            expectedTraceIndicator = expectedTraceIndicator.substring(0, expectedTraceIndicator.lastIndex('.')+1) + Number(expectedTraceIndicator.substring(expectedTraceIndicator.lastIndex('.') + 1 )) + 1;\r",
+																			"            console.log(expectedTraceIndicator);\r",
+																			"        }\r",
 																			"        for(let i=0; i<serviceRecordList.length; i++)  {\r",
 																			"            if( serviceRecordList[i][\"application-name\"] == expectedApplicationName\r",
 																			"                    && serviceRecordList[i][\"release-number\"] == expectedReleaseNumber\r",
@@ -62120,12 +62125,12 @@
 																			"                    pm.collectionVariables.set(\"currentCount\", currentCount);\r",
 																			"                }, retryWaitingPeriod);\r",
 																			"            } else {\r",
-																			"                pm.test(\"The forwarding 'LinkUpdateNotificationCausesOperationKeyUpdates' is successful in \"+expectedApplicationName + \" (\" + expectedReleaseNumber + \")\", function () {\r",
+																			"                pm.test(\"The forwarding 'LinkUpdateNotificationCausesOperationKeyUpdates' for is successful for \"+expectedApplicationName + \" (\" + expectedReleaseNumber + \")\", function () {\r",
 																			"                    pm.expect(foundAnEntryWithTheExpectedHeaderValuesInEatl).to.be.true;        \r",
 																			"                });\r",
 																			"            }\r",
 																			"        } else {\r",
-																			"            pm.test(\"The forwarding 'LinkUpdateNotificationCausesOperationKeyUpdates' is successful in \"+expectedApplicationName + \" (\" + expectedReleaseNumber + \")\", function () {\r",
+																			"            pm.test(\"The forwarding 'LinkUpdateNotificationCausesOperationKeyUpdates' is successful for \"+expectedApplicationName + \" (\" + expectedReleaseNumber + \")\", function () {\r",
 																			"                pm.expect(responseCodeofTriggeredForwarding).to.equal(204);\r",
 																			"            });\r",
 																			"        }\r",
