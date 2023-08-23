@@ -1,9 +1,9 @@
 {
 	"info": {
-		"_postman_id": "b46f3048-5fa9-484d-b889-c5b703fcab4d",
+		"_postman_id": "28d64cf8-b08d-42a8-9ee9-bc250ecfabc3",
 		"name": "OperationKeyManagement+testcases",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "16731944"
+		"_exporter_id": "27577055"
 	},
 	"item": [
 		{
@@ -28079,7 +28079,7 @@
 																			"            let httpClientLtp = FindServingLtp(operationClientLtp, ltpList);\r",
 																			"            let sampleApplicationName = httpClientLtp[\"layer-protocol\"][0][\"http-client-interface-1-0:http-client-interface-pac\"][\"http-client-interface-configuration\"][\"application-name\"];\r",
 																			"\r",
-																			"            if (sampleApplicationName != \"AdministratorAdministration\") {\r",
+																			"            if (sampleApplicationName != \"AdministratorAdministration\" && sampleApplicationName != \"ApplicationLayerTopology\") {\r",
 																			"\t\t\t\tltpInstance = { httpClientLtp, operationClientLtp };\r",
 																			"                break;\r",
 																			"            }\r",
