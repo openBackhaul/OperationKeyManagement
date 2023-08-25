@@ -236,7 +236,7 @@ exports.regardApplication = async function (body, user, originator, xCorrelator,
   const httpClientUuid = await httpClientInterface.getHttpClientUuidExcludingOldReleaseAndNewRelease(
     appName, appReleaseNumber, NEW_RELEASE_FORWARDING_NAME
   )
-  const logicalTerminatinPointConfigurationInput = new LogicalTerminationPointConfigurationInput(
+  const ltpConfigurationInput = new LogicalTerminationPointConfigurationInput(
     httpClientUuid,
     appName,
     appReleaseNumber,
@@ -245,7 +245,7 @@ exports.regardApplication = async function (body, user, originator, xCorrelator,
     operationNamesByAttributes,
     operationsMapping
   );
-  const ltpConfigurationStatus = await LogicalTerminationPointService.createOrUpdateApplicationLtpsAsync(logicalTerminatinPointConfigurationInput, NEW_RELEASE_FORWARDING_NAME);
+  const ltpConfigurationStatus = await LogicalTerminationPointService.createOrUpdateApplicationLtpsAsync(ltpConfigurationInput);
 
   const operationClientUuid = ltpConfigurationStatus.operationClientConfigurationStatusList[0].uuid;
   const cyclicOperationInput = new ForwardingConstructConfigurationInput(FC_CYCLIC_OPERATION_CAUSES_OPERATION_KEY_UPDATES, operationClientUuid);
