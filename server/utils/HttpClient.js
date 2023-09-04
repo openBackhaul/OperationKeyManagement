@@ -41,7 +41,7 @@ module.exports = class HttpClient {
     if (traceIndicator == undefined || traceIndicator === '') {
       this.#traceIndicator = '0'; // it is incremented when service execution is called
     } else {
-      this.#traceIndicator = traceIndicator;
+      this.#traceIndicator = traceIndicator + ".0";
     }
     this.#customerJourney = customerJourney == undefined ? 'Unknown value' : customerJourney;
   }
