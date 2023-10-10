@@ -153,8 +153,7 @@ exports.disregardApplication = async function (body, user, originator, xCorrelat
   if (!httpClientUuid) {
     return;
   }
-  const operationClientUuid = await operationClientInterface.getOperationClientUuidAsync(httpClientUuid, UPDATE_OPERATION_KEY_OPERATION);
-
+  
   let logicalTerminationPointConfigurationStatus= await LogicalTerminationPointService.deleteApplicationLtpsAsync(httpClientUuid);
 
   let applicationLayerTopologyForwardingInputList = prepareALTForwardingAutomation.getALTUnConfigureForwardingAutomationInputAsync(
