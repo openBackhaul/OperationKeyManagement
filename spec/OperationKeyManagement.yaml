@@ -1206,7 +1206,7 @@ paths:
                             'UUID of Link that holds the searched end points
                             from [$/v1/regard-updated-link.body#link-uuid]'
                       example:
-                        link-uuid: 'alt-2-0-1-op-link-051'
+                        link-uuid: '11bf5b37-e0b8-42e0-8dcf-dc8c4aefc000'
               responses:
                 '200':
                   description: 'List of operation UUIDs belonging to given link provided'
@@ -1393,8 +1393,8 @@ paths:
                               description: 'UUID of Link'
                         example:
                           link-uuid-list:
-                            - 'alt-2-0-1-op-link-051'
-                            - 'alt-2-0-1-op-link-145'
+                            - '11bf5b37-e0b8-42e0-8dcf-dc8c4aefc000'
+                            - '21bf5b37-e0b8-42e0-8dcf-dc8c4aefc002'
                   headers:
                     x-correlator:
                       schema:
@@ -1459,7 +1459,7 @@ paths:
                             'UUID of Link with searched end points
                             from [$ALT://v1/list-link-uuids.response#link-uuid-list]'
                       example:
-                        link-uuid: 'alt-2-0-1-op-link-051'
+                        link-uuid: '11bf5b37-e0b8-42e0-8dcf-dc8c4aefc000'
               responses:
                 '200':
                   description: 'List of operation UUIDs belonging to given link provided'
@@ -1847,9 +1847,8 @@ paths:
               properties:
                 link-uuid:
                   type: string
-                  pattern: '^([a-z]{2,6})-([0-9]{1,2})-([0-9]{1,2})-([0-9]{1,2})-op-link-([0-9]{3})$'
               example:
-                link-uuid: 'alt-2-0-1-op-link-051'
+                link-uuid: '11bf5b37-e0b8-42e0-8dcf-dc8c4aefc000'
       responses:
         '204':
           description: 'UUID of changed Link has been received'
