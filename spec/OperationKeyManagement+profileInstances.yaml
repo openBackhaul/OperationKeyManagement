@@ -119,18 +119,6 @@ profile-instances:
       value-reference: '/core-model-1-4:control-construct/logical-termination-point=okm-2-0-1-http-s-000/layer-protocol=0/http-server-interface-1-0:http-server-interface-pac/http-server-interface-capability/release-list=1/changes'
 
 
-  - profile-name: 'FileProfile'
-    uuid: 'okm-2-0-1-file-p-000'
-    capability:
-      file-identifier: 'LOADfile'
-      file-description: 'OperationMode'
-    configuration:
-      file-path: '../application-data/application-data.json'
-      user-name: 'OperationKeyManagement'
-      password: 'Operations to add password'
-      operation: 'write'
-
-
   - profile-name: 'StringProfile'
     uuid: 'okm-2-0-1-string-p-000'
     capability:

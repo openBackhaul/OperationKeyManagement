@@ -231,22 +231,6 @@
               }
             },
             {
-              "uuid": "okm-2-0-1-file-p-000",
-              "profile-name": "file-profile-1-0:PROFILE_NAME_TYPE_FILE_PROFILE",
-              "file-profile-1-0:file-profile-pac": {
-                "file-profile-capability": {
-                  "file-identifier": "LOADfile",
-                  "file-description": "OperationMode"
-                },
-                "file-profile-configuration": {
-                  "file-path": "../application-data/application-data.json",
-                  "user-name": "OperationKeyManagement",
-                  "password": "Operations to add password",
-                  "operation": "file-profile-1-0:OPERATION_TYPE_READ_WRITE"
-                }
-              }
-            },
-            {
               "uuid": "okm-2-0-1-string-p-000",
               "profile-name": "string-profile-1-0:PROFILE_NAME_TYPE_STRING_PROFILE",
               "string-profile-1-0:string-profile-pac": {
