@@ -6,6 +6,13 @@ var responseCodeEnum = require('onf-core-model-ap/applicationPattern/rest/server
 var RestResponseHeader = require('onf-core-model-ap/applicationPattern/rest/server/ResponseHeader');
 var RestResponseBuilder = require('onf-core-model-ap/applicationPattern/rest/server/ResponseBuilder');
 var ExecutionAndTraceService = require('onf-core-model-ap/applicationPattern/services/ExecutionAndTraceService');
+const operationServerInterface = require('onf-core-model-ap/applicationPattern/onfModel/models/layerProtocols/OperationServerInterface');
+const ForwardingDomain = require('onf-core-model-ap/applicationPattern/onfModel/models/ForwardingDomain');
+const ForwardingConstruct = require('onf-core-model-ap/applicationPattern/onfModel/models/ForwardingConstruct');
+const httpServerInterface = require('onf-core-model-ap/applicationPattern/onfModel/models/layerProtocols/HttpServerInterface');
+const httpClientInterface = require('onf-core-model-ap/applicationPattern/onfModel/models/layerProtocols/HttpClientInterface');
+const logicalTerminationPoint = require('onf-core-model-ap/applicationPattern/onfModel/models/LogicalTerminationPoint');
+
 
 const NEW_RELEASE_FORWARDING_NAME = 'PromptForBequeathingDataCausesTransferOfListOfApplications';
 
@@ -309,10 +316,13 @@ module.exports.updateOperationKey = async function updateOperationKey(req, res, 
   await BasicServices.updateOperationKey(body)
     .then(async function (responseBody) {
       let uuidToBeUpdated = body["operation-uuid"];
-      let operationServerOfUpdateOperationKeyInOKM = "okm-2-0-1-op-s-bm-010";
+      let operationServerOfUpdateOperationKeyInOKM = await operationServerInterface.getOperationServerUuidAsync(req.url)
+      // get application name
+      let serverApplicationName =  await httpServerInterface.getApplicationNameAsync()      
       if (uuidToBeUpdated == operationServerOfUpdateOperationKeyInOKM) {
+        let operationClientUuid = await getOperationClientUuidForUpdatingOperationKey(serverApplicationName)
         let requestBodyToUpdateOperationClient = {
-          "operation-uuid": "okm-2-0-1-op-c-is-okm-2-0-1-000",
+          "operation-uuid": operationClientUuid,
           "new-operation-key": body["new-operation-key"]
         }
         await BasicServices.updateOperationKey(requestBodyToUpdateOperationClient);
@@ -329,3 +339,22 @@ module.exports.updateOperationKey = async function updateOperationKey(req, res, 
     });
   ExecutionAndTraceService.recordServiceRequest(xCorrelator, traceIndicator, user, originator, req.url, responseCode, req.body, responseBodyToDocument);
 };
+
+
+async function getOperationClientUuidForUpdatingOperationKey(serverApplicationName) {
+  let ForwardConstructName = await ForwardingDomain.getForwardingConstructForTheForwardingNameAsync("LinkUpdateNotificationCausesOperationKeyUpdates")
+  let ForwardConstructUuid = ForwardConstructName.uuid
+  let OutputFcPorts = await ForwardingConstruct.getOutputFcPortsAsync(ForwardConstructUuid)
+  let OutputFcPortsLtps = []
+  OutputFcPorts.forEach((OutputFcPortValue, OutputFcPortKey) => {
+    OutputFcPortsLtps[OutputFcPortKey] = OutputFcPortValue['logical-termination-point']
+  })
+
+  for(let OutputFcPortsLtpsIndex = 0; OutputFcPortsLtpsIndex < OutputFcPortsLtps.length; OutputFcPortsLtpsIndex++){
+    let httpClientUuidList =  await logicalTerminationPoint.getServerLtpListAsync(OutputFcPortsLtps[OutputFcPortsLtpsIndex]);
+    let clientApplicationName = await httpClientInterface.getApplicationNameAsync(httpClientUuidList[0])
+    if(clientApplicationName === serverApplicationName){
+      return OutputFcPortsLtps[OutputFcPortsLtpsIndex]
+    }
+  }
+}
