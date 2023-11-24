@@ -11,7 +11,6 @@ const forwardingConfigurationService = require('onf-core-model-ap/applicationPat
 const LogicalTerminationPoint = require('onf-core-model-ap/applicationPattern/onfModel/models/LogicalTerminationPoint');
 const tcpClientInterface = require('onf-core-model-ap/applicationPattern/onfModel/models/layerProtocols/TcpClientInterface');
 const httpClientInterface = require('onf-core-model-ap/applicationPattern/onfModel/models/layerProtocols/HttpClientInterface');
-const operationClientInterface = require('onf-core-model-ap/applicationPattern/onfModel/models/layerProtocols/OperationClientInterface');
 const onfAttributeFormatter = require('onf-core-model-ap/applicationPattern/onfModel/utility/OnfAttributeFormatter');
 const ConfigurationStatus = require('onf-core-model-ap/applicationPattern/onfModel/services/models/ConfigurationStatus');
 const LogicalTerminationPointConfigurationStatus = require('onf-core-model-ap/applicationPattern/onfModel/services/models/logicalTerminationPoint/ConfigurationStatus');
@@ -153,17 +152,11 @@ exports.disregardApplication = async function (body, user, originator, xCorrelat
   if (!httpClientUuid) {
     return;
   }
-  const operationClientUuid = await operationClientInterface.getOperationClientUuidAsync(httpClientUuid, UPDATE_OPERATION_KEY_OPERATION);
-
-  await LogicalTerminationPointService.deleteApplicationLtpsAsync(httpClientUuid);
-
-  const cyclicOperationInput = new ForwardingConstructConfigurationInput(FC_CYCLIC_OPERATION_CAUSES_OPERATION_KEY_UPDATES, operationClientUuid);
-  const linkUpdateNotificationInput = new ForwardingConstructConfigurationInput(FC_LINK_UPDATE_NOTIFICATION_CAUSES_OPERATION_KEY_UPDATES, operationClientUuid);
-  const forwardingConfigurationInputList = [cyclicOperationInput, linkUpdateNotificationInput];
-  const forwardingConstructConfigurationStatus = await forwardingConfigurationService.unConfigureForwardingConstructAsync(operationServerName, forwardingConfigurationInputList);
+  
+  let logicalTerminationPointConfigurationStatus= await LogicalTerminationPointService.deleteApplicationLtpsAsync(httpClientUuid);
 
   let applicationLayerTopologyForwardingInputList = prepareALTForwardingAutomation.getALTUnConfigureForwardingAutomationInputAsync(
-    forwardingConstructConfigurationStatus
+    logicalTerminationPointConfigurationStatus
   );
 
   forwardingAutomationService.automateForwardingConstructAsync(
