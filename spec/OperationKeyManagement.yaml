@@ -1339,8 +1339,6 @@ paths:
                           description: >
                             'UUID of Link that holds the searched end points
                             from [$/v1/regard-updated-link.body#link-uuid]'
-                      example:
-                        link-uuid: '11bf5b37-e0b8-42e0-8dcf-dc8c4aefc000'
               responses:
                 '200':
                   description: 'List of operation UUIDs belonging to given link provided'
@@ -1376,16 +1374,6 @@ paths:
                                     - 'core-model-1-4:TERMINATION_DIRECTION_SOURCE'
                                     - 'core-model-1-4:TERMINATION_DIRECTION_SINK'
                                   description: 'Identifies OperationServer (SOURCE) and OperationClient (SINK)'
-                        example:
-                          link-end-point-list:
-                            - application-name: 'RegistryOffice'
-                              release-number: '2.0.1'
-                              operation-uuid: 'ro-2-0-1-op-c-im-alt-2-1-0-003'
-                              ltp-direction: 'core-model-1-4:TERMINATION_DIRECTION_SINK'
-                            - application-name: 'ApplicationLayerTopology'
-                              release-number: '1.0.0'
-                              operation-uuid: 'alt-1-0-0-op-s-is-001'
-                              ltp-direction: 'core-model-1-4:TERMINATION_DIRECTION_SOURCE'
                   headers:
                     x-correlator:
                       schema:
@@ -1455,9 +1443,6 @@ paths:
                           minLength: 5
                           description: >
                             'Future operation key'
-                      example:
-                        operation-uuid: 'ro-2-0-1-op-c-im-alt-2-1-0-003'
-                        new-operation-key: 'Operation key not yet provided.'
               responses:
                 '204':
                   description: 'Operation key has been updated'
@@ -1525,10 +1510,6 @@ paths:
                             items:
                               type: string
                               description: 'UUID of Link'
-                        example:
-                          link-uuid-list:
-                            - '11bf5b37-e0b8-42e0-8dcf-dc8c4aefc000'
-                            - '21bf5b37-e0b8-42e0-8dcf-dc8c4aefc002'
                   headers:
                     x-correlator:
                       schema:
@@ -1592,8 +1573,6 @@ paths:
                           description: >
                             'UUID of Link with searched end points
                             from [$ALT://v1/list-link-uuids.response#link-uuid-list]'
-                      example:
-                        link-uuid: '11bf5b37-e0b8-42e0-8dcf-dc8c4aefc000'
               responses:
                 '200':
                   description: 'List of operation UUIDs belonging to given link provided'
@@ -1629,16 +1608,6 @@ paths:
                                     - 'core-model-1-4:TERMINATION_DIRECTION_SOURCE'
                                     - 'core-model-1-4:TERMINATION_DIRECTION_SINK'
                                   description: 'Identifies OperationServer (SOURCE) and OperationClient (SINK)'
-                        example:
-                          link-end-point-list:
-                            - application-name: 'RegistryOffice'
-                              release-number: '2.0.1'
-                              operation-uuid: 'ro-2-0-1-op-c-im-alt-2-1-0-003'
-                              ltp-direction: 'core-model-1-4:TERMINATION_DIRECTION_SINK'
-                            - application-name: 'ApplicationLayerTopology'
-                              release-number: '1.0.0'
-                              operation-uuid: 'alt-1-0-0-op-s-is-001'
-                              ltp-direction: 'core-model-1-4:TERMINATION_DIRECTION_SOURCE'
                   headers:
                     x-correlator:
                       schema:
