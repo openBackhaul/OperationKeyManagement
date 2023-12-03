@@ -220,42 +220,44 @@ clients:
 
   - http-client:
       application-name: ApplicationLayerTopology
-      release-number: 1.0.0
-      uuid: okm-2-0-1-http-c-alt-1-0-0-000
+      release-number: 2.1.0
+      uuid: okm-2-0-1-http-c-alt-2-1-0-000
     tcp-client:
       remote-protocol: http
-      ip-address: 1.1.3.6
-      tcp-port: 3006
-      uuid: okm-2-0-1-tcp-c-alt-1-0-0-000
+      ip-address: 127.0.0.1
+      tcp-port: 3029
+      uuid: okm-2-0-1-tcp-c-alt-2-1-0-000
     operation-clients:
       own-oam:
         basic:
           - operation-name: /v1/update-all-ltps-and-fcs
-            uuid: okm-2-0-1-op-c-bm-alt-1-0-0-000
+            uuid: okm-2-0-1-op-c-bm-alt-2-1-0-000
           - operation-name: /v1/update-ltp
-            uuid: okm-2-0-1-op-c-bm-alt-1-0-0-001
+            uuid: okm-2-0-1-op-c-bm-alt-2-1-0-001
           - operation-name: /v1/delete-ltp-and-dependents
-            uuid: okm-2-0-1-op-c-bm-alt-1-0-0-002
+            uuid: okm-2-0-1-op-c-bm-alt-2-1-0-002
           - operation-name: /v1/update-fc
-            uuid: okm-2-0-1-op-c-bm-alt-1-0-0-003
+            uuid: okm-2-0-1-op-c-bm-alt-2-1-0-003
           - operation-name: /v1/update-fc-port
-            uuid: okm-2-0-1-op-c-bm-alt-1-0-0-004
+            uuid: okm-2-0-1-op-c-bm-alt-2-1-0-004
           - operation-name: /v1/delete-fc-port
-            uuid: okm-2-0-1-op-c-bm-alt-1-0-0-005
+            uuid: okm-2-0-1-op-c-bm-alt-2-1-0-005
         individual:
           - operation-name: /v1/notify-link-updates
-            uuid: okm-2-0-1-op-c-im-alt-1-0-0-000
+            uuid: okm-2-0-1-op-c-im-alt-2-1-0-000
           - operation-name: /v1/end-subscription
-            uuid: okm-2-0-1-op-c-im-alt-1-0-0-001
+            uuid: okm-2-0-1-op-c-im-alt-2-1-0-001
       service:
         basic:
         individual:
           - operation-name: /v1/update-operation-key
-            uuid: okm-2-0-1-op-c-is-alt-1-0-0-000
+            uuid: okm-2-0-1-op-c-is-alt-2-1-0-000
           - operation-name: /v1/list-link-uuids
-            uuid: okm-2-0-1-op-c-is-alt-1-0-0-002
+            uuid: okm-2-0-1-op-c-is-alt-2-1-0-002
           - operation-name: /v1/list-end-points-of-link
-            uuid: okm-2-0-1-op-c-is-alt-1-0-0-003
+            uuid: okm-2-0-1-op-c-is-alt-2-1-0-003
+          - operation-name: /v1/add-operation-client-to-link
+            uuid: okm-2-0-1-op-c-is-alt-2-1-0-004
 
   - http-client:
       application-name: OperationKeyManagement

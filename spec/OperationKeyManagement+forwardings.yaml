@@ -187,7 +187,7 @@ forwardings:
         uuid: okm-2-0-1-op-s-im-000
     consequent-requests:
       - client-name: ApplicationLayerTopology://v1/notify-link-updates
-        uuid: okm-2-0-1-op-c-im-alt-1-0-0-000
+        uuid: okm-2-0-1-op-c-im-alt-2-1-0-000
 
   - forwarding-name: PromptForBequeathingDataCausesRObeingRequestedToStopNotificationsToOldRelease
     uuid: okm-2-0-1-op-fc-im-114
@@ -217,7 +217,7 @@ forwardings:
         uuid: okm-2-0-1-op-s-im-000
     consequent-requests:
       - client-name: ApplicationLayerTopology://v1/end-subscription
-        uuid: okm-2-0-1-op-c-im-alt-1-0-0-001
+        uuid: okm-2-0-1-op-c-im-alt-2-1-0-001
 
   - forwarding-name: PromptForBequeathingDataCausesRequestForBroadcastingInfoAboutServerReplacement
     uuid: okm-2-0-1-op-fc-bm-105
@@ -311,7 +311,7 @@ forwardings:
         uuid: okm-2-0-1-op-s-is-001
     consequent-requests:
       - client-name: ApplicationLayerTopology://v1/update-ltp
-        uuid: okm-2-0-1-op-c-bm-alt-1-0-0-001
+        uuid: okm-2-0-1-op-c-bm-alt-2-1-0-001
 
   - forwarding-name: ServiceRequestCausesLtpDeletionRequest
     uuid: okm-2-0-1-op-fc-bm-007
@@ -330,7 +330,7 @@ forwardings:
         uuid: okm-2-0-1-op-s-is-002
     consequent-requests:
       - client-name: ApplicationLayerTopology://v1/delete-ltp-and-dependents
-        uuid: okm-2-0-1-op-c-bm-alt-1-0-0-002
+        uuid: okm-2-0-1-op-c-bm-alt-2-1-0-002
 
   - forwarding-name: ServiceRequestCausesFcUpdateRequest
     uuid: okm-2-0-1-op-fc-bm-008
@@ -349,7 +349,7 @@ forwardings:
         uuid: okm-2-0-1-op-s-is-001
     consequent-requests:
       - client-name: ApplicationLayerTopology://v1/update-fc
-        uuid: okm-2-0-1-op-c-bm-alt-1-0-0-003
+        uuid: okm-2-0-1-op-c-bm-alt-2-1-0-003
 
   - forwarding-name: ServiceRequestCausesFcPortUpdateRequest
     uuid: okm-2-0-1-op-fc-bm-009
@@ -366,7 +366,7 @@ forwardings:
     initiating-requests:
     consequent-requests:
       - client-name: ApplicationLayerTopology://v1/update-fc-port
-        uuid: okm-2-0-1-op-c-bm-alt-1-0-0-004
+        uuid: okm-2-0-1-op-c-bm-alt-2-1-0-004
 
   - forwarding-name: ServiceRequestCausesFcPortDeletionRequest
     uuid: okm-2-0-1-op-fc-bm-010
@@ -385,7 +385,7 @@ forwardings:
         uuid: okm-2-0-1-op-s-bm-004
     consequent-requests:
       - client-name: ApplicationLayerTopology://v1/delete-fc-port
-        uuid: okm-2-0-1-op-c-bm-alt-1-0-0-005
+        uuid: okm-2-0-1-op-c-bm-alt-2-1-0-005
 
   - forwarding-name: OamRequestCausesLtpUpdateRequest
     uuid: okm-2-0-1-op-fc-bm-011
@@ -402,7 +402,7 @@ forwardings:
     initiating-requests:
     consequent-requests:
       - client-name: ApplicationLayerTopology://v1/update-ltp
-        uuid: okm-2-0-1-op-c-bm-alt-1-0-0-001
+        uuid: okm-2-0-1-op-c-bm-alt-2-1-0-001
 
   - forwarding-name: OamRequestCausesLtpDeletionRequest
     uuid: okm-2-0-1-op-fc-bm-012
@@ -419,7 +419,7 @@ forwardings:
     initiating-requests:
     consequent-requests:
       - client-name: ApplicationLayerTopology://v1/delete-ltp-and-dependents
-        uuid: okm-2-0-1-op-c-bm-alt-1-0-0-002
+        uuid: okm-2-0-1-op-c-bm-alt-2-1-0-002
 
   - forwarding-name: OamRequestCausesFcUpdateRequest
     uuid: okm-2-0-1-op-fc-bm-013
@@ -436,7 +436,7 @@ forwardings:
     initiating-requests:
     consequent-requests:
       - client-name: ApplicationLayerTopology://v1/update-fc
-        uuid: okm-2-0-1-op-c-bm-alt-1-0-0-003
+        uuid: okm-2-0-1-op-c-bm-alt-2-1-0-003
 
   - forwarding-name: OamRequestCausesFcPortUpdateRequest
     uuid: okm-2-0-1-op-fc-bm-014
@@ -453,7 +453,7 @@ forwardings:
     initiating-requests:
     consequent-requests:
       - client-name: ApplicationLayerTopology://v1/update-fc-port
-        uuid: okm-2-0-1-op-c-bm-alt-1-0-0-004
+        uuid: okm-2-0-1-op-c-bm-alt-2-1-0-004
 
   - forwarding-name: OamRequestCausesFcPortDeletionRequest
     uuid: okm-2-0-1-op-fc-bm-015
@@ -470,7 +470,22 @@ forwardings:
     initiating-requests:
     consequent-requests:
       - client-name: ApplicationLayerTopology://v1/delete-fc-port
-        uuid: okm-2-0-1-op-c-bm-alt-1-0-0-005
+        uuid: okm-2-0-1-op-c-bm-alt-2-1-0-005
+
+  - forwarding-name: NewApplicationCausesRequestsForUpdatingOperationKeys.CreateLinkForUpdatingOperationKeys
+    uuid: okm-2-0-1-op-fc-is-999
+    forwarding-type: InvariantProcessSnippet
+    management-requests:
+      operation-client-update:
+      fc-port-update:
+      fc-port-deletion:
+      operation-client-deletion:
+    initiating-requests:
+      - server-name: /v1/regard-application
+        uuid: okm-2-0-1-op-s-is-001
+    consequent-requests:
+      - client-name: ApplicationLayerTopology://v1/add-operation-client-to-link
+        uuid: okm-2-0-1-op-c-is-alt-2-1-0-004
 
   - forwarding-name: LinkUpdateNotificationCausesRequestForLinkEndPoints
     uuid: okm-2-0-1-op-fc-is-000
@@ -485,7 +500,7 @@ forwardings:
         uuid: okm-2-0-1-op-s-is-004
     consequent-requests:
       - client-name: ApplicationLayerTopology://v1/list-end-points-of-link
-        uuid: okm-2-0-1-op-c-is-alt-1-0-0-003
+        uuid: okm-2-0-1-op-c-is-alt-2-1-0-003
 
   - forwarding-name: LinkUpdateNotificationCausesOperationKeyUpdates
     uuid: okm-2-0-1-op-fc-is-001
@@ -518,7 +533,7 @@ forwardings:
       - client-name: AdministratorAdministration://v1/update-operation-key
         uuid: okm-2-0-1-op-c-is-aa-1-0-0-000
       - client-name: ApplicationLayerTopology://v1/update-operation-key
-        uuid: okm-2-0-1-op-c-is-alt-1-0-0-000
+        uuid: okm-2-0-1-op-c-is-alt-2-1-0-000
       - client-name: OperationKeyManagement://v1/update-operation-key
         uuid: okm-2-0-1-op-c-is-okm-2-0-1-000
       - client-name: CurrentController://v1/update-operation-key
@@ -535,7 +550,7 @@ forwardings:
     initiating-requests:
     consequent-requests:
       - client-name: ApplicationLayerTopology://v1/list-link-uuids
-        uuid: okm-2-0-1-op-c-is-alt-1-0-0-002
+        uuid: okm-2-0-1-op-c-is-alt-2-1-0-002
 
   - forwarding-name: CyclicOperationCausesRequestForLinkEndPoints
     uuid: okm-2-0-1-op-fc-is-011
@@ -548,7 +563,7 @@ forwardings:
     initiating-requests:
     consequent-requests:
       - client-name: ApplicationLayerTopology://v1/list-end-points-of-link
-        uuid: okm-2-0-1-op-c-is-alt-1-0-0-003
+        uuid: okm-2-0-1-op-c-is-alt-2-1-0-003
 
   - forwarding-name: CyclicOperationCausesOperationKeyUpdates
     uuid: okm-2-0-1-op-fc-is-012
@@ -579,7 +594,7 @@ forwardings:
       - client-name: AdministratorAdministration://v1/update-operation-key
         uuid: okm-2-0-1-op-c-is-aa-1-0-0-000
       - client-name: ApplicationLayerTopology://v1/update-operation-key
-        uuid: okm-2-0-1-op-c-is-alt-1-0-0-000
+        uuid: okm-2-0-1-op-c-is-alt-2-1-0-000
       - client-name: OperationKeyManagement://v1/update-operation-key
         uuid: okm-2-0-1-op-c-is-okm-2-0-1-000
       - client-name: CurrentController://v1/update-operation-key
