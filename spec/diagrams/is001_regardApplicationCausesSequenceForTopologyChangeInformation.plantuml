@@ -40,7 +40,7 @@ okmRegardApplication => newApplicationName://v1/update-operation-key
 end note
 okmRegardApplication -> altAddClientToLink : { servingApplicationName == requestBody.newApplicationName,\n servingApplicationReleaseNumber == requestBody.releaseNumber,\n operationName == /v1/update-operation-key,\n consumingApplicationName == OperationKeyManagement,\n consumingApplicationReleaseNumber == 2.1.0 } (apiKey)
 activate altAddClientToLink #WhiteSmoke
-altAddClientToLink --> okmRegardApplication : {client-successfully-added, reason-of-failure}
+okmRegardApplication <-- altAddClientToLink : {client-successfully-added, reason-of-failure}
 
 note over altAddClientToLink #WhiteSmoke
 Now, the newApplicationName://v1/update-operation-key OperationClient in OKM
@@ -51,12 +51,12 @@ end note
 note left okmRegardApplication
 IF 200
 end note
-okmRegardApplication --> ro : { successfully-connected==true }
+ro <-- okmRegardApplication : { successfully-connected==true }
 
 note left okmRegardApplication
 IF (NOT 200)
 end note
-okmRegardApplication --> ro : { successfully-connected==false,  reason-of-failure}
+ro <-- okmRegardApplication : { successfully-connected==false,  reason-of-failure}
 
 deactivate okmRegardApplication
 
@@ -66,12 +66,12 @@ end note
 
 altAddClientToLink -[#LightGrey]> okmRegardLink
 activate okmRegardLink #WhiteSmoke
-okmRegardLink -[#LightGrey]-> altAddClientToLink
+altAddClientToLink <[#LightGrey]-- okmRegardLink
 
 deactivate altAddClientToLink
 
 okmRegardLink -[#LightGrey]> altListEndPoints
-altListEndPoints --[#LightGrey]> okmRegardLink
+okmRegardLink <[#LightGrey]-- altListEndPoints
 
 note over okmRegardLink #WhiteSmoke
 Now, OKM configures a new OperationKey at the
@@ -81,7 +81,7 @@ newApplicationName://v1/update-operation-key
 end note
 
 okmRegardLink -[#LightGrey]> newApplicationUpdateKey : (<font color=red><b>default</b><font color=black>ApiKey)
-newApplicationUpdateKey --[#LightGrey]> okmRegardLink
+okmRegardLink <[#LightGrey]-- newApplicationUpdateKey
 
 note over okmRegardLink #WhiteSmoke
 Finally, OKM configures the same OperationKey at its own
@@ -89,6 +89,6 @@ newApplicationName://v1/update-operation-key OperationClient
 end note
 
 okmRegardLink -[#LightGrey]> okmUpdateKey
-okmUpdateKey --[#LightGrey]> okmRegardLink
+okmRegardLink <[#LightGrey]-- okmUpdateKey
 
 @enduml
