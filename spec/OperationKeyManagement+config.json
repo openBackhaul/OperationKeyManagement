@@ -771,6 +771,30 @@
                     "operation-name": "/v1/regard-updated-link"
                   },
                   "operation-server-interface-configuration": {
+                    "life-cycle-state": "operation-server-interface-1-0:LIFE_CYCLE_STATE_TYPE_DEPRECATED",
+                    "operation-key": "Operation key not yet provided."
+                  }
+                }
+              }
+            ]
+          },
+          {
+            "uuid": "okm-2-0-1-op-s-is-005",
+            "ltp-direction": "core-model-1-4:TERMINATION_DIRECTION_SOURCE",
+            "client-ltp": [
+            ],
+            "server-ltp": [
+              "okm-2-0-1-http-s-000"
+            ],
+            "layer-protocol": [
+              {
+                "local-id": "0",
+                "layer-protocol-name": "operation-server-interface-1-0:LAYER_PROTOCOL_NAME_TYPE_OPERATION_LAYER",
+                "operation-server-interface-1-0:operation-server-interface-pac": {
+                  "operation-server-interface-capability": {
+                    "operation-name": "/v2/regard-updated-link"
+                  },
+                  "operation-server-interface-configuration": {
                     "life-cycle-state": "operation-server-interface-1-0:LIFE_CYCLE_STATE_TYPE_EXPERIMENTAL",
                     "operation-key": "Operation key not yet provided."
                   }
@@ -803,7 +827,8 @@
               "okm-2-0-1-op-s-is-001",
               "okm-2-0-1-op-s-is-002",
               "okm-2-0-1-op-s-is-003",
-              "okm-2-0-1-op-s-is-004"
+              "okm-2-0-1-op-s-is-004",
+              "okm-2-0-1-op-s-is-005"
             ],
             "server-ltp": [
               "okm-2-0-1-tcp-s-000"
@@ -815,7 +840,7 @@
                 "http-server-interface-1-0:http-server-interface-pac": {
                   "http-server-interface-capability": {
                     "application-name": "OperationKeyManagement",
-                    "release-number": "2.0.1",
+                    "release-number": "2.1.0",
                     "application-purpose": "Keeps the operation keys on server and client side in synch.",
                     "data-update-period": "http-server-interface-1-0:DATA_UPDATE_PERIOD_TYPE_REAL_TIME",
                     "owner-name": "Thorsten Heinze",
@@ -825,13 +850,19 @@
                         "local-id": "0",
                         "release-number": "1.0.0",
                         "release-date": "10.01.2022",
-                        "changes": "Initial version."
+                        "changes": "Initial version"
                       },
                       {
                         "local-id": "1",
                         "release-number": "2.0.1",
                         "release-date": "10.01.2023",
-                        "changes": "Update on ApplicationPattern 2.0.1."
+                        "changes": "Update on ApplicationPattern 2.0.1"
+                      },
+                      {
+                        "local-id": "2",
+                        "release-number": "2.1.0",
+                        "release-date": "08.12.2023",
+                        "changes": "Update on ApplicationPattern 2.1.0"
                       }
                     ]
                   }
@@ -2325,6 +2356,11 @@
                     "logical-termination-point": "okm-2-0-1-op-s-is-004"
                   },
                   {
+                    "local-id": "120",
+                    "port-direction": "core-model-1-4:PORT_DIRECTION_TYPE_INPUT",
+                    "logical-termination-point": "okm-2-0-1-op-s-is-005"
+                  },
+                  {
                     "local-id": "200",
                     "port-direction": "core-model-1-4:PORT_DIRECTION_TYPE_OUTPUT",
                     "logical-termination-point": "okm-2-0-1-op-c-bs-eatl-1-0-0-000"
@@ -3013,6 +3049,11 @@
                     "local-id": "100",
                     "port-direction": "core-model-1-4:PORT_DIRECTION_TYPE_INPUT",
                     "logical-termination-point": "okm-2-0-1-op-s-is-004"
+                  },
+                  {
+                    "local-id": "100",
+                    "port-direction": "core-model-1-4:PORT_DIRECTION_TYPE_INPUT",
+                    "logical-termination-point": "okm-2-0-1-op-s-is-005"
                   },
                   {
                     "local-id": "202",

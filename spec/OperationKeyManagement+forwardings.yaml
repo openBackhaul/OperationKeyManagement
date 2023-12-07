@@ -89,6 +89,8 @@ forwardings:
         uuid: okm-2-0-1-op-s-is-003
       - server-name: /v1/regard-updated-link
         uuid: okm-2-0-1-op-s-is-004
+      - server-name: /v2/regard-updated-link
+        uuid: okm-2-0-1-op-s-is-005
     consequent-requests:
       - client-name: ExecutionAndTraceLog://v1/record-service-request
         uuid: okm-2-0-1-op-c-bs-eatl-1-0-0-000
@@ -521,6 +523,8 @@ forwardings:
     initiating-requests:
       - server-name: /v1/regard-updated-link
         uuid: okm-2-0-1-op-s-is-004
+      - server-name: /v1/regard-updated-link
+        uuid: okm-2-0-1-op-s-is-005
     consequent-requests:
       - client-name: RegistryOffice://v1/update-operation-key
         uuid: okm-2-0-1-op-c-is-ro-2-0-1-000

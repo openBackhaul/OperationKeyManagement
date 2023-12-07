@@ -51,6 +51,8 @@ servers:
           uuid: okm-2-0-1-op-s-is-003
         - operation-name: /v1/regard-updated-link
           uuid: okm-2-0-1-op-s-is-004
+        - operation-name: /v2/regard-updated-link
+          uuid: okm-2-0-1-op-s-is-005
   http-server:
     own-application-name: OperationKeyManagement
     own-release-number: 2.0.1

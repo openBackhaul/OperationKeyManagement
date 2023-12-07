@@ -515,7 +515,7 @@ paths:
                           type: string
                           description: >
                             'Name of the operation that shall be addressed by notifications about updates of Links
-                            from [/core-model-1-4:control-construct/logical-termination-point=okm-2-0-1-op-s-is-004/layer-protocol=0/operation-server-interface-1-0:operation-server-interface-pac/operation-server-interface-capability/operation-name]'
+                            from [/core-model-1-4:control-construct/logical-termination-point=okm-2-0-1-op-s-is-005/layer-protocol=0/operation-server-interface-1-0:operation-server-interface-pac/operation-server-interface-capability/operation-name]'
                         subscriber-protocol:
                           type: string
                           description: >
@@ -1926,6 +1926,10 @@ paths:
           $ref: '#/components/responses/responseForErroredServiceRequests'
 
   /v1/regard-updated-link:
+    description: >
+      'DEPRECATED
+      Service shall be deleted with RO v3.0.0
+      Starting from RO v2.1.0, /v2/regard-updated-link shall be used instead'
     parameters:
       - $ref: '#/components/parameters/user'
       - $ref: '#/components/parameters/originator'
@@ -1985,6 +1989,113 @@ paths:
               description: >
                   'Life cycle state of the consumed service
                   find in [/core-model-1-4:control-construct/logical-termination-point=okm-2-0-1-op-s-is-004/layer-protocol=0/operation-server-interface-1-0:operation-server-interface-pac/operation-server-interface-configuration/life-cycle-state]'
+        '400':
+          $ref: '#/components/responses/responseForErroredServiceRequests'
+        '401':
+          $ref: '#/components/responses/responseForErroredServiceRequests'
+        '403':
+          $ref: '#/components/responses/responseForErroredServiceRequests'
+        '404':
+          $ref: '#/components/responses/responseForErroredServiceRequests'
+        '500':
+          $ref: '#/components/responses/responseForErroredServiceRequests'
+        default:
+          $ref: '#/components/responses/responseForErroredServiceRequests'
+  /v2/regard-updated-link:
+    parameters:
+      - $ref: '#/components/parameters/user'
+      - $ref: '#/components/parameters/originator'
+      - $ref: '#/components/parameters/x-correlator'
+      - $ref: '#/components/parameters/trace-indicator'
+      - $ref: '#/components/parameters/customer-journey'
+    post:
+      operationId: regardUpdatedLink2
+      summary: 'Initiates OperationKey update'
+      tags:
+        - IndividualServices
+      security:
+        - apiKeyAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - link-uuid
+                - link-end-point-list
+              properties:
+                link-uuid:
+                  type: string
+                link-end-point-list:
+                  type: array
+                  items:
+                    type: object
+                    required:
+                      - application-name
+                      - release-number
+                      - operation-uuid
+                      - ltp-direction
+                    properties:
+                      application-name:
+                        type: string
+                        description: 'Name of application that holds the link end point (operationServer or operationClient)'
+                      release-number:
+                        type: string
+                        description: 'Release of application that holds the link end point (operationServer or operationClient)'
+                      operation-uuid:
+                        type: string
+                        description: 'UUID of the operation (server or client) at the link end point'
+                      ltp-direction:
+                        type: string
+                        enum:
+                          - 'core-model-1-4:TERMINATION_DIRECTION_SOURCE'
+                          - 'core-model-1-4:TERMINATION_DIRECTION_SINK'
+                        description: 'Identifies OperationServer (SOURCE) and OperationClient (SINK)'
+              example:
+                link-uuid: '11bf5b37-e0b8-42e0-8dcf-dc8c4aefc000'
+                link-end-point-list:
+                  - application-name: 'RegistryOffice'
+                    release-number: '2.0.1'
+                    operation-uuid: 'ro-2-0-1-op-c-im-alt-1-0-0-000'
+                    ltp-direction: 'core-model-1-4:TERMINATION_DIRECTION_SINK'
+                  - application-name: 'ApplicationLayerTopology'
+                    release-number: '2.0.1'
+                    operation-uuid: 'alt-2-0-1-op-s-bm-001'
+                    ltp-direction: 'core-model-1-4:TERMINATION_DIRECTION_SOURCE'
+      responses:
+        '204':
+          description: 'UUID of changed Link has been received'
+          headers:
+            x-correlator:
+              schema:
+                type: string
+                example: '550e8400-e29b-11d4-a716-446655440000'
+              description: 'UUID for the service execution flow that allows to correlate requests and responses. Its value must be identical at the response compared with its corresponding request'
+            exec-time:
+              schema:
+                type: integer
+                example: 1100
+              description: 'Value written by the service provider, reporting the total elapsed time for the execution, including all the additional processing needed to retrieve the data from the backend service. Expressed in milliseconds'
+            backend-time:
+              schema:
+                type: integer
+                example: 850
+              description: 'Value written by the service provider, reporting the elapsed time for data retrieval from the backend (service invocation, database access…). Expressed in milliseconds'
+            life-cycle-state:
+              schema:
+                type: string
+                enum:
+                  - 'EXPERIMENTAL'
+                  - 'OPERATIONAL'
+                  - 'DEPRECATED'
+                  - 'OBSOLETE'
+                  - 'UNKNOWN'
+                  - 'NOT_YET_DEFINED'
+                example: 'EXPERIMENTAL'
+              description: >
+                  'Life cycle state of the consumed service
+                  find in [/core-model-1-4:control-construct/logical-termination-point=okm-2-0-1-op-s-is-005/layer-protocol=0/operation-server-interface-1-0:operation-server-interface-pac/operation-server-interface-configuration/life-cycle-state]'
         '400':
           $ref: '#/components/responses/responseForErroredServiceRequests'
         '401':
