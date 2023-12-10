@@ -1,0 +1,94 @@
+@startuml is001_regardApplicationCausesSequenceForUpdatingOperationKeys
+skinparam responseMessageBelowArrow true
+
+title
+NewApplicationCausesRequestsForUpdatingOperationKeys
+end title
+
+participant "RO" as ro
+participant "OKM://v1/regard-application" as okmRegardApplication
+participant "OKM://v1/regard-updated-link" as okmRegardLink
+participant "OKM://v1/update-operation-key" as okmUpdateKey
+participant "ALT://v1/add-operation-client-to-link" as altAddClientToLink
+participant "ALT://v1/list-end-points-of-link" as altListEndPoints
+participant "newApplicationName://v1/update-operation-key" as newApplicationUpdateKey
+
+note right okmRegardApplication #WhiteSmoke
+The CC (including the /v1/update-operation-key OperationServer) of the new application must already be in the ALT when attempting to create below Link.
+So, it is assumed that RO calls /v1/regard-application at ALT first and OKM second.
+It is also necessary that the OperationKey of the /v1/update-operation-key OperationServer at the new application is set to the default value before it gets instantiated.
+end note
+
+note over altAddClientToLink #WhiteSmoke
+The new application and its
+/v1/update-operation-key OperationServer
+already exists in ALT
+end note
+
+ro -> okmRegardApplication : {newApplicationName, releaseNumber, protocol, address, port} (apiKey)
+activate okmRegardApplication
+
+note over okmRegardApplication #WhiteSmoke
+Now, a newApplicationName://v1/update-operation-key
+OperationClient got created in OKM
+end note
+
+note over okmRegardApplication
+<u>CreateLinkForUpdatingOperationKeys</u>
+Request for automatically creating the Link:
+okmRegardApplication => newApplicationName://v1/update-operation-key
+end note
+okmRegardApplication -> altAddClientToLink : { servingApplicationName == requestBody.newApplicationName,\n servingApplicationReleaseNumber == requestBody.releaseNumber,\n operationName == /v1/update-operation-key,\n consumingApplicationName == OperationKeyManagement,\n consumingApplicationReleaseNumber == 2.1.0 } (apiKey)
+activate altAddClientToLink #WhiteSmoke
+okmRegardApplication <-- altAddClientToLink : {client-successfully-added, reason-of-failure}
+
+note over altAddClientToLink #WhiteSmoke
+Now, the newApplicationName://v1/update-operation-key OperationClient in OKM
+got added to the Link starting from the
+/v1/update-operation-key OperationServer in the new application in ALT ...
+end note
+
+note left okmRegardApplication
+IF 200
+end note
+ro <-- okmRegardApplication : { successfully-connected==true }
+
+note left okmRegardApplication
+IF (NOT 200)
+end note
+ro <-- okmRegardApplication : { successfully-connected==false,  reason-of-failure}
+
+deactivate okmRegardApplication
+
+note over altAddClientToLink #WhiteSmoke
+... and ALT notifies OKM about the changed Link
+end note
+
+altAddClientToLink -[#LightGrey]> okmRegardLink
+activate okmRegardLink #WhiteSmoke
+altAddClientToLink <[#LightGrey]-- okmRegardLink
+
+deactivate altAddClientToLink
+
+okmRegardLink -[#LightGrey]> altListEndPoints
+okmRegardLink <[#LightGrey]-- altListEndPoints
+
+note over okmRegardLink #WhiteSmoke
+Now, OKM configures a new OperationKey at the
+/v1/update-operation-key OperationServer in the new application
+while applying the default OperationKey for addressing
+newApplicationName://v1/update-operation-key
+end note
+
+okmRegardLink -[#LightGrey]> newApplicationUpdateKey : (<font color=red><b>default</b><font color=black>ApiKey)
+okmRegardLink <[#LightGrey]-- newApplicationUpdateKey
+
+note over okmRegardLink #WhiteSmoke
+Finally, OKM configures the same OperationKey at its own
+newApplicationName://v1/update-operation-key OperationClient
+end note
+
+okmRegardLink -[#LightGrey]> okmUpdateKey
+okmRegardLink <[#LightGrey]-- okmUpdateKey
+
+@enduml
