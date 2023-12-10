@@ -15,7 +15,7 @@ module.exports.getTcpServerDescription = async function getTcpServerDescription(
       let sentResp = responseBuilder.buildResponse(res, undefined, response);
       responseCode = sentResp.code;
     });
-  oamLogService.recordOamRequest(req.url, req.body, responseCode, req.headers.authorization, req.method);;
+  oamLogService.recordOamRequest(req.url, req.body, responseCode, req.headers.authorization, req.method);
 };
 
 module.exports.getTcpServerLocalAddress = async function getTcpServerLocalAddress(req, res, next, uuid) {

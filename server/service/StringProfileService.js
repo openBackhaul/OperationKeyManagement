@@ -78,16 +78,24 @@ exports.getStringProfileStringValue = async function (url) {
 exports.putStringProfileStringValue = async function (body, url) {
   const currentOperationModeValue = await exports.getOperationModeProfileStringValue();
   const newOperationModeValue = body['string-profile-1-0:string-value'];
-  await fileOperation.writeToDatabaseAsync(url, body, false);
-  console.log(`Profile "operationMode" changed from "${currentOperationModeValue}" to "${newOperationModeValue}"`);
+  let profiles = await ProfileCollection.getProfileListForProfileNameAsync(Profile.profileNameEnum.STRING_PROFILE);
+  let pac = profiles[0][onfAttributes.STRING_PROFILE.PAC];
+  let capability = pac[onfAttributes.STRING_PROFILE.CAPABILITY];
+  let enumaration = capability[onfAttributes.STRING_PROFILE.ENUMERATION]
+  if (enumaration.includes(newOperationModeValue)) {
+    await fileOperation.writeToDatabaseAsync(url, body, false);
+    console.log(`Profile "operationMode" changed from "${currentOperationModeValue}" to "${newOperationModeValue}"`);
+  } else {
+    throw new createHttpError.BadRequest("Value of operationMode is should be Reactive , OFF , or Protection .")
+  }
   if (currentOperationModeValue === profileConstants.OPERATION_MODE_REACTIVE &&
     newOperationModeValue !== profileConstants.OPERATION_MODE_REACTIVE) {
     individualServicesService.scheduleKeyRotation();
   }
-  if(currentOperationModeValue === profileConstants.OPERATION_MODE_OFF &&
+  if (currentOperationModeValue === profileConstants.OPERATION_MODE_OFF &&
     newOperationModeValue === profileConstants.OPERATION_MODE_REACTIVE) {
-        individualServicesService.updateKeys();
-    }
+    individualServicesService.updateKeys();
+  }
 }
 
 /**
