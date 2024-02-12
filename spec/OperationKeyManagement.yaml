@@ -246,238 +246,6 @@ paths:
                   $ref: '#/components/responses/responseForErroredServiceRequests'
                 default:
                   $ref: '#/components/responses/responseForErroredServiceRequests'
-        PromptForBequeathingDataCausesRObeingRequestedToNotifyApprovalsOfNewApplicationsToNewRelease:
-          url: #[/core-model-1-4:control-construct/logical-termination-point=okm-2-1-0-tcp-c-ro-2-1-0-000/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-protocol]://[/core-model-1-4:control-construct/logical-termination-point=okm-2-1-0-tcp-c-ro-2-1-0-000/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-address/domain-name or /core-model-1-4:control-construct/logical-termination-point=okm-2-1-0-tcp-c-ro-2-1-0-000/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-address/ip-address/ipv-4-address]:[/core-model-1-4:control-construct/logical-termination-point=okm-2-1-0-tcp-c-ro-2-1-0-000/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-port][/core-model-1-4:control-construct/logical-termination-point=okm-2-1-0-op-c-im-ro-2-1-0-000/layer-protocol=0/operation-client-interface-1-0:operation-client-interface-pac/operation-client-interface-configuration/operation-name]
-            post:
-              parameters:
-                - $ref: '#/components/parameters/user'
-                - $ref: '#/components/parameters/originator'
-                - $ref: '#/components/parameters/x-correlator'
-                - $ref: '#/components/parameters/trace-indicator'
-                - $ref: '#/components/parameters/customer-journey'
-              requestBody:
-                required: true
-                content:
-                  application/json:
-                    schema:
-                      type: object
-                      required:
-                        - subscriber-application
-                        - subscriber-release-number
-                        - subscriber-operation
-                        - subscriber-protocol
-                        - subscriber-address
-                        - subscriber-port
-                      properties:
-                        subscriber-application:
-                          type: string
-                          description: >
-                            'Future application name
-                            from [/core-model-1-4:control-construct/logical-termination-point=okm-2-1-0-http-c-nr-2-1-0-000/layer-protocol=0/http-client-interface-1-0:http-client-interface-pac/http-client-interface-configuration/application-name]'
-                        subscriber-release-number:
-                          type: string
-                          description: >
-                            'Future release number
-                            from [/core-model-1-4:control-construct/logical-termination-point=okm-2-1-0-http-c-nr-2-1-0-000/layer-protocol=0/http-client-interface-1-0:http-client-interface-pac/http-client-interface-configuration/release-number]'
-                        subscriber-operation:
-                          type: string
-                          description: >
-                            'Names of the operation that shall be addressed by notifications about new approvals
-                            from [/core-model-1-4:control-construct/logical-termination-point=okm-2-1-0-op-s-is-001/layer-protocol=0/operation-server-interface-1-0:operation-server-interface-pac/operation-server-interface-capability/operation-name]'
-                        subscriber-protocol:
-                          type: string
-                          description: >
-                            'Protocol to be used for addressing the application that wants to receive notifications about new approvals
-                            from [/core-model-1-4:control-construct/logical-termination-point=okm-2-1-0-tcp-c-nr-2-1-0-000/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-protocol]'
-                        subscriber-address:
-                          type: object
-                          properties:
-                            ip-address:
-                              type: object
-                              properties:
-                                ipv-4-address:
-                                  type: string
-                                  description: >
-                                    'IPv4 address of application that wants to receive notifications about new approvals
-                                    from [/core-model-1-4:control-construct/logical-termination-point=okm-2-1-0-tcp-c-nr-2-1-0-000/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-address/ip-address/ipv-4-address]'
-                            domain-name:
-                              type: string
-                              description: >
-                                'Domain name of application that wants to receive notifications about new approvals
-                                from [/core-model-1-4:control-construct/logical-termination-point=okm-2-1-0-tcp-c-nr-2-1-0-000/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-address/domain-name]'
-                        subscriber-port:
-                          type: integer
-                          description: >
-                            'TCP port of application that wants to receive notifications about new approvals
-                            from [/core-model-1-4:control-construct/logical-termination-point=okm-2-1-0-tcp-c-nr-2-1-0-000/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-port]'
-                      example:
-                        subscriber-application: 'OperationKeyManagement'
-                        subscriber-release-number: '2.0.1'
-                        subscriber-operation: '/v1/regard-application'
-                        subscriber-protocol: 'HTTP'
-                        subscriber-address:
-                          ip-address:
-                            ipv-4-address: '127.0.0.1'
-                        subscriber-port: 3030
-              responses:
-                '204':
-                  description: 'Subscribed for notifications about new approvals'
-                  headers:
-                    x-correlator:
-                      schema:
-                        type: string
-                        example: '550e8400-e29b-11d4-a716-446655440000'
-                      description: 'UUID for the service execution flow that allows to correlate requests and responses. Its value must be identical at the response compared with its corresponding request'
-                    exec-time:
-                      schema:
-                        type: integer
-                        example: 1100
-                      description: 'Value written by the service provider, reporting the total elapsed time for the execution, including all the additional processing needed to retrieve the data from the backend service. Expressed in milliseconds'
-                    backend-time:
-                      schema:
-                        type: integer
-                        example: 850
-                      description: 'Value written by the service provider, reporting the elapsed time for data retrieval from the backend (service invocation, database access…). Expressed in milliseconds'
-                    life-cycle-state:
-                      schema:
-                        type: string
-                        enum:
-                          - 'EXPERIMENTAL'
-                          - 'OPERATIONAL'
-                          - 'DEPRECATED'
-                          - 'OBSOLETE'
-                          - 'UNKNOWN'
-                          - 'NOT_YET_DEFINED'
-                        example: 'EXPERIMENTAL'
-                      description: 'Life cycle state of the consumed service'
-                '400':
-                  $ref: '#/components/responses/responseForErroredServiceRequests'
-                '401':
-                  $ref: '#/components/responses/responseForErroredServiceRequests'
-                '403':
-                  $ref: '#/components/responses/responseForErroredServiceRequests'
-                '404':
-                  $ref: '#/components/responses/responseForErroredServiceRequests'
-                '500':
-                  $ref: '#/components/responses/responseForErroredServiceRequests'
-                default:
-                  $ref: '#/components/responses/responseForErroredServiceRequests'
-        PromptForBequeathingDataCausesRObeingRequestedToNotifyWithdrawnApprovalsToNewRelease:
-          url: #[/core-model-1-4:control-construct/logical-termination-point=okm-2-1-0-tcp-c-ro-2-1-0-000/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-protocol]://[/core-model-1-4:control-construct/logical-termination-point=okm-2-1-0-tcp-c-ro-2-1-0-000/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-address/domain-name or /core-model-1-4:control-construct/logical-termination-point=okm-2-1-0-tcp-c-ro-2-1-0-000/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-address/ip-address/ipv-4-address]:[/core-model-1-4:control-construct/logical-termination-point=okm-2-1-0-tcp-c-ro-2-1-0-000/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-port][/core-model-1-4:control-construct/logical-termination-point=okm-2-1-0-op-c-im-ro-2-1-0-001/layer-protocol=0/operation-client-interface-1-0:operation-client-interface-pac/operation-client-interface-configuration/operation-name]
-            post:
-              parameters:
-                - $ref: '#/components/parameters/user'
-                - $ref: '#/components/parameters/originator'
-                - $ref: '#/components/parameters/x-correlator'
-                - $ref: '#/components/parameters/trace-indicator'
-                - $ref: '#/components/parameters/customer-journey'
-              requestBody:
-                required: true
-                content:
-                  application/json:
-                    schema:
-                      type: object
-                      required:
-                        - subscriber-application
-                        - subscriber-release-number
-                        - subscriber-operation
-                        - subscriber-protocol
-                        - subscriber-address
-                        - subscriber-port
-                      properties:
-                        subscriber-application:
-                          type: string
-                          description: >
-                            'Future application name
-                            from [/core-model-1-4:control-construct/logical-termination-point=okm-2-1-0-http-c-nr-2-1-0-000/layer-protocol=0/http-client-interface-1-0:http-client-interface-pac/http-client-interface-configuration/application-name]'
-                        subscriber-release-number:
-                          type: string
-                          description: >
-                            'Future release number
-                            from [/core-model-1-4:control-construct/logical-termination-point=okm-2-1-0-http-c-nr-2-1-0-000/layer-protocol=0/http-client-interface-1-0:http-client-interface-pac/http-client-interface-configuration/release-number]'
-                        subscriber-operation:
-                          type: string
-                          description: >
-                            'Names of the operation that shall be addressed by notifications about withdrawn approvals
-                            from [/core-model-1-4:control-construct/logical-termination-point=okm-2-1-0-op-s-is-002/layer-protocol=0/operation-server-interface-1-0:operation-server-interface-pac/operation-server-interface-capability/operation-name]'
-                        subscriber-protocol:
-                          type: string
-                          description: >
-                            'Protocol to be used for addressing the application that wants to receive notifications about withdrawn approvals
-                            from [/core-model-1-4:control-construct/logical-termination-point=okm-2-1-0-tcp-c-nr-2-1-0-000/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-protocol]'
-                        subscriber-address:
-                          type: object
-                          properties:
-                            ip-address:
-                              type: object
-                              properties:
-                                ipv-4-address:
-                                  type: string
-                                  description: >
-                                    'IPv4 address of application that wants to receive notifications about withdrawn approvals
-                                    from [/core-model-1-4:control-construct/logical-termination-point=okm-2-1-0-tcp-c-nr-2-1-0-000/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-address/ip-address/ipv-4-address]'
-                            domain-name:
-                              type: string
-                              description: >
-                                'Domain name of application that wants to receive notifications about withdrawn approvals
-                                from [/core-model-1-4:control-construct/logical-termination-point=okm-2-1-0-tcp-c-nr-2-1-0-000/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-address/domain-name]'
-                        subscriber-port:
-                          type: integer
-                          description: >
-                            'TCP port of application that wants to receive notifications about withdrawn approvals
-                            from [/core-model-1-4:control-construct/logical-termination-point=okm-2-1-0-tcp-c-nr-2-1-0-000/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-port]'
-                      example:
-                        subscriber-application: 'OperationKeyManagement'
-                        subscriber-release-number: '2.0.1'
-                        subscriber-operation: '/v1/disregard-application'
-                        subscriber-protocol: 'HTTP'
-                        subscriber-address:
-                          ip-address:
-                            ipv-4-address: '127.0.0.1'
-                        subscriber-port: 3030
-              responses:
-                '204':
-                  description: 'Subscribed for notifications about withdrawn approvals'
-                  headers:
-                    x-correlator:
-                      schema:
-                        type: string
-                        example: '550e8400-e29b-11d4-a716-446655440000'
-                      description: 'UUID for the service execution flow that allows to correlate requests and responses. Its value must be identical at the response compared with its corresponding request'
-                    exec-time:
-                      schema:
-                        type: integer
-                        example: 1100
-                      description: 'Value written by the service provider, reporting the total elapsed time for the execution, including all the additional processing needed to retrieve the data from the backend service. Expressed in milliseconds'
-                    backend-time:
-                      schema:
-                        type: integer
-                        example: 850
-                      description: 'Value written by the service provider, reporting the elapsed time for data retrieval from the backend (service invocation, database access…). Expressed in milliseconds'
-                    life-cycle-state:
-                      schema:
-                        type: string
-                        enum:
-                          - 'EXPERIMENTAL'
-                          - 'OPERATIONAL'
-                          - 'DEPRECATED'
-                          - 'OBSOLETE'
-                          - 'UNKNOWN'
-                          - 'NOT_YET_DEFINED'
-                        example: 'EXPERIMENTAL'
-                      description: 'Life cycle state of the consumed service'
-                '400':
-                  $ref: '#/components/responses/responseForErroredServiceRequests'
-                '401':
-                  $ref: '#/components/responses/responseForErroredServiceRequests'
-                '403':
-                  $ref: '#/components/responses/responseForErroredServiceRequests'
-                '404':
-                  $ref: '#/components/responses/responseForErroredServiceRequests'
-                '500':
-                  $ref: '#/components/responses/responseForErroredServiceRequests'
-                default:
-                  $ref: '#/components/responses/responseForErroredServiceRequests'
         PromptForBequeathingDataCausesALTbeingRequestedToNotifyLinkUpdatesToNewRelease:
           url: #[/core-model-1-4:control-construct/logical-termination-point=okm-2-1-0-tcp-c-alt-2-1-0-000/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-protocol]://[/core-model-1-4:control-construct/logical-termination-point=okm-2-1-0-tcp-c-alt-2-1-0-000/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-address/domain-name or /core-model-1-4:control-construct/logical-termination-point=okm-2-1-0-tcp-c-alt-2-1-0-000/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-address/ip-address/ipv-4-address]:[/core-model-1-4:control-construct/logical-termination-point=okm-2-1-0-tcp-c-alt-2-1-0-000/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-port][/core-model-1-4:control-construct/logical-termination-point=okm-2-1-0-op-c-im-alt-2-1-0-000/layer-protocol=0/operation-client-interface-1-0:operation-client-interface-pac/operation-client-interface-configuration/operation-name]
             post:
@@ -554,91 +322,6 @@ paths:
               responses:
                 '204':
                   description: 'Subscribed for notifications about updates of Links'
-                  headers:
-                    x-correlator:
-                      schema:
-                        type: string
-                        example: '550e8400-e29b-11d4-a716-446655440000'
-                      description: 'UUID for the service execution flow that allows to correlate requests and responses. Its value must be identical at the response compared with its corresponding request'
-                    exec-time:
-                      schema:
-                        type: integer
-                        example: 1100
-                      description: 'Value written by the service provider, reporting the total elapsed time for the execution, including all the additional processing needed to retrieve the data from the backend service. Expressed in milliseconds'
-                    backend-time:
-                      schema:
-                        type: integer
-                        example: 850
-                      description: 'Value written by the service provider, reporting the elapsed time for data retrieval from the backend (service invocation, database access…). Expressed in milliseconds'
-                    life-cycle-state:
-                      schema:
-                        type: string
-                        enum:
-                          - 'EXPERIMENTAL'
-                          - 'OPERATIONAL'
-                          - 'DEPRECATED'
-                          - 'OBSOLETE'
-                          - 'UNKNOWN'
-                          - 'NOT_YET_DEFINED'
-                        example: 'EXPERIMENTAL'
-                      description: 'Life cycle state of the consumed service'
-                '400':
-                  $ref: '#/components/responses/responseForErroredServiceRequests'
-                '401':
-                  $ref: '#/components/responses/responseForErroredServiceRequests'
-                '403':
-                  $ref: '#/components/responses/responseForErroredServiceRequests'
-                '404':
-                  $ref: '#/components/responses/responseForErroredServiceRequests'
-                '500':
-                  $ref: '#/components/responses/responseForErroredServiceRequests'
-                default:
-                  $ref: '#/components/responses/responseForErroredServiceRequests'
-        PromptForBequeathingDataCausesRObeingRequestedToStopNotificationsToOldRelease:
-          url: #[/core-model-1-4:control-construct/logical-termination-point=okm-2-1-0-tcp-c-ro-2-1-0-000/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-protocol]://[/core-model-1-4:control-construct/logical-termination-point=okm-2-1-0-tcp-c-ro-2-1-0-000/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-address/domain-name or /core-model-1-4:control-construct/logical-termination-point=okm-2-1-0-tcp-c-ro-2-1-0-000/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-address/ip-address/ipv-4-address]:[/core-model-1-4:control-construct/logical-termination-point=okm-2-1-0-tcp-c-ro-2-1-0-000/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-port][/core-model-1-4:control-construct/logical-termination-point=okm-2-1-0-op-c-im-ro-2-1-0-002/layer-protocol=0/operation-client-interface-1-0:operation-client-interface-pac/operation-client-interface-configuration/operation-name]
-            post:
-              parameters:
-                - $ref: '#/components/parameters/user'
-                - $ref: '#/components/parameters/originator'
-                - $ref: '#/components/parameters/x-correlator'
-                - $ref: '#/components/parameters/trace-indicator'
-                - $ref: '#/components/parameters/customer-journey'
-              requestBody:
-                required: true
-                content:
-                  application/json:
-                    schema:
-                      type: object
-                      required:
-                        - subscriber-application
-                        - subscriber-release-number
-                        - subscription
-                      properties:
-                        subscriber-application:
-                          type: string
-                          description: >
-                            'Own application name
-                            from [/core-model-1-4:control-construct/logical-termination-point=okm-2-1-0-http-s-000/layer-protocol=0/http-server-interface-1-0:http-server-interface-pac/http-server-interface-capability/application-name]'
-                        subscriber-release-number:
-                          type: string
-                          description: >
-                            'Own release number
-                            from [/core-model-1-4:control-construct/logical-termination-point=okm-2-1-0-http-s-000/layer-protocol=0/http-server-interface-1-0:http-server-interface-pac/http-server-interface-capability/release-number]'
-                        subscription:
-                          type: string
-                          description: >
-                            'Name of operation that had been addressed for starting getting notifications
-                            from [/core-model-1-4:control-construct/logical-termination-point=okm-2-1-0-op-c-im-ro-2-1-0-000/layer-protocol=0/operation-client-interface-1-0:operation-client-interface-pac/operation-client-interface-configuration/operation-name]
-                            and
-                            from  [/core-model-1-4:control-construct/logical-termination-point=okm-2-1-0-op-c-im-ro-2-1-0-001/layer-protocol=0/operation-client-interface-1-0:operation-client-interface-pac/operation-client-interface-configuration/operation-name]
-                            in two separate, sequential requests.'
-                      example:
-                        subscriber-application: 'OperationKeyManagement'
-                        subscriber-release-number: '1.0.0'
-                        subscription: '/v1/notify-approvals'
-              responses:
-                '204':
-                  description: 'Stopped sending notifications of a specific subscription'
                   headers:
                     x-correlator:
                       schema:
@@ -1153,6 +836,7 @@ paths:
                           - 'OKM_ALT_UNKNOWN'
                           - 'OKM_NOT_REACHABLE'
                           - 'OKM_UNKNOWN'
+                          - 'OKM_MAXIMUM_WAIT_TIME_TO_RECEIVE_OPERATION_KEY_EXCEEDED'
                         description: 'Reasons provided by ALT to be pre-fixed with OKM_. If (NOT (200 OR 204)) respond OKM_NOT_REACHABLE'
               examples:
                 if-successful:
@@ -1299,6 +983,71 @@ paths:
                   $ref: '#/components/responses/responseForErroredServiceRequests'
                 default:
                   $ref: '#/components/responses/responseForErroredServiceRequests'
+          RollBackInCaseOfTimeOut: #[/core-model-1-4:control-construct/logical-termination-point=okm-2-1-0-http-c-okm-2-1-0-000/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-protocol]://[/core-model-1-4:control-construct/logical-termination-point=okm-2-1-0-http-c-okm-2-1-0-000/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-address/domain-name or /core-model-1-4:control-construct/logical-termination-point=okm-2-1-0-http-c-okm-2-1-0-000/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-address/ip-address/ipv-4-address]:[/core-model-1-4:control-construct/logical-termination-point=okm-2-1-0-http-c-okm-2-1-0-000/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-port][/core-model-1-4:control-construct/logical-termination-point=okm-2-1-0-op-c-is-okm-2-1-0-001/layer-protocol=0/operation-client-interface-1-0:operation-client-interface-pac/operation-client-interface-configuration/operation-name]
+            description: 'To be executed, IF (waiting > [/core-model-1-4:control-construct/profile-collection/profile=okm-2-1-0-integer-p-001/integer-profile-1-0:integer-profile-pac/integer-profile-configuration/integer-value])'
+            post:
+              parameters:
+                - $ref: '#/components/parameters/user'
+                - $ref: '#/components/parameters/originator'
+                - $ref: '#/components/parameters/x-correlator'
+                - $ref: '#/components/parameters/trace-indicator'
+                - $ref: '#/components/parameters/customer-journey'
+              requestBody:
+                required: true
+                content:
+                  application/json:
+                    schema:
+                      type: object
+                      required:
+                        - application-name
+                        - release-number
+                      properties:
+                        application-name:
+                          type: string
+                          description: >
+                            'Name of application that shall be removed from configuration and application data
+                            from {$request.body#application-name}
+                        release-number:
+                          type: string
+                          description: >
+                            'Release of application that shall be removed from configuration and application data
+                            from {$request.body#release-number}
+              responses:
+                '204':
+                  description: 'Application removed from configuration and application data'
+                  headers:
+                    x-correlator:
+                      schema:
+                        type: string
+                        example: '550e8400-e29b-11d4-a716-446655440000'
+                      description: 'UUID for the service execution flow that allows to correlate requests and responses. Its value must be identical at the response compared with its corresponding request'
+                    exec-time:
+                      schema:
+                        type: integer
+                        example: 1100
+                      description: 'Value written by the service provider, reporting the total elapsed time for the execution, including all the additional processing needed to retrieve the data from the backend service. Expressed in milliseconds'
+                    backend-time:
+                      schema:
+                        type: integer
+                        example: 850
+                      description: 'Value written by the service provider, reporting the elapsed time for data retrieval from the backend (service invocation, database access…). Expressed in milliseconds'
+                    life-cycle-state:
+                      schema:
+                        type: string
+                      description: >
+                        'Life cycle state of the consumed service'
+                '400':
+                  $ref: '#/components/responses/responseForErroredServiceRequests'
+                '401':
+                  $ref: '#/components/responses/responseForErroredServiceRequests'
+                '403':
+                  $ref: '#/components/responses/responseForErroredServiceRequests'
+                '404':
+                  $ref: '#/components/responses/responseForErroredServiceRequests'
+                '500':
+                  $ref: '#/components/responses/responseForErroredServiceRequests'
+                default:
+                  $ref: '#/components/responses/responseForErroredServiceRequests'
         LinkUpdateNotificationCausesRequestForLinkEndPoints:
           url: #[/core-model-1-4:control-construct/logical-termination-point=okm-2-1-0-tcp-c-alt-2-1-0-000/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-protocol]://[/core-model-1-4:control-construct/logical-termination-point=okm-2-1-0-tcp-c-alt-2-1-0-000/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-address/domain-name or /core-model-1-4:control-construct/logical-termination-point=okm-2-1-0-tcp-c-alt-2-1-0-000/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-address/ip-address/ipv-4-address]:[/core-model-1-4:control-construct/logical-termination-point=okm-2-1-0-tcp-c-alt-2-1-0-000/layer-protocol=0/tcp-client-interface-1-0:tcp-client-interface-pac/tcp-client-interface-configuration/remote-port][/core-model-1-4:control-construct/logical-termination-point=okm-2-1-0-op-c-is-alt-2-1-0-003/layer-protocol=0/operation-client-interface-1-0:operation-client-interface-pac/operation-client-interface-configuration/operation-name]
             post:
@@ -1411,21 +1160,41 @@ paths:
                 content:
                   application/json:
                     schema:
-                      type: object
-                      required:
-                        - operation-uuid
-                        - new-operation-key
-                      properties:
-                        operation-uuid:
-                          type: string
-                          description: >
-                            'UUID of LTP that is target of the updating of the operation key
-                            from [$ALT://v1/list-end-points-of-link.response#operation-uuid]'
-                        new-operation-key:
-                          type: string
-                          minLength: 5
-                          description: >
-                            'Future operation key'
+                      oneOf:
+                        - description: 'IF combination of {$/v2/regard-updated-link.request.body#link-end-point-list/application-name} and {$/v2/regard-updated-link.request.body#link-end-point-list/release-number} for {$/v2/regard-updated-link.request.body#link-end-point-list/ltp-direction==core-model-1-4:TERMINATION_DIRECTION_SOURCE} is not known in OKM'
+                          type: object
+                          required:
+                            - operation-uuid
+                            - new-operation-key
+                          properties:
+                            operation-uuid:
+                              type: string
+                              description: >
+                                'UUID of OperationClient that is target of the updating of the operation key
+                                from {$/v2/regard-updated-link.request.body#link-end-point-list/operation-uuid}
+                                for {$/v2/regard-updated-link.request.body#link-end-point-list/ltp-direction}==core-model-1-4:TERMINATION_DIRECTION_SINK'
+                            new-operation-key:
+                              type: string
+                              enum:
+                                - 'Operation key not yet provided'
+                              description: >
+                                'If the OperationServer is not known in OKM, all OperationClients shall be configured to the default operation key.'
+                        - description: 'standard case'
+                          type: object
+                          required:
+                            - operation-uuid
+                            - new-operation-key
+                          properties:
+                            operation-uuid:
+                              type: string
+                              description: >
+                                'UUID of LTP that is target of the updating of the operation key
+                                from {$/v2/regard-updated-link.request.body#link-end-point-list/operation-uuid}'
+                            new-operation-key:
+                              type: string
+                              minLength: 5
+                              description: >
+                                'Future operation key'
               responses:
                 '204':
                   description: 'Operation key has been updated'
@@ -1707,6 +1476,9 @@ paths:
                 default:
                   $ref: '#/components/responses/responseForErroredServiceRequests'
   /v1/disregard-application:
+    description: >
+      'DEPRECATED
+      Service shall be deleted with OKM v3.0.0'
     parameters:
       - $ref: '#/components/parameters/user'
       - $ref: '#/components/parameters/originator'

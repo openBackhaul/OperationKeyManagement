@@ -130,6 +130,17 @@ profile-instances:
     configuration:
       integer-value: 900
 
+  - profile-name: 'IntegerProfile'
+    uuid: 'okm-2-1-0-integer-p-001'
+    capability:
+      integer-name: 'maximumWaitTimeToReceiveOperationKey'
+      purpose: 'Creating a Link in ALT was successful if an OperationKey could be received. This attribute limits waiting for the OperationKey to be received.'
+      unit: 'millisecond'
+      minimum: '0'
+      maximum: '5000'
+    configuration:
+      integer-value: '500'
+
 
   - profile-name: 'StringProfile'
     uuid: 'okm-2-1-0-string-p-000'
