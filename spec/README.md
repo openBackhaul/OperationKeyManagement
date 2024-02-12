@@ -1,5 +1,8 @@
 # OperationKeyManagement Specification
 
+### Diagrams  
+- [Collection of Diagrams](./diagrams)
+
 ### ServiceList
 - [OperationKeyManagement+services](./OperationKeyManagement+services.yaml)
 
