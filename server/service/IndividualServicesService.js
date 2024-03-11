@@ -281,6 +281,28 @@ exports.regardUpdatedLink = async function (body, user, originator, xCorrelator,
     .catch((error) => console.log(`regardUpdatedLink - failed update key for link ${linkUuid} with error: ${error.message}`));
 }
 
+
+/**
+ * Initiates OperationKey update
+ *
+ * body V2_regardupdatedlink_body 
+ * user String User identifier from the system starting the service call
+ * originator String 'Identification for the system consuming the API, as defined in  [/core-model-1-4:control-construct/logical-termination-point={uuid}/layer-protocol=0/http-client-interface-1-0:http-client-interface-pac/http-client-interface-capability/application-name]' 
+ * xCorrelator String UUID for the service execution flow that allows to correlate requests and responses
+ * traceIndicator String Sequence of request numbers along the flow
+ * customerJourney String Holds information supporting customer’s journey to which the execution applies
+ * no response value expected for this operation
+ **/
+exports.regardUpdatedLink2 = async function (body, user, xCorrelator, traceIndicator, customerJourney) {
+  // get data from request body
+  const linkUuid = body['link-uuid'];
+  const linkEndpointList = body['link-end-point-list'];
+  const updateKeyOperationLtpUuidList = await onfModelUtils.getFcPortOutputDirectionLogicalTerminationPointListForForwardingName(FC_LINK_UPDATE_NOTIFICATION_CAUSES_OPERATION_KEY_UPDATES);
+  const httpClient = new HttpClient(user, xCorrelator, traceIndicator, customerJourney);
+  await updateOperationKeyForLink2(linkUuid,linkEndpointList, updateKeyOperationLtpUuidList, httpClient)
+    .catch((error) => console.log(`regardUpdatedLink - failed update key for link ${linkUuid} with error: ${error.message}`));
+}
+
 exports.scheduleKeyRotation = async function scheduleKeyRotation() {
   const operationModeValue = await stringProfileService.getOperationModeProfileStringValue();
   if (operationModeValue === profileConstants.OPERATION_MODE_REACTIVE) {
@@ -340,6 +362,34 @@ async function fetchLinkUuidListFromAlt(httpClient) {
 
 async function updateOperationKeyForLink(linkUuid, updateKeyOperationLtpUuidList, httpClient) {
   const linkEndpointList = await fetchLinkEndpointListFromAlt(linkUuid, httpClient);
+  const operationModeValue = await stringProfileService.getOperationModeProfileStringValue();
+  const operationKey = operationModeValue === profileConstants.OPERATION_MODE_OFF ? DEFAULT_OPERATION_KEY : generateOperationKey();
+  for (const linkEndpoint of linkEndpointList) {
+    const epAppName = linkEndpoint['application-name'];
+    const epAppReleaseNumber = linkEndpoint['release-number'];
+    const epOperationUuid = linkEndpoint['operation-uuid'];
+
+    if (!epAppName || !epAppReleaseNumber || !epOperationUuid) {
+      console.log(`Ignoring endpoint ${JSON.stringify(linkEndpoint)} during update operation key for link ${linkUuid} because the endpoint is missing data.`);
+      continue;
+    }
+
+    const updateKeyOperationLtpUuid = await resolveUpdateKeyOperationLtpUuidForApplication(epAppName, epAppReleaseNumber, updateKeyOperationLtpUuidList);
+    if (updateKeyOperationLtpUuid) {
+      await httpClient.executeOperation(updateKeyOperationLtpUuid, {
+          "operation-uuid": epOperationUuid,
+          "new-operation-key": operationKey
+        })
+        .then(() => console.log(`Successfully updated operation key for application ${epAppName} version ${epAppReleaseNumber} operation ${epOperationUuid}`))
+        .catch(error => console.log(`Failed to update operation key for application ${epAppName} version ${epAppReleaseNumber} operation ${epOperationUuid} with error: ${error.message}`));
+    } else {
+      console.log(`Application ${epAppName} version ${epAppReleaseNumber} is not registered for key update. Skipping it during update operation key for link ${linkUuid}.`);
+    }
+  }
+}
+
+
+async function updateOperationKeyForLink2(linkUuid,linkEndpointList, updateKeyOperationLtpUuidList, httpClient) {
   const operationModeValue = await stringProfileService.getOperationModeProfileStringValue();
   const operationKey = operationModeValue === profileConstants.OPERATION_MODE_OFF ? DEFAULT_OPERATION_KEY : generateOperationKey();
   for (const linkEndpoint of linkEndpointList) {

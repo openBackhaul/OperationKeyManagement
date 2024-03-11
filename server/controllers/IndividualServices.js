@@ -98,3 +98,21 @@ module.exports.regardUpdatedLink = async function regardUpdatedLink(req, res, ne
     });
   executionAndTraceService.recordServiceRequest(xCorrelator, traceIndicator, user, originator, req.url, responseCode, req.body, responseBodyToDocument);
 };
+
+module.exports.regardUpdatedLink2 = async function regardUpdatedLink2(req, res, next, body, user, originator, xCorrelator, traceIndicator, customerJourney) {
+  let startTime = process.hrtime();
+  let responseCode = responseCodeEnum.code.NO_CONTENT;
+  let responseBodyToDocument = undefined;
+  await IndividualServices.regardUpdatedLink2(body, user, xCorrelator, traceIndicator, customerJourney)
+    .then(async function (responseBody) {
+      let responseHeader = await restResponseHeader.createResponseHeader(xCorrelator, startTime, req.url);
+      restResponseBuilder.buildResponse(res, responseCode, responseBodyToDocument, responseHeader);
+    })
+    .catch(async function (responseBody) {
+      let responseHeader = await restResponseHeader.createResponseHeader(xCorrelator, startTime, req.url);
+      let sentResp = restResponseBuilder.buildResponse(res, undefined, responseBody, responseHeader);
+      responseCode = sentResp.code;
+      responseBodyToDocument = sentResp.body;
+    });
+  executionAndTraceService.recordServiceRequest(xCorrelator, traceIndicator, user, originator, req.url, responseCode, req.body, responseBodyToDocument);
+};
