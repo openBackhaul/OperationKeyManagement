@@ -14,7 +14,7 @@ const httpClientInterface = require('onf-core-model-ap/applicationPattern/onfMod
 const onfAttributeFormatter = require('onf-core-model-ap/applicationPattern/onfModel/utility/OnfAttributeFormatter');
 const ConfigurationStatus = require('onf-core-model-ap/applicationPattern/onfModel/services/models/ConfigurationStatus');
 const LogicalTerminationPointConfigurationStatus = require('onf-core-model-ap/applicationPattern/onfModel/services/models/logicalTerminationPoint/ConfigurationStatus');
-
+const OperationClientInterface = require('onf-core-model-ap/applicationPattern/onfModel/models/layerProtocols/OperationClientInterface');
 const prepareForwardingAutomation = require('./individualServices/PrepareForwardingAutomation');
 const individualServicesOperationsMapping = require('./individualServices/individualServicesOperationsMapping');
 const softwareUpgrade = require('./individualServices/SoftwareUpgrade');
@@ -81,7 +81,7 @@ exports.bequeathYourDataAndDie = async function (body, user, originator, xCorrel
   if (protocol != currentNewReleaseRemoteProtocol) {
     isUpdated.protocol = await tcpClientInterface.setRemoteProtocolAsync(uuid.tcpClientUuid, protocol);
   }
-  
+
   /****************************************************************************************
    * Updating the Configuration Status based on the application information updated
    *****************************************************************************************/
@@ -152,8 +152,8 @@ exports.disregardApplication = async function (body, user, originator, xCorrelat
   if (!httpClientUuid) {
     return;
   }
-  
-  let logicalTerminationPointConfigurationStatus= await LogicalTerminationPointService.deleteApplicationLtpsAsync(httpClientUuid);
+
+  let logicalTerminationPointConfigurationStatus = await LogicalTerminationPointService.deleteApplicationLtpsAsync(httpClientUuid);
 
   let applicationLayerTopologyForwardingInputList = prepareALTForwardingAutomation.getALTUnConfigureForwardingAutomationInputAsync(
     logicalTerminationPointConfigurationStatus
@@ -218,46 +218,99 @@ exports.listApplications = async function () {
  **/
 exports.regardApplication = async function (body, user, originator, xCorrelator, traceIndicator, customerJourney, operationServerName) {
   // get data from request body
-  const appName = body['application-name'];
-  const appReleaseNumber = body['release-number'];
-  const tcpInfo = [new TcpObject(body['protocol'], body['address'], body['port'])];
-  let operationsMapping = individualServicesOperationsMapping.individualServicesOperationsMapping;
-  let operationNamesByAttributes = new Map();
-  operationNamesByAttributes.set("update-operation-key", UPDATE_OPERATION_KEY_OPERATION);
+  return new Promise(async function (resolve, reject) {
+    const appName = body['application-name'];
+    const appReleaseNumber = body['release-number'];
+    const tcpInfo = [new TcpObject(body['protocol'], body['address'], body['port'])];
+    let operationsMapping = individualServicesOperationsMapping.individualServicesOperationsMapping;
+    let operationNamesByAttributes = new Map();
+    operationNamesByAttributes.set("update-operation-key", UPDATE_OPERATION_KEY_OPERATION);
+    let applicationLayerResult;
+    // create/update op, tcp, http logical-termination-points for the given app
+    const httpClientUuid = await httpClientInterface.getHttpClientUuidExcludingOldReleaseAndNewRelease(
+      appName, appReleaseNumber, NEW_RELEASE_FORWARDING_NAME
+    )
+    const ltpConfigurationInput = new LogicalTerminationPointConfigurationInput(
+      httpClientUuid,
+      appName,
+      appReleaseNumber,
+      tcpInfo,
+      operationServerName,
+      operationNamesByAttributes,
+      operationsMapping
+    );
+    const ltpConfigurationStatus = await LogicalTerminationPointService.createOrUpdateApplicationLtpsAsync(ltpConfigurationInput);
+    const operationClientUuid = ltpConfigurationStatus.operationClientConfigurationStatusList[0].uuid;
+    const cyclicOperationInput = new ForwardingConstructConfigurationInput(FC_CYCLIC_OPERATION_CAUSES_OPERATION_KEY_UPDATES, operationClientUuid);
+    const linkUpdateNotificationInput = new ForwardingConstructConfigurationInput(FC_LINK_UPDATE_NOTIFICATION_CAUSES_OPERATION_KEY_UPDATES, operationClientUuid);
+    const forwardingConfigurationInputList = [cyclicOperationInput, linkUpdateNotificationInput];
 
-  // create/update op, tcp, http logical-termination-points for the given app
-  const httpClientUuid = await httpClientInterface.getHttpClientUuidExcludingOldReleaseAndNewRelease(
-    appName, appReleaseNumber, NEW_RELEASE_FORWARDING_NAME
-  )
-  const ltpConfigurationInput = new LogicalTerminationPointConfigurationInput(
-    httpClientUuid,
-    appName,
-    appReleaseNumber,
-    tcpInfo,
-    operationServerName,
-    operationNamesByAttributes,
-    operationsMapping
-  );
-  const ltpConfigurationStatus = await LogicalTerminationPointService.createOrUpdateApplicationLtpsAsync(ltpConfigurationInput);
+    applicationLayerResult = await prepareForwardingAutomation.CreateLinkForUpdatingOperationKeys(
+      appName,
+      appReleaseNumber,
+      user,
+      xCorrelator,
+      traceIndicator,
+      customerJourney,
+    );
+    const newHttpClientUuid = await httpClientInterface.getHttpClientUuidExcludingOldReleaseAndNewRelease(
+      appName, appReleaseNumber, NEW_RELEASE_FORWARDING_NAME
+    )
+    const serverName = '/v1/update-operation-key';
+    let opclinetUuid = await OperationClientInterface.getOperationClientUuidAsync(newHttpClientUuid, serverName);
+    let time = new Date()
+    let timestampOfCurrentRequest = time.getTime()
+    let waitUntilOperationKeyIsUpdated1 = true
+    //await waitUntilOperationKeyIsUpdated(opclinetUuid, timestampOfCurrentRequest, waitTime);
+    if (!waitUntilOperationKeyIsUpdated1) {
 
-  const operationClientUuid = ltpConfigurationStatus.operationClientConfigurationStatusList[0].uuid;
-  const cyclicOperationInput = new ForwardingConstructConfigurationInput(FC_CYCLIC_OPERATION_CAUSES_OPERATION_KEY_UPDATES, operationClientUuid);
-  const linkUpdateNotificationInput = new ForwardingConstructConfigurationInput(FC_LINK_UPDATE_NOTIFICATION_CAUSES_OPERATION_KEY_UPDATES, operationClientUuid);
-  const forwardingConfigurationInputList = [cyclicOperationInput, linkUpdateNotificationInput];
-  const forwardingConstructConfigurationStatus = await forwardingConfigurationService.configureForwardingConstructAsync(operationServerName, forwardingConfigurationInputList);
+      await prepareForwardingAutomation.RollBackInCaseOfTimeOut(
+        appName,
+        appReleaseNumber,
+        user,
+        xCorrelator,
+        traceIndicator,
+        customerJourney,
+      );
+    }
+    const forwardingConstructConfigurationStatus = await forwardingConfigurationService.
+      configureForwardingConstructAsync(
+        operationServerName,
+        forwardingConfigurationInputList
+      );
+    let applicationLayerTopologyForwardingInputList = await prepareALTForwardingAutomation.getALTForwardingAutomationInputAsync(
+      ltpConfigurationStatus,
+      forwardingConstructConfigurationStatus
+    );
 
-  let applicationLayerTopologyForwardingInputList = await prepareALTForwardingAutomation.getALTForwardingAutomationInputAsync(
-    ltpConfigurationStatus,
-    forwardingConstructConfigurationStatus
-  );
+    forwardingAutomationService.automateForwardingConstructAsync(
+      operationServerName, applicationLayerTopologyForwardingInputList,
+      user,
+      xCorrelator,
+      traceIndicator,
+      customerJourney
+    ).catch((error) => console.log(`regardApplication - automateForwardingConstructAsync for ${JSON.stringify({ xCorrelator, traceIndicator, user, originator })} failed with error: ${error.message}`));
 
-  forwardingAutomationService.automateForwardingConstructAsync(
-    operationServerName, applicationLayerTopologyForwardingInputList,
-    user,
-    xCorrelator,
-    traceIndicator,
-    customerJourney
-  ).catch((error) => console.log(`regardApplication - automateForwardingConstructAsync for ${JSON.stringify({ xCorrelator, traceIndicator, user, originator })} failed with error: ${error.message}`));
+    var response = {};
+    if (applicationLayerResult['cilent-succesfully-connect'] == true) {
+      response['application/json'] = {
+        "successfully-connected": applicationLayerResult['cilent-succesfully-connect'],
+      }
+    } else {
+      response['application/json'] = {
+        "successfully-connected": applicationLayerResult['cilent-succesfully-connect'],
+        "reason-of-failure": applicationLayerResult['reason-for-failure']
+      }
+
+    }
+    if (Object.keys(response).length > 0) {
+      console.log(response[Object.keys(response)])
+      resolve(response[Object.keys(response)[0]]);
+    } else {
+
+    }
+
+  });
 }
 
 /**
@@ -299,7 +352,7 @@ exports.regardUpdatedLink2 = async function (body, user, xCorrelator, traceIndic
   const linkEndpointList = body['link-end-point-list'];
   const updateKeyOperationLtpUuidList = await onfModelUtils.getFcPortOutputDirectionLogicalTerminationPointListForForwardingName(FC_LINK_UPDATE_NOTIFICATION_CAUSES_OPERATION_KEY_UPDATES);
   const httpClient = new HttpClient(user, xCorrelator, traceIndicator, customerJourney);
-  await updateOperationKeyForLink2(linkUuid,linkEndpointList, updateKeyOperationLtpUuidList, httpClient)
+  await updateOperationKeyForLink2(linkUuid, linkEndpointList, updateKeyOperationLtpUuidList, httpClient)
     .catch((error) => console.log(`regardUpdatedLink - failed update key for link ${linkUuid} with error: ${error.message}`));
 }
 
@@ -315,7 +368,7 @@ exports.scheduleKeyRotation = async function scheduleKeyRotation() {
   console.log(`Update operation keys has been scheduled in ${intervalInMinutes} minutes.`);
 }
 
-exports.updateKeys  = async function() {
+exports.updateKeys = async function () {
   const updateKeyOperationLtpUuidList = await onfModelUtils.getFcPortOutputDirectionLogicalTerminationPointListForForwardingName(FC_CYCLIC_OPERATION_CAUSES_OPERATION_KEY_UPDATES);
   const httpClient = new HttpClient();
   const linkUuidList = await fetchLinkUuidListFromAlt(httpClient);
@@ -377,9 +430,9 @@ async function updateOperationKeyForLink(linkUuid, updateKeyOperationLtpUuidList
     const updateKeyOperationLtpUuid = await resolveUpdateKeyOperationLtpUuidForApplication(epAppName, epAppReleaseNumber, updateKeyOperationLtpUuidList);
     if (updateKeyOperationLtpUuid) {
       await httpClient.executeOperation(updateKeyOperationLtpUuid, {
-          "operation-uuid": epOperationUuid,
-          "new-operation-key": operationKey
-        })
+        "operation-uuid": epOperationUuid,
+        "new-operation-key": operationKey
+      })
         .then(() => console.log(`Successfully updated operation key for application ${epAppName} version ${epAppReleaseNumber} operation ${epOperationUuid}`))
         .catch(error => console.log(`Failed to update operation key for application ${epAppName} version ${epAppReleaseNumber} operation ${epOperationUuid} with error: ${error.message}`));
     } else {
@@ -389,7 +442,7 @@ async function updateOperationKeyForLink(linkUuid, updateKeyOperationLtpUuidList
 }
 
 
-async function updateOperationKeyForLink2(linkUuid,linkEndpointList, updateKeyOperationLtpUuidList, httpClient) {
+async function updateOperationKeyForLink2(linkUuid, linkEndpointList, updateKeyOperationLtpUuidList, httpClient) {
   const operationModeValue = await stringProfileService.getOperationModeProfileStringValue();
   const operationKey = operationModeValue === profileConstants.OPERATION_MODE_OFF ? DEFAULT_OPERATION_KEY : generateOperationKey();
   for (const linkEndpoint of linkEndpointList) {
@@ -405,9 +458,9 @@ async function updateOperationKeyForLink2(linkUuid,linkEndpointList, updateKeyOp
     const updateKeyOperationLtpUuid = await resolveUpdateKeyOperationLtpUuidForApplication(epAppName, epAppReleaseNumber, updateKeyOperationLtpUuidList);
     if (updateKeyOperationLtpUuid) {
       await httpClient.executeOperation(updateKeyOperationLtpUuid, {
-          "operation-uuid": epOperationUuid,
-          "new-operation-key": operationKey
-        })
+        "operation-uuid": epOperationUuid,
+        "new-operation-key": operationKey
+      })
         .then(() => console.log(`Successfully updated operation key for application ${epAppName} version ${epAppReleaseNumber} operation ${epOperationUuid}`))
         .catch(error => console.log(`Failed to update operation key for application ${epAppName} version ${epAppReleaseNumber} operation ${epOperationUuid} with error: ${error.message}`));
     } else {
