@@ -7,6 +7,7 @@ const prepareALTForwardingAutomation = require('onf-core-model-ap-bs/basicServic
 const forwardingAutomationService = require('onf-core-model-ap/applicationPattern/onfModel/services/ForwardingConstructAutomationServices');
 const ForwardingConstructConfigurationInput = require('onf-core-model-ap/applicationPattern/onfModel/services/models/forwardingConstruct/ConfigurationInput');
 const forwardingConfigurationService = require('onf-core-model-ap/applicationPattern/onfModel/services/ForwardingConstructConfigurationServices');
+const Integerprofile = require('onf-core-model-ap/applicationPattern/onfModel/models/profile/IntegerProfile')
 
 const LogicalTerminationPoint = require('onf-core-model-ap/applicationPattern/onfModel/models/LogicalTerminationPoint');
 const tcpClientInterface = require('onf-core-model-ap/applicationPattern/onfModel/models/layerProtocols/TcpClientInterface');
@@ -259,10 +260,11 @@ exports.regardApplication = async function (body, user, originator, xCorrelator,
     const serverName = '/v1/update-operation-key';
     let opclinetUuid = await OperationClientInterface.getOperationClientUuidAsync(newHttpClientUuid, serverName);
     let time = new Date()
-    let timestampOfCurrentRequest = time.getTime()
-    let waitUntilOperationKeyIsUpdated1 = true
-    //await waitUntilOperationKeyIsUpdated(opclinetUuid, timestampOfCurrentRequest, waitTime);
-    if (!waitUntilOperationKeyIsUpdated1) {
+    let maxwaitingperiod = await Integerprofile.getIntegerValueForTheIntegerProfileNameAsync("maximumWaitTimeToReceiveOperationKey")
+    await OperationClientInterface.turnONNotificationChannel(time)
+    let waitUntilOperationKeyIsUpdatedval = await OperationClientInterface.waitUntilOperationKeyIsUpdated(opclinetUuid, time, maxwaitingperiod);
+    await OperationClientInterface.turnOFFNotificationChannel(time)
+    if (!waitUntilOperationKeyIsUpdatedval) {
 
       await prepareForwardingAutomation.RollBackInCaseOfTimeOut(
         appName,
