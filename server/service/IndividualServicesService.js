@@ -10,9 +10,6 @@ const ForwardingConstructConfigurationInput = require('onf-core-model-ap/applica
 const forwardingConfigurationService = require('onf-core-model-ap/applicationPattern/onfModel/services/ForwardingConstructConfigurationServices');
 const ProfileCollection = require('onf-core-model-ap/applicationPattern/onfModel/models/ProfileCollection');
 let FORWARDING_NAME = "LinkUpdateNotificationCausesOperationKeyUpdates"
-const ForwardingProcessingInput = require('onf-core-model-ap/applicationPattern/onfModel/services/models/forwardingConstruct/ForwardingProcessingInput');
-
-const ForwardingConstructProcessingService = require('onf-core-model-ap/applicationPattern/onfModel/services/ForwardingConstructProcessingServices');
 const onfAttributes = require('onf-core-model-ap/applicationPattern/onfModel/constants/OnfAttributes');
 const LogicalTerminationPoint = require('onf-core-model-ap/applicationPattern/onfModel/models/LogicalTerminationPoint');
 const tcpClientInterface = require('onf-core-model-ap/applicationPattern/onfModel/models/layerProtocols/TcpClientInterface');
@@ -323,6 +320,18 @@ exports.regardApplication = async function (body, user, originator, xCorrelator,
         )
 
       }
+    }
+    else if(applicationLayerResult.success == false){       
+        await prepareForwardingAutomation.RollBackInCaseOfTimeOut(
+          appName,
+          appReleaseNumber,
+          headers.user,
+          headers.xCorrelator,
+          headers.traceIndicator + "." + headers.traceIndicatorIncrementer++,
+          headers.customerJourney
+        )
+
+      
     }
     var response = {};
     if (applicationLayerResult.success == true) {
