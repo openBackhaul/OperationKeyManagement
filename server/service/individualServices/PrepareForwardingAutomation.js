@@ -1,14 +1,17 @@
 const prepareALTForwardingAutomation = require('onf-core-model-ap-bs/basicServices/services/PrepareALTForwardingAutomation');
+const httpClientInterface = require('onf-core-model-ap/applicationPattern/onfModel/models/layerProtocols/HttpClientInterface');
 
 const operationServerInterface = require('onf-core-model-ap/applicationPattern/onfModel/models/layerProtocols/OperationServerInterface');
 const HttpServerInterface = require('onf-core-model-ap/applicationPattern/onfModel/models/layerProtocols/HttpServerInterface');
 const onfAttributeFormatter = require('onf-core-model-ap/applicationPattern/onfModel/utility/OnfAttributeFormatter');
-const onfAttributes = require('onf-core-model-ap/applicationPattern/onfModel/constants/OnfAttributes');
 const FcPort = require('onf-core-model-ap/applicationPattern/onfModel/models/FcPort');
 const ForwardingDomain = require('onf-core-model-ap/applicationPattern/onfModel/models/ForwardingDomain');
-
 const onfAttributes = require('onf-core-model-ap/applicationPattern/onfModel/constants/OnfAttributes')
 const eventDispatcher = require('onf-core-model-ap/applicationPattern/rest/client/eventDispatcher');
+const ForwardingProcessingInput = require('onf-core-model-ap/applicationPattern/onfModel/services/models/forwardingConstruct/ForwardingProcessingInput');
+const logicalTerminationPoint = require('onf-core-model-ap/applicationPattern/onfModel/models/LogicalTerminationPoint');
+const ForwardingConstructProcessingService = require('onf-core-model-ap/applicationPattern/onfModel/services/ForwardingConstructProcessingServices');
+
 
 exports.bequeathYourDataAndDie = function (logicalTerminationPointconfigurationStatus) {
   return new Promise(async function (resolve, reject) {
@@ -65,8 +68,7 @@ exports.OAMLayerRequest = function (uuid) {
 exports.CreateLinkForUpdatingOperationKeys = async function (applicationName, applicationReleaseNumber, user, xCorrelator, traceIndicator, customerJourney,) {
   return new Promise(async function (resolve, reject) {
     try {
-
-      let result;
+      let result 
       let CreateLinkForUpdatingOperationKeysForwardingName = "NewApplicationCausesRequestsForUpdatingOperationKeys.CreateLinkForUpdatingOperationKeys";
       let CreateLinkForUpdatingOperationKeysRequestBody = {};
 
@@ -77,16 +79,20 @@ exports.CreateLinkForUpdatingOperationKeys = async function (applicationName, ap
       CreateLinkForUpdatingOperationKeysRequestBody.consumingApplicationReleaseNumber = await HttpServerInterface.getReleaseNumberAsync();
 
       CreateLinkForUpdatingOperationKeysRequestBody = onfAttributeFormatter.modifyJsonObjectKeysToKebabCase(CreateLinkForUpdatingOperationKeysRequestBody);
-
-      result = await forwardRequest(
+      let forwardingAutomation = new ForwardingProcessingInput(
         CreateLinkForUpdatingOperationKeysForwardingName,
-        CreateLinkForUpdatingOperationKeysRequestBody,
+        CreateLinkForUpdatingOperationKeysRequestBody
+      );
+
+      let response = await ForwardingConstructProcessingService.processForwardingConstructAsync(
+        forwardingAutomation,
         user,
         xCorrelator,
         traceIndicator,
         customerJourney
-      );
 
+      )
+      result = await getResponseValueList(response)
       resolve(result)
 
     }
@@ -96,6 +102,7 @@ exports.CreateLinkForUpdatingOperationKeys = async function (applicationName, ap
   });
 
 }
+
 
 
 exports.RollBackInCaseOfTimeOut = async function (applicationName, appReleaseNumber, user, xCorrelator, traceIndicator, customerJourney,) {
@@ -127,7 +134,6 @@ exports.RollBackInCaseOfTimeOut = async function (applicationName, appReleaseNum
   });
 
 }
-
 function forwardRequest(forwardingKindName, attributeList, user, xCorrelator, traceIndicator, customerJourney) {
   return new Promise(async function (resolve, reject) {
     try {
@@ -160,4 +166,49 @@ function getFcPortOutputLogicalTerminationPointList(forwardingConstructInstance)
     }
   }
   return fcPortOutputLogicalTerminationPointList;
+}
+
+
+async function getResponseValueList(resultvalue) {
+  let result = {}
+  let respose = resultvalue.data
+  let resposeCode = resultvalue.status
+
+  if (respose['client-successfully-added'] == true) {
+    result.success = true
+  }
+  else if (resposeCode.toString().startsWith("5")) {
+    result.success = false,
+      result.reasonforfailuure = "OKM_NOT_REACHABLE";
+  }
+  else if (resposeCode.toString().startsWith("4")) {
+    result.success = false,
+      result.reasonforfailuure = "OKM_UNKNOWN";
+  }
+  else {
+    result.success = false,
+      result.reasonforfailuure = `OKM_${respose['reason-of-failure']}`;
+  }
+  return result;
+}
+
+
+exports.getOperationClientUuid = async function (forwardingName, applicationName, releaseNumber) {
+  let forwardingConstruct = await ForwardingDomain.getForwardingConstructForTheForwardingNameAsync(
+    forwardingName);
+  let fcPortList = forwardingConstruct["fc-port"];
+  for (let fcPort of fcPortList) {
+    let fcPortDirection = fcPort["port-direction"];
+    if (fcPortDirection == FcPort.portDirectionEnum.OUTPUT) {
+      let fcLogicalTerminationPoint = fcPort["logical-termination-point"];
+      let serverLtpList = await logicalTerminationPoint.getServerLtpListAsync(fcLogicalTerminationPoint);
+      let httpClientUuid = serverLtpList[0];
+      let applicationNameOfClient = await httpClientInterface.getApplicationNameAsync(httpClientUuid);
+      let releaseNumberOfClient = await httpClientInterface.getReleaseNumberAsync(httpClientUuid);
+      if (applicationNameOfClient == applicationName && releaseNumberOfClient == releaseNumber) {
+        return fcLogicalTerminationPoint;
+      }
+    }
+  }
+  return undefined;
 }

@@ -19,7 +19,7 @@ const NEW_RELEASE_FORWARDING_NAME = 'PromptForBequeathingDataCausesTransferOfLis
 module.exports.disposeRemaindersOfDeregisteredApplication = function disposeRemaindersOfDeregisteredApplication (req, res, next, body, user, originator, xCorrelator, traceIndicator, customerJourney) {
   let startTime = process.hrtime();
   let responseCode = responseCodeEnum.code.NO_CONTENT;
-  let responseBodyToDocument = {};
+  let responseBodyToDocument;
   BasicServices.disposeRemaindersOfDeregisteredApplication(body, user, originator, xCorrelator, traceIndicator, customerJourney)
   .then(async function (responseBody) {
     responseBodyToDocument = responseBody;
