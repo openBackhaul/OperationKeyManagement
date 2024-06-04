@@ -16,6 +16,26 @@ const logicalTerminationPoint = require('onf-core-model-ap/applicationPattern/on
 
 const NEW_RELEASE_FORWARDING_NAME = 'PromptForBequeathingDataCausesTransferOfListOfApplications';
 
+module.exports.disposeRemaindersOfDeregisteredApplication = function disposeRemaindersOfDeregisteredApplication (req, res, next, body, user, originator, xCorrelator, traceIndicator, customerJourney) {
+  let startTime = process.hrtime();
+  let responseCode = responseCodeEnum.code.NO_CONTENT;
+  let responseBodyToDocument;
+  BasicServices.disposeRemaindersOfDeregisteredApplication(body, user, originator, xCorrelator, traceIndicator, customerJourney)
+  .then(async function (responseBody) {
+    responseBodyToDocument = responseBody;
+    let responseHeader = await RestResponseHeader.createResponseHeader(xCorrelator, startTime, req.url);
+    RestResponseBuilder.buildResponse(res, responseCode, responseBody, responseHeader);
+  })
+  .catch(async function (responseBody) {
+    let responseHeader = await RestResponseHeader.createResponseHeader(xCorrelator, startTime, req.url);
+    let sentResp = RestResponseBuilder.buildResponse(res, undefined, responseBody, responseHeader);
+    responseCode = sentResp.code;
+    responseBodyToDocument = sentResp.body;
+  });
+ExecutionAndTraceService.recordServiceRequest(xCorrelator, traceIndicator, user, originator, req.url, responseCode, req.body, responseBodyToDocument);
+};
+
+
 module.exports.embedYourself = async function embedYourself(req, res, next, body, user, originator, xCorrelator, traceIndicator, customerJourney) {
   let startTime = process.hrtime();
   let responseCode = responseCodeEnum.code.NO_CONTENT;
@@ -52,6 +72,25 @@ module.exports.endSubscription = async function endSubscription(req, res, next, 
       responseBodyToDocument = sentResp.body;
     });
   ExecutionAndTraceService.recordServiceRequest(xCorrelator, traceIndicator, user, originator, req.url, responseCode, req.body, responseBodyToDocument);
+};
+
+module.exports.informAboutPrecedingRelease = function informAboutPrecedingRelease (req, res, next, user, originator, xCorrelator, traceIndicator, customerJourney) {
+  let startTime = process.hrtime();
+  let responseCode = responseCodeEnum.code.OK;
+  let responseBodyToDocument = {};
+  BasicServices.informAboutPrecedingRelease(user, originator, xCorrelator, traceIndicator, customerJourney)
+  .then(async function (responseBody) {
+    responseBodyToDocument = responseBody;
+    let responseHeader = await RestResponseHeader.createResponseHeader(xCorrelator, startTime, req.url);
+    RestResponseBuilder.buildResponse(res, responseCode, responseBody, responseHeader);
+  })
+  .catch(async function (responseBody) {
+    let responseHeader = await RestResponseHeader.createResponseHeader(xCorrelator, startTime, req.url);
+    let sentResp = RestResponseBuilder.buildResponse(res, undefined, responseBody, responseHeader);
+    responseCode = sentResp.code;
+    responseBodyToDocument = sentResp.body;
+  });
+ExecutionAndTraceService.recordServiceRequest(xCorrelator, traceIndicator, user, originator, req.url, responseCode, req.body, responseBodyToDocument);
 };
 
 module.exports.startApplicationInGenericRepresentation = async function startApplicationInGenericRepresentation(req, res, next, user, originator, xCorrelator, traceIndicator, customerJourney) {
@@ -109,6 +148,25 @@ module.exports.informAboutApplicationInGenericRepresentation = async function in
       responseBodyToDocument = sentResp.body;
     });
   ExecutionAndTraceService.recordServiceRequest(xCorrelator, traceIndicator, user, originator, req.url, responseCode, req.body, responseBodyToDocument);
+};
+
+module.exports.inquireBasicAuthRequestApprovals = function inquireBasicAuthRequestApprovals (req, res, next, body, user, originator, xCorrelator, traceIndicator, customerJourney) {
+  let startTime = process.hrtime();
+  let responseCode = responseCodeEnum.code.NO_CONTENT;
+  let responseBodyToDocument = {};
+  BasicServices.inquireBasicAuthRequestApprovals(body, user, xCorrelator, traceIndicator, customerJourney, req.url,NEW_RELEASE_FORWARDING_NAME)
+  .then(async function (responseBody) {
+    responseBodyToDocument = responseBody;
+    let responseHeader = await RestResponseHeader.createResponseHeader(xCorrelator, startTime, req.url);
+    RestResponseBuilder.buildResponse(res, responseCode, responseBody, responseHeader);
+  })
+  .catch(async function (responseBody) {
+    let responseHeader = await RestResponseHeader.createResponseHeader(xCorrelator, startTime, req.url);
+    let sentResp = RestResponseBuilder.buildResponse(res, undefined, responseBody, responseHeader);
+    responseCode = sentResp.code;
+    responseBodyToDocument = sentResp.body;
+  });
+ExecutionAndTraceService.recordServiceRequest(xCorrelator, traceIndicator, user, originator, req.url, responseCode, req.body, responseBodyToDocument);
 };
 
 module.exports.informAboutReleaseHistory = async function informAboutReleaseHistory(req, res, next, user, originator, xCorrelator, traceIndicator, customerJourney) {
@@ -205,6 +263,26 @@ module.exports.redirectOamRequestInformation = async function redirectOamRequest
     });
   ExecutionAndTraceService.recordServiceRequest(xCorrelator, traceIndicator, user, originator, req.url, responseCode, req.body, responseBodyToDocument);
 };
+
+module.exports.UpdateClientOfSubsequentRelease = function UpdateClientOfSubsequentRelease (req, res, next, body, user, originator, xCorrelator, traceIndicator, customerJourney) {
+  let startTime = process.hrtime();
+  let responseCode = responseCodeEnum.code.OK;
+  let responseBodyToDocument = {};
+  BasicServices.updateClientOfSubsequentRelease(body, user, xCorrelator, traceIndicator, customerJourney, req.url,NEW_RELEASE_FORWARDING_NAME)
+  .then(async function (responseBody) {
+    responseBodyToDocument = responseBody;
+    let responseHeader = await RestResponseHeader.createResponseHeader(xCorrelator, startTime, req.url);
+    RestResponseBuilder.buildResponse(res, responseCode, responseBody, responseHeader);
+  })
+  .catch(async function (responseBody) {
+    let responseHeader = await RestResponseHeader.createResponseHeader(xCorrelator, startTime, req.url);
+    let sentResp = RestResponseBuilder.buildResponse(res, undefined, responseBody, responseHeader);
+    responseCode = sentResp.code;
+    responseBodyToDocument = sentResp.body;
+  });
+ExecutionAndTraceService.recordServiceRequest(xCorrelator, traceIndicator, user, originator, req.url, responseCode, req.body, responseBodyToDocument);
+};
+
 
 module.exports.redirectServiceRequestInformation = async function redirectServiceRequestInformation(req, res, next, body, user, originator, xCorrelator, traceIndicator, customerJourney) {
   let startTime = process.hrtime();

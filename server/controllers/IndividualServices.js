@@ -66,9 +66,10 @@ module.exports.listApplications = async function listApplications(req, res, next
 module.exports.regardApplication = async function regardApplication(req, res, next, body, user, originator, xCorrelator, traceIndicator, customerJourney) {
   let startTime = process.hrtime();
   let responseCode = responseCodeEnum.code.NO_CONTENT;
-  let responseBodyToDocument = undefined;
+  let responseBodyToDocument = {};
   await IndividualServices.regardApplication(body, user, originator, xCorrelator, traceIndicator, customerJourney, req.url)
     .then(async function (responseBody) {
+      responseBodyToDocument=responseBody;
       let responseHeader = await restResponseHeader.createResponseHeader(xCorrelator, startTime, req.url);
       restResponseBuilder.buildResponse(res, responseCode, responseBodyToDocument, responseHeader);
     })
