@@ -35,8 +35,9 @@ const UPDATE_OPERATION_KEY_OPERATION = '/v1/update-operation-key'
 //const deregisteredApplication= '/v1/dispose-remainders-of-deregistered-application'
 const DEFAULT_OPERATION_KEY = 'Operation key not yet provided.';
 const NEW_RELEASE_FORWARDING_NAME = 'PromptForBequeathingDataCausesTransferOfListOfApplications';
-const Integerprofile = require('onf-core-model-ap/applicationPattern/onfModel/models/profile/IntegerProfile')
-
+const Integerprofile = require('onf-core-model-ap/applicationPattern/onfModel/models/profile/IntegerProfile');
+const AsyncLock = require('async-lock');
+const lock = new AsyncLock();
 
 exports.regardUpdatedLink2 = async function (body, user, xCorrelator, traceIndicator, customerJourney) {
   // get data from request body
@@ -247,45 +248,45 @@ exports.regardApplication = async function (body, user, originator, xCorrelator,
     headers.traceIndicatorIncrementer = traceIndicatorIncrementer;
 
 
-
-    // create/update op, tcp, http logical-termination-points for the given app
-    const httpClientUuid = await httpClientInterface.getHttpClientUuidExcludingOldReleaseAndNewRelease(
-      appName, appReleaseNumber, NEW_RELEASE_FORWARDING_NAME
-    )
-    const ltpConfigurationInput = new LogicalTerminationPointConfigurationInput(
-      httpClientUuid,
-      appName,
-      appReleaseNumber,
-      tcpInfo,
-      operationServerName,
-      operationNamesByAttributes,
-      operationsMapping
-    );
-    const ltpConfigurationStatus = await LogicalTerminationPointService.createOrUpdateApplicationLtpsAsync(ltpConfigurationInput);
-    const operationClientUuid = ltpConfigurationStatus.operationClientConfigurationStatusList[0].uuid;
-    const cyclicOperationInput = new ForwardingConstructConfigurationInput(FC_CYCLIC_OPERATION_CAUSES_OPERATION_KEY_UPDATES, operationClientUuid);
-    const linkUpdateNotificationInput = new ForwardingConstructConfigurationInput(FC_LINK_UPDATE_NOTIFICATION_CAUSES_OPERATION_KEY_UPDATES, operationClientUuid);
-    const forwardingConfigurationInputList = [cyclicOperationInput, linkUpdateNotificationInput];
-
-    const forwardingConstructConfigurationStatus = await forwardingConfigurationService.
-      configureForwardingConstructAsync(
+    await lock.acquire("regard application", async () => {
+      // create/update op, tcp, http logical-termination-points for the given app
+      const httpClientUuid = await httpClientInterface.getHttpClientUuidExcludingOldReleaseAndNewRelease(
+        appName, appReleaseNumber, NEW_RELEASE_FORWARDING_NAME
+      )
+      const ltpConfigurationInput = new LogicalTerminationPointConfigurationInput(
+        httpClientUuid,
+        appName,
+        appReleaseNumber,
+        tcpInfo,
         operationServerName,
-        forwardingConfigurationInputList
+        operationNamesByAttributes,
+        operationsMapping
       );
-    let applicationLayerTopologyForwardingInputList = await prepareALTForwardingAutomation.getALTForwardingAutomationInputAsync(
-      ltpConfigurationStatus,
-      forwardingConstructConfigurationStatus
-    );
+      const ltpConfigurationStatus = await LogicalTerminationPointService.createOrUpdateApplicationLtpsAsync(ltpConfigurationInput);
+      const operationClientUuid = ltpConfigurationStatus.operationClientConfigurationStatusList[0].uuid;
+      const cyclicOperationInput = new ForwardingConstructConfigurationInput(FC_CYCLIC_OPERATION_CAUSES_OPERATION_KEY_UPDATES, operationClientUuid);
+      const linkUpdateNotificationInput = new ForwardingConstructConfigurationInput(FC_LINK_UPDATE_NOTIFICATION_CAUSES_OPERATION_KEY_UPDATES, operationClientUuid);
+      const forwardingConfigurationInputList = [cyclicOperationInput, linkUpdateNotificationInput];
+
+      const forwardingConstructConfigurationStatus = await forwardingConfigurationService.
+        configureForwardingConstructAsync(
+          operationServerName,
+          forwardingConfigurationInputList
+        );
+      let applicationLayerTopologyForwardingInputList = await prepareALTForwardingAutomation.getALTForwardingAutomationInputAsync(
+        ltpConfigurationStatus,
+        forwardingConstructConfigurationStatus
+      );
 
 
-    forwardingAutomationService.automateForwardingConstructAsync(
-      headers.operationServerName, applicationLayerTopologyForwardingInputList,
-      headers.user,
-      headers.xCorrelator,
-      headers.traceIndicator,
-      headers.customerJourney
-    ).catch((error) => console.log(`regardApplication - automateForwardingConstructAsync for ${JSON.stringify({ xCorrelator, traceIndicator, user, originator })} failed with error: ${error.message}`));
-
+      forwardingAutomationService.automateForwardingConstructAsync(
+        headers.operationServerName, applicationLayerTopologyForwardingInputList,
+        headers.user,
+        headers.xCorrelator,
+        headers.traceIndicator,
+        headers.customerJourney
+      ).catch((error) => console.log(`regardApplication - automateForwardingConstructAsync for ${JSON.stringify({ xCorrelator, traceIndicator, user, originator })} failed with error: ${error.message}`));
+    });
     applicationLayerResult = await prepareForwardingAutomation.CreateLinkForUpdatingOperationKeys(
       appName,
       appReleaseNumber,
@@ -321,17 +322,15 @@ exports.regardApplication = async function (body, user, originator, xCorrelator,
 
       }
     }
-    else if(applicationLayerResult.success == false){       
-        await prepareForwardingAutomation.RollBackInCaseOfTimeOut(
-          appName,
-          appReleaseNumber,
-          headers.user,
-          headers.xCorrelator,
-          headers.traceIndicator + "." + headers.traceIndicatorIncrementer++,
-          headers.customerJourney
-        )
-
-      
+    else if (applicationLayerResult.success == false) {
+      await prepareForwardingAutomation.RollBackInCaseOfTimeOut(
+        appName,
+        appReleaseNumber,
+        headers.user,
+        headers.xCorrelator,
+        headers.traceIndicator + "." + headers.traceIndicatorIncrementer++,
+        headers.customerJourney
+      )
     }
     var response = {};
     if (applicationLayerResult.success == true) {
