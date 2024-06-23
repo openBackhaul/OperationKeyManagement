@@ -250,7 +250,7 @@
               "maximum": 5000
             },
             "integer-profile-configuration": {
-              "integer-value": 500
+              "integer-value": 10000
             }
           }
         },
@@ -2838,6 +2838,11 @@
                 "local-id": "100",
                 "port-direction": "core-model-1-4:PORT_DIRECTION_TYPE_INPUT",
                 "logical-termination-point": "okm-2-1-0-op-s-bm-004"
+              },
+              {
+                  "local-id": "101",
+                  "port-direction": "core-model-1-4:PORT_DIRECTION_TYPE_INPUT",
+                  "logical-termination-point": "okm-2-1-0-op-s-is-001"
               },
               {
                 "local-id": "200",

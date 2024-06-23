@@ -65,10 +65,10 @@ exports.OAMLayerRequest = function (uuid) {
   });
 }
 
-exports.CreateLinkForUpdatingOperationKeys = async function (applicationName, applicationReleaseNumber, user, xCorrelator, traceIndicator, customerJourney,) {
+exports.CreateLinkForUpdatingOperationKeys = async function (applicationName, applicationReleaseNumber, user, xCorrelator, traceIndicator, customerJourney, ) {
   return new Promise(async function (resolve, reject) {
     try {
-      let result 
+      let result
       let CreateLinkForUpdatingOperationKeysForwardingName = "NewApplicationCausesRequestsForUpdatingOperationKeys.CreateLinkForUpdatingOperationKeys";
       let CreateLinkForUpdatingOperationKeysRequestBody = {};
 
@@ -90,13 +90,11 @@ exports.CreateLinkForUpdatingOperationKeys = async function (applicationName, ap
         xCorrelator,
         traceIndicator,
         customerJourney
-
       )
       result = await getResponseValueList(response)
       resolve(result)
 
-    }
-    catch (error) {
+    } catch (error) {
       reject(error);
     }
   });
@@ -105,7 +103,7 @@ exports.CreateLinkForUpdatingOperationKeys = async function (applicationName, ap
 
 
 
-exports.RollBackInCaseOfTimeOut = async function (applicationName, appReleaseNumber, user, xCorrelator, traceIndicator, customerJourney,) {
+exports.RollBackInCaseOfTimeOut = async function (applicationName, appReleaseNumber, user, xCorrelator, traceIndicator, customerJourney, ) {
   return new Promise(async function (resolve, reject) {
     try {
 
@@ -127,13 +125,13 @@ exports.RollBackInCaseOfTimeOut = async function (applicationName, appReleaseNum
       );
       resolve(result)
 
-    }
-    catch (error) {
+    } catch (error) {
       reject(error);
     }
   });
 
 }
+
 function forwardRequest(forwardingKindName, attributeList, user, xCorrelator, traceIndicator, customerJourney) {
   return new Promise(async function (resolve, reject) {
     try {
@@ -153,6 +151,7 @@ function forwardRequest(forwardingKindName, attributeList, user, xCorrelator, tr
     }
   });
 }
+
 function getFcPortOutputLogicalTerminationPointList(forwardingConstructInstance) {
   let fcPortOutputLogicalTerminationPointList = [];
   let fcPortList = forwardingConstructInstance[
@@ -169,26 +168,28 @@ function getFcPortOutputLogicalTerminationPointList(forwardingConstructInstance)
 }
 
 
-async function getResponseValueList(resultvalue) {
-  let result = {}
-  let respose = resultvalue.data
-  let resposeCode = resultvalue.status
+async function getResponseValueList(resultValue) {
+  let result = {};
+  let responseCode = resultValue.status;
 
-  if (respose['client-successfully-added'] == true) {
-    result.success = true
-  }
-  else if (resposeCode.toString().startsWith("5")) {
+  if (responseCode.toString().startsWith("2")) {
+    let responseData = resultValue.data
+    if (responseData['client-successfully-added'] == true) {
+      result.success = true
+    } else {
+      result.success = false,
+      result.reasonForFailure = `OKM_${responseData['reason-of-failure']}`;
+    }
+  } 
+  else if (responseCode.toString() == "408") {
+    result.success = false;
+    result.reasonForFailure = "OKM_NOT_REACHABLE";
+  } 
+  else if (responseCode.toString().startsWith("5") || responseCode.toString().startsWith("4")) {
     result.success = false,
-      result.reasonforfailuure = "OKM_NOT_REACHABLE";
+      result.reasonForFailure = "OKM_UNKNOWN";
   }
-  else if (resposeCode.toString().startsWith("4")) {
-    result.success = false,
-      result.reasonforfailuure = "OKM_UNKNOWN";
-  }
-  else {
-    result.success = false,
-      result.reasonforfailuure = `OKM_${respose['reason-of-failure']}`;
-  }
+
   return result;
 }
 
