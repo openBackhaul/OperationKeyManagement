@@ -283,7 +283,7 @@ exports.regardApplication = async function (body, user, originator, xCorrelator,
 
       headers.traceIndicatorIncrementer = headers.traceIndicatorIncrementer + applicationLayerTopologyForwardingInputList.length;
 
-      forwardingAutomationService.automateForwardingConstructAsync(
+      await forwardingAutomationService.automateForwardingConstructAsync(
         headers.operationServerName, applicationLayerTopologyForwardingInputList,
         headers.user,
         headers.xCorrelator,
