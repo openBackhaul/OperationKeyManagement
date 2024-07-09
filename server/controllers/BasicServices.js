@@ -15,7 +15,7 @@ const logicalTerminationPoint = require('onf-core-model-ap/applicationPattern/on
 
 
 const NEW_RELEASE_FORWARDING_NAME = 'PromptForBequeathingDataCausesTransferOfListOfApplications';
-
+const OLD_RELEASE_FORWARDING_NAME = 'PromptForEmbeddingCausesRequestForBequeathingData';
 module.exports.disposeRemaindersOfDeregisteredApplication = async function disposeRemaindersOfDeregisteredApplication(req, res, next, body, user, originator, xCorrelator, traceIndicator, customerJourney) {
   let startTime = process.hrtime();
   let responseCode = responseCodeEnum.code.NO_CONTENT;
@@ -87,7 +87,7 @@ module.exports.informAboutPrecedingRelease = async function informAboutPreceding
   let startTime = process.hrtime();
   let responseCode = responseCodeEnum.code.OK;
   let responseBodyToDocument = {};
-  await BasicServices.informAboutPrecedingRelease(user, originator, xCorrelator, traceIndicator, customerJourney)
+  await BasicServices.informAboutPrecedingRelease(OLD_RELEASE_FORWARDING_NAME)
     .then(async function (responseBody) {
       responseBodyToDocument = responseBody;
       let responseHeader = await RestResponseHeader.createResponseHeader(xCorrelator, startTime, req.url);
