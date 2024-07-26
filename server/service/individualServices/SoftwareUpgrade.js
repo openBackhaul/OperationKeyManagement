@@ -3,7 +3,6 @@
  * @module SoftwareUpgrade
  **/
 
-const operationClientInterface = require('onf-core-model-ap/applicationPattern/onfModel/models/layerProtocols/OperationClientInterface');
 const logicalTerminationPoint = require('onf-core-model-ap/applicationPattern/onfModel/models/LogicalTerminationPoint');
 const httpServerInterface = require('onf-core-model-ap/applicationPattern/onfModel/models/layerProtocols/HttpServerInterface');
 const httpClientInterface = require('onf-core-model-ap/applicationPattern/onfModel/models/layerProtocols/HttpClientInterface');
@@ -159,7 +158,7 @@ async function PromptForBequeathingDataCausesALTbeingRequestedToNotifyLinkUpdate
 
         let applicationName = await httpServerInterface.getApplicationNameAsync();
         let releaseNumber = await httpClientInterface.getReleaseNumberAsync(uuid.httpClientUuid);
-        let operationName = await OperationServerInterface.getOperationNameAsync("okm-2-0-1-op-s-is-004");
+        let operationName = await OperationServerInterface.getOperationNameAsync("okm-2-1-0-op-s-is-004");
         let applicationProtocol = await tcpClientInterface.getRemoteProtocolAsync(uuid.tcpClientUuid);
         let applicationAddress = await tcpClientInterface.getRemoteAddressAsync(uuid.tcpClientUuid);
         let applicationPort = await tcpClientInterface.getRemotePortAsync(uuid.tcpClientUuid);

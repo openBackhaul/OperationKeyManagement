@@ -1152,7 +1152,7 @@
             "http-client-interface-1-0:http-client-interface-pac": {
               "http-client-interface-configuration": {
                 "application-name": "NewRelease",
-                "release-number": "2.1.0"
+                "release-number": "2.1.1"
               }
             }
           }
@@ -1329,7 +1329,7 @@
             "http-client-interface-1-0:http-client-interface-pac": {
               "http-client-interface-configuration": {
                 "application-name": "RegistryOffice",
-                "release-number": "2.1.0"
+                "release-number": "2.1.1"
               }
             }
           }
@@ -1402,7 +1402,7 @@
             "http-client-interface-1-0:http-client-interface-pac": {
               "http-client-interface-configuration": {
                 "application-name": "TypeApprovalRegister",
-                "release-number": "2.1.0"
+                "release-number": "2.1.1"
               }
             }
           }
@@ -1502,7 +1502,7 @@
             "http-client-interface-1-0:http-client-interface-pac": {
               "http-client-interface-configuration": {
                 "application-name": "ExecutionAndTraceLog",
-                "release-number": "2.0.1"
+                "release-number": "2.1.1"
               }
             }
           }
@@ -1601,7 +1601,7 @@
             "http-client-interface-1-0:http-client-interface-pac": {
               "http-client-interface-configuration": {
                 "application-name": "OamLog",
-                "release-number": "2.0.1"
+                "release-number": "2.1.1"
               }
             }
           }
@@ -1700,7 +1700,7 @@
             "http-client-interface-1-0:http-client-interface-pac": {
               "http-client-interface-configuration": {
                 "application-name": "AdministratorAdministration",
-                "release-number": "2.0.1"
+                "release-number": "2.1.1"
               }
             }
           }
@@ -2059,7 +2059,7 @@
             "http-client-interface-1-0:http-client-interface-pac": {
               "http-client-interface-configuration": {
                 "application-name": "ApplicationLayerTopology",
-                "release-number": "2.1.0"
+                "release-number": "2.1.1"
               }
             }
           }
@@ -2158,7 +2158,7 @@
             "http-client-interface-1-0:http-client-interface-pac": {
               "http-client-interface-configuration": {
                 "application-name": "OperationKeyManagement",
-                "release-number": "2.1.0"
+                "release-number": "2.1.1"
               }
             }
           }
