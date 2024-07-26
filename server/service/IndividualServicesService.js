@@ -234,7 +234,7 @@ exports.listApplications = async function () {
  * no response value expected for this operation
  **/
 exports.regardApplication = async function (body, user, originator, xCorrelator, traceIndicator, customerJourney, operationServerName) {
-  return new Promise(async function (resolve, reject) {
+  return new Promise(async function (resolve) {
     const appName = body['application-name'];
     const appReleaseNumber = body['release-number'];
     const tcpInfo = [new TcpObject(body['protocol'], body['address'], body['port'])];
@@ -335,9 +335,7 @@ exports.regardApplication = async function (body, user, originator, xCorrelator,
     if (Object.keys(response).length > 0) {
       console.log(response[Object.keys(response)])
       resolve(response[Object.keys(response)[0]]);
-    } else {
-
-    }
+    } 
 
   });
 }
@@ -519,7 +517,7 @@ async function updateOperationKeyForLink(linkUuid, updateKeyOperationLtpUuidList
           "operation-uuid": epOperationUuid,
           "new-operation-key": operationKey
         })
-        .then(response => 
+        .then( () => 
           console.log(`Successfully updated operation key for application ${epAppName} version ${epAppReleaseNumber} operation ${epOperationUuid} for the trace ${httpClient.getTraceIndicator()}`))
         .catch(error => console.log(`Failed to update operation key for application ${epAppName} version ${epAppReleaseNumber} operation ${epOperationUuid} with error: ${error.message}`));
     } else {
