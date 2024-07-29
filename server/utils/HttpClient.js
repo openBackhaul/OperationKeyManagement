@@ -46,6 +46,14 @@ module.exports = class HttpClient {
     this.#customerJourney = customerJourney == undefined ? 'Unknown value' : customerJourney;
   }
 
+  setTraceIndicator(traceIndicator){
+    this.#traceIndicator = traceIndicator;
+  }
+
+  getTraceIndicator(){
+    return this.#traceIndicator;
+  }
+
   /**
    * Executes given operation by ID.
    * @param {string} operationUuid ID of the client operation
