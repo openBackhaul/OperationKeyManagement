@@ -224,7 +224,7 @@
         },
         {
           "uuid": "okm-2-1-0-integer-p-000",
-          "profile-name": "integer-profile-1-0:PROFILE_NAME_INTEGER_PROFILE",
+          "profile-name": "integer-profile-1-0:PROFILE_NAME_TYPE_INTEGER_PROFILE",
           "integer-profile-1-0:integer-profile-pac": {
             "integer-profile-capability": {
               "integer-name": "timeInterval",
