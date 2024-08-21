@@ -5,7 +5,8 @@ var path = require('path');
 var http = require('http');
 var oas3Tools = require('openbackhaul-oas3-tools');
 var appCommons = require('onf-core-model-ap/applicationPattern/commons/AppCommons');
-var individualServicesService = require('./service/IndividualServicesService')
+var individualServicesService = require('./service/IndividualServicesService/Cyclicprocess')
+
 var serverPort = 3030;
 
 // uncomment if you do not want to validate security e.g. operation-key, basic auth, etc
