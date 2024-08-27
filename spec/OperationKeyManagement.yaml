@@ -2935,7 +2935,7 @@ paths:
                   type: string
                   description: >
                     'Name of application that shall record the OaM requests
-                    find or update, but not at OldRelease or NewRelease, [/core-model-1-4:control-construct/logical-termination-point=okm-2-1-2-http-c-aa-2-1-2-000/layer-protocol=0/http-client-interface-1-0:http-client-interface-pac/http-client-interface-configuration/application-name]'
+                    find or update, but not at OldRelease or NewRelease, [/core-model-1-4:control-construct/logical-termination-point=okm-2-1-2-http-c-ol-2-1-2-000/layer-protocol=0/http-client-interface-1-0:http-client-interface-pac/http-client-interface-configuration/application-name]'
                 oam-log-application-release-number:
                   type: string
                   pattern: '^([0-9]{1,2})\.([0-9]{1,2})\.([0-9]{1,2})$'
