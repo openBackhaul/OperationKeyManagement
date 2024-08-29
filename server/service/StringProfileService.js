@@ -3,7 +3,7 @@
 
 const fileOperation = require('onf-core-model-ap/applicationPattern/databaseDriver/JSONDriver');
 const profileConstants = require('../utils/profileConstants');
-const individualServicesService = require('./IndividualServicesService');
+const individualServicesService = require('./individualServices/Cyclicprocess');
 const ProfileCollection = require('onf-core-model-ap/applicationPattern/onfModel/models/ProfileCollection');
 const Profile = require('onf-core-model-ap/applicationPattern/onfModel/models/Profile');
 const onfAttributes = require('onf-core-model-ap/applicationPattern/onfModel/constants/OnfAttributes');

@@ -234,7 +234,7 @@ exports.listApplications = async function () {
  * no response value expected for this operation
  **/
 exports.regardApplication = async function (body, user, originator, xCorrelator, traceIndicator, customerJourney, operationServerName) {
-  return new Promise(async function (resolve) {
+  return new Promise(async function (resolve, reject) {
     const appName = body['application-name'];
     const appReleaseNumber = body['release-number'];
     const tcpInfo = [new TcpObject(body['protocol'], body['address'], body['port'])];
@@ -335,7 +335,9 @@ exports.regardApplication = async function (body, user, originator, xCorrelator,
     if (Object.keys(response).length > 0) {
       console.log(response[Object.keys(response)])
       resolve(response[Object.keys(response)[0]]);
-    } 
+    } else {
+
+    }
 
   });
 }
@@ -379,81 +381,6 @@ exports.regardUpdatedLink = async function (body, user, originator, xCorrelator,
   const httpClient = new HttpClient(user, xCorrelator, traceIndicator, customerJourney);
   await updateOperationKeyForLink(linkUuid, updateKeyOperationLtpUuidList, httpClient)
     .catch((error) => console.log(`regardUpdatedLink - failed update key for link ${linkUuid} with error: ${error.message}`));
-}
-
-exports.scheduleKeyRotation = async function scheduleKeyRotation() {
-  const operationModeValue = await stringProfileService.getOperationModeProfileStringValue();
-  if (operationModeValue === profileConstants.OPERATION_MODE_REACTIVE) {
-    console.log(`Reccurent update of operation keys is disabled, "operationMode" is "${profileConstants.OPERATION_MODE_REACTIVE}".`);
-    return;
-  }
-  let timeIntervalInSeconds;
-  let profileList = await ProfileCollection.getProfileListAsync();
-  for (let i = 0; i < profileList.length; i++) {
-    let profileInstance = profileList[i];
-    let profileName = profileInstance[onfAttributes.PROFILE.PROFILE_NAME];
-    if (profileName == "integer-profile-1-0:PROFILE_NAME_TYPE_INTEGER_PROFILE") {
-      let Integerval = profileInstance["integer-profile-1-0:integer-profile-pac"]['integer-profile-capability']['integer-name']
-      if (Integerval == 'timeInterval') {
-        timeIntervalInSeconds = profileInstance["integer-profile-1-0:integer-profile-pac"]["integer-profile-configuration"]["integer-value"]
-        break;
-      }
-    }
-  }
-
-  setTimeout(reccurentUpdateKeys, timeIntervalInSeconds * 1000);
-  console.log(`Update operation keys has been scheduled in ${timeIntervalInSeconds} seconds.`);
-}
-
-exports.updateKeys = async function () {
-  const updateKeyOperationLtpUuidList = await onfModelUtils.getFcPortOutputDirectionLogicalTerminationPointListForForwardingName(FC_CYCLIC_OPERATION_CAUSES_OPERATION_KEY_UPDATES);
-  const httpClient = new HttpClient();
-  const linkUuidList = await fetchLinkUuidListFromAlt(httpClient);
-  for (const linkUuid of linkUuidList) {
-    await updateOperationKeyForLink(linkUuid, updateKeyOperationLtpUuidList, httpClient)
-      .catch((error) => console.log(`reccurentUpdateKeys - failed update key for link ${linkUuid} with error: ${error.message}`));
-  }
-}
-
-async function reccurentUpdateKeys() {
-  try {
-    const operationModeValue = await stringProfileService.getOperationModeProfileStringValue();
-    if (operationModeValue === profileConstants.OPERATION_MODE_REACTIVE) {
-      // recurrentUpdateKeys has been scheduled but meanwhile operationMode changed and OKM should not update keys
-      return;
-    }
-
-    const updateKeyOperationLtpUuidList = await onfModelUtils.getFcPortOutputDirectionLogicalTerminationPointListForForwardingName(FC_CYCLIC_OPERATION_CAUSES_OPERATION_KEY_UPDATES);
-    const httpClient = new HttpClient();
-    const linkUuidList = await fetchLinkUuidListFromAlt(httpClient);
-    let traceIndicatorIncrementer = 0;
-    let existingTraceIndicator = httpClient.getTraceIndicator();
-    let newTraceIndicator = existingTraceIndicator + "." + traceIndicatorIncrementer++;
-    httpClient.setTraceIndicator(newTraceIndicator);
-    for (const linkUuid of linkUuidList) {
-      await updateOperationKeyForLink(linkUuid, updateKeyOperationLtpUuidList, httpClient)
-        .catch((error) => console.log(`reccurentUpdateKeys - failed update key for link ${linkUuid} with error: ${error.message}`));
-      newTraceIndicator = existingTraceIndicator + "." + traceIndicatorIncrementer++;     
-      httpClient.setTraceIndicator(newTraceIndicator);
-    }
-  } catch (error) {
-    if (error == undefined) {
-      throw new Error('unknown error');
-    }
-    console.log(`reccurentUpdateKeys - failed with error: ${error.message}`);
-  } finally {
-    exports.scheduleKeyRotation();
-  }
-}
-
-async function fetchLinkUuidListFromAlt(httpClient) {
-  let operationClientUuidOfListLinkUuids = (await onfModelUtils.getFcPortOutputDirectionLogicalTerminationPointListForForwardingName("CyclicOperationCausesRequestForListOfLinks"))[0];
-  const resp = await httpClient.executeOperation(operationClientUuidOfListLinkUuids);
-  if (resp['link-uuid-list'] === undefined) {
-    return [];
-  }
-
-  return resp['link-uuid-list'];
 }
 
 async function updateOperationKeyForLink2(linkUuid, linkEndpointList, updateKeyOperationLtpUuidList, httpClient) {
@@ -517,7 +444,7 @@ async function updateOperationKeyForLink(linkUuid, updateKeyOperationLtpUuidList
           "operation-uuid": epOperationUuid,
           "new-operation-key": operationKey
         })
-        .then( () => 
+        .then(response => 
           console.log(`Successfully updated operation key for application ${epAppName} version ${epAppReleaseNumber} operation ${epOperationUuid} for the trace ${httpClient.getTraceIndicator()}`))
         .catch(error => console.log(`Failed to update operation key for application ${epAppName} version ${epAppReleaseNumber} operation ${epOperationUuid} with error: ${error.message}`));
     } else {
