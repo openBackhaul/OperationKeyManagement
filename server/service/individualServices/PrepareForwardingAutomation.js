@@ -74,7 +74,7 @@ exports.CreateLinkForUpdatingOperationKeys = async function (applicationName, ap
 
       CreateLinkForUpdatingOperationKeysRequestBody.servingApplicationName = applicationName;
       CreateLinkForUpdatingOperationKeysRequestBody.servingApplicationReleaseNumber = applicationReleaseNumber;
-      CreateLinkForUpdatingOperationKeysRequestBody.operationName = await operationServerInterface.getOperationNameAsync("okm-2-1-0-op-s-bm-010");
+      CreateLinkForUpdatingOperationKeysRequestBody.operationName = await operationServerInterface.getOperationNameAsync("okm-2-1-2-op-s-bm-010");
       CreateLinkForUpdatingOperationKeysRequestBody.consumingApplicationName = await HttpServerInterface.getApplicationNameAsync();
       CreateLinkForUpdatingOperationKeysRequestBody.consumingApplicationReleaseNumber = await HttpServerInterface.getReleaseNumberAsync();
 
@@ -167,7 +167,6 @@ function getFcPortOutputLogicalTerminationPointList(forwardingConstructInstance)
   return fcPortOutputLogicalTerminationPointList;
 }
 
-
 async function getResponseValueList(resultValue) {
   let result = {};
   let responseCode = resultValue.status;
@@ -183,7 +182,7 @@ async function getResponseValueList(resultValue) {
   } 
   else if (responseCode.toString() == "408") {
     result.success = false;
-    result.reasonForFailure = "OKM_NOT_REACHABLE";
+    result.reasonForFailure = "OKM_DID_NOT_REACH_ALT";
   } 
   else if (responseCode.toString().startsWith("5") || responseCode.toString().startsWith("4")) {
     result.success = false,

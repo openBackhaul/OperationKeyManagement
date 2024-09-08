@@ -17,7 +17,7 @@ module.exports.bequeathYourDataAndDie = async function bequeathYourDataAndDie(re
       restResponseBuilder.buildResponse(res, responseCode, responseBody, responseHeader);
     })
     .catch(async function (responseBody) {
-      let responseHeader = await restResponseHeader.createResponseHeader(xCorrelator, startTime, req.url);
+      let responseHeader = await restResponseHeader.createResponseHeader(xCorrelator, startTime, req.url, -1);
       let sentResp = restResponseBuilder.buildResponse(res, undefined, responseBody, responseHeader);
       responseCode = sentResp.code;
       responseBodyToDocument = sentResp.body;
@@ -39,7 +39,7 @@ module.exports.disregardApplication = async function disregardApplication(req, r
       restResponseBuilder.buildResponse(res, responseCode, responseBody, responseHeader);
     })
     .catch(async function (responseBody) {
-      let responseHeader = await restResponseHeader.createResponseHeader(xCorrelator, startTime, req.url);
+      let responseHeader = await restResponseHeader.createResponseHeader(xCorrelator, startTime, req.url, -1);
       let sentResp = restResponseBuilder.buildResponse(res, undefined, responseBody, responseHeader);
       responseCode = sentResp.code;
       responseBodyToDocument = sentResp.body;
@@ -61,7 +61,7 @@ module.exports.listApplications = async function listApplications(req, res, next
       restResponseBuilder.buildResponse(res, responseCode, responseBody, responseHeader);
     })
     .catch(async function (responseBody) {
-      let responseHeader = await restResponseHeader.createResponseHeader(xCorrelator, startTime, req.url);
+      let responseHeader = await restResponseHeader.createResponseHeader(xCorrelator, startTime, req.url, -1);
       let sentResp = restResponseBuilder.buildResponse(res, undefined, responseBody, responseHeader);
       responseCode = sentResp.code;
       responseBodyToDocument = sentResp.body;
@@ -83,7 +83,7 @@ module.exports.regardApplication = async function regardApplication(req, res, ne
       restResponseBuilder.buildResponse(res, responseCode, responseBodyToDocument, responseHeader);
     })
     .catch(async function (responseBody) {
-      let responseHeader = await restResponseHeader.createResponseHeader(xCorrelator, startTime, req.url);
+      let responseHeader = await restResponseHeader.createResponseHeader(xCorrelator, startTime, req.url, -1);
       let sentResp = restResponseBuilder.buildResponse(res, undefined, responseBody, responseHeader);
       responseCode = sentResp.code;
       responseBodyToDocument = sentResp.body;
@@ -104,7 +104,7 @@ module.exports.regardUpdatedLink = async function regardUpdatedLink(req, res, ne
       restResponseBuilder.buildResponse(res, responseCode, responseBodyToDocument, responseHeader);
     })
     .catch(async function (responseBody) {
-      let responseHeader = await restResponseHeader.createResponseHeader(xCorrelator, startTime, req.url);
+      let responseHeader = await restResponseHeader.createResponseHeader(xCorrelator, startTime, req.url, -1);
       let sentResp = restResponseBuilder.buildResponse(res, undefined, responseBody, responseHeader);
       responseCode = sentResp.code;
       responseBodyToDocument = sentResp.body;
@@ -125,7 +125,7 @@ module.exports.regardUpdatedLink2 = async function regardUpdatedLink2(req, res, 
       restResponseBuilder.buildResponse(res, responseCode, responseBodyToDocument, responseHeader);
     })
     .catch(async function (responseBody) {
-      let responseHeader = await restResponseHeader.createResponseHeader(xCorrelator, startTime, req.url);
+      let responseHeader = await restResponseHeader.createResponseHeader(xCorrelator, startTime, req.url, -1);
       let sentResp = restResponseBuilder.buildResponse(res, undefined, responseBody, responseHeader);
       responseCode = sentResp.code;
       responseBodyToDocument = sentResp.body;
