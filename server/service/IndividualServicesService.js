@@ -300,7 +300,7 @@ exports.regardApplication = async function (body, user, originator, xCorrelator,
       headers.customerJourney
     );
 
-    if (applicationLayerResult.success == true) {
+    if (applicationLayerResult.successfullyConnected == true) {
       let OperationClientUuid = await prepareForwardingAutomation.getOperationClientUuid(FORWARDING_NAME, appName, appReleaseNumber);
       let timestampOfCurrentRequest = new Date()
       let maxwaitingperiod = await Integerprofile.getIntegerValueForTheIntegerProfileNameAsync("maximumWaitTimeToReceiveOperationKey")
@@ -314,20 +314,20 @@ exports.regardApplication = async function (body, user, originator, xCorrelator,
       }
     }
 
-    if (applicationLayerResult.success == false) {
+    if (applicationLayerResult.successfullyConnected == false) {
       rollBackSubscriptionToOperationKeyUpdate(
         forwardingConfigurationInputList,
         headers
       )
     }
     var response = {};
-    if (applicationLayerResult.success == true) {
+    if (applicationLayerResult.successfullyConnected == true) {
       response['application/json'] = {
-        "successfully-connected": applicationLayerResult.success,
+        "successfully-connected": applicationLayerResult.successfullyConnected,
       }
     } else {
       response['application/json'] = {
-        "successfully-connected": applicationLayerResult.success,
+        "successfully-connected": applicationLayerResult.successfullyConnected,
         "reason-of-failure": applicationLayerResult.reasonForFailure
       }
     }
