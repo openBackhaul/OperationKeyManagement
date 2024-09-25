@@ -272,10 +272,10 @@ exports.regardApplication = async function (body, user, originator, xCorrelator,
       forwardingConfigurationInputList = [cyclicOperationInput, linkUpdateNotificationInput];
 
       const forwardingConstructConfigurationStatus = await forwardingConfigurationService.
-      configureForwardingConstructAsync(
-        operationServerName,
-        forwardingConfigurationInputList
-      );
+        configureForwardingConstructAsync(
+          operationServerName,
+          forwardingConfigurationInputList
+        );
       let applicationLayerTopologyForwardingInputList = await prepareALTForwardingAutomation.getALTForwardingAutomationInputAsync(
         ltpConfigurationStatus,
         forwardingConstructConfigurationStatus
@@ -335,7 +335,7 @@ exports.regardApplication = async function (body, user, originator, xCorrelator,
     if (Object.keys(response).length > 0) {
       console.log(response[Object.keys(response)])
       resolve(response[Object.keys(response)[0]]);
-    } 
+    }
 
   });
 }
@@ -433,7 +433,7 @@ async function reccurentUpdateKeys() {
     for (const linkUuid of linkUuidList) {
       await updateOperationKeyForLink(linkUuid, updateKeyOperationLtpUuidList, httpClient)
         .catch((error) => console.log(`reccurentUpdateKeys - failed update key for link ${linkUuid} with error: ${error.message}`));
-      newTraceIndicator = existingTraceIndicator + "." + traceIndicatorIncrementer++;     
+      newTraceIndicator = existingTraceIndicator + "." + traceIndicatorIncrementer++;
       httpClient.setTraceIndicator(newTraceIndicator);
     }
   } catch (error) {
@@ -457,30 +457,32 @@ async function fetchLinkUuidListFromAlt(httpClient) {
 }
 
 async function updateOperationKeyForLink2(linkUuid, linkEndpointList, updateKeyOperationLtpUuidList, httpClient) {
-  const operationModeValue = await stringProfileService.getOperationModeProfileStringValue();
-  const operationKey = operationModeValue === profileConstants.OPERATION_MODE_OFF ? DEFAULT_OPERATION_KEY : generateOperationKey();
-  for (const linkEndpoint of linkEndpointList) {
-    const epAppName = linkEndpoint['application-name'];
-    const epAppReleaseNumber = linkEndpoint['release-number'];
-    const epOperationUuid = linkEndpoint['operation-uuid'];
+  await lock.acquire("updateOperationKeyForLink", async () => {
+    const operationModeValue = await stringProfileService.getOperationModeProfileStringValue();
+    const operationKey = operationModeValue === profileConstants.OPERATION_MODE_OFF ? DEFAULT_OPERATION_KEY : generateOperationKey();
+    for (const linkEndpoint of linkEndpointList) {
+      const epAppName = linkEndpoint['application-name'];
+      const epAppReleaseNumber = linkEndpoint['release-number'];
+      const epOperationUuid = linkEndpoint['operation-uuid'];
 
-    if (!epAppName || !epAppReleaseNumber || !epOperationUuid) {
-      console.log(`Ignoring endpoint ${JSON.stringify(linkEndpoint)} during update operation key for link ${linkUuid} because the endpoint is missing data.`);
-      continue;
-    }
+      if (!epAppName || !epAppReleaseNumber || !epOperationUuid) {
+        console.log(`Ignoring endpoint ${JSON.stringify(linkEndpoint)} during update operation key for link ${linkUuid} because the endpoint is missing data.`);
+        continue;
+      }
 
-    const updateKeyOperationLtpUuid = await resolveUpdateKeyOperationLtpUuidForApplication(epAppName, epAppReleaseNumber, updateKeyOperationLtpUuidList);
-    if (updateKeyOperationLtpUuid) {
-      await httpClient.executeOperation(updateKeyOperationLtpUuid, {
+      const updateKeyOperationLtpUuid = await resolveUpdateKeyOperationLtpUuidForApplication(epAppName, epAppReleaseNumber, updateKeyOperationLtpUuidList);
+      if (updateKeyOperationLtpUuid) {
+        await httpClient.executeOperation(updateKeyOperationLtpUuid, {
           "operation-uuid": epOperationUuid,
           "new-operation-key": operationKey
         })
-        .then(() => console.log(`Successfully updated operation key for application ${epAppName} version ${epAppReleaseNumber} operation ${epOperationUuid} for the trace ${httpClient.getTraceIndicator()}`))
-        .catch(error => console.log(`Failed to update operation key for application ${epAppName} version ${epAppReleaseNumber} operation ${epOperationUuid} with error: ${error.message}`));
-    } else {
-      console.log(`Application ${epAppName} version ${epAppReleaseNumber} is not registered for key update. Skipping it during update operation key for link ${linkUuid}.`);
+          .then(() => console.log(`Successfully updated operation key for application ${epAppName} version ${epAppReleaseNumber} operation ${epOperationUuid} for the trace ${httpClient.getTraceIndicator()}`))
+          .catch(error => console.log(`Failed to update operation key for application ${epAppName} version ${epAppReleaseNumber} operation ${epOperationUuid} with error: ${error.message}`));
+      } else {
+        console.log(`Application ${epAppName} version ${epAppReleaseNumber} is not registered for key update. Skipping it during update operation key for link ${linkUuid}.`);
+      }
     }
-  }
+  });
 }
 
 async function fetchLinkEndpointListFromAlt(linkUuid, httpClient) {
@@ -496,34 +498,36 @@ async function fetchLinkEndpointListFromAlt(linkUuid, httpClient) {
 }
 
 async function updateOperationKeyForLink(linkUuid, updateKeyOperationLtpUuidList, httpClient) {
-  const linkEndpointList = await fetchLinkEndpointListFromAlt(linkUuid, httpClient);
-  const operationModeValue = await stringProfileService.getOperationModeProfileStringValue();
-  const operationKey = operationModeValue === profileConstants.OPERATION_MODE_OFF ? DEFAULT_OPERATION_KEY : generateOperationKey();
+  await lock.acquire("updateOperationKeyForLink", async () => {
+    const linkEndpointList = await fetchLinkEndpointListFromAlt(linkUuid, httpClient);
+    const operationModeValue = await stringProfileService.getOperationModeProfileStringValue();
+    const operationKey = operationModeValue === profileConstants.OPERATION_MODE_OFF ? DEFAULT_OPERATION_KEY : generateOperationKey();
 
-  let existingTraceIndicator = httpClient.getTraceIndicator();
-  httpClient.setTraceIndicator(existingTraceIndicator + ".0");
-  for (const linkEndpoint of linkEndpointList) {
-    const epAppName = linkEndpoint['application-name'];
-    const epAppReleaseNumber = linkEndpoint['release-number'];
-    const epOperationUuid = linkEndpoint['operation-uuid'];
-    if (!epAppName || !epAppReleaseNumber || !epOperationUuid) {
-      console.log(`Ignoring endpoint ${JSON.stringify(linkEndpoint)} during update operation key for link ${linkUuid} because the endpoint is missing data.`);
-      continue;
-    }
+    let existingTraceIndicator = httpClient.getTraceIndicator();
+    httpClient.setTraceIndicator(existingTraceIndicator + ".0");
+    for (const linkEndpoint of linkEndpointList) {
+      const epAppName = linkEndpoint['application-name'];
+      const epAppReleaseNumber = linkEndpoint['release-number'];
+      const epOperationUuid = linkEndpoint['operation-uuid'];
+      if (!epAppName || !epAppReleaseNumber || !epOperationUuid) {
+        console.log(`Ignoring endpoint ${JSON.stringify(linkEndpoint)} during update operation key for link ${linkUuid} because the endpoint is missing data.`);
+        continue;
+      }
 
-    const updateKeyOperationLtpUuid = await resolveUpdateKeyOperationLtpUuidForApplication(epAppName, epAppReleaseNumber, updateKeyOperationLtpUuidList);
-    if (updateKeyOperationLtpUuid) {
-      await httpClient.executeOperation(updateKeyOperationLtpUuid, {
+      const updateKeyOperationLtpUuid = await resolveUpdateKeyOperationLtpUuidForApplication(epAppName, epAppReleaseNumber, updateKeyOperationLtpUuidList);
+      if (updateKeyOperationLtpUuid) {
+        await httpClient.executeOperation(updateKeyOperationLtpUuid, {
           "operation-uuid": epOperationUuid,
           "new-operation-key": operationKey
         })
-        .then( () => 
-          console.log(`Successfully updated operation key for application ${epAppName} version ${epAppReleaseNumber} operation ${epOperationUuid} for the trace ${httpClient.getTraceIndicator()}`))
-        .catch(error => console.log(`Failed to update operation key for application ${epAppName} version ${epAppReleaseNumber} operation ${epOperationUuid} with error: ${error.message}`));
-    } else {
-      console.log(`Application ${epAppName} version ${epAppReleaseNumber} is not registered for key update. Skipping it during update operation key for link ${linkUuid}.`);
+          .then(() =>
+            console.log(`Successfully updated operation key for application ${epAppName} version ${epAppReleaseNumber} operation ${epOperationUuid} for the trace ${httpClient.getTraceIndicator()}`))
+          .catch(error => console.log(`Failed to update operation key for application ${epAppName} version ${epAppReleaseNumber} operation ${epOperationUuid} with error: ${error.message}`));
+      } else {
+        console.log(`Application ${epAppName} version ${epAppReleaseNumber} is not registered for key update. Skipping it during update operation key for link ${linkUuid}.`);
+      }
     }
-  }
+  });
 }
 
 async function resolveUpdateKeyOperationLtpUuidForApplication(epAppName, epAppReleaseNumber, updateKeyOperationLtpUuidList) {
