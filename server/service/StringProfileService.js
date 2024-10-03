@@ -83,8 +83,9 @@ exports.putStringProfileStringValue = async function (body, url) {
   let capability = pac[onfAttributes.STRING_PROFILE.CAPABILITY];
   let enumeration = capability[onfAttributes.STRING_PROFILE.ENUMERATION]
   if (enumeration.includes(newOperationModeValue)) {
-    let isWritOperationSuccessful = await fileOperation.writeToDatabaseAsync(url, body, false);
-    if(!isWritOperationSuccessful){
+    let isWriteOperationSuccessful = await fileOperation.writeToDatabaseAsync(url, body, false);
+    if(!isWriteOperationSuccessful){
+       console.log("unable to write to database")
        return;
     }
     console.log(`Profile "operationMode" changed from "${currentOperationModeValue}" to "${newOperationModeValue}"`);
