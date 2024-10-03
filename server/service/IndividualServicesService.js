@@ -411,7 +411,6 @@ exports.updateKeys = async function () {
   const linkUuidList = await fetchLinkUuidListFromAlt(httpClient)
     .catch((error) => console.log(`Unable to fetch link uuid list from ALT with error: ${error.message}`));
   if (linkUuidList) {
-
     for (const linkUuid of linkUuidList) {
       await updateOperationKeyForLink(linkUuid, updateKeyOperationLtpUuidList, httpClient)
         .catch((error) => console.log(`reccurentUpdateKeys - failed update key for link ${linkUuid} with error: ${error.message}`));
