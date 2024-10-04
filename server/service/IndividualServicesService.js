@@ -408,10 +408,13 @@ exports.scheduleKeyRotation = async function scheduleKeyRotation() {
 exports.updateKeys = async function () {
   const updateKeyOperationLtpUuidList = await onfModelUtils.getFcPortOutputDirectionLogicalTerminationPointListForForwardingName(FC_CYCLIC_OPERATION_CAUSES_OPERATION_KEY_UPDATES);
   const httpClient = new HttpClient();
-  const linkUuidList = await fetchLinkUuidListFromAlt(httpClient);
-  for (const linkUuid of linkUuidList) {
-    await updateOperationKeyForLink(linkUuid, updateKeyOperationLtpUuidList, httpClient)
-      .catch((error) => console.log(`reccurentUpdateKeys - failed update key for link ${linkUuid} with error: ${error.message}`));
+  const linkUuidList = await fetchLinkUuidListFromAlt(httpClient)
+    .catch((error) => console.log(`Unable to fetch link uuid list from ALT with error: ${error.message}`));
+  if (linkUuidList) {
+    for (const linkUuid of linkUuidList) {
+      await updateOperationKeyForLink(linkUuid, updateKeyOperationLtpUuidList, httpClient)
+        .catch((error) => console.log(`reccurentUpdateKeys - failed update key for link ${linkUuid} with error: ${error.message}`));
+    }
   }
 }
 
