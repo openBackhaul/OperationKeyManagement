@@ -81,9 +81,13 @@ exports.putStringProfileStringValue = async function (body, url) {
   let profiles = await ProfileCollection.getProfileListForProfileNameAsync(Profile.profileNameEnum.STRING_PROFILE);
   let pac = profiles[0][onfAttributes.STRING_PROFILE.PAC];
   let capability = pac[onfAttributes.STRING_PROFILE.CAPABILITY];
-  let enumaration = capability[onfAttributes.STRING_PROFILE.ENUMERATION]
-  if (enumaration.includes(newOperationModeValue)) {
-    await fileOperation.writeToDatabaseAsync(url, body, false);
+  let enumeration = capability[onfAttributes.STRING_PROFILE.ENUMERATION]
+  if (enumeration.includes(newOperationModeValue)) {
+    let isWriteOperationSuccessful = await fileOperation.writeToDatabaseAsync(url, body, false);
+    if(!isWriteOperationSuccessful){
+       console.log("unable to write to database")
+       return;
+    }
     console.log(`Profile "operationMode" changed from "${currentOperationModeValue}" to "${newOperationModeValue}"`);
   } else {
     throw new createHttpError.BadRequest("Value of operationMode is should be Reactive , OFF , or Protection .")

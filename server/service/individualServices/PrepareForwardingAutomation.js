@@ -65,7 +65,7 @@ exports.OAMLayerRequest = function (uuid) {
   });
 }
 
-exports.CreateLinkForUpdatingOperationKeys = async function (applicationName, applicationReleaseNumber, user, xCorrelator, traceIndicator, customerJourney, ) {
+exports.CreateLinkForUpdatingOperationKeys = async function (applicationName, applicationReleaseNumber, user, xCorrelator, traceIndicator, customerJourney) {
   return new Promise(async function (resolve, reject) {
     try {
       let result
@@ -74,7 +74,7 @@ exports.CreateLinkForUpdatingOperationKeys = async function (applicationName, ap
 
       CreateLinkForUpdatingOperationKeysRequestBody.servingApplicationName = applicationName;
       CreateLinkForUpdatingOperationKeysRequestBody.servingApplicationReleaseNumber = applicationReleaseNumber;
-      CreateLinkForUpdatingOperationKeysRequestBody.operationName = await operationServerInterface.getOperationNameAsync("okm-2-1-0-op-s-bm-010");
+      CreateLinkForUpdatingOperationKeysRequestBody.operationName = await operationServerInterface.getOperationNameAsync("okm-2-1-2-op-s-bm-010");
       CreateLinkForUpdatingOperationKeysRequestBody.consumingApplicationName = await HttpServerInterface.getApplicationNameAsync();
       CreateLinkForUpdatingOperationKeysRequestBody.consumingApplicationReleaseNumber = await HttpServerInterface.getReleaseNumberAsync();
 
@@ -103,7 +103,7 @@ exports.CreateLinkForUpdatingOperationKeys = async function (applicationName, ap
 
 
 
-exports.RollBackInCaseOfTimeOut = async function (applicationName, appReleaseNumber, user, xCorrelator, traceIndicator, customerJourney, ) {
+exports.RollBackInCaseOfTimeOut = async function (applicationName, appReleaseNumber, user, xCorrelator, traceIndicator, customerJourney,) {
   return new Promise(async function (resolve, reject) {
     try {
 
@@ -167,29 +167,26 @@ function getFcPortOutputLogicalTerminationPointList(forwardingConstructInstance)
   return fcPortOutputLogicalTerminationPointList;
 }
 
-
-async function getResponseValueList(resultValue) {
-  let result = {};
-  let responseCode = resultValue.status;
+async function getResponseValueList(response) {
+  let result = { successfullyConnected: false };
+  let responseCode = response.status;
 
   if (responseCode.toString().startsWith("2")) {
-    let responseData = resultValue.data
+    let responseData = response.data
     if (responseData['client-successfully-added'] == true) {
-      result.success = true
+      result.successfullyConnected = true
     } else {
-      result.success = false,
       result.reasonForFailure = `OKM_${responseData['reason-of-failure']}`;
     }
-  } 
-  else if (responseCode.toString() == "408") {
-    result.success = false;
-    result.reasonForFailure = "OKM_NOT_REACHABLE";
-  } 
-  else if (responseCode.toString().startsWith("5") || responseCode.toString().startsWith("4")) {
-    result.success = false,
-      result.reasonForFailure = "OKM_UNKNOWN";
   }
-
+  else if (responseCode == "408" || responseCode == "503" || responseCode == "404") {
+    result.reasonForFailure = "OKM_DID_NOT_REACH_ALT";
+  }
+  else if (responseCode.toString().startsWith("5")) {
+    result.reasonForFailure = "OKM_ALT_UNKNOWN";
+  } else if (responseCode.toString().startsWith("4")) {
+    result.reasonForFailure = "OKM_UNKNOWN";
+  }
   return result;
 }
 
