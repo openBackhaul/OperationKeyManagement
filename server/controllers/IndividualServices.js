@@ -98,7 +98,7 @@ module.exports.regardUpdatedLink = async function regardUpdatedLink(req, res, ne
   let startTime = process.hrtime();
   let responseCode = responseCodeEnum.code.NO_CONTENT;
   let responseBodyToDocument = undefined;
-  await IndividualServices.regardUpdatedLink(body, user, originator, xCorrelator, traceIndicator, customerJourney)
+  process.nextTick(async () => {await IndividualServices.regardUpdatedLink(body, user, originator, xCorrelator, traceIndicator, customerJourney)
     .then(async function (responseBody) {
       let responseHeader = await restResponseHeader.createResponseHeader(xCorrelator, startTime, req.url);
       restResponseBuilder.buildResponse(res, responseCode, responseBodyToDocument, responseHeader);
@@ -109,6 +109,7 @@ module.exports.regardUpdatedLink = async function regardUpdatedLink(req, res, ne
       responseCode = sentResp.code;
       responseBodyToDocument = sentResp.body;
     });
+  });
   let execTime = await restResponseHeader.executionTimeInMilliseconds(startTime);
   if (!execTime) execTime = 0;
   else execTime = Math.round(execTime);
@@ -119,7 +120,7 @@ module.exports.regardUpdatedLink2 = async function regardUpdatedLink2(req, res, 
   let startTime = process.hrtime();
   let responseCode = responseCodeEnum.code.NO_CONTENT;
   let responseBodyToDocument = undefined;
-  await IndividualServices.regardUpdatedLink2(body, user, xCorrelator, traceIndicator, customerJourney)
+  process.nextTick(async ()=> {await IndividualServices.regardUpdatedLink2(body, user, xCorrelator, traceIndicator, customerJourney)
     .then(async function (responseBody) {
       let responseHeader = await restResponseHeader.createResponseHeader(xCorrelator, startTime, req.url);
       restResponseBuilder.buildResponse(res, responseCode, responseBodyToDocument, responseHeader);
@@ -129,7 +130,8 @@ module.exports.regardUpdatedLink2 = async function regardUpdatedLink2(req, res, 
       let sentResp = restResponseBuilder.buildResponse(res, undefined, responseBody, responseHeader);
       responseCode = sentResp.code;
       responseBodyToDocument = sentResp.body;
-    });
+    })
+  });
   let execTime = await restResponseHeader.executionTimeInMilliseconds(startTime);
   if (!execTime) execTime = 0;
   else execTime = Math.round(execTime);
