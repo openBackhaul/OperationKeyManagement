@@ -1,0 +1,22 @@
+{
+    "authorizationCode": "Basic dmFuaXRoYTp2YW5pdGhh",
+    "registryOfficeApplicationDetails" : {
+            "application-name": "RegistryOffice",
+            "release": "2.1.2",
+            "address": "localhost",
+            "port": 3031
+    },
+    "operationKeyManagementApplicationDetails" : {
+            "application-name": "OperationKeyManagement",
+            "release": "2.1.2",
+            "address": "localhost",
+            "port": 3037
+    },
+    "applicationLayerTopologyApplicationDetails" : {
+        "application-name": "ApplicationLayerTopology",
+        "release": "2.1.2",
+        "address": "localhost",
+        "port": 3036
+    }
+
+}

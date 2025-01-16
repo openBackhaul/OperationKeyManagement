@@ -1,0 +1,24 @@
+{
+  "name": "ProbeScriptToMonitorApplications",
+  "version": "1.0.0",
+  "description": "updated the load file with original IP address",
+  "main": "Script.js",
+  "scripts": {
+    "prestart": "npm install",
+    "start": "node Script.js"
+  },
+  "keywords": [
+    "swagger"
+  ],
+  "license": "Unlicense",
+  "private": true,
+  "dependencies": {
+    "axios": "^0.21.1",
+    "moment": "^2.29.1",
+    "json2csv": "6.0.0-alpha.2",
+    "xlsx": "^0.18.5",
+    "ssh-tools": "^1.2.0",
+    "node-ssh": "^13.2.0",
+    "ssh2-promise": "^1.0.3"
+  }
+}
