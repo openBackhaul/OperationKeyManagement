@@ -462,7 +462,22 @@ async function fetchLinkUuidListFromAlt(httpClient) {
 async function updateOperationKeyForLink2(linkUuid, linkEndpointList, updateKeyOperationLtpUuidList, httpClient) {
   await lock.acquire("updateOperationKeyForLink", async () => {
     const operationModeValue = await stringProfileService.getOperationModeProfileStringValue();
-    const operationKey = operationModeValue === profileConstants.OPERATION_MODE_OFF ? DEFAULT_OPERATION_KEY : generateOperationKey();
+    let operationKey = operationModeValue === profileConstants.OPERATION_MODE_OFF ? DEFAULT_OPERATION_KEY : generateOperationKey();
+    for (let index = 0; index < linkEndpointList.length; index++) {
+      const linkEndpoint = linkEndpointList[index];
+      let ltpDirection = linkEndpoint['ltp-direction'];
+      if (ltpDirection.includes("TERMINATION_DIRECTION_SOURCE")) {
+        let sourceEndPoint = linkEndpoint;
+        const httpClientUuid = await httpClientInterface.getHttpClientUuidAsync(
+          sourceEndPoint["application-name"],
+          sourceEndPoint['release-number']
+        );
+        if (!httpClientUuid) {
+          operationKey = DEFAULT_OPERATION_KEY;
+        }
+        break;
+      }
+    }
     for (const linkEndpoint of linkEndpointList) {
       const epAppName = linkEndpoint['application-name'];
       const epAppReleaseNumber = linkEndpoint['release-number'];
@@ -504,8 +519,23 @@ async function updateOperationKeyForLink(linkUuid, updateKeyOperationLtpUuidList
   await lock.acquire("updateOperationKeyForLink", async () => {
     const linkEndpointList = await fetchLinkEndpointListFromAlt(linkUuid, httpClient);
     const operationModeValue = await stringProfileService.getOperationModeProfileStringValue();
-    const operationKey = operationModeValue === profileConstants.OPERATION_MODE_OFF ? DEFAULT_OPERATION_KEY : generateOperationKey();
+    let operationKey = operationModeValue === profileConstants.OPERATION_MODE_OFF ? DEFAULT_OPERATION_KEY : generateOperationKey();
+    for (let index = 0; index < linkEndpointList.length; index++) {
 
+      const linkEndpoint = linkEndpointList[index];
+      let ltpDirection = linkEndpoint['ltp-direction'];
+      if (ltpDirection.includes("TERMINATION_DIRECTION_SOURCE")) {
+        let sourceEndPoint = linkEndpoint;
+        const httpClientUuid = await httpClientInterface.getHttpClientUuidAsync(
+          sourceEndPoint["application-name"],
+          sourceEndPoint['release-number']
+        );
+        if (!httpClientUuid) {
+          operationKey = DEFAULT_OPERATION_KEY;
+        }
+        break;
+      }
+    }
     let existingTraceIndicator = httpClient.getTraceIndicator();
     httpClient.setTraceIndicator(existingTraceIndicator + ".0");
     for (const linkEndpoint of linkEndpointList) {
