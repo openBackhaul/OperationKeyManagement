@@ -7,7 +7,7 @@ test();
 async function test() {
 let time = moment().format("_YYYY_M_D_H_MM_SS"); 
 let filename = "./OKMOperationModesTest"+ time + ".xlsx"   
-let timeInterval = (await utils.getTimeIntervalForCyclicUpdationOfOperationKey())*1000;
+let timeInterval = (await utils.getTimeIntervalForCyclicUpdationOfOperationKey() + 300)*1000;
 
 console.log(timeInterval);
 
